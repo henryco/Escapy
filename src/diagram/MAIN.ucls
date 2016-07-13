@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.10" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="com.x.game.render.fbo.psProcess.lights.SimpleLight" 
-    project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/lights/SimpleLight.java" binary="false" 
+  <class id="1" language="java" name="com.game.render.fbo.psProcess.lights.SimpleLight" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/lights/SimpleLight.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="175" width="277" x="5604" y="6543"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -12,9 +11,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.x.game.physics_temp.EscapyPhysicsCalculationsThread" 
+  <class id="2" language="java" name="com.game.physics_temp.EscapyPhysicsCalculationsThread" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsCalculationsThread.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/EscapyPhysicsCalculationsThread.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="157" width="211" x="1368" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -23,8 +22,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.x.game.screens.EscapyStateContainer" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/screens/EscapyStateContainer.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="com.game.screens.EscapyStateContainer" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/EscapyStateContainer.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="301" width="306" x="2533" y="1222"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -32,8 +31,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.x.game.controlls.PlayerControl" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/controlls/PlayerControl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="com.game.controlls.PlayerControl" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/controlls/PlayerControl.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="625" width="207" x="1592" y="557"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -41,8 +40,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="com.x.game.update_loop.UpdatableScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/update_loop/UpdatableScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="com.game.update_loop.UpdatableScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/update_loop/UpdatableScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="157" width="158" x="2573" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -50,8 +49,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.x.game.map.objects.AnimatedObject" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/map/objects/AnimatedObject.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="com.game.map.objects.AnimatedObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/map/objects/AnimatedObject.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="319" width="350" x="4714" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -59,8 +58,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.x.game.animator.EscapyAnimatorThreadObject" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorThreadObject.java" binary="false" 
+  <class id="7" language="java" name="com.game.animator.EscapyAnimatorThreadObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimatorThreadObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="103" width="192" x="596" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -69,8 +68,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.x.game.map.InitMap" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/map/InitMap.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="8" language="java" name="com.game.map.InitMap" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/map/InitMap.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="427" width="364" x="4371" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -78,9 +77,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="com.x.game.render.fbo.psProcess.program.FBOVolumeLightProgram" 
+  <class id="9" language="java" name="com.game.render.fbo.psProcess.program.FBOVolumeLightProgram" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/program/FBOVolumeLightProgram.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/program/FBOVolumeLightProgram.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="103" width="352" x="5694" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -89,8 +88,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="com.x.game.GameEnter" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/GameEnter.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="com.game.GameEnter" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/GameEnter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="283" width="251" x="2838" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -98,8 +97,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="11" language="java" name="com.x.game.physics_temp.EscapyPhysics" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysics.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="11" language="java" name="com.game.physics_temp.EscapyPhysics" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/EscapyPhysics.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="517" width="596" x="830" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -107,8 +106,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="12" language="java" name="com.x.game.settings.GameSettings" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/settings/GameSettings.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="com.game.settings.GameSettings" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/settings/GameSettings.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="571" width="198" x="1644" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -116,8 +115,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="com.x.game.characters.NPC" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/characters/NPC.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="13" language="java" name="com.game.characters.NPC" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/characters/NPC.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="283" width="296" x="3031" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -125,9 +124,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="com.x.game.render.shader.EscapyStdShaderRenderer" 
-    project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/shader/EscapyStdShaderRenderer.java" binary="false" 
+  <class id="14" language="java" name="com.game.render.shader.EscapyStdShaderRenderer" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/shader/EscapyStdShaderRenderer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="211" width="461" x="6170" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -136,8 +134,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="com.x.game.screens.states.EscapyGameScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/screens/states/EscapyGameScreen.java" binary="false" 
+  <class id="15" language="java" name="com.game.screens.states.EscapyGameScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/states/EscapyGameScreen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="283" width="294" x="3302" y="234"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -146,9 +144,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="16" language="java" name="com.x.game.render.camera.holder.EscapyCameraProgramHolder" 
+  <interface id="16" language="java" name="com.game.render.camera.holder.EscapyCameraProgramHolder" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/holder/EscapyCameraProgramHolder.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/camera/holder/EscapyCameraProgramHolder.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="103" width="354" x="2116" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -157,8 +155,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="17" language="java" name="com.x.game.render.fbo.EscapyFBO" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/EscapyFBO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="17" language="java" name="com.game.render.fbo.EscapyFBO" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/EscapyFBO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="283" width="328" x="5661" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -166,9 +164,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="18" language="java" name="com.x.game.render.fbo.psProcess.EscapyPostProcessed" 
+  <interface id="18" language="java" name="com.game.render.fbo.psProcess.EscapyPostProcessed" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/EscapyPostProcessed.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/EscapyPostProcessed.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="67" width="188" x="5644" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -177,9 +175,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="19" language="java" name="com.x.game.render.shader.EscapyNrmlShader" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/shader/EscapyNrmlShader.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="19" language="java" name="com.game.render.shader.EscapyNrmlShader" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/shader/EscapyNrmlShader.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="265" width="759" x="5872" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -187,8 +184,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="com.x.game.animator.EscapyAnimatorSuperObject" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorSuperObject.java" binary="false" 
+  <class id="20" language="java" name="com.game.animator.EscapyAnimatorSuperObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimatorSuperObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="175" width="342" x="1713" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -197,9 +194,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="com.x.game.physics_temp.EscapyPhysicsBase" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsBase.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="21" language="java" name="com.game.physics_temp.EscapyPhysicsBase" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/EscapyPhysicsBase.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="229" width="215" x="1389" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -207,8 +203,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="com.x.game.utils.simpleMemento.SimpleMemento" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/simpleMemento/SimpleMemento.java" binary="false" 
+  <class id="22" language="java" name="com.game.utils.simpleMemento.SimpleMemento" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/simpleMemento/SimpleMemento.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="121" width="190" x="2137" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -217,8 +213,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="com.x.game.map.objects.InGameObject" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/map/objects/InGameObject.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="23" language="java" name="com.game.map.objects.InGameObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/map/objects/InGameObject.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="535" width="283" x="4411" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -226,9 +222,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="com.x.game.render.camera.holder.CameraProgramHolder" 
+  <class id="24" language="java" name="com.game.render.camera.holder.CameraProgramHolder" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/holder/CameraProgramHolder.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/camera/holder/CameraProgramHolder.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="247" width="404" x="3866" y="557"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -237,8 +233,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="25" language="java" name="com.x.game.update_loop.Updatable" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/update_loop/Updatable.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="25" language="java" name="com.game.update_loop.Updatable" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/update_loop/Updatable.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="85" width="144" x="2476" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -246,9 +242,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="26" language="java" name="com.x.game.map.objects.NonAnimatedObject" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/map/objects/NonAnimatedObject.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="26" language="java" name="com.game.map.objects.NonAnimatedObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/map/objects/NonAnimatedObject.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="157" width="303" x="4371" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -256,8 +251,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="com.x.game.render.camera.program.CameraProgram" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/CameraProgram.java" binary="false" 
+  <class id="27" language="java" name="com.game.render.camera.program.CameraProgram" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/camera/program/CameraProgram.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="175" width="321" x="3829" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -266,8 +261,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="com.x.game.update_loop.UpdatableScreenFactory" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/update_loop/UpdatableScreenFactory.java" binary="false" 
+  <class id="28" language="java" name="com.game.update_loop.UpdatableScreenFactory" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/update_loop/UpdatableScreenFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="121" width="353" x="2823" y="557"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -276,8 +271,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="com.x.game.utils.primitives.EscapyTriangle" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/primitives/EscapyTriangle.java" binary="false" 
+  <class id="29" language="java" name="com.game.utils.primitives.EscapyTriangle" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/primitives/EscapyTriangle.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="967" width="245" x="42" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -286,9 +281,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="30" language="java" name="com.x.game.render.fbo.psRender.EscapyPostRenderable" 
+  <interface id="30" language="java" name="com.game.render.fbo.psRender.EscapyPostRenderable" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psRender/EscapyPostRenderable.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/psRender/EscapyPostRenderable.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="103" width="368" x="5418" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -297,9 +292,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="31" language="java" name="com.x.game.render.camera.program.StandartCharacterCamProgram" 
+  <class id="31" language="java" name="com.game.render.camera.program.StandartCharacterCamProgram" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/StandartCharacterCamProgram.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/camera/program/StandartCharacterCamProgram.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="193" width="334" x="3829" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -308,8 +303,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="com.x.game.utils.primitives.EscapyLine" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/primitives/EscapyLine.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="32" language="java" name="com.game.utils.primitives.EscapyLine" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/primitives/EscapyLine.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="229" width="197" x="42" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -317,9 +312,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="com.x.game.physics_temp.EscapyPhysicsObjectDefault" 
+  <class id="33" language="java" name="com.game.physics_temp.EscapyPhysicsObjectDefault" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsObjectDefault.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/EscapyPhysicsObjectDefault.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="103" width="421" x="1592" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -328,9 +323,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="com.x.game.animator.EscapyAnimatorSuperCharacter" 
-    project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorSuperCharacter.java" binary="false" 
+  <class id="34" language="java" name="com.game.animator.EscapyAnimatorSuperCharacter" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimatorSuperCharacter.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="175" width="374" x="891" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -339,9 +333,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="com.x.game.utils.simpleMemento.SimpleStateHolder" 
-    project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/simpleMemento/SimpleStateHolder.java" binary="false" 
+  <class id="35" language="java" name="com.game.utils.simpleMemento.SimpleStateHolder" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/simpleMemento/SimpleStateHolder.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="175" width="268" x="2202" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -350,9 +343,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="36" language="java" name="com.x.game.render.fbo.psProcess.program.FBORenderProgram" 
+  <class id="36" language="java" name="com.game.render.fbo.psProcess.program.FBORenderProgram" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/program/FBORenderProgram.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/program/FBORenderProgram.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="139" width="352" x="5652" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -361,8 +354,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="37" language="java" name="com.x.game.physics_temp.EscapyPhysicsSuper" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsSuper.java" binary="false" 
+  <class id="37" language="java" name="com.game.physics_temp.EscapyPhysicsSuper" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/EscapyPhysicsSuper.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="175" width="351" x="1159" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -371,8 +364,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="38" language="java" name="com.x.game.controlls.EscapyPlayerControlls" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/controlls/EscapyPlayerControlls.java" binary="false" 
+  <interface id="38" language="java" name="com.game.controlls.EscapyPlayerControlls" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/controlls/EscapyPlayerControlls.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="85" width="418" x="2552" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -381,9 +374,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="39" language="java" name="com.x.game.render.camera.program.CameraProgramOwner" 
+  <class id="39" language="java" name="com.game.render.camera.program.CameraProgramOwner" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/CameraProgramOwner.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/camera/program/CameraProgramOwner.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="193" width="354" x="3866" y="1222"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -392,8 +385,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="40" language="java" name="com.x.game.render.fbo.NormalMapFBO" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/NormalMapFBO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="40" language="java" name="com.game.render.fbo.NormalMapFBO" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/NormalMapFBO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="481" width="387" x="5701" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -401,8 +394,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="41" language="java" name="com.x.game.update_loop.UpdateLoopQueue" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/update_loop/UpdateLoopQueue.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="41" language="java" name="com.game.update_loop.UpdateLoopQueue" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/update_loop/UpdateLoopQueue.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="283" width="316" x="2752" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -410,8 +403,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="42" language="java" name="com.x.game.animator.EscapyAnimator" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimator.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="42" language="java" name="com.game.animator.EscapyAnimator" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="103" width="126" x="622" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -419,8 +412,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="43" language="java" name="com.x.game.animator.EscapyAnimatorBase" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorBase.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="43" language="java" name="com.game.animator.EscapyAnimatorBase" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimatorBase.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="247" width="229" x="306" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -428,9 +421,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="44" language="java" name="com.x.game.render.camera.program.CameraProgramFactory" 
+  <class id="44" language="java" name="com.game.render.camera.program.CameraProgramFactory" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/CameraProgramFactory.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/camera/program/CameraProgramFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="139" width="514" x="3255" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -439,8 +432,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="45" language="java" name="com.x.game.screens.states.EscapyLoadingScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/screens/states/EscapyLoadingScreen.java" binary="false" 
+  <class id="45" language="java" name="com.game.screens.states.EscapyLoadingScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/states/EscapyLoadingScreen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="283" width="306" x="2409" y="234"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -449,9 +442,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="46" language="java" name="com.x.game.utils.simpleMemento.SimpleStateSaver" 
+  <interface id="46" language="java" name="com.game.utils.simpleMemento.SimpleStateSaver" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/simpleMemento/SimpleStateSaver.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/simpleMemento/SimpleStateSaver.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="139" width="268" x="1966" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -460,8 +453,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="47" language="java" name="com.x.game.animator.EscapyAnimatorSuper" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorSuper.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="47" language="java" name="com.game.animator.EscapyAnimatorSuper" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimatorSuper.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="211" width="244" x="605" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -469,8 +462,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="48" language="java" name="com.x.game.map.objects.BackGround" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/map/objects/BackGround.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="48" language="java" name="com.game.map.objects.BackGround" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/map/objects/BackGround.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="265" width="267" x="5156" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -478,8 +471,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="49" language="java" name="com.x.game.utils.primitives.walls.Walls" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/primitives/walls/Walls.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="49" language="java" name="com.game.utils.primitives.walls.Walls" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/primitives/walls/Walls.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="427" width="233" x="3593" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -487,8 +480,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="50" language="java" name="com.x.game.characters.Player" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/characters/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="50" language="java" name="com.game.characters.Player" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/characters/Player.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="517" width="418" x="2660" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -496,8 +489,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="51" language="java" name="com.x.game.utils.primitives.EscapyGeometry" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/primitives/EscapyGeometry.java" binary="false" 
+  <interface id="51" language="java" name="com.game.utils.primitives.EscapyGeometry" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/primitives/EscapyGeometry.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="445" width="312" x="2552" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -506,9 +499,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="52" language="java" name="com.x.game.animator.EscapyAnimatorThreadCharacter" 
-    project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorThreadCharacter.java" binary="false" 
+  <class id="52" language="java" name="com.game.animator.EscapyAnimatorThreadCharacter" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimatorThreadCharacter.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="103" width="208" x="327" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -517,9 +509,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="53" language="java" name="com.x.game.animator.EscapyAnimatorObject" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorObject.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <interface id="53" language="java" name="com.game.animator.EscapyAnimatorObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimatorObject.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="103" width="277" x="2034" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -527,8 +518,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="54" language="java" name="com.x.game.screens.states.EscapySplashScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/screens/states/EscapySplashScreen.java" binary="false" 
+  <class id="54" language="java" name="com.game.screens.states.EscapySplashScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/states/EscapySplashScreen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="229" width="297" x="2921" y="1222"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -537,9 +528,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="55" language="java" name="com.x.game.physics_temp.EscapyPhysicsObjectSuper" 
-    project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsObjectSuper.java" binary="false" 
+  <class id="55" language="java" name="com.game.physics_temp.EscapyPhysicsObjectSuper" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/EscapyPhysicsObjectSuper.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="715" width="357" x="1368" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -548,8 +538,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="56" language="java" name="com.x.game.physics_temp.EscapyPhysicsConstants" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsConstants.java" binary="false" 
+  <class id="56" language="java" name="com.game.physics_temp.EscapyPhysicsConstants" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/EscapyPhysicsConstants.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="409" width="232" x="1149" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -558,9 +548,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="57" language="java" name="com.x.game.render.fbo.psProcess.cont.VolumeLightsContainer" 
+  <class id="57" language="java" name="com.game.render.fbo.psProcess.cont.VolumeLightsContainer" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/cont/VolumeLightsContainer.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/cont/VolumeLightsContainer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="229" width="444" x="5382" y="1222"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -569,8 +559,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="58" language="java" name="com.x.game.utils.simpleMemento.SImpleCaretaker" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/simpleMemento/SImpleCaretaker.java" binary="false" 
+  <class id="58" language="java" name="com.game.utils.simpleMemento.SImpleCaretaker" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/simpleMemento/SImpleCaretaker.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="121" width="238" x="1924" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -579,8 +569,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="59" language="java" name="com.x.game.physics_temp.EscapyPhysicsEvent" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsEvent.java" binary="false" 
+  <interface id="59" language="java" name="com.game.physics_temp.EscapyPhysicsEvent" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/EscapyPhysicsEvent.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="139" width="380" x="1510" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -589,8 +579,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="60" language="java" name="com.x.game.render.EscapyRenderable" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/EscapyRenderable.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="60" language="java" name="com.game.render.EscapyRenderable" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/EscapyRenderable.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="85" width="267" x="3875" y="5231"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -598,8 +588,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="61" language="java" name="com.x.game.render.EscapyGdxCamera" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/EscapyGdxCamera.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="61" language="java" name="com.game.render.EscapyGdxCamera" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/EscapyGdxCamera.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="715" width="321" x="4247" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -607,8 +597,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="62" language="java" name="com.x.game.utils.proxyContainer.EscapyProxy" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/utils/proxyContainer/EscapyProxy.java" binary="false" 
+  <class id="62" language="java" name="com.game.utils.proxyContainer.EscapyProxy" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/utils/proxyContainer/EscapyProxy.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="265" width="197" x="1924" y="1222"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -617,8 +607,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="63" language="java" name="com.x.game.render.fbo.psProcess.lights.AbsLight" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/lights/AbsLight.java" binary="false" 
+  <class id="63" language="java" name="com.game.render.fbo.psProcess.lights.AbsLight" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/lights/AbsLight.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="427" width="220" x="5868" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -627,8 +617,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="64" language="java" name="com.x.game.screens.states.EscapyMainMenuScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/screens/states/EscapyMainMenuScreen.java" binary="false" 
+  <class id="64" language="java" name="com.game.screens.states.EscapyMainMenuScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/states/EscapyMainMenuScreen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="409" width="321" x="5382" y="557"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -637,8 +627,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="65" language="java" name="com.x.game.screens.EscapyMainState" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/screens/EscapyMainState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="65" language="java" name="com.game.screens.EscapyMainState" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/EscapyMainState.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="103" width="262" x="4310" y="557"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -646,8 +636,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="66" language="java" name="com.x.game.animator.EscapyAnimatorCharacter" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorCharacter.java" binary="false" 
+  <interface id="66" language="java" name="com.game.animator.EscapyAnimatorCharacter" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/animator/EscapyAnimatorCharacter.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="193" width="293" x="769" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -656,8 +646,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="67" language="java" name="com.x.game.screens.EscapyScreenState" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/screens/EscapyScreenState.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="67" language="java" name="com.game.screens.EscapyScreenState" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/EscapyScreenState.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="157" width="289" x="3239" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -665,9 +655,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="68" language="java" name="com.x.game.physics_temp.TEMP_EscapyPhysicsPlayerControls" 
+  <class id="68" language="java" name="com.game.physics_temp.TEMP_EscapyPhysicsPlayerControls" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/TEMP_EscapyPhysicsPlayerControls.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/physics_temp/TEMP_EscapyPhysicsPlayerControls.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="391" width="305" x="2351" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -676,9 +666,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="69" language="java" name="com.x.game.render.camera.program.EscapyCameraProgramOwner" 
+  <interface id="69" language="java" name="com.game.render.camera.program.EscapyCameraProgramOwner" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/EscapyCameraProgramOwner.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/camera/program/EscapyCameraProgramOwner.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="121" width="354" x="3872" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -687,8 +677,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <enumeration id="70" language="java" name="com.x.game.map.objects.InGameObject.objectType" 
-    project="EscapyProject_gdx-core" file="/EscapyProject_gdx-core/src/com/x/game/map/objects/InGameObject.java" 
+  <enumeration id="70" language="java" name="com.game.map.objects.InGameObject.objectType" 
+    project="EscapyProject_gdx-core" file="/EscapyProject_gdx-core/src/com/game/map/objects/InGameObject.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="283" width="181" x="5095" y="5788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -697,9 +687,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="71" language="java" name="com.x.game.render.fbo.psProcess.cont.PostProcessedProxy" 
+  <class id="71" language="java" name="com.game.render.fbo.psProcess.cont.PostProcessedProxy" 
     project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/cont/PostProcessedProxy.java" binary="false" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/cont/PostProcessedProxy.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="157" width="243" x="4350" y="1563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -708,9 +698,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="72" language="java" name="com.x.game.characters.AbstractCharacters" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/characters/AbstractCharacters.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
+  <class id="72" language="java" name="com.game.characters.AbstractCharacters" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/characters/AbstractCharacters.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="1615" width="372" x="3160" y="3576"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -718,8 +707,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="73" language="java" name="com.x.game.characters.InitCharacters" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/characters/InitCharacters.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="73" language="java" name="com.game.characters.InitCharacters" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/characters/InitCharacters.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="193" width="267" x="3213" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -727,8 +716,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="74" language="java" name="com.x.game.render.fbo.StandartFBO" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/StandartFBO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="74" language="java" name="com.game.render.fbo.StandartFBO" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/render/fbo/StandartFBO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="229" width="263" x="6149" y="3019"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
