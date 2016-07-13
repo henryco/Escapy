@@ -1,0 +1,265 @@
+package com.x.game.screens.states;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector2;
+import com.x.game.GameEnter;
+import com.x.game.animator.EscapyAnimatorBase;
+import com.x.game.characters.InitCharacters;
+import com.x.game.controlls.PlayerControl;
+import com.x.game.map.InitMap;
+import com.x.game.physics_temp.EscapyPhysicsBase;
+import com.x.game.render.EscapyGdxCamera;
+import com.x.game.render.camera.program.CameraProgramFactory;
+import com.x.game.render.extra.container.ExtraRenderContainer;
+import com.x.game.render.extra.normals.EscapyNormalRender;
+import com.x.game.render.extra.normals.NormalRenderer;
+import com.x.game.render.extra.std.StdRenderer;
+import com.x.game.render.fbo.EscapyFBO;
+import com.x.game.render.fbo.NormalMapFBO;
+import com.x.game.render.fbo.StandartFBO;
+import com.x.game.render.fbo.psProcess.cont.VolumeLightsContainer;
+import com.x.game.render.fbo.psProcess.lights.SimpleLight;
+import com.x.game.render.fbo.psProcess.mask.EscapyLightMask;
+import com.x.game.render.fbo.psProcess.mask.EscapyMask;
+import com.x.game.screens.EscapyMainState;
+import com.x.game.screens.EscapyScreenState;
+import com.x.game.update_loop.Updatable;
+import com.x.game.utils.translationVec.TransVec;
+
+public class EscapyGameScreen extends EscapyScreenState implements Updatable, EscapyMainState {
+
+	private InitMap mapContainer;
+	private InitCharacters charactersContainer;
+	private PlayerControl controlls;
+	private EscapyPhysicsBase physics;
+	private EscapyAnimatorBase animator;
+	private EscapyLightMask lightMask;
+	
+	protected int playerCameraProgramID;
+	int mouseLight;
+	private float[] mpos, screen;
+	private float dist, intencity;
+	
+	private EscapyFBO stdFBO, nrmlFBO;
+	private EscapyMask mask;
+	
+	private ExtraRenderContainer stdContainer, normalsContainer;
+	private VolumeLightsContainer volumeLights;
+	private TransVec otherTranslationVec;
+	
+	
+	public EscapyGameScreen(EscapyGdxCamera escapyCamera, GameEnter gameState) {
+		super(escapyCamera, gameState);
+		System.out.println("@constructor");
+
+		return;
+	}
+	
+	
+	@Override
+	public void show() {
+		System.out.println("@show");
+		if (!super.initializationEnded)
+			this.initState();
+	}
+
+	
+	
+	@Override
+	public Screen initState() {
+		System.out.println("@init state");
+
+		
+		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
+		this.controlls = PlayerControl.playerController();
+		this.mapContainer = new InitMap(super.settings.Location(), super.settings.getFrameWIDHT(),
+				super.settings.getFrameHEIGHT(), super.settings.scaleRatio());
+		this.charactersContainer = new InitCharacters();
+		this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
+		this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
+		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder()
+				.addCameraProgram(CameraProgramFactory.standartCharacterProgram(this.charactersContainer.player()));
+		this.lightMask = new EscapyLightMask();
+		
+		
+		
+		this.stdFBO = new StandartFBO();
+		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
+		this.stdContainer = new ExtraRenderContainer();
+		this.normalsContainer = new ExtraRenderContainer();
+		this.volumeLights = new VolumeLightsContainer();
+		this.mouseLight = this.volumeLights.addSource(new SimpleLight(new float[] { 60, 60 }, 
+				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
+		this.mask = lightMask.standartMask().setMaskPosition(0, 0, 
+				Gdx.graphics.getWidth(), Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY);
+		
+		//XXX
+		
+		this.mpos = new float[2];
+		this.screen = new float[] { 10, 10 };
+		this.intencity = 0.35f;
+		this.dist = 5f;
+		
+		this.otherTranslationVec = new TransVec();
+
+		this.stdContainer.addSource(new StdRenderer(mapContainer.backGround()));
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < mapContainer.objectSize()[mapContainer.indexTab()[i]]; j++) {
+				this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
+				this.normalsContainer.addSource(new NormalRenderer((EscapyNormalRender) mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
+			}
+		for (int i = 0; i < this.charactersContainer.getNpc().length; i++)
+			this.stdContainer.addSource(new StdRenderer(charactersContainer.getNpc()[i]));
+		
+		this.stdContainer.addSource(new StdRenderer(charactersContainer.player()));
+		this.normalsContainer.addSource(new NormalRenderer(charactersContainer.player()));
+		
+		for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /** FRONT PARALLAX **/
+			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getTranslationVectorArray()));
+		//XXX
+		
+		super.initializationEnded = true;
+
+		System.gc();
+		return this;
+	}
+
+	
+	
+	protected void updDist() {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.W))
+			this.dist += 5;
+		if (Gdx.input.isKeyJustPressed(Input.Keys.S))
+			this.dist -= 5;
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.Q))
+			this.screen[0] += 5;
+		if (Gdx.input.isKeyJustPressed(Input.Keys.CONTROL_LEFT))
+			this.screen[0] -= 5;
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.E))
+			this.screen[1] += 5;
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ALT_LEFT))
+			this.screen[1] -= 5;
+		if (Gdx.input.isKeyPressed(Input.Keys.C))
+			this.intencity += 0.05f;
+		if (Gdx.input.isKeyPressed(Input.Keys.Z))
+			this.intencity -= 0.05f;
+
+		this.mpos[0] = Gdx.input.getX();
+		this.mpos[1] = (Gdx.graphics.getWidth() - Gdx.input.getY());
+		
+		System.out.println(" ");
+		System.out.println("DIST: " + dist);
+		System.out.println("intencity: " + intencity);
+		System.out.println("LightPos: " + mpos[0] + " : " + mpos[1]);
+		System.out.println("ScreenPos: " + screen[0] + " : " + screen[1]);
+
+	}
+	
+	
+	
+	
+	
+	@Override
+	public void update() {
+		
+		this.updDist();
+	//	this.volumeLights.getSourceByID(mouseLight).
+	//		setPosition(new Vector2(mpos[0], mpos[1])).
+	//		setDistance(dist).setIntencity(intencity - 0.4f);
+		this.volumeLights.getSourceByID(mouseLight).
+			setDistance(dist).setIntencity(intencity - 0.4f);
+		
+		((SimpleLight) this.volumeLights.getSourceByID(mouseLight)).
+		setDimension(new Vector2(screen[0], screen[1]));
+		
+		this.controlls.baseKeyboard_upd();
+
+		this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
+				controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
+
+	}
+
+	
+	
+	@Override
+	public void renderGameObjects(EscapyGdxCamera escapyCamera) {
+
+		this.stdFBO.begin().wipeFBO();
+			this.stdContainer.renderGraphic(escapyCamera);// XXX OK!
+		this.stdFBO.end();
+		this.nrmlFBO.begin().wipeFBO();
+		((NormalMapFBO) this.nrmlFBO).maskNormal();
+			this.normalsContainer.renderGraphic(escapyCamera);
+		this.nrmlFBO.end().mergeBuffer();
+	}
+
+	
+	
+	
+	@Override
+	public void render(float delta) {
+	
+		super.escapyCamera.holdCamera();
+			this.renderGameObjects(escapyCamera);
+		super.escapyCamera.clear();
+		
+		
+		//this.stdFBO.renderFBO();
+		this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
+	
+		//this.volumeLights.postRender(nrmlFBO, escapyCamera.getTranslationVec());
+		
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			this.pause();
+			super.gameState.setScreen(super.gameState.getStatesContainer().getMenuScreen());
+		} 
+			
+	} 
+
+	
+	
+	
+	@Override
+	public void pause() {
+		this.animator.closeAnimator();
+		this.physics.closePhysic();
+
+		/** TEST **/
+		// super.escapyCamera.getCameraProgramHolder().removeCameraProgram(playerCameraProgramID);
+
+		super.gameState.getStatesContainer().getUpdLoopedQueue().removeFromUpdQueueLast();
+	}
+
+	
+	
+	@Override
+	public void resume() {
+		this.animator.initAnimator().startAnimator();
+		this.physics.reInit().startPhysics();
+
+		super.gameState.getStatesContainer().getUpdLoopedQueue().addToUpdQueue(this);
+	}
+
+		
+	@Override
+	public void hide() {
+	}
+
+	@Override
+	public void resize(int width, int height) {
+	}
+
+	@Override
+	public void dispose() {
+		try {
+			finalize();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+}

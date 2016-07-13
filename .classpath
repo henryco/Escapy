@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="FROM_GRADLE_MODEL" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/Henry/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.3/1a3775429980a6c8da0cdefb656ad1dabf91d629/gdx-1.9.3.jar" sourcepath="C:/Users/Henry/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.3/2bf97653cc496f9ef2f76ecf2f29b1918821f474/gdx-1.9.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Henry/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers/1.9.3/4056c4d9e68bee13b19e056f42fce5b11912faf2/gdx-controllers-1.9.3.jar" sourcepath="C:/Users/Henry/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers/1.9.3/97d15e14243aeab7884352c1bcdaa1c501e8cb1d/gdx-controllers-1.9.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Henry/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype/1.9.3/dc44a8c15ce18fec8cdbdbd74bbb8bce3ccbba84/gdx-freetype-1.9.3.jar" sourcepath="C:/Users/Henry/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype/1.9.3/67ab670c6fa98a1e8d7b0ac48d9f31b893742a16/gdx-freetype-1.9.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Henry/EscapyGDX/core/libs/colt/colt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Henry/EscapyGDX/core/libs/colt/concurrent.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

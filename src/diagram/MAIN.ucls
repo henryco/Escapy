@@ -1,0 +1,2476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.10" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.x.game.render.fbo.psProcess.lights.SimpleLight" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/lights/SimpleLight.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="175" width="277" x="5604" y="6543"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.x.game.physics_temp.EscapyPhysicsCalculationsThread" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsCalculationsThread.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="157" width="211" x="1368" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.x.game.screens.EscapyStateContainer" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/screens/EscapyStateContainer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="301" width="306" x="2533" y="1222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.x.game.controlls.PlayerControl" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/controlls/PlayerControl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="625" width="207" x="1592" y="557"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.x.game.update_loop.UpdatableScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/update_loop/UpdatableScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="157" width="158" x="2573" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.x.game.map.objects.AnimatedObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/map/objects/AnimatedObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="319" width="350" x="4714" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.x.game.animator.EscapyAnimatorThreadObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorThreadObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="103" width="192" x="596" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.x.game.map.InitMap" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/map/InitMap.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="427" width="364" x="4371" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.x.game.render.fbo.psProcess.program.FBOVolumeLightProgram" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/program/FBOVolumeLightProgram.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="103" width="352" x="5694" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.x.game.GameEnter" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/GameEnter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="283" width="251" x="2838" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="11" language="java" name="com.x.game.physics_temp.EscapyPhysics" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysics.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="517" width="596" x="830" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="12" language="java" name="com.x.game.settings.GameSettings" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/settings/GameSettings.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="571" width="198" x="1644" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="com.x.game.characters.NPC" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/characters/NPC.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="283" width="296" x="3031" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.x.game.render.shader.EscapyStdShaderRenderer" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/shader/EscapyStdShaderRenderer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="211" width="461" x="6170" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.x.game.screens.states.EscapyGameScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/screens/states/EscapyGameScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="283" width="294" x="3302" y="234"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="16" language="java" name="com.x.game.render.camera.holder.EscapyCameraProgramHolder" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/holder/EscapyCameraProgramHolder.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="103" width="354" x="2116" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="17" language="java" name="com.x.game.render.fbo.EscapyFBO" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/EscapyFBO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="283" width="328" x="5661" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="18" language="java" name="com.x.game.render.fbo.psProcess.EscapyPostProcessed" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/EscapyPostProcessed.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="67" width="188" x="5644" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="19" language="java" name="com.x.game.render.shader.EscapyNrmlShader" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/shader/EscapyNrmlShader.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="265" width="759" x="5872" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="com.x.game.animator.EscapyAnimatorSuperObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorSuperObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="175" width="342" x="1713" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="com.x.game.physics_temp.EscapyPhysicsBase" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsBase.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="229" width="215" x="1389" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="com.x.game.utils.simpleMemento.SimpleMemento" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/simpleMemento/SimpleMemento.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="121" width="190" x="2137" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="com.x.game.map.objects.InGameObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/map/objects/InGameObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="535" width="283" x="4411" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="com.x.game.render.camera.holder.CameraProgramHolder" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/holder/CameraProgramHolder.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="247" width="404" x="3866" y="557"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="25" language="java" name="com.x.game.update_loop.Updatable" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/update_loop/Updatable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="85" width="144" x="2476" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="26" language="java" name="com.x.game.map.objects.NonAnimatedObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/map/objects/NonAnimatedObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="157" width="303" x="4371" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="com.x.game.render.camera.program.CameraProgram" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/CameraProgram.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="175" width="321" x="3829" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="com.x.game.update_loop.UpdatableScreenFactory" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/update_loop/UpdatableScreenFactory.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="121" width="353" x="2823" y="557"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="com.x.game.utils.primitives.EscapyTriangle" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/primitives/EscapyTriangle.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="967" width="245" x="42" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="30" language="java" name="com.x.game.render.fbo.psRender.EscapyPostRenderable" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psRender/EscapyPostRenderable.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="103" width="368" x="5418" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="31" language="java" name="com.x.game.render.camera.program.StandartCharacterCamProgram" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/StandartCharacterCamProgram.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="193" width="334" x="3829" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="com.x.game.utils.primitives.EscapyLine" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/primitives/EscapyLine.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="229" width="197" x="42" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="com.x.game.physics_temp.EscapyPhysicsObjectDefault" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsObjectDefault.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="103" width="421" x="1592" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="com.x.game.animator.EscapyAnimatorSuperCharacter" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorSuperCharacter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="175" width="374" x="891" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="com.x.game.utils.simpleMemento.SimpleStateHolder" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/simpleMemento/SimpleStateHolder.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="175" width="268" x="2202" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="com.x.game.render.fbo.psProcess.program.FBORenderProgram" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/program/FBORenderProgram.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="139" width="352" x="5652" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="com.x.game.physics_temp.EscapyPhysicsSuper" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsSuper.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="175" width="351" x="1159" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="38" language="java" name="com.x.game.controlls.EscapyPlayerControlls" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/controlls/EscapyPlayerControlls.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="85" width="418" x="2552" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="39" language="java" name="com.x.game.render.camera.program.CameraProgramOwner" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/CameraProgramOwner.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="193" width="354" x="3866" y="1222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="com.x.game.render.fbo.NormalMapFBO" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/NormalMapFBO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="481" width="387" x="5701" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="com.x.game.update_loop.UpdateLoopQueue" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/update_loop/UpdateLoopQueue.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="283" width="316" x="2752" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="42" language="java" name="com.x.game.animator.EscapyAnimator" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="103" width="126" x="622" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="43" language="java" name="com.x.game.animator.EscapyAnimatorBase" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorBase.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="247" width="229" x="306" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="44" language="java" name="com.x.game.render.camera.program.CameraProgramFactory" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/CameraProgramFactory.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="139" width="514" x="3255" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="45" language="java" name="com.x.game.screens.states.EscapyLoadingScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/screens/states/EscapyLoadingScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="283" width="306" x="2409" y="234"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="46" language="java" name="com.x.game.utils.simpleMemento.SimpleStateSaver" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/simpleMemento/SimpleStateSaver.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="139" width="268" x="1966" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="47" language="java" name="com.x.game.animator.EscapyAnimatorSuper" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorSuper.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="211" width="244" x="605" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="48" language="java" name="com.x.game.map.objects.BackGround" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/map/objects/BackGround.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="265" width="267" x="5156" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="49" language="java" name="com.x.game.utils.primitives.walls.Walls" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/primitives/walls/Walls.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="427" width="233" x="3593" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="50" language="java" name="com.x.game.characters.Player" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/characters/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="517" width="418" x="2660" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="51" language="java" name="com.x.game.utils.primitives.EscapyGeometry" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/primitives/EscapyGeometry.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="445" width="312" x="2552" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="52" language="java" name="com.x.game.animator.EscapyAnimatorThreadCharacter" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorThreadCharacter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="103" width="208" x="327" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="53" language="java" name="com.x.game.animator.EscapyAnimatorObject" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="103" width="277" x="2034" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="54" language="java" name="com.x.game.screens.states.EscapySplashScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/screens/states/EscapySplashScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="229" width="297" x="2921" y="1222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="55" language="java" name="com.x.game.physics_temp.EscapyPhysicsObjectSuper" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsObjectSuper.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="715" width="357" x="1368" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="56" language="java" name="com.x.game.physics_temp.EscapyPhysicsConstants" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsConstants.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="409" width="232" x="1149" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="57" language="java" name="com.x.game.render.fbo.psProcess.cont.VolumeLightsContainer" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/cont/VolumeLightsContainer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="229" width="444" x="5382" y="1222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="58" language="java" name="com.x.game.utils.simpleMemento.SImpleCaretaker" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/simpleMemento/SImpleCaretaker.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="121" width="238" x="1924" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="59" language="java" name="com.x.game.physics_temp.EscapyPhysicsEvent" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/EscapyPhysicsEvent.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="139" width="380" x="1510" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="60" language="java" name="com.x.game.render.EscapyRenderable" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/EscapyRenderable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="85" width="267" x="3875" y="5231"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="61" language="java" name="com.x.game.render.EscapyGdxCamera" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/EscapyGdxCamera.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="715" width="321" x="4247" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="62" language="java" name="com.x.game.utils.proxyContainer.EscapyProxy" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/utils/proxyContainer/EscapyProxy.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="265" width="197" x="1924" y="1222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="63" language="java" name="com.x.game.render.fbo.psProcess.lights.AbsLight" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/lights/AbsLight.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="427" width="220" x="5868" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="64" language="java" name="com.x.game.screens.states.EscapyMainMenuScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/screens/states/EscapyMainMenuScreen.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="409" width="321" x="5382" y="557"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="65" language="java" name="com.x.game.screens.EscapyMainState" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/screens/EscapyMainState.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="103" width="262" x="4310" y="557"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="66" language="java" name="com.x.game.animator.EscapyAnimatorCharacter" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/animator/EscapyAnimatorCharacter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="193" width="293" x="769" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="67" language="java" name="com.x.game.screens.EscapyScreenState" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/screens/EscapyScreenState.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="157" width="289" x="3239" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="68" language="java" name="com.x.game.physics_temp.TEMP_EscapyPhysicsPlayerControls" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/physics_temp/TEMP_EscapyPhysicsPlayerControls.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="391" width="305" x="2351" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="69" language="java" name="com.x.game.render.camera.program.EscapyCameraProgramOwner" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/camera/program/EscapyCameraProgramOwner.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="121" width="354" x="3872" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="70" language="java" name="com.x.game.map.objects.InGameObject.objectType" 
+    project="EscapyProject_gdx-core" file="/EscapyProject_gdx-core/src/com/x/game/map/objects/InGameObject.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="283" width="181" x="5095" y="5788"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="71" language="java" name="com.x.game.render.fbo.psProcess.cont.PostProcessedProxy" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/psProcess/cont/PostProcessedProxy.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="157" width="243" x="4350" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="72" language="java" name="com.x.game.characters.AbstractCharacters" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/characters/AbstractCharacters.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="1615" width="372" x="3160" y="3576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="73" language="java" name="com.x.game.characters.InitCharacters" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/characters/InitCharacters.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="193" width="267" x="3213" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="74" language="java" name="com.x.game.render.fbo.StandartFBO" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/x/game/render/fbo/StandartFBO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="229" width="263" x="6149" y="3019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="75" language="java" name="com.escapygdx.game.desktop.DesktopStart" project="EscapyProject_gdx-desktop" 
+    file="/EscapyProject_gdx-desktop/src/com/escapygdx/game/desktop/DesktopStart.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="193" width="250" x="1571" y="1222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="76" language="java" name="com.escapygdx.game.desktop.launcher.LauncherUtills" 
+    project="EscapyProject_gdx-desktop" 
+    file="/EscapyProject_gdx-desktop/src/com/escapygdx/game/desktop/launcher/LauncherUtills.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="121" width="219" x="346" y="2408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="77" language="java" name="com.escapygdx.game.desktop.launcher.LauncherClass" 
+    project="EscapyProject_gdx-desktop" 
+    file="/EscapyProject_gdx-desktop/src/com/escapygdx/game/desktop/launcher/LauncherClass.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="805" width="280" x="839" y="1563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="78">    
+    <bendpoint x="2761" y="1563"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="79" name="updLoopedQueue">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="80" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="41" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="81">    
+    <bendpoint x="5816" y="1563"/>    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="82">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <association id="83">    
+    <bendpoint x="1561" y="557"/>    
+    <bendpoint x="1146" y="1222"/>    
+    <bendpoint x="731" y="1563"/>    
+    <bendpoint x="315" y="2408"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="84" name="animator">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="85" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="43" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="86">    
+    <bendpoint x="5104" y="5231"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="70"/>  
+  </nesting>  
+  <dependency id="87">    
+    <bendpoint x="881" y="3576"/>    
+    <bendpoint x="778" y="5231"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="66"/>  
+  </dependency>  
+  <dependency id="88">    
+    <bendpoint x="3269" y="557"/>    
+    <bendpoint x="3269" y="1222"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="89">    
+    <bendpoint x="799" y="5231"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="90">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="91">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <association id="92">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="93" name="gameScreen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="94" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="95">    
+    <end type="SOURCE" refId="74"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <generalization id="96">    
+    <bendpoint x="5219" y="234"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="67"/>  
+  </generalization>  
+  <association id="97">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="98" name="controlls">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="99" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="100">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <realization id="101">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="38"/>  
+  </realization>  
+  <dependency id="102">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <realization id="103">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="60"/>  
+  </realization>  
+  <dependency id="104">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="63"/>  
+  </dependency>  
+  <association id="105">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="106" name="animob">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="107" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="108">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <dependency id="109">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <association id="110">    
+    <bendpoint x="3098" y="2408"/>    
+    <bendpoint x="3108" y="3019"/>    
+    <bendpoint x="3108" y="3576"/>    
+    <bendpoint x="3357" y="5231"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="111" name="escapyCamera">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="112" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="113">    
+    <bendpoint x="3311" y="557"/>    
+    <bendpoint x="3311" y="1222"/>    
+    <bendpoint x="3203" y="1563"/>    
+    <bendpoint x="3119" y="2408"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <association id="114">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="115" name="nrmlFBO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="116" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="false"/>  
+  </association>  
+  <association id="117">    
+    <bendpoint x="5670" y="3019"/>    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="118" name="fbo">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="119" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="120">    
+    <bendpoint x="6118" y="1222"/>    
+    <bendpoint x="6118" y="1563"/>    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="121" name="nrmlFBO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="122" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="123">    
+    <bendpoint x="2148" y="3576"/>    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="124" name="physBody">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="125" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="126">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <association id="127">    
+    <bendpoint x="5366" y="1563"/>    
+    <bendpoint x="5495" y="2408"/>    
+    <bendpoint x="5495" y="3019"/>    
+    <bendpoint x="5495" y="3576"/>    
+    <bendpoint x="5495" y="5231"/>    
+    <end type="SOURCE" refId="57" navigable="false">      
+      <attribute id="128" name="postRenderCamera">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="129" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="130">    
+    <bendpoint x="1337" y="3019"/>    
+    <bendpoint x="1337" y="2408"/>    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="37"/>  
+  </generalization>  
+  <generalization id="131">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="55"/>  
+  </generalization>  
+  <dependency id="132">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <generalization id="133">    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="42"/>  
+  </generalization>  
+  <dependency id="134">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="135">    
+    <bendpoint x="4277" y="1222"/>    
+    <bendpoint x="4277" y="1563"/>    
+    <bendpoint x="4272" y="2408"/>    
+    <bendpoint x="4267" y="3019"/>    
+    <bendpoint x="4262" y="3576"/>    
+    <bendpoint x="4256" y="5231"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <realization id="136">    
+    <bendpoint x="2169" y="3576"/>    
+    <bendpoint x="2064" y="5231"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="59"/>  
+  </realization>  
+  <dependency id="137">    
+    <bendpoint x="3290" y="557"/>    
+    <bendpoint x="3290" y="1222"/>    
+    <bendpoint x="3161" y="1563"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="41"/>  
+  </dependency>  
+  <dependency id="138">    
+    <bendpoint x="3783" y="1222"/>    
+    <bendpoint x="3119" y="1563"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="139">    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="140" name="thisob">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="141" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="55" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="142">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="67"/>  
+  </generalization>  
+  <association id="143">    
+    <bendpoint x="1519" y="234"/>    
+    <bendpoint x="1519" y="557"/>    
+    <bendpoint x="1519" y="1222"/>    
+    <bendpoint x="1561" y="1563"/>    
+    <end type="SOURCE" refId="67" navigable="false">      
+      <attribute id="144" name="settings">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="145" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="146">    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <realization id="147">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="66"/>  
+  </realization>  
+  <dependency id="148">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="149">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="150" name="volumeLights">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="151" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="false"/>  
+  </association>  
+  <dependency id="152">    
+    <bendpoint x="3206" y="557"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="153">    
+    <end type="SOURCE" refId="74"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <association id="154">    
+    <bendpoint x="565" y="3019"/>    
+    <bendpoint x="565" y="3576"/>    
+    <end type="SOURCE" refId="47" navigable="false">      
+      <attribute id="155" name="animatedList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="156" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="157">    
+    <bendpoint x="1786" y="3576"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="158">    
+    <bendpoint x="2481" y="1222"/>    
+    <bendpoint x="2521" y="1563"/>    
+    <bendpoint x="2492" y="2408"/>    
+    <bendpoint x="2445" y="3019"/>    
+    <bendpoint x="2500" y="3576"/>    
+    <bendpoint x="2894" y="5231"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="159">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="160">    
+    <bendpoint x="4773" y="3576"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="161" name="bckgr">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="162" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="48" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="163">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="46"/>  
+  </realization>  
+  <association id="164">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="165" name="statesContainer">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="166" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="167">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="63"/>  
+  </dependency>  
+  <association id="168">    
+    <bendpoint x="4277" y="5231"/>    
+    <bendpoint x="4283" y="3576"/>    
+    <bendpoint x="4288" y="3019"/>    
+    <bendpoint x="4293" y="2408"/>    
+    <bendpoint x="4298" y="1563"/>    
+    <bendpoint x="4298" y="1222"/>    
+    <end type="SOURCE" refId="61" navigable="false">      
+      <attribute id="169" name="cameraProgramHolders">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="170" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="171">    
+    <bendpoint x="5125" y="5231"/>    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="172" name="type">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="173" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="70" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="174">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="175">    
+    <bendpoint x="5537" y="2408"/>    
+    <bendpoint x="5516" y="3019"/>    
+    <bendpoint x="5516" y="3576"/>    
+    <bendpoint x="5516" y="5231"/>    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="176">    
+    <bendpoint x="1851" y="557"/>    
+    <bendpoint x="2151" y="1222"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="177">    
+    <bendpoint x="1337" y="3576"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <association id="178">    
+    <bendpoint x="900" y="2408"/>    
+    <bendpoint x="860" y="3019"/>    
+    <bendpoint x="860" y="3576"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="179" name="physObject">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="180" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="181">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="182">    
+    <bendpoint x="5877" y="1222"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="63"/>  
+  </dependency>  
+  <dependency id="183">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="74"/>  
+  </dependency>  
+  <association id="184">    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="185" name="volumeLights">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="186" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="187">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <realization id="188">    
+    <bendpoint x="818" y="3019"/>    
+    <bendpoint x="818" y="3576"/>    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="42"/>  
+  </realization>  
+  <dependency id="189">    
+    <bendpoint x="2439" y="557"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <dependency id="190">    
+    <end type="SOURCE" refId="60"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <association id="191">    
+    <bendpoint x="1316" y="2408"/>    
+    <bendpoint x="1316" y="3019"/>    
+    <bendpoint x="1316" y="3576"/>    
+    <bendpoint x="1456" y="5231"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="192" name="eventObject">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="193" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="59" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="194">    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <association id="195">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="196" name="animator">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="197" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="53" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="198">    
+    <bendpoint x="4834" y="557"/>    
+    <bendpoint x="4834" y="1222"/>    
+    <bendpoint x="4834" y="1563"/>    
+    <bendpoint x="4834" y="2408"/>    
+    <bendpoint x="4834" y="3019"/>    
+    <bendpoint x="4834" y="3576"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="48"/>  
+  </dependency>  
+  <dependency id="199">    
+    <end type="SOURCE" refId="75"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="200">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="201" name="endOrtagonal">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="202" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="203">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="204" name="nrmlShader">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="205" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="206">    
+    <end type="SOURCE" refId="57" navigable="false">      
+      <attribute id="207" name="volumeLights">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="208" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="209">    
+    <bendpoint x="4623" y="557"/>    
+    <bendpoint x="4623" y="1222"/>    
+    <bendpoint x="4623" y="1563"/>    
+    <bendpoint x="4623" y="2408"/>    
+    <bendpoint x="4340" y="3019"/>    
+    <bendpoint x="4340" y="3576"/>    
+    <bendpoint x="4340" y="5231"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="210">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <dependency id="211">    
+    <end type="SOURCE" refId="69"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="212">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="213" name="walls">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="214" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="49" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="215">    
+    <bendpoint x="4172" y="3576"/>    
+    <bendpoint x="4172" y="5231"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="216">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="70"/>  
+  </dependency>  
+  <dependency id="217">    
+    <bendpoint x="3820" y="1222"/>    
+    <bendpoint x="3820" y="1563"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <dependency id="218">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="219">    
+    <end type="SOURCE" refId="75"/>    
+    <end type="TARGET" refId="77"/>  
+  </dependency>  
+  <dependency id="220">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="44"/>  
+  </dependency>  
+  <generalization id="221">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="72"/>  
+  </generalization>  
+  <dependency id="222">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <generalization id="223">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="37"/>  
+  </generalization>  
+  <association id="224">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="225" name="gameStateHolder">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="226" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="227">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <association id="228">    
+    <bendpoint x="5198" y="234"/>    
+    <bendpoint x="5198" y="557"/>    
+    <bendpoint x="5198" y="1222"/>    
+    <bendpoint x="5198" y="1563"/>    
+    <bendpoint x="5198" y="2408"/>    
+    <bendpoint x="5238" y="3019"/>    
+    <bendpoint x="5278" y="3576"/>    
+    <bendpoint x="5453" y="5231"/>    
+    <end type="SOURCE" refId="67" navigable="false">      
+      <attribute id="229" name="escapyCamera">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="230" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="231">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <dependency id="232">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="233">    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="234">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="52"/>  
+  </dependency>  
+  <dependency id="235">    
+    <bendpoint x="6034" y="3576"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="236">    
+    <bendpoint x="3000" y="3576"/>    
+    <bendpoint x="3000" y="5231"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="237">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="59"/>  
+  </dependency>  
+  <dependency id="238">    
+    <bendpoint x="5330" y="1222"/>    
+    <bendpoint x="5345" y="1563"/>    
+    <bendpoint x="5516" y="2408"/>    
+    <bendpoint x="5537" y="3019"/>    
+    <bendpoint x="5579" y="3576"/>    
+    <bendpoint x="5579" y="5231"/>    
+    <bendpoint x="5579" y="5788"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <generalization id="239">    
+    <bendpoint x="1358" y="2408"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="37"/>  
+  </generalization>  
+  <dependency id="240">    
+    <bendpoint x="4214" y="2408"/>    
+    <bendpoint x="4214" y="3019"/>    
+    <bendpoint x="4214" y="3576"/>    
+    <bendpoint x="4214" y="5231"/>    
+    <end type="SOURCE" refId="69"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="241">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="242">    
+    <bendpoint x="2460" y="557"/>    
+    <bendpoint x="2460" y="1222"/>    
+    <bendpoint x="2500" y="1563"/>    
+    <bendpoint x="2513" y="2408"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="50"/>  
+  </dependency>  
+  <association id="243">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="244" name="line2">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="245" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="246">    
+    <bendpoint x="3182" y="1563"/>    
+    <bendpoint x="3182" y="2408"/>    
+    <bendpoint x="3531" y="3019"/>    
+    <bendpoint x="3562" y="3576"/>    
+    <bendpoint x="3562" y="5231"/>    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="247">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="248">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <dependency id="249">    
+    <bendpoint x="1893" y="1563"/>    
+    <bendpoint x="1914" y="2408"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="250">    
+    <bendpoint x="3510" y="2408"/>    
+    <bendpoint x="3510" y="3019"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="72"/>  
+  </dependency>  
+  <generalization id="251">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="47"/>  
+  </generalization>  
+  <generalization id="252">    
+    <bendpoint x="6661" y="5788"/>    
+    <bendpoint x="6661" y="5231"/>    
+    <bendpoint x="6661" y="3576"/>    
+    <bendpoint x="6442" y="3019"/>    
+    <bendpoint x="6160" y="2408"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="63"/>  
+  </generalization>  
+  <dependency id="253">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="72"/>  
+  </dependency>  
+  <dependency id="254">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="255">    
+    <bendpoint x="4380" y="3576"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="256">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="42"/>  
+  </dependency>  
+  <dependency id="257">    
+    <bendpoint x="1540" y="557"/>    
+    <bendpoint x="1851" y="1222"/>    
+    <bendpoint x="1851" y="1563"/>    
+    <bendpoint x="1893" y="2408"/>    
+    <bendpoint x="2106" y="3019"/>    
+    <bendpoint x="2127" y="3576"/>    
+    <bendpoint x="2500" y="5231"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <association id="258">    
+    <end type="SOURCE" refId="73" navigable="false">      
+      <attribute id="259" name="player">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="260" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="50" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="261">    
+    <bendpoint x="4644" y="557"/>    
+    <bendpoint x="4644" y="1222"/>    
+    <bendpoint x="4644" y="1563"/>    
+    <bendpoint x="4644" y="2408"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="262" name="mapContainer">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="263" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="264">    
+    <bendpoint x="6181" y="1222"/>    
+    <bendpoint x="6181" y="1563"/>    
+    <bendpoint x="6181" y="2408"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="74"/>  
+  </dependency>  
+  <dependency id="265">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="68"/>  
+  </dependency>  
+  <dependency id="266">    
+    <bendpoint x="4765" y="557"/>    
+    <bendpoint x="4765" y="1222"/>    
+    <bendpoint x="4765" y="1563"/>    
+    <bendpoint x="4765" y="2408"/>    
+    <bendpoint x="4765" y="3019"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <realization id="267">    
+    <end type="SOURCE" refId="55"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <dependency id="268">    
+    <end type="SOURCE" refId="74"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <realization id="269">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="65"/>  
+  </realization>  
+  <generalization id="270">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="47"/>  
+  </generalization>  
+  <association id="271">    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="272" name="trueStateCarer">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="273" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="58" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="274">    
+    <bendpoint x="4298" y="5231"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="275">    
+    <bendpoint x="2418" y="557"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="276">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="277">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="278">    
+    <bendpoint x="2542" y="1563"/>    
+    <bendpoint x="2471" y="2408"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="279">    
+    <bendpoint x="6139" y="1222"/>    
+    <bendpoint x="6139" y="1563"/>    
+    <bendpoint x="6139" y="2408"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <dependency id="280">    
+    <bendpoint x="5621" y="3019"/>    
+    <bendpoint x="5621" y="3576"/>    
+    <bendpoint x="5663" y="5231"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="281">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <realization id="282">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="69"/>  
+  </realization>  
+  <generalization id="283">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="47"/>  
+  </generalization>  
+  <association id="284">    
+    <bendpoint x="2085" y="3019"/>    
+    <bendpoint x="2085" y="3576"/>    
+    <bendpoint x="2085" y="5231"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="285" name="tempControllsHelper">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="286" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="68" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="287">    
+    <bendpoint x="2890" y="1222"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <generalization id="288">    
+    <bendpoint x="6160" y="5231"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <dependency id="289">    
+    <bendpoint x="3777" y="3019"/>    
+    <bendpoint x="3856" y="3576"/>    
+    <bendpoint x="3844" y="5231"/>    
+    <end type="SOURCE" refId="73"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <association id="290">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="291" name="calcThreadOb">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="292" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="293">    
+    <bendpoint x="1935" y="2408"/>    
+    <end type="SOURCE" refId="58" navigable="false">      
+      <attribute id="294" name="memento">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="295" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="296">    
+    <bendpoint x="3227" y="557"/>    
+    <bendpoint x="3227" y="234"/>    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="67"/>  
+  </generalization>  
+  <realization id="297">    
+    <bendpoint x="6118" y="2408"/>    
+    <bendpoint x="6118" y="3019"/>    
+    <bendpoint x="6118" y="3576"/>    
+    <bendpoint x="6118" y="5231"/>    
+    <end type="SOURCE" refId="63"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <dependency id="298">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="299">    
+    <bendpoint x="3140" y="1563"/>    
+    <bendpoint x="3140" y="2408"/>    
+    <bendpoint x="3129" y="3019"/>    
+    <bendpoint x="3129" y="3576"/>    
+    <bendpoint x="3378" y="5231"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <association id="300">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="301" name="gameSavedState">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="302" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="58" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="303">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="304" name="settings">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="305" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="306">    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="42"/>  
+  </generalization>  
+  <dependency id="307">    
+    <bendpoint x="5600" y="3576"/>    
+    <bendpoint x="5600" y="5231"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <generalization id="308">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="67"/>  
+  </generalization>  
+  <dependency id="309">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="310">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <association id="311">    
+    <bendpoint x="3150" y="3019"/>    
+    <bendpoint x="3087" y="3576"/>    
+    <end type="SOURCE" refId="73" navigable="false">      
+      <attribute id="312" name="npc">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="313" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="314">    
+    <bendpoint x="6139" y="3576"/>    
+    <bendpoint x="6139" y="5231"/>    
+    <end type="SOURCE" refId="74"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="315">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="316" name="actualProgramHolder">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="317" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="39" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="318">    
+    <bendpoint x="275" y="3019"/>    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="47"/>  
+  </generalization>  
+  <generalization id="319">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <dependency id="320">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="321">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="71"/>  
+  </dependency>  
+  <realization id="322">    
+    <bendpoint x="879" y="2408"/>    
+    <bendpoint x="839" y="3019"/>    
+    <bendpoint x="839" y="3576"/>    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <dependency id="323">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <realization id="324">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="51"/>  
+  </realization>  
+  <dependency id="325">    
+    <bendpoint x="2521" y="3576"/>    
+    <bendpoint x="2521" y="5231"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="68"/>  
+  </dependency>  
+  <dependency id="326">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="74"/>  
+  </dependency>  
+  <association id="327">    
+    <bendpoint x="3332" y="557"/>    
+    <bendpoint x="3332" y="1222"/>    
+    <bendpoint x="3224" y="1563"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="328" name="charactersContainer">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="329" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="73" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="330">    
+    <bendpoint x="5649" y="3019"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="331" name="renderProgram">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="332" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="333">    
+    <end type="SOURCE" refId="62" navigable="false">      
+      <attribute id="334" name="trueStateHolder">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="335" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="336">    
+    <bendpoint x="2264" y="2408"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="337">    
+    <bendpoint x="4193" y="3019"/>    
+    <bendpoint x="4193" y="3576"/>    
+    <bendpoint x="4193" y="5231"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <dependency id="338">    
+    <bendpoint x="4602" y="2408"/>    
+    <bendpoint x="4813" y="3019"/>    
+    <bendpoint x="5320" y="3576"/>    
+    <bendpoint x="5558" y="5231"/>    
+    <end type="SOURCE" refId="71"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="339">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <association id="340">    
+    <bendpoint x="1829" y="557"/>    
+    <bendpoint x="1540" y="1222"/>    
+    <bendpoint x="1540" y="1563"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="341" name="physics">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="342" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="343">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="44"/>  
+  </dependency>  
+  <dependency id="344">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <generalization id="345">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="17"/>  
+  </generalization>  
+  <generalization id="346">    
+    <bendpoint x="614" y="3019"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="47"/>  
+  </generalization>  
+  <dependency id="347">    
+    <bendpoint x="1295" y="3576"/>    
+    <bendpoint x="1295" y="3019"/>    
+    <bendpoint x="1295" y="2408"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <realization id="348">    
+    <end type="SOURCE" refId="72"/>    
+    <end type="TARGET" refId="60"/>  
+  </realization>  
+  <dependency id="349">    
+    <bendpoint x="2502" y="1222"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="350">    
+    <bendpoint x="6097" y="5231"/>    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="351">    
+    <bendpoint x="4319" y="1222"/>    
+    <bendpoint x="4319" y="1563"/>    
+    <bendpoint x="4319" y="2408"/>    
+    <bendpoint x="4319" y="3019"/>    
+    <bendpoint x="4319" y="3576"/>    
+    <bendpoint x="4319" y="5231"/>    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <realization id="352">    
+    <bendpoint x="3798" y="3019"/>    
+    <bendpoint x="3877" y="3576"/>    
+    <end type="SOURCE" refId="73"/>    
+    <end type="TARGET" refId="60"/>  
+  </realization>  
+  <association id="353">    
+    <bendpoint x="1498" y="5231"/>    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="354" name="obj">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="355" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="59" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="356">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="357">    
+    <end type="SOURCE" refId="72"/>    
+    <end type="TARGET" refId="34"/>  
+  </generalization>  
+  <dependency id="358">    
+    <bendpoint x="3762" y="1222"/>    
+    <end type="SOURCE" refId="64"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="359">    
+    <bendpoint x="5621" y="5231"/>    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <realization id="360">    
+    <bendpoint x="2106" y="3576"/>    
+    <bendpoint x="1561" y="5231"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="66"/>  
+  </realization>  
+  <dependency id="361">    
+    <bendpoint x="6076" y="3576"/>    
+    <bendpoint x="6076" y="5231"/>    
+    <end type="SOURCE" refId="74"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <association id="362">    
+    <bendpoint x="5219" y="1222"/>    
+    <bendpoint x="5219" y="1563"/>    
+    <bendpoint x="5219" y="2408"/>    
+    <bendpoint x="5259" y="3019"/>    
+    <bendpoint x="5299" y="3576"/>    
+    <bendpoint x="5474" y="5231"/>    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="363" name="privGdxCamera">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="364" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="365">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <dependency id="366">    
+    <bendpoint x="6055" y="3576"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="40"/>  
+  </dependency>  
+  <association id="367">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="368" name="inGameObject">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="369" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="370">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <realization id="371">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <dependency id="372">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="373">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="374">    
+    <bendpoint x="2043" y="3576"/>    
+    <bendpoint x="2043" y="5231"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <generalization id="375">    
+    <end type="SOURCE" refId="71"/>    
+    <end type="TARGET" refId="62"/>  
+  </generalization>  
+  <realization id="376">    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="51"/>  
+  </realization>  
+  <association id="377">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="378" name="volumeLights">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="379" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="57" navigable="true"/>    
+    <display labels="true" multiplicity="false"/>  
+  </association>  
+  <dependency id="380">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="381">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="382">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="383" name="nrmlFBO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="384" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="false"/>  
+  </association>  
+  <association id="385">    
+    <end type="SOURCE" refId="41" navigable="false">      
+      <attribute id="386" name="updList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="387" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="388">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="42"/>  
+  </dependency>  
+  <dependency id="389">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="64"/>  
+  </dependency>  
+  <dependency id="390">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="41"/>  
+  </dependency>  
+  <association id="391">    
+    <bendpoint x="1477" y="5231"/>    
+    <end type="SOURCE" refId="55" navigable="false">      
+      <attribute id="392" name="variables">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="393" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="56" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="394">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="395">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="396">    
+    <bendpoint x="1765" y="3576"/>    
+    <bendpoint x="1540" y="5231"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="59"/>  
+  </dependency>  
+  <dependency id="397">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <generalization id="398">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <generalization id="399">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="72"/>  
+  </generalization>  
+  <association id="400">    
+    <bendpoint x="5351" y="557"/>    
+    <bendpoint x="5351" y="1222"/>    
+    <bendpoint x="5387" y="1563"/>    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="401" name="stdFBO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="402" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="403">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="404">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="405">    
+    <bendpoint x="5613" y="5788"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <association id="406">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="407" name="camProgramHolders">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="408" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="39" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="409">    
+    <bendpoint x="557" y="5231"/>    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="66"/>  
+  </dependency>  
+  <association id="410">    
+    <bendpoint x="3248" y="234"/>    
+    <bendpoint x="3248" y="557"/>    
+    <bendpoint x="3248" y="1222"/>    
+    <end type="SOURCE" refId="67" navigable="false">      
+      <attribute id="411" name="gameState">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="412" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="413">    
+    <bendpoint x="5558" y="3019"/>    
+    <bendpoint x="5537" y="3576"/>    
+    <bendpoint x="5537" y="5231"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="414" name="fboCamera">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="415" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="61" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="416">    
+    <bendpoint x="2534" y="2408"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <association id="417">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="418" name="line1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="419" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="420">    
+    <bendpoint x="2792" y="557"/>    
+    <bendpoint x="2869" y="1222"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="421">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="422" name="splashScreen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="423" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="424">    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="425">    
+    <end type="SOURCE" refId="57" navigable="false">      
+      <attribute id="426" name="buffer">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="427" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="63" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="428">    
+    <bendpoint x="1519" y="5231"/>    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="55"/>  
+  </dependency>  
+  <association id="429">    
+    <bendpoint x="3841" y="1563"/>    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="430" name="camProgram">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="431" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="432">    
+    <bendpoint x="5856" y="1222"/>    
+    <bendpoint x="5837" y="1563"/>    
+    <end type="SOURCE" refId="64" navigable="false">      
+      <attribute id="433" name="stdFBO">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="434" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="false"/>
+</class-diagram>
