@@ -3,7 +3,6 @@ package com.x.game.render.extra.std;
 import com.x.game.render.EscapyGdxCamera;
 import com.x.game.render.EscapyRenderable;
 import com.x.game.render.extra.ExtraRendererSuper;
-import com.x.game.render.fbo.EscapyFBO;
 
 public class StdRenderer extends ExtraRendererSuper <EscapyRenderable>{
 
