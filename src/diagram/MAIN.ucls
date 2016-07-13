@@ -22,8 +22,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.game.screens.EscapyStateContainer" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/game/screens/EscapyStateContainer.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="com.game.screens.userState.EscapyStateContainer" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/userState/EscapyStateContainer.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="301" width="306" x="2533" y="1222"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -106,8 +107,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="12" language="java" name="com.game.settings.GameSettings" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/game/settings/GameSettings.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="com.game.userState.settings.GameSettings" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/userState/settings/GameSettings.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="571" width="198" x="1644" y="2408"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -134,8 +136,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="com.game.screens.states.EscapyGameScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/game/screens/states/EscapyGameScreen.java" binary="false" 
+  <class id="15" language="java" name="com.game.screens.userState.EscapyGameScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/userState/EscapyGameScreen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="283" width="294" x="3302" y="234"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -261,8 +263,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="com.game.update_loop.UpdatableScreenFactory" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/game/update_loop/UpdatableScreenFactory.java" binary="false" 
+  <class id="28" language="java" name="com.game.update_loop.userState.UpdatableScreenFactory" 
+    project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/update_loop/userState/UpdatableScreenFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="121" width="353" x="2823" y="557"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -432,8 +435,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="45" language="java" name="com.game.screens.states.EscapyLoadingScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/game/screens/states/EscapyLoadingScreen.java" binary="false" 
+  <class id="45" language="java" name="com.game.screens.userState.EscapyLoadingScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/userState/EscapyLoadingScreen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="283" width="306" x="2409" y="234"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -518,8 +521,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="54" language="java" name="com.game.screens.states.EscapySplashScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/game/screens/states/EscapySplashScreen.java" binary="false" 
+  <class id="54" language="java" name="com.game.screens.userState.EscapySplashScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/userState/EscapySplashScreen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="229" width="297" x="2921" y="1222"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -617,8 +620,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="64" language="java" name="com.game.screens.states.EscapyMainMenuScreen" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/game/screens/states/EscapyMainMenuScreen.java" binary="false" 
+  <class id="64" language="java" name="com.game.screens.userState.EscapyMainMenuScreen" project="EscapyProject_gdx-core" 
+    file="/EscapyProject_gdx-core/src/com/game/screens/userState/EscapyMainMenuScreen.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="409" width="321" x="5382" y="557"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

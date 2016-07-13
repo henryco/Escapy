@@ -1,4 +1,4 @@
-package com.game.settings;
+package com.game.userState.settings;
 
 import java.io.File;
 import java.io.IOException;

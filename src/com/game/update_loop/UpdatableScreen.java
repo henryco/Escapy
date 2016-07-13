@@ -2,7 +2,7 @@ package com.game.update_loop;
 
 import com.badlogic.gdx.Screen;
 
-public class UpdatableScreen implements Updatable{
+public class UpdatableScreen implements Updatable {
 
 	private Screen screen;
 	
@@ -14,8 +14,7 @@ public class UpdatableScreen implements Updatable{
 	@Override
 	public void update() 
 	{
-		if (screen instanceof Updatable)
-			((Updatable) screen).update();
+		((Updatable) screen).update();
 	}
 
 	public Screen getScreen() {

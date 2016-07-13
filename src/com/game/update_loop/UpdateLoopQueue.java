@@ -6,7 +6,7 @@ public class UpdateLoopQueue implements Runnable {
 
 	private ArrayList<Updatable> updList;
 	private Thread loopThread;
-	private volatile boolean inLoop; // XXX
+	private volatile boolean inLoop; 
 	private long sleep;
 
 	public UpdateLoopQueue() {

@@ -1,4 +1,4 @@
-package com.game.screens.states;
+package com.game.screens.userState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.GameEnter;
 import com.game.render.EscapyGdxCamera;
 import com.game.screens.EscapyScreenState;
-import com.game.update_loop.UpdatableScreenFactory;
+import com.game.update_loop.userState.UpdatableScreenFactory;
 
 public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 

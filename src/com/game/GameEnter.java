@@ -4,8 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.game.render.EscapyGdxCamera;
-import com.game.screens.EscapyStateContainer;
-import com.game.settings.GameSettings;
+import com.game.screens.userState.EscapyStateContainer;
+import com.game.userState.settings.GameSettings;
 
 public class GameEnter extends Game {
 

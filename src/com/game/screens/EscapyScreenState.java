@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.game.GameEnter;
 import com.game.render.EscapyGdxCamera;
-import com.game.settings.GameSettings;
+import com.game.userState.settings.GameSettings;
 
 public abstract class EscapyScreenState implements Screen {
 

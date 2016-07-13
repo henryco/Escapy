@@ -1,4 +1,4 @@
-package com.game.screens.states;
+package com.game.screens.userState;
 
 import com.game.GameEnter;
 import com.game.render.EscapyGdxCamera;

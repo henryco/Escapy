@@ -1,13 +1,11 @@
-package com.game.screens;
+package com.game.screens.userState;
 
 import com.badlogic.gdx.Screen;
 import com.game.GameEnter;
 import com.game.render.EscapyGdxCamera;
-import com.game.screens.states.EscapyLoadingScreen;
-import com.game.screens.states.EscapyMainMenuScreen;
 import com.game.update_loop.UpdatableScreen;
-import com.game.update_loop.UpdatableScreenFactory;
 import com.game.update_loop.UpdateLoopQueue;
+import com.game.update_loop.userState.UpdatableScreenFactory;
 import com.game.utils.simpleMemento.SImpleCaretaker;
 import com.game.utils.simpleMemento.SimpleStateHolder;
 
