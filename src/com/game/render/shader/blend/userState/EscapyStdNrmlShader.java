@@ -1,4 +1,4 @@
-package com.game.render.shader;
+package com.game.render.shader.blend.userState;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,12 +9,13 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
+import com.game.render.shader.EscapyStdShaderRenderer;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class EscapyNrmlShader.
+ * The Class EscapyStdNrmlShader.
  */
-public class EscapyNrmlShader extends EscapyStdShaderRenderer {
+public class EscapyStdNrmlShader extends EscapyStdShaderRenderer {
 
 	private static final String VERTEX = "shaders\\nrml\\nrml.vert";
 	private static final String FRAGMENT = "shaders\\nrml\\nrml.frag";
@@ -24,14 +25,30 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 	/**
 	 * Instantiates a new escapy nrml shader.
 	 */
-	public EscapyNrmlShader() {
-		
+	public EscapyStdNrmlShader() {
 		super();
-		
-		this.nrmlShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
-		System.err.println(nrmlShader.isCompiled() ? "compiled: EscapyNrmlShader" : nrmlShader.getLog());
+		this.startInit();
 		return;
 	}
+	
+	/**
+	 * Instantiates a new escapy std nrml shader.
+	 *
+	 * @param ID
+	 *            the id
+	 */
+	public EscapyStdNrmlShader(int ID) {
+		super(ID);	
+		this.startInit();
+		return;
+	}
+	
+	private void startInit() {
+		this.nrmlShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
+		System.err.println(nrmlShader.isCompiled() ? "compiled: EscapyStdNrmlShader" : nrmlShader.getLog());
+	}
+	
+	
 
 	/**
 	 * Render nrm light.
@@ -58,7 +75,7 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 			Vector2 dim, Vector3 color, float intencity, float distance) {
 		this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader, position, dim,
 				color, intencity, distance);
-
+	
 		super.drawSprite(colorMap, camera);
 		return colorMap;
 	}

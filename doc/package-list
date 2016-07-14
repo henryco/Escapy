@@ -1,10 +1,10 @@
-com.game
 com.game.animator
 com.game.controlls
 com.game.physics_temp
 com.game.render
 com.game.render.camera.holder
 com.game.render.camera.program
+com.game.render.camera.program.owner
 com.game.render.extra
 com.game.render.extra.container
 com.game.render.extra.normals
@@ -15,8 +15,11 @@ com.game.render.fbo.psProcess.cont
 com.game.render.fbo.psProcess.lights
 com.game.render.fbo.psProcess.mask
 com.game.render.fbo.psProcess.program
+com.game.render.fbo.psProcess.program.userState
 com.game.render.fbo.psRender
 com.game.render.shader
+com.game.render.shader.blend
+com.game.render.shader.blend.userState
 com.game.screens
 com.game.screens.game
 com.game.update_loop

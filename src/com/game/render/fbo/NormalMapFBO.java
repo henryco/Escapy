@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
-import com.game.render.fbo.psProcess.program.FBOVolumeLightProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOVolumeLightProgram;
 
 // TODO: Auto-generated Javadoc
 /**

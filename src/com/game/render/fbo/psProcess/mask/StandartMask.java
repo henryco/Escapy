@@ -38,11 +38,12 @@ public class StandartMask extends EscapyMask {
 	@Override
 	protected void initMask() {
 		
-		this.maskFBO = new StandartFBO();
+		this.maskFBO = new StandartFBO();//.setRenderProgram(null); //TODO not null!
 		
 	}
 	
 	/**
+	 * Post render.
 	 *
 	 * @param fbo
 	 *            the fbo

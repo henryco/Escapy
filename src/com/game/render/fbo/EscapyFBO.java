@@ -34,6 +34,9 @@ public abstract class EscapyFBO {
 	/** The mainbuffer. */
 	protected FrameBuffer MAINBUFFER;
 	
+	/** The mainregion. */
+	protected TextureRegion MAINREGION;
+	
 	/** 
 	 * <p>Creates new FrameBufferObjects superclass, that contains Gdx {@link FrameBuffer} and other usefull stuff</p> 
 	 * <p><b>See:</b> {@link NormalMapFBO}, {@link StandartFBO}.</p>
@@ -42,6 +45,8 @@ public abstract class EscapyFBO {
 		this.renderProgram = initRenderProgram();
 		this.MAINBUFFER = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight(), false);
+		this.MAINREGION = new TextureRegion(this.MAINBUFFER.getColorBufferTexture(), 
+				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.fboCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.fboBatch = new SpriteBatch();
 		this.initFBO();
@@ -186,7 +191,7 @@ public abstract class EscapyFBO {
 	 * @param buffer - target {@link FrameBuffer} to render for.
 	 * @param ePP - optional {@link EscapyPostProcessed} data for render.
 	 * @param cam - {@link EscapyGdxCamera} cannot be null.
-	 * @return {@link FrameBuffer} with rendered data.
+	 * @return buffer - {@link FrameBuffer} with rendered data.
 	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)} */
 	public FrameBuffer renderToBuffer(FrameBuffer buffer, EscapyPostProcessed ePP, 
 			EscapyGdxCamera cam) {	
@@ -200,7 +205,7 @@ public abstract class EscapyFBO {
 	 * <br>this method uses for this {@link FBORenderProgram} and default camera {@link EscapyGdxCamera}.
 	 * @param buffer - target {@link FrameBuffer} to render for.
 	 * @param ePP - optional {@link EscapyPostProcessed} data for render.
-	 * @return {@link FrameBuffer} with rendered data.
+	 * @return buffer - {@link FrameBuffer} with rendered data.
 	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)}*/
 	public FrameBuffer renderToBuffer(FrameBuffer buffer, EscapyPostProcessed ePP) {
 		return renderToBuffer(buffer, ePP, this.fboCamera);
@@ -210,7 +215,7 @@ public abstract class EscapyFBO {
 	 * this method uses for this {@link FBORenderProgram}, default 
 	 * camera {@link EscapyGdxCamera} and {@link EscapyPostProcessed} data for render.
 	 * @param buffer - target {@link FrameBuffer} to render for.
-	 * @return {@link FrameBuffer} with rendered data.
+	 * @return buffer - {@link FrameBuffer} with rendered data.
 	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)}*/
 	public FrameBuffer renderToBuffer(FrameBuffer buffer) {
 		return renderToBuffer(buffer, null, this.fboCamera);
@@ -228,11 +233,54 @@ public abstract class EscapyFBO {
 		return renderProgram;
 	}
 	
+	/**
+	 * Sets the render program.
+	 *
+	 * @param renderProgram
+	 *            the render program
+	 * @return the escapy FBO
+	 */
+	public EscapyFBO setRenderProgram(FBORenderProgram<?> renderProgram) {
+		this.renderProgram = renderProgram;
+		return this;
+	}
+	
 	/**Method that return stored main framebuffer, sometimes need to use {@link EscapyFBO#mergeBuffer()} before.
 	 * @return {@link FrameBuffer} - main fbo*/
 	public FrameBuffer getFrameBuffer() {
 		return MAINBUFFER;
 	}
 	
+	/**
+	 * Sets the frame buffer.
+	 *
+	 * @param buffer
+	 *            the {@link FrameBuffer} main fbo.
+	 * @return the escapy FBO
+	 */
+	public EscapyFBO setFrameBuffer(FrameBuffer buffer) {
+		this.MAINBUFFER = buffer;
+		return this;
+	}
 
+
+	/**
+	 * Gets the texture region, sometimes need to use {@link EscapyFBO#mergeBuffer()} before.
+	 *
+	 * @return the texture main region
+	 */
+	public TextureRegion getTextureRegion() {
+		return MAINREGION;
+	}
+
+
+	/**
+	 * Sets the texture region.
+	 *
+	 * @param MAINREGION
+	 *            the new main texture region
+	 */
+	public void setTextureRegion(TextureRegion MAINREGION) {
+		this.MAINREGION = MAINREGION;
+	}
 }

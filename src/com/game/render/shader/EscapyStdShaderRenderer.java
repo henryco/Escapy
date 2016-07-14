@@ -17,17 +17,51 @@ public class EscapyStdShaderRenderer {
 	protected SpriteBatch batcher;
 	
 	/** The std program. */
-	protected ShaderProgram stdProgram;
+	protected final ShaderProgram stdProgram;
+	
+	/** The id. */
+	protected final int id;
 	
 	/**
 	 * Instantiates a new escapy std shader renderer.
 	 */
 	public EscapyStdShaderRenderer() {
+		ShaderProgram.pedantic = false;
+		this.batcher = new SpriteBatch();
+		this.stdProgram = SpriteBatch.createDefaultShader();
+		this.id = generateID();
+	}
+	
+	/**
+	 * Instantiates a new escapy std shader renderer.
+	 *
+	 * @param id
+	 *            the id
+	 */
+	public EscapyStdShaderRenderer(int id) {
 		
 		ShaderProgram.pedantic = false;
 		this.batcher = new SpriteBatch();
 		this.stdProgram = SpriteBatch.createDefaultShader();
+		this.id = id;
+	}
 	
+	/**
+	 * Generate ID.
+	 *
+	 * @return the int
+	 */
+	protected int generateID() {
+		return this.hashCode();
+	}
+	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public int getID() {
+		return this.id;
 	}
 	
 	/**
@@ -92,8 +126,6 @@ public class EscapyStdShaderRenderer {
 	}
 	
 	
-	
-	
 	/**
 	 * Sets the sprite batch.
 	 *
@@ -114,4 +146,5 @@ public class EscapyStdShaderRenderer {
 	public ShaderProgram getStdProgram() {
 		return stdProgram;
 	}
+	
 }

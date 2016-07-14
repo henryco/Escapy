@@ -140,6 +140,7 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	}
 	
 	/**
+	 * Sets the post render camera.
 	 *
 	 * @param camera
 	 *            the camera cannot be null.
@@ -161,6 +162,9 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 		return new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA};
 	}
 	
+	/**
+	 * Gets the dst src blendfunc.
+	 */
 	protected void getDstSrcBlendfunc() {
 		this.defBlendModeDST = this.maskBatch.getBlendDstFunc();
 		this.defBlendModeSRC = this.maskBatch.getBlendSrcFunc();

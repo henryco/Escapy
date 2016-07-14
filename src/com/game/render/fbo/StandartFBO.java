@@ -18,9 +18,7 @@ import com.game.render.shader.EscapyStdShaderRenderer;
 
 public class StandartFBO extends EscapyFBO {
 
-	/** The std region. */
-	protected TextureRegion stdRegion;
-	
+
 	/**
 	 * Create standart frame buffer object <br>
 	 * that extends {@link EscapyFBO}.
@@ -35,9 +33,6 @@ public class StandartFBO extends EscapyFBO {
 	 */
 	@Override
 	protected void initFBO() {
-		
-		this.stdRegion = new TextureRegion(super.MAINBUFFER.getColorBufferTexture(), 
-				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
 	
@@ -55,7 +50,7 @@ public class StandartFBO extends EscapyFBO {
 			@Override
 			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
 			{
-				this.stdShaderRender.drawTextureRegion(super.fbo.stdRegion, camera.getCamera(),
+				this.stdShaderRender.drawTextureRegion(super.fbo.MAINREGION, camera.getCamera(),
 						0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			}
 		};
@@ -102,15 +97,37 @@ public class StandartFBO extends EscapyFBO {
 	}
 	
 	/**
+	 * Sets the std buffer.
+	 *
+	 * @param buffer
+	 *            the buffer
+	 * @return the escapy FBO
+	 */
+	public EscapyFBO setStdBuffer(FrameBuffer buffer) {
+		super.MAINBUFFER = buffer;
+		return this;
+	}
+	
+	/**
 	 * Gets the std region.
 	 *
 	 * @return the std region
 	 */
 	public TextureRegion getStdRegion() {
-		return stdRegion;
+		return super.MAINREGION;
 	}
 	
-	
+	/**
+	 * Sets the std region.
+	 *
+	 * @param region
+	 *            the region
+	 * @return the escapy FBO
+	 */
+	public EscapyFBO setStdRegion(TextureRegion region) {
+		super.MAINREGION = region;
+		return this;
+	}
 
 
 	

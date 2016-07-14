@@ -1,11 +1,12 @@
-package com.game.render.fbo.psProcess.program;
+package com.game.render.fbo.psProcess.program.userState;
 
 import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.NormalMapFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
-import com.game.render.shader.EscapyNrmlShader;
+import com.game.render.fbo.psProcess.program.FBORenderProgram;
+import com.game.render.shader.blend.userState.EscapyStdNrmlShader;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -13,7 +14,7 @@ import com.game.render.shader.EscapyNrmlShader;
  */
 public class FBOVolumeLightProgram extends FBORenderProgram<NormalMapFBO> {
 
-	private EscapyNrmlShader nrmlShader;
+	private EscapyStdNrmlShader nrmlShader;
 	
 	/**
 	 * Instantiates a new FBO volume light program.
@@ -24,7 +25,7 @@ public class FBOVolumeLightProgram extends FBORenderProgram<NormalMapFBO> {
 	public FBOVolumeLightProgram(NormalMapFBO fboProgramTarget) 
 	{
 		super(fboProgramTarget);
-		this.nrmlShader = new EscapyNrmlShader();
+		this.nrmlShader = new EscapyStdNrmlShader();
 	}
 	
 
