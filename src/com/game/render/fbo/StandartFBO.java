@@ -19,6 +19,10 @@ public class StandartFBO extends EscapyFBO {
 
 	protected TextureRegion stdRegion;
 	
+	/**
+	 * Create standart frame buffer object <br>
+	 * that extends {@link EscapyFBO}
+	 */
 	public StandartFBO() {
 		super();
 	}

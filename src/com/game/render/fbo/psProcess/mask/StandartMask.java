@@ -5,6 +5,12 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.utils.translationVec.TransVec;
 
+/**
+ * 
+ * Simply lightmask extends {@link EscapyMask}
+ * @author Henry
+ *
+ */
 public class StandartMask extends EscapyMask {
 
 	private EscapyFBO maskFBO;
@@ -23,6 +29,9 @@ public class StandartMask extends EscapyMask {
 		
 	}
 	
+	/**
+	 * <br>
+	 */
 	@Override
 	public void postRender(EscapyFBO fbo, TransVec translationVec) {
 		

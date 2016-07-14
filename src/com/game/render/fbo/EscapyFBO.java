@@ -13,8 +13,8 @@ import com.game.render.fbo.psProcess.program.FBORenderProgram;
 
 /**
  * <P>
- * Superclass of Frame Buffer Object, that contains GDX-frameBuffer {@link FrameBuffer}
- * and some usefull methods to work with them
+ * Superclass of Frame Buffer Object, that contains GDX {@link FrameBuffer}
+ * and some usefull methods to easy work with them.
  * </p>
  * @author HenryDCO
  */
@@ -155,7 +155,7 @@ public abstract class EscapyFBO {
 		return renderProgram;
 	}
 	
-	/**Method that return main frame buffer, sometimes need to use {@link EscapyFBO#mergeBuffer()} before.
+	/**Method that return stored main framebuffer, sometimes need to use {@link EscapyFBO#mergeBuffer()} before.
 	 * @return {@link FrameBuffer} - main fbo*/
 	public FrameBuffer getFrameBuffer() {
 		return MAINBUFFER;

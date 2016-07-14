@@ -8,13 +8,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 
+
+/**
+ * GL based lightmask superclass.
+ * @see EscapyLightMask
+ * @author Henry
+ *
+ */
 public abstract class EscapyMask implements EscapyPostRenderable {
 
 	public final static int MULTIPLY = 0;
 	public final static int COLOR_DODGE = 1;
 	
-	protected float WIDTH;
-	protected float HEIGHT;
+	protected float WIDTH, HEIGHT;
 	protected float startX, startY;
 	
 	protected Color COLOR;
@@ -40,12 +46,20 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	
 	protected abstract void initMask();
 	
-	public EscapyMask setMaskPosition(float sx, float sy, float ex, float ey)
+	/**
+	 * 
+	 * @param sx - start x point
+	 * @param sy - start y point
+	 * @param width
+	 * @param height
+	 * @return mask.
+	 */
+	public EscapyMask setMaskPosition(float sx, float sy, float width, float height)
 	{
-		startX = sx;
-		startY = sy;
-		WIDTH = ex;
-		HEIGHT = ey;
+		this.startX = sx;
+		this.startY = sy;
+		this.WIDTH = width;
+		this.HEIGHT = height;
 		return this;
 	}
 
@@ -54,22 +68,38 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 		return this;
 	}
 	
+	/**
+	 * Set blend mode.
+	 * @param mode - blend mode
+	 * @return mask
+	 */
 	public EscapyMask setMode(int mode) {
 		this.modeType = modeType(mode);
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @param maskBatch - {@link Batch} cannot be null.
+	 * @return mask.
+	 */
 	public EscapyMask setBatch(Batch maskBatch) {
 		this.maskBatch = maskBatch;
 		return this;
 	}
-
+	
+	/**
+	 * Restore standart Batch.
+	 * @return mask
+	 */
 	public EscapyMask setDefaultBatch() {
 		this.maskBatch = new SpriteBatch();
 		return this;
 	}
 	
-	
+	/**
+	 * <br>
+	 */
 	@Override
 	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {
 		this.postRenderCamera = camera;
