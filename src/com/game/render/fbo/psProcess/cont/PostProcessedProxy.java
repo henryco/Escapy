@@ -4,18 +4,41 @@ import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.utils.absContainer.EscapyContainer;
 import com.game.utils.proxyContainer.EscapyProxy;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PostProcessedProxy.
+ *
+ * @param <T>
+ *            the generic type
+ * @param <U>
+ *            the generic type
+ */
 public class PostProcessedProxy <T extends EscapyPostProcessed, U extends EscapyContainer<T>>
 	extends EscapyProxy <T, U> {
 
 
+	/**
+	 * Instantiates a new post processed proxy.
+	 */
 	public PostProcessedProxy() {
 	}
 	
+	/**
+	 * Instantiates a new post processed proxy.
+	 *
+	 * @param id
+	 *            the id
+	 * @param holder
+	 *            the holder
+	 */
 	public PostProcessedProxy(int id, U holder) {
 		super.holder = holder;
 		super.id = id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.game.utils.proxyContainer.EscapyProxy#hold()
+	 */
 	@Override
 	public PostProcessedProxy<T, U> hold()
 	{
@@ -27,6 +50,9 @@ public class PostProcessedProxy <T extends EscapyPostProcessed, U extends Escapy
 		return this;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.game.utils.proxyContainer.EscapyProxy#apply()
+	 */
 	@Override
 	public EscapyProxy<T, U> apply() 
 	{
@@ -35,6 +61,13 @@ public class PostProcessedProxy <T extends EscapyPostProcessed, U extends Escapy
 		return this;
 	}
 	
+	/**
+	 * Force hold.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the post processed proxy
+	 */
 	public PostProcessedProxy<T, U> forceHold(int id) 
 	{
 		if (super.source() != null)

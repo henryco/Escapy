@@ -1,11 +1,21 @@
 package com.game.animator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyAnimatorThreadObject.
+ */
 public class EscapyAnimatorThreadObject extends EscapyAnimatorSuper implements Runnable {
 
+	/**
+	 * Instantiates a new escapy animator thread object.
+	 */
 	public EscapyAnimatorThreadObject() {
 		/** VOID **/
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		Thread.currentThread().setPriority(Thread.MIN_PRIORITY);

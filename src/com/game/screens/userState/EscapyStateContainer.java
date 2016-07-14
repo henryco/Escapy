@@ -9,6 +9,10 @@ import com.game.update_loop.userState.UpdatableScreenFactory;
 import com.game.utils.simpleMemento.SImpleCaretaker;
 import com.game.utils.simpleMemento.SimpleStateHolder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyStateContainer.
+ */
 public class EscapyStateContainer {
 
 	
@@ -22,6 +26,14 @@ public class EscapyStateContainer {
 	
 	private UpdateLoopQueue updLoopedQueue;
 	
+	/**
+	 * Instantiates a new escapy state container.
+	 *
+	 * @param gameState
+	 *            the game state
+	 * @param escapyCamera
+	 *            the escapy camera
+	 */
 	public EscapyStateContainer(GameEnter gameState, EscapyGdxCamera escapyCamera) 
 	{
 		this.updLoopedQueue = new UpdateLoopQueue();
@@ -36,11 +48,24 @@ public class EscapyStateContainer {
 		this.updLoopedQueue.startUpdateLoop();
 	}
 	
+	/**
+	 * Gets the upd looped queue.
+	 *
+	 * @return the upd looped queue
+	 */
 	public UpdateLoopQueue getUpdLoopedQueue() {
 		return updLoopedQueue;
 	}
 
 
+	/**
+	 * Sets the new location.
+	 *
+	 * @param newLocScreen
+	 *            the new loc screen
+	 * @param bufferLastLoc
+	 *            the buffer last loc
+	 */
 	public void setNewLocation(UpdatableScreen newLocScreen, boolean bufferLastLoc)
 	{
 		if (newLocScreen != null)
@@ -56,6 +81,11 @@ public class EscapyStateContainer {
 		}
 	}
 	
+	/**
+	 * Gets the last location.
+	 *
+	 * @return the last location
+	 */
 	public UpdatableScreen getLastLocation()
 	{
 		if (gameSavedState.getMemento() != null)
@@ -71,30 +101,68 @@ public class EscapyStateContainer {
 	
 	
 	
+	/**
+	 * Gets the splash screen.
+	 *
+	 * @return the splash screen
+	 */
 	public UpdatableScreen getSplashScreen() {
 		return splashScreen;
 	}
 
+	/**
+	 * Sets the splash screen.
+	 *
+	 * @param splashScreen
+	 *            the new splash screen
+	 */
 	public void setSplashScreen(UpdatableScreen splashScreen) {
 		this.splashScreen = splashScreen;
 	}
 
+	/**
+	 * Gets the menu screen.
+	 *
+	 * @return the menu screen
+	 */
 	public Screen getMenuScreen() {
 		return menuScreen;
 	}
 
+	/**
+	 * Sets the menu screen.
+	 *
+	 * @param menuScreen
+	 *            the new menu screen
+	 */
 	public void setMenuScreen(Screen menuScreen) {
 		this.menuScreen = menuScreen;
 	}
 
+	/**
+	 * Gets the game screen.
+	 *
+	 * @return the game screen
+	 */
 	public UpdatableScreen getGameScreen() {
 		return gameScreen;
 	}
 
+	/**
+	 * Gets the loading screen.
+	 *
+	 * @return the loading screen
+	 */
 	public Screen getLoadingScreen() {
 		return loadingScreen;
 	}
 
+	/**
+	 * Sets the loading screen.
+	 *
+	 * @param loadingScreen
+	 *            the new loading screen
+	 */
 	public void setLoadingScreen(Screen loadingScreen) {
 		this.loadingScreen = loadingScreen;
 	}

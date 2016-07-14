@@ -1,5 +1,9 @@
 package com.game.executable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyExecutableDialogs.
+ */
 public class EscapyExecutableDialogs implements EscapyExecutable {
 
 	private static StringBuffer dialogToPrint = new StringBuffer(" ");
@@ -9,6 +13,9 @@ public class EscapyExecutableDialogs implements EscapyExecutable {
 	private static long time0 = 0;
 	private static boolean show_it = false;
 
+	/**
+	 * Draw in line monolog.
+	 */
 	public static void drawInLineMonolog() {
 		if (!show_it)
 			time0 = System.nanoTime();
@@ -18,6 +25,14 @@ public class EscapyExecutableDialogs implements EscapyExecutable {
 		}
 	}
 
+	/**
+	 * Sets the dialog to print.
+	 *
+	 * @param dialogToPrint
+	 *            the dialog to print
+	 * @param timeToShow
+	 *            the time to show
+	 */
 	public static void setDialogToPrint(String dialogToPrint, float timeToShow) {
 		EscapyExecutableDialogs.dialogToPrint = new StringBuffer(dialogToPrint);
 		EscapyExecutableDialogs.showTime = timeToShow;

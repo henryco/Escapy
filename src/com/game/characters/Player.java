@@ -14,6 +14,10 @@ import com.game.physics_temp.EscapyPhysicsObjectSuper;
 import com.game.physics_temp.TEMP_EscapyPhysicsPlayerControls;
 import com.game.render.EscapyGdxCamera;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Player.
+ */
 public class Player extends AbstractCharacters
 		implements EscapyAnimatorCharacter, EscapyPhysicsEvent, EscapyPlayerControlls {
 
@@ -27,6 +31,16 @@ public class Player extends AbstractCharacters
 	private EscapyPhysicsObjectDefault physBody;
 
 
+	/**
+	 * Instantiates a new player.
+	 *
+	 * @param urls
+	 *            the urls
+	 * @param times
+	 *            the times
+	 * @param zoom
+	 *            the zoom
+	 */
 	public Player(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		super(urls, times, zoom);
 
@@ -42,6 +56,9 @@ public class Player extends AbstractCharacters
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.characters.AbstractCharacters#initializeGraphic()
+	 */
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
@@ -58,6 +75,9 @@ public class Player extends AbstractCharacters
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) 
 	{
@@ -75,6 +95,9 @@ public class Player extends AbstractCharacters
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.game.render.extra.normals.EscapyNormalRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
@@ -94,6 +117,9 @@ public class Player extends AbstractCharacters
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see com.game.animator.EscapyAnimatorCharacter#defineStandAnimation()
+	 */
 	@Override
 	public void defineStandAnimation() {
 		if (!isMoving) {
@@ -108,6 +134,9 @@ public class Player extends AbstractCharacters
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.animator.EscapyAnimatorCharacter#defineMovAnimation()
+	 */
 	@Override
 	public void defineMovAnimation() {
 		if (!lastFall && downRight & !downLShift) {
@@ -137,6 +166,9 @@ public class Player extends AbstractCharacters
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.animator.EscapyAnimatorCharacter#defineRunAnimation()
+	 */
 	@Override
 	public void defineRunAnimation() {
 		if (!lastFall && downRight && downLShift) {
@@ -166,21 +198,33 @@ public class Player extends AbstractCharacters
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.animator.EscapyAnimatorCharacter#defineJumpAnimation()
+	 */
 	@Override
 	public void defineJumpAnimation() {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.animator.EscapyAnimatorCharacter#defineInteractAnimation()
+	 */
 	@Override
 	public void defineInteractAnimation() {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.animator.EscapyAnimatorCharacter#defineOtherAnimation()
+	 */
 	@Override
 	public void defineOtherAnimation() {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.animator.EscapyAnimatorCharacter#InterruptAnimator(com.game.animator.EscapyAnimatorCharacter)
+	 */
 	@Override
 	public void InterruptAnimator(EscapyAnimatorCharacter character) {
 		// TODO Auto-generated method stub
@@ -188,6 +232,9 @@ public class Player extends AbstractCharacters
 
 	
 	
+	/* (non-Javadoc)
+	 * @see com.game.characters.AbstractCharacters#setFrame0(com.badlogic.gdx.graphics.Texture)
+	 */
 	@Override
 	protected Sprite setFrame0(Texture texture) {
 		
@@ -199,6 +246,9 @@ public class Player extends AbstractCharacters
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.game.characters.AbstractCharacters#setFrame180(com.badlogic.gdx.graphics.Texture)
+	 */
 	@Override
 	protected Sprite setFrame180(Texture texture) {
 		Sprite characterSp = new Sprite(texture);
@@ -208,6 +258,9 @@ public class Player extends AbstractCharacters
 		return characterSp;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.physics_temp.EscapyPhysicsEvent#definePhysicalSystem(com.game.physics_temp.EscapyPhysicsObjectSuper)
+	 */
 	@Override
 	public void definePhysicalSystem(EscapyPhysicsObjectSuper physObject) {
 		physObject = EscapyPhysics.initDefaultGravityAcceleration(physObject);
@@ -215,23 +268,35 @@ public class Player extends AbstractCharacters
 		physObject = EscapyPhysics.initDefaultPhysicalMap(physObject, 0.52f, 0.875f);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.physics_temp.EscapyPhysicsEvent#physicalCalculations(com.game.physics_temp.EscapyPhysicsObjectSuper)
+	 */
 	@Override
 	public void physicalCalculations(EscapyPhysicsObjectSuper physObject) {
 		physObject = EscapyPhysics.defaultGravity(physObject);
 		physObject = EscapyPhysics.defaultMovement(physObject, this.downLeft, this.downRight, this.downLShift, false);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.physics_temp.EscapyPhysicsEvent#physicalEvent(float, float, float, float, com.game.physics_temp.EscapyPhysicsObjectSuper)
+	 */
 	@Override
 	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
 		super.setXPos(xpos);
 		super.setYPos(ypos);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.physics_temp.EscapyPhysicsEvent#getPhysicalBody()
+	 */
 	@Override
 	public EscapyPhysicsObjectSuper getPhysicalBody() {
 		return physBody;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.controlls.EscapyPlayerControlls#updateControlls(boolean, boolean, boolean, boolean, boolean, boolean)
+	 */
 	@Override
 	public void updateControlls(boolean downA, boolean downD, boolean downSpace, boolean downLShift, boolean isMoving,
 			boolean downF) {

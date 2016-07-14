@@ -11,6 +11,10 @@ import com.game.executable.EscapyExecutableObjects;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.extra.normals.EscapyNormalRender;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AnimatedObject.
+ */
 public class AnimatedObject extends InGameObject implements EscapyExecutableObjects, EscapyNormalRender {
 
 	private int[] animPeriod;
@@ -22,6 +26,24 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	private Texture objectTexture;
 	private TextureRegion objectTextureRegion;
 
+	/**
+	 * Instantiates a new animated object.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param id
+	 *            the id
+	 * @param ImgUrl
+	 *            the img url
+	 * @param AnimPeriod
+	 *            the anim period
+	 * @param zoom
+	 *            the zoom
+	 * @param typo
+	 *            the typo
+	 */
 	public AnimatedObject(float x, float y, int id, String ImgUrl, int[] AnimPeriod, double zoom, int typo) {
 		super(x, y, id, ImgUrl, zoom, typo);
 		animPeriod = AnimPeriod;
@@ -62,6 +84,9 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.map.objects.InGameObject#initializeGraphic()
+	 */
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
@@ -73,6 +98,9 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 				(int) ((float) objectTexture.getWidth() / 10.), objectTexture.getHeight());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
@@ -85,6 +113,19 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 		spriteBatcher.end();
 	}
 
+	/**
+	 * Make sprite from texture.
+	 *
+	 * @param texture
+	 *            the texture
+	 * @param xpos
+	 *            the xpos
+	 * @param ypos
+	 *            the ypos
+	 * @param zoom
+	 *            the zoom
+	 * @return the sprite
+	 */
 	protected Sprite makeSpriteFromTexture(TextureRegion texture, float xpos, float ypos, float zoom) {
 		Sprite sprite = new Sprite(texture);
 		sprite.flip(false, true);
@@ -93,11 +134,17 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 		return sprite;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.executable.EscapyExecutableObjects#actionAnimation()
+	 */
 	@Override
 	public void actionAnimation() {
 		startObjectAnimator(animator);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.executable.EscapyExecutableObjects#actionAnimationFinish()
+	 */
 	@Override
 	public boolean actionAnimationFinish() {
 		if (animationEnded) {
@@ -119,6 +166,9 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 		this.actualFrame = actualFrame;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.extra.normals.EscapyNormalRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		// TODO Auto-generated method stub

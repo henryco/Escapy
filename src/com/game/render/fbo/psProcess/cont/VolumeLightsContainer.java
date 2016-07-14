@@ -11,12 +11,19 @@ import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.absContainer.EscapyContainer;
 import com.game.utils.translationVec.TransVec;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class VolumeLightsContainer.
+ */
 public class VolumeLightsContainer implements EscapyPostRenderable,
 	EscapyContainer<AbsLight> {
 
 	private List<AbsLight> volumeLights, buffer;
 	private EscapyGdxCamera postRenderCamera;
 	
+	/**
+	 * Instantiates a new volume lights container.
+	 */
 	public VolumeLightsContainer() {
 		
 		this.volumeLights = new ArrayList<>();
@@ -26,6 +33,12 @@ public class VolumeLightsContainer implements EscapyPostRenderable,
 		return;
 	}
 	
+	/**
+	 * Instantiates a new volume lights container.
+	 *
+	 * @param postRenderCamera
+	 *            the post render camera
+	 */
 	public VolumeLightsContainer(EscapyGdxCamera postRenderCamera) {
 		
 		this.volumeLights = new ArrayList<>();
@@ -35,6 +48,9 @@ public class VolumeLightsContainer implements EscapyPostRenderable,
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#postRender(com.game.render.fbo.EscapyFBO, com.game.utils.translationVec.TransVec)
+	 */
 	@Override
 	public void postRender(EscapyFBO fbo, TransVec translationVec) {
 		
@@ -45,6 +61,9 @@ public class VolumeLightsContainer implements EscapyPostRenderable,
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see com.game.utils.absContainer.EscapyContainer#addSource(java.lang.Object)
+	 */
 	@Override
 	public int addSource(AbsLight light) {
 		this.volumeLights.add(light);
@@ -52,6 +71,9 @@ public class VolumeLightsContainer implements EscapyPostRenderable,
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.game.utils.absContainer.EscapyContainer#getSourceByID(int)
+	 */
 	@Override
 	public AbsLight getSourceByID(int ID) {
 		for (AbsLight lightBuff : buffer)
@@ -67,6 +89,9 @@ public class VolumeLightsContainer implements EscapyPostRenderable,
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.game.utils.absContainer.EscapyContainer#removeSourceByID(int)
+	 */
 	@Override
 	public boolean removeSourceByID(int ID) {
 		for (AbsLight light : volumeLights)
@@ -78,6 +103,9 @@ public class VolumeLightsContainer implements EscapyPostRenderable,
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.game.utils.absContainer.EscapyContainer#removeSource(java.lang.Object)
+	 */
 	@Override
 	public boolean removeSource(AbsLight light) {
 		buffer.remove(light);
@@ -85,6 +113,13 @@ public class VolumeLightsContainer implements EscapyPostRenderable,
 	}
 	
 	
+	/**
+	 * Gets the light.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the light
+	 */
 	public PostProcessedProxy<AbsLight, EscapyContainer<AbsLight>> getLight(int id) {
 		return new PostProcessedProxy<AbsLight, EscapyContainer<AbsLight>>(id, this);
 	}
@@ -92,6 +127,9 @@ public class VolumeLightsContainer implements EscapyPostRenderable,
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#setPostRenderCamera(com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {
 		this.postRenderCamera = camera;

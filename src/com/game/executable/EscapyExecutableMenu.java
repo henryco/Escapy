@@ -1,13 +1,21 @@
 package com.game.executable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyExecutableMenu.
+ */
 public class EscapyExecutableMenu {
 
 	private static float RADIUS = 55.f; // def 40
 
 	private static float[][] textXY;
 	private static String[] options;
+	
+	/** The selected option. */
 	protected static int selectedOption = Integer.MAX_VALUE;
 	private static boolean option_active = false;
+	
+	/** The over the area. */
 	protected static boolean overTheArea = false;
 
 	private static float alphaN(short numbs, short n) {
@@ -20,6 +28,24 @@ public class EscapyExecutableMenu {
 				(float) ((Math.sin((double) alphaN(numbs, n))) * RADIUS) };
 	}
 
+	/**
+	 * Context menu.
+	 *
+	 * @param Options
+	 *            the options
+	 * @param startXY
+	 *            the start XY
+	 * @param currY
+	 *            the curr Y
+	 * @param currX
+	 *            the curr X
+	 * @param translationX
+	 *            the translation X
+	 * @param translationY
+	 *            the translation Y
+	 * @param playerPos
+	 *            the player pos
+	 */
 	protected static void contextMenu(String[] Options, int[] startXY, int currY, int currX, int translationX,
 			int translationY, int[] playerPos) {
 		textXY = new float[Options.length][2];
@@ -64,6 +90,9 @@ public class EscapyExecutableMenu {
 		}
 	}
 
+	/**
+	 * Show context menu.
+	 */
 	public static void showContextMenu() {
 		if (EscapyExecutableBase.uCanShow) {
 			for (int i = 0; i < options.length; i++) {
@@ -80,6 +109,9 @@ public class EscapyExecutableMenu {
 		}
 	}
 
+	/**
+	 * Show pointer info.
+	 */
 	public static void showPointerInfo() {
 		if (overTheArea) {
 			// g.drawString(EscapyExecutable.nameByType(EscapyExecutableBase.actualOptionType),

@@ -28,6 +28,10 @@ import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
 import com.game.utils.translationVec.TransVec;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyGameScreen.
+ */
 public class EscapyGameScreen extends EscapyScreenState implements Updatable, EscapyMainState {
 
 	private InitMap mapContainer;
@@ -37,7 +41,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private EscapyAnimatorBase animator;
 	private EscapyLightMask lightMask;
 	
+	/** The player camera program ID. */
 	protected int playerCameraProgramID;
+	
+	/** The mouse light. */
 	int mouseLight;
 	private float[] mpos, screen;
 	private float dist, intencity;
@@ -50,6 +57,14 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private TransVec otherTranslationVec;
 	
 	
+	/**
+	 * Instantiates a new escapy game screen.
+	 *
+	 * @param escapyCamera
+	 *            the escapy camera
+	 * @param gameState
+	 *            the game state
+	 */
 	public EscapyGameScreen(EscapyGdxCamera escapyCamera, GameEnter gameState) {
 		super(escapyCamera, gameState);
 		System.out.println("@constructor");
@@ -58,6 +73,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
 	@Override
 	public void show() {
 		System.out.println("@show");
@@ -67,6 +85,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	
 	
+	/* (non-Javadoc)
+	 * @see com.game.screens.EscapyMainState#initState()
+	 */
 	@Override
 	public Screen initState() {
 		System.out.println("@init state");
@@ -128,6 +149,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	
 	
+	/**
+	 * Upd dist.
+	 */
 	protected void updDist() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.W))
 			this.dist += 5;
@@ -163,6 +187,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see com.game.update_loop.Updatable#update()
+	 */
 	@Override
 	public void update() {
 		
@@ -185,6 +212,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	
 	
+	/* (non-Javadoc)
+	 * @see com.game.screens.EscapyMainState#renderGameObjects(com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderGameObjects(EscapyGdxCamera escapyCamera) {
 
@@ -200,6 +230,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
 	@Override
 	public void render(float delta) {
 	
@@ -223,6 +256,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#pause()
+	 */
 	@Override
 	public void pause() {
 		this.animator.closeAnimator();
@@ -236,6 +272,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	
 	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#resume()
+	 */
 	@Override
 	public void resume() {
 		this.animator.initAnimator().startAnimator();
@@ -245,14 +284,23 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	}
 
 		
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
 	@Override
 	public void hide() {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#dispose()
+	 */
 	@Override
 	public void dispose() {
 		try {

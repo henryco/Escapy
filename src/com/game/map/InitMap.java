@@ -14,6 +14,10 @@ import com.game.utils.primitives.walls.Walls;
 import cern.colt.matrix.ObjectMatrix3D;
 import cern.colt.matrix.impl.SparseObjectMatrix3D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InitMap.
+ */
 public class InitMap {
 
 	private InGameObject[][] inGameObject;
@@ -28,6 +32,18 @@ public class InitMap {
 	
 	
 	
+	/**
+	 * Instantiates a new inits the map.
+	 *
+	 * @param Location
+	 *            the location
+	 * @param frameW
+	 *            the frame W
+	 * @param frameH
+	 *            the frame H
+	 * @param scaleRatio
+	 *            the scale ratio
+	 */
 	public InitMap(String Location, int frameW, int frameH, double scaleRatio) {
 		double[] mapsize = readMapSize(Location);
 
@@ -64,22 +80,47 @@ public class InitMap {
 		return arrd;
 	}
 
+	/**
+	 * Map.
+	 *
+	 * @return the object matrix 3 D
+	 */
 	public ObjectMatrix3D map() {
 		return areaMap;
 	}
 
+	/**
+	 * Game objects.
+	 *
+	 * @return the in game object[][]
+	 */
 	public InGameObject[][] gameObjects() {
 		return inGameObject;
 	}
 
+	/**
+	 * Back ground.
+	 *
+	 * @return the back ground
+	 */
 	public BackGround backGround() {
 		return bckgr;
 	}
 
+	/**
+	 * Index tab.
+	 *
+	 * @return the int[]
+	 */
 	public int[] indexTab() {
 		return adrtab;
 	}
 
+	/**
+	 * Object size.
+	 *
+	 * @return the int[]
+	 */
 	public int[] objectSize() {
 		return size;
 	}
@@ -324,6 +365,11 @@ public class InitMap {
 	
 	
 
+	/**
+	 * Gets the walls.
+	 *
+	 * @return the walls
+	 */
 	public Walls getWalls() {
 		return walls;
 	}

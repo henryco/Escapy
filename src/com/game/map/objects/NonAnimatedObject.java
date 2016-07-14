@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.extra.normals.EscapyNormalRender;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NonAnimatedObject.
+ */
 public class NonAnimatedObject extends InGameObject implements EscapyNormalRender {
 
 	private Texture staticObjectTexture;
@@ -16,10 +20,29 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalRende
 	private Texture staticNrmlMapTexture;
 	private Sprite staticNrmlMapSprite;
 
+	/**
+	 * Instantiates a new non animated object.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param id
+	 *            the id
+	 * @param ImgUrl
+	 *            the img url
+	 * @param zoom
+	 *            the zoom
+	 * @param typo
+	 *            the typo
+	 */
 	public NonAnimatedObject(float x, float y, int id, String ImgUrl, double zoom, int typo) {
 		super(x, y, id, ImgUrl, zoom, typo);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.map.objects.InGameObject#initializeGraphic()
+	 */
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
@@ -47,6 +70,9 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalRende
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
@@ -57,6 +83,9 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalRende
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.extra.normals.EscapyNormalRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);

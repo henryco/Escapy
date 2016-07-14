@@ -10,6 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyNrmlShader.
+ */
 public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 
 	private static final String VERTEX = "shaders\\nrml\\nrml.vert";
@@ -17,6 +21,9 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 	private ShaderProgram nrmlShader;
 
 	
+	/**
+	 * Instantiates a new escapy nrml shader.
+	 */
 	public EscapyNrmlShader() {
 		
 		super();
@@ -26,6 +33,27 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 		return;
 	}
 
+	/**
+	 * Render nrm light.
+	 *
+	 * @param colorMap
+	 *            the color map
+	 * @param normalMap
+	 *            the normal map
+	 * @param camera
+	 *            the camera
+	 * @param position
+	 *            the position
+	 * @param dim
+	 *            the dim
+	 * @param color
+	 *            the color
+	 * @param intencity
+	 *            the intencity
+	 * @param distance
+	 *            the distance
+	 * @return the sprite
+	 */
 	public Sprite renderNrmLight(Sprite colorMap, Sprite normalMap, OrthographicCamera camera, Vector2 position,
 			Vector2 dim, Vector3 color, float intencity, float distance) {
 		this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader, position, dim,
@@ -35,6 +63,19 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 		return colorMap;
 	}
 
+	/**
+	 * Render nrm light.
+	 *
+	 * @param colorMap
+	 *            the color map
+	 * @param normalMap
+	 *            the normal map
+	 * @param camera
+	 *            the camera
+	 * @param simpLight
+	 *            the simp light
+	 * @return the sprite
+	 */
 	public Sprite renderNrmLight(Sprite colorMap, Sprite normalMap, OrthographicCamera camera, SimpleLight simpLight) {
 		this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader,
 				simpLight.getPosition(), simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(),
@@ -44,6 +85,23 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 		return colorMap;
 	}
 
+	/**
+	 * Render nrm light.
+	 *
+	 * @param colorMap
+	 *            the color map
+	 * @param normalMap
+	 *            the normal map
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param camera
+	 *            the camera
+	 * @param simpLight
+	 *            the simp light
+	 * @return the texture
+	 */
 	public Texture renderNrmLight(Texture colorMap, Texture normalMap, float x, float y, OrthographicCamera camera,
 			SimpleLight simpLight) {
 		this.nrmlShader = initShader(colorMap, normalMap, this.nrmlShader, simpLight.getPosition(),
@@ -53,6 +111,31 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 		return colorMap;
 	}
 
+	/**
+	 * Render nrm light.
+	 *
+	 * @param colorMap
+	 *            the color map
+	 * @param normalMap
+	 *            the normal map
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param camera
+	 *            the camera
+	 * @param position
+	 *            the position
+	 * @param dim
+	 *            the dim
+	 * @param color
+	 *            the color
+	 * @param intencity
+	 *            the intencity
+	 * @param distance
+	 *            the distance
+	 * @return the texture
+	 */
 	public Texture renderNrmLight(Texture colorMap, Texture normalMap, float x, float y, OrthographicCamera camera,
 			Vector2 position, Vector2 dim, Vector3 color, float intencity, float distance) {
 		this.nrmlShader = initShader(colorMap, normalMap, this.nrmlShader, position, dim, color, intencity, distance);
@@ -61,6 +144,27 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 		return colorMap;
 	}
 
+	/**
+	 * Render nrm light.
+	 *
+	 * @param colorMap
+	 *            the color map
+	 * @param normalMap
+	 *            the normal map
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
+	 * @param camera
+	 *            the camera
+	 * @param simpLight
+	 *            the simp light
+	 * @return the texture region
+	 */
 	public TextureRegion renderNrmLight(TextureRegion colorMap, TextureRegion normalMap, float x, float y, float width,
 			float height, OrthographicCamera camera, SimpleLight simpLight) {
 		this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader,
@@ -71,6 +175,35 @@ public class EscapyNrmlShader extends EscapyStdShaderRenderer {
 		return colorMap;
 	}
 
+	/**
+	 * Render nrm light.
+	 *
+	 * @param colorMap
+	 *            the color map
+	 * @param normalMap
+	 *            the normal map
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
+	 * @param camera
+	 *            the camera
+	 * @param position
+	 *            the position
+	 * @param dim
+	 *            the dim
+	 * @param color
+	 *            the color
+	 * @param intencity
+	 *            the intencity
+	 * @param distance
+	 *            the distance
+	 * @return the texture region
+	 */
 	public TextureRegion renderNrmLight(TextureRegion colorMap, TextureRegion normalMap, float x, float y, float width,
 			float height, OrthographicCamera camera, Vector2 position, Vector2 dim, Vector3 color, float intencity,
 			float distance) {

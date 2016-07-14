@@ -11,6 +11,7 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 
+// TODO: Auto-generated Javadoc
 /**
  * <P>
  * Superclass of Frame Buffer Object, that contains GDX {@link FrameBuffer}
@@ -21,9 +22,16 @@ import com.game.render.fbo.psProcess.program.FBORenderProgram;
 
 public abstract class EscapyFBO {
 
+	/** The render program. */
 	protected FBORenderProgram<?> renderProgram;
+	
+	/** The fbo camera. */
 	protected EscapyGdxCamera fboCamera;
+	
+	/** The fbo batch. */
 	protected Batch fboBatch;
+	
+	/** The mainbuffer. */
 	protected FrameBuffer MAINBUFFER;
 	
 	/** 
@@ -41,46 +49,94 @@ public abstract class EscapyFBO {
 	}
 	
 	
-	/**<p>Render data from from internal {@link FrameBuffer}</p>
-	 * <p>Use {@link FBORenderProgram}, {@link EscapyGdxCamera}, and {@link EscapyPostProcessed} data (null by default)*/
+	/**
+	 * <p>Render data from from internal {@link FrameBuffer}</p>
+	 * <p>Use {@link FBORenderProgram}, {@link EscapyGdxCamera}, and {@link EscapyPostProcessed} data (null by default).
+	 */
 	public void renderFBO() {
 		this.renderProgram.renderProgram(this.fboCamera, null);
 	}
-	/**Render data from internal {@link FrameBuffer}
-	 * @param ePP {@link EscapyPostProcessed} optional data*/
+	
+	/**
+	 * Render data from internal {@link FrameBuffer}.
+	 *
+	 * @param ePP {@link EscapyPostProcessed} optional data
+	 */
 	public void renderFBO(EscapyPostProcessed ePP) {
 		this.renderProgram.renderProgram(this.fboCamera, ePP);
 	}
-	/**Render data from from internal {@link FrameBuffer}
+	
+	/**
+	 * Render data from from internal {@link FrameBuffer}.
+	 *
 	 * @param camera {@link EscapyGdxCamera} cannot be null
-	 * @param ePP {@link EscapyPostProcessed} optional data*/
+	 * @param ePP {@link EscapyPostProcessed} optional data
+	 */
 	public void renderFBO(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
 		this.renderProgram.renderProgram(camera, ePP);
 	}
-	/**Render data from from internal {@link FrameBuffer}
-	 * @param camera {@link EscapyGdxCamera} cannot be null*/
+	
+	/**
+	 * Render data from from internal {@link FrameBuffer}.
+	 *
+	 * @param camera {@link EscapyGdxCamera} cannot be null
+	 */
 	public void renderFBO(EscapyGdxCamera camera) {
 		this.renderProgram.renderProgram(camera, null);
 	}
 	
 	
 	
+	/**
+	 * Inits the render program.
+	 *
+	 * @return the FBO render program
+	 */
 	protected abstract FBORenderProgram<?> initRenderProgram();
+	
+	/**
+	 * Inits the FBO.
+	 */
 	protected abstract void initFBO();
+	
+	/**
+	 * Begin.
+	 *
+	 * @return the escapy FBO
+	 */
 	public abstract EscapyFBO begin();
+	
+	/**
+	 * End.
+	 *
+	 * @return the escapy FBO
+	 */
 	public abstract EscapyFBO end();
 	
-	/**Merge all frame buffers
-	 * <p><b>See:</b>{@link FrameBuffer} </p>*/
+	/**
+	 * Merge all frame buffers
+	 * <p><b>See:</b>{@link FrameBuffer} </p>.
+	 *
+	 * @return the escapy FBO
+	 */
 	public abstract EscapyFBO mergeBuffer();
 	
-	/** Clear buffer, need to use {@link EscapyFBO#begin()} / {@link EscapyFBO#end()}*/
+	/**
+	 *  Clear buffer, need to use {@link EscapyFBO#begin()} / {@link EscapyFBO#end()}.
+	 *
+	 * @return the escapy FBO
+	 */
 	public EscapyFBO wipeFBO() {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		return this;
 	}
-	/** Force clear buffer*/
+	
+	/**
+	 *  Force clear buffer.
+	 *
+	 * @return the escapy FBO
+	 */
 	public EscapyFBO forceWipeFBO() {
 		this.begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
@@ -91,8 +147,13 @@ public abstract class EscapyFBO {
 	
 	
 	
-	/**<p>Creates new {@link TextureRegion} from contained fbo. </p>
-	 * <p>Dont use it in loop, it has trand to memory leak</p> */
+	/**
+	 * <p>Creates new {@link TextureRegion} from contained fbo. </p>
+	 * <p>Dont use it in loop, it has trand to memory leak</p>
+	 *
+	 * @param ePP the e PP
+	 * @return the new rendered region
+	 */
 	@Deprecated
 	public TextureRegion getNewRenderedRegion(EscapyPostProcessed ePP) {
 		
@@ -102,8 +163,13 @@ public abstract class EscapyFBO {
 				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
-	/**<p>Creates new {@link FrameBuffer} from contained other fbo. </p>
-	 * <p>Dont use it in loop, it has trand to memory leak</p> */
+	/**
+	 * <p>Creates new {@link FrameBuffer} from contained other fbo. </p>
+	 * <p>Dont use it in loop, it has trand to memory leak</p>
+	 *
+	 * @param ePP the e PP
+	 * @return the new rendered buffer
+	 */
 	@Deprecated 
 	public FrameBuffer getNewRenderedBuffer(EscapyPostProcessed ePP) {
 		
@@ -150,7 +216,11 @@ public abstract class EscapyFBO {
 	
 	
 	
-	/**Method that <b>return </b>{@link FBORenderProgram}*/
+	/**
+	 * Method that <b>return </b>{@link FBORenderProgram}.
+	 *
+	 * @return the render program
+	 */
 	public FBORenderProgram<?> getRenderProgram() {
 		return renderProgram;
 	}

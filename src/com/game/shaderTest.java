@@ -8,13 +8,27 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class shaderTest.
+ */
 public class shaderTest implements ApplicationListener {
 
+	/** The mask. */
 	Texture tex0, tex1, mask;
+	
+	/** The batch. */
 	SpriteBatch batch;
+	
+	/** The cam. */
 	OrthographicCamera cam;
+	
+	/** The shader. */
 	ShaderProgram shader;
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.ApplicationListener#create()
+	 */
 	@Override
 	public void create() {
 		final String VERTEX = Gdx.files.internal("shader/vert1.glsl").readString();
@@ -64,12 +78,18 @@ public class shaderTest implements ApplicationListener {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.ApplicationListener#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {
 		cam.setToOrtho(false, width, height);
 		batch.setProjectionMatrix(cam.combined);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.ApplicationListener#render()
+	 */
 	@Override
 	public void render() {
 		batch.begin();
@@ -81,16 +101,25 @@ public class shaderTest implements ApplicationListener {
 		batch.end();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.ApplicationListener#pause()
+	 */
 	@Override
 	public void pause() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.ApplicationListener#resume()
+	 */
 	@Override
 	public void resume() {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.ApplicationListener#dispose()
+	 */
 	@Override
 	public void dispose() {
 		batch.dispose();

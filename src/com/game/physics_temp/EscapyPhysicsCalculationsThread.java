@@ -1,24 +1,42 @@
 package com.game.physics_temp;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyPhysicsCalculationsThread.
+ */
 public class EscapyPhysicsCalculationsThread extends EscapyPhysicsSuper
 	implements EscapyPhysics, Runnable{
 
+	/** The physics on. */
 	protected volatile boolean physicsOn = false;
 	
+	/**
+	 * Instantiates a new escapy physics calculations thread.
+	 */
 	public EscapyPhysicsCalculationsThread() 
 	{
 		
 	}
 	
+	/**
+	 * Close.
+	 */
 	public void close()
 	{
 		physicsOn = false;
 	}
+	
+	/**
+	 * Start.
+	 */
 	public void start()
 	{
 		physicsOn = true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() 
 	{

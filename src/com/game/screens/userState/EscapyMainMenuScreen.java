@@ -16,6 +16,10 @@ import com.game.render.fbo.psProcess.lights.AbsLight;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
 import com.game.screens.EscapyScreenState;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyMainMenuScreen.
+ */
 public class EscapyMainMenuScreen extends EscapyScreenState {
 
 	private Sprite testShaderSprite;
@@ -39,6 +43,14 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 	
 	
 	
+	/**
+	 * Instantiates a new escapy main menu screen.
+	 *
+	 * @param escapyCamera
+	 *            the escapy camera
+	 * @param game
+	 *            the game
+	 */
 	public EscapyMainMenuScreen(EscapyGdxCamera escapyCamera, GameEnter game) 
 	{
 		super(escapyCamera, game);
@@ -89,11 +101,17 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		/**FIXME TEST FIXME**/
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
 	@Override
 	public void show() {
 
 	}
 
+	/**
+	 * Upd dist.
+	 */
 	protected void updDist() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.W))
 			this.dist += 5;
@@ -125,6 +143,9 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
 	@Override
 	public void render(float delta) 
 	{
@@ -182,22 +203,37 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#pause()
+	 */
 	@Override
 	public void pause() {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#resume()
+	 */
 	@Override
 	public void resume() {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
 	@Override
 	public void hide() {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#dispose()
+	 */
 	@Override
 	public void dispose() {
 	}

@@ -9,6 +9,10 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InitCharacters.
+ */
 public class InitCharacters implements EscapyRenderable {
 
 	private ArrayList<String>[] playerAnimationUrlTab;
@@ -16,6 +20,9 @@ public class InitCharacters implements EscapyRenderable {
 	private Player player;
 	private NPC[] npc;
 	
+	/**
+	 * Instantiates a new inits the characters.
+	 */
 	public InitCharacters()
 	{
 		loadAnimationDataFF();
@@ -24,10 +31,20 @@ public class InitCharacters implements EscapyRenderable {
 		
 	}
 
+	/**
+	 * Player.
+	 *
+	 * @return the player
+	 */
 	public Player player() {
 		return player;
 	}
 
+	/**
+	 * Npc.
+	 *
+	 * @return the NP c[]
+	 */
 	public NPC[] npc() {
 		return getNpc();
 	}
@@ -59,6 +76,9 @@ public class InitCharacters implements EscapyRenderable {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) 
 	{
@@ -68,10 +88,21 @@ public class InitCharacters implements EscapyRenderable {
 		
 	}
 
+	/**
+	 * Gets the npc.
+	 *
+	 * @return the npc
+	 */
 	public NPC[] getNpc() {
 		return npc;
 	}
 
+	/**
+	 * Sets the npc.
+	 *
+	 * @param npc
+	 *            the new npc
+	 */
 	public void setNpc(NPC[] npc) {
 		this.npc = npc;
 	}

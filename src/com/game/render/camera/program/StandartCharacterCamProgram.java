@@ -3,29 +3,65 @@ package com.game.render.camera.program;
 import com.game.characters.AbstractCharacters;
 import com.game.render.EscapyGdxCamera;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StandartCharacterCamProgram.
+ */
 public class StandartCharacterCamProgram extends CameraProgram<AbstractCharacters> {
 
+	/** The map size Y. */
 	protected int mapSizeX, mapSizeY;
 
+	/**
+	 * Sets the map size.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @return the standart character cam program
+	 */
 	public StandartCharacterCamProgram setMapSize(int x, int y) {
 		this.mapSizeX = x;
 		this.mapSizeY = y;
 		return this;
 	}
 
+	/**
+	 * Instantiates a new standart character cam program.
+	 */
 	public StandartCharacterCamProgram() {
 
 	}
 
+	/**
+	 * Instantiates a new standart character cam program.
+	 *
+	 * @param programTarget
+	 *            the program target
+	 */
 	public StandartCharacterCamProgram(AbstractCharacters programTarget) {
 		super(programTarget);
 	}
 
+	/**
+	 * Instantiates a new standart character cam program.
+	 *
+	 * @param programTarget
+	 *            the program target
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 */
 	public StandartCharacterCamProgram(AbstractCharacters programTarget, int x, int y) {
 		super(programTarget);
 		this.setMapSize(x, y);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.camera.program.CameraProgram#programTranslate(int, int, float, com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public float[] programTranslate(int sWidth, int sHeight, float scale_optional, EscapyGdxCamera escapyCamera) {
 		float[] translationMatrix = new float[2];

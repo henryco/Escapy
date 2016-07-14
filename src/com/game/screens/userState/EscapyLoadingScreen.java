@@ -10,16 +10,31 @@ import com.game.render.EscapyGdxCamera;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.userState.UpdatableScreenFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyLoadingScreen.
+ */
 public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 
 	private SpriteBatch batcher;
 	private Sprite splashSprite;
 	private volatile boolean loaded;
 
+	/**
+	 * Instantiates a new escapy loading screen.
+	 *
+	 * @param escapyCamera
+	 *            the escapy camera
+	 * @param gameState
+	 *            the game state
+	 */
 	public EscapyLoadingScreen(EscapyGdxCamera escapyCamera, GameEnter gameState) {
 		super(escapyCamera, gameState);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
 	@Override
 	public void show() {
 		this.batcher = new SpriteBatch();
@@ -33,6 +48,9 @@ public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 		loadThread.start();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -48,31 +66,49 @@ public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#pause()
+	 */
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#resume()
+	 */
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#dispose()
+	 */
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		EscapyLoadingScreen ldscr = this;

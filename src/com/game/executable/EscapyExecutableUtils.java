@@ -7,8 +7,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyExecutableUtils.
+ */
 public class EscapyExecutableUtils {
 
+	/**
+	 * Creates the hash map of option array.
+	 *
+	 * @return the hash map
+	 */
 	protected static HashMap<Integer, String[]> createHashMapOfOptionArray() {
 		HashMap<Integer, String[]> optionMap = new HashMap<>();
 		try {
@@ -29,6 +38,11 @@ public class EscapyExecutableUtils {
 		return optionMap;
 	}
 
+	/**
+	 * Creates the hash map of option types.
+	 *
+	 * @return the hash map
+	 */
 	protected static HashMap<Integer, Short> createHashMapOfOptionTypes() {
 		HashMap<Integer, Short> optionMap = new HashMap<>();
 		try {

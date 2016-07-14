@@ -1,20 +1,41 @@
 package com.game.animator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyAnimatorBase.
+ */
 public class EscapyAnimatorBase extends EscapyAnimatorSuper {
 
+	/** The Objects THREAD. */
 	private Thread Objects_THREAD;
+	
+	/** The Characters THREAD. */
 	private Thread Characters_THREAD;
 
+	/** The ended. */
 	private boolean ended;
 
+	/**
+	 * Instantiates a new escapy animator base.
+	 */
 	protected EscapyAnimatorBase() {
 		return;
 	}
 
+	/**
+	 * Creates the animator.
+	 *
+	 * @return the escapy animator base
+	 */
 	public static EscapyAnimatorBase createAnimator() {
 		return new EscapyAnimatorBase();
 	}
 
+	/**
+	 * Inits the animator.
+	 *
+	 * @return the escapy animator base
+	 */
 	public EscapyAnimatorBase initAnimator() {
 		Objects_THREAD = new Thread(new EscapyAnimatorThreadObject());
 		Characters_THREAD = new Thread(new EscapyAnimatorThreadCharacter());
@@ -27,12 +48,22 @@ public class EscapyAnimatorBase extends EscapyAnimatorSuper {
 		return this;
 	}
 
+	/**
+	 * Start animator.
+	 *
+	 * @return the escapy animator base
+	 */
 	public EscapyAnimatorBase startAnimator() {
 		Objects_THREAD.start();
 		Characters_THREAD.start();
 		return this;
 	}
 
+	/**
+	 * Close animator.
+	 *
+	 * @return the escapy animator base
+	 */
 	public EscapyAnimatorBase closeAnimator() {
 		if (!ended) {
 			stopItNow[0] = true;
@@ -47,6 +78,9 @@ public class EscapyAnimatorBase extends EscapyAnimatorSuper {
 		return this;
 	}
 
+	/**
+	 * End animator.
+	 */
 	public void endAnimator() {
 		closeAnimator();
 		animatedList.clear();
@@ -54,6 +88,11 @@ public class EscapyAnimatorBase extends EscapyAnimatorSuper {
 		System.gc();
 	}
 
+	/**
+	 * Checks if is ended.
+	 *
+	 * @return true, if is ended
+	 */
 	public boolean isEnded() {
 		return ended;
 	}

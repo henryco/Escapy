@@ -1,5 +1,6 @@
 com.game
 com.game.animator
+com.game.controlls
 com.game.physics_temp
 com.game.render
 com.game.render.camera.holder

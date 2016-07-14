@@ -8,6 +8,7 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.translationVec.TransVec;
 
+// TODO: Auto-generated Javadoc
 /**
  * Queued factory of simple GL based light mask {@link EscapyMask}, <br>
  * that implements {@link EscapyPostRenderable} and work with FBO <br>
@@ -42,7 +43,8 @@ public class EscapyLightMask implements EscapyPostRenderable {
 	}
 	
 	/**
-	 * Create standart mask, with default internal camera;
+	 * Create standart mask, with default internal camera;.
+	 *
 	 * @return {@link StandartMask}
 	 */
 	public EscapyMask standartMask()
@@ -65,7 +67,7 @@ public class EscapyLightMask implements EscapyPostRenderable {
 	/**
 	 * Remove mask from postrender queue.
 	 * @param mask - {@link EscapyMask} object.
-	 * @return <b>true</b> if removed</br> <b>false</b> if not.
+	 * @return <b>true</b> if removed<br> <b>false</b> if not.
 	 */
 	public boolean removeMask(EscapyMask mask)
 	{
@@ -77,6 +79,12 @@ public class EscapyLightMask implements EscapyPostRenderable {
 	}
 
 	/**
+	 * Post render.
+	 *
+	 * @param fbo
+	 *            the fbo
+	 * @param translationVec
+	 *            the translation vec
 	 * @see EscapyPostRenderable
 	 * @see EscapyFBO
 	 * @see TransVec
@@ -90,7 +98,11 @@ public class EscapyLightMask implements EscapyPostRenderable {
 	}
 	
 	/**
-	 * @param camera - {@link EscapyGdxCamera} object cannot be null.
+	 * Sets the post render camera.
+	 *
+	 * @param camera
+	 *            - {@link EscapyGdxCamera} object cannot be null.
+	 * @return the escapy post renderable
 	 */
 	@Override
 	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {

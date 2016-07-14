@@ -8,20 +8,37 @@ import com.badlogic.gdx.math.Shape2D;
 import com.game.utils.primitives.EscapyGeometry;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Walls.
+ */
 public class Walls implements EscapyGeometry {
 
 	private static final short TYPE_SQUARE  = 1;
 	private static final short TYPE_TRIANGLE = 2;
 	
+	/** The Constant START_X. */
 	protected static final int START_X = 0;
+	
+	/** The Constant START_Y. */
 	protected static final int START_Y = 1;
+	
+	/** The Constant END_X. */
 	protected static final int END_X = 2;
+	
+	/** The Constant END_Y. */
 	protected static final int END_Y = 3;
 	
 	private ArrayList<float[]> wallList;
 	private ArrayList<Shape2D> shapeList;
 	
 	
+	/**
+	 * Instantiates a new walls.
+	 *
+	 * @param wallPoints
+	 *            the wall points
+	 */
 	public Walls(ArrayList<int[]> wallPoints) 
 	{
 		this.wallList = new ArrayList<float[]>();
@@ -143,11 +160,19 @@ public class Walls implements EscapyGeometry {
 
 	
 	
+	/**
+	 * Gets the wall map.
+	 *
+	 * @return the wall map
+	 */
 	public ArrayList<float[]> getWallMap() {
 		return wallList;
 	}
 	
 
+	/**
+	 * Debug wall map.
+	 */
 	public void debugWallMap()
 	{
 		System.out.println("\n Walls:");
@@ -161,11 +186,22 @@ public class Walls implements EscapyGeometry {
 	}
 
 
+	/**
+	 * Gets the shape list.
+	 *
+	 * @return the shape list
+	 */
 	public ArrayList<Shape2D> getShapeList() {
 		return shapeList;
 	}
 
 
+	/**
+	 * Sets the shape list.
+	 *
+	 * @param shapeList
+	 *            the new shape list
+	 */
 	public void setShapeList(ArrayList<Shape2D> shapeList) {
 		this.shapeList = shapeList;
 	}

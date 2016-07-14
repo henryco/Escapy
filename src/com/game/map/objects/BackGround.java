@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.render.EscapyGdxCamera;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BackGround.
+ */
 public class BackGround extends InGameObject{
 
 	private static final int DefinitelyNotID = Integer.MIN_VALUE;
@@ -16,10 +20,25 @@ public class BackGround extends InGameObject{
 	private Sprite backgroundSprite;
 	
 	
+	/**
+	 * Instantiates a new back ground.
+	 *
+	 * @param ImgUrl
+	 *            the img url
+	 * @param frameW
+	 *            the frame W
+	 * @param frameH
+	 *            the frame H
+	 * @param scaleRatio
+	 *            the scale ratio
+	 */
 	public BackGround(String ImgUrl, int frameW, int frameH, double scaleRatio) {
 		super(X, Y, DefinitelyNotID, ImgUrl, calcBgrZoom(frameW, frameH, scaleRatio), BACKGROUND);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
+	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		
@@ -36,6 +55,9 @@ public class BackGround extends InGameObject{
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.map.objects.InGameObject#initializeGraphic()
+	 */
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
@@ -49,6 +71,16 @@ public class BackGround extends InGameObject{
 				backgroundSprite.getHeight() * (float) zoom());
 	}
 
+	/**
+	 * Re initialize graphic.
+	 *
+	 * @param frameW
+	 *            the frame W
+	 * @param frameH
+	 *            the frame H
+	 * @param scaleRatio
+	 *            the scale ratio
+	 */
 	public void reInitializeGraphic(int frameW, int frameH, double scaleRatio) {
 		setDefZoom(calcBgrZoom(frameW, frameH, scaleRatio));
 		initializeGraphic();

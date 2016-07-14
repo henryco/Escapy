@@ -1,19 +1,42 @@
 package com.game.executable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface EscapyExecutable.
+ */
 public interface EscapyExecutable {
 
+	/** The Constant JUST_OBJECT. */
 	public static final int JUST_OBJECT = 0;
+	
+	/** The Constant DOOR. */
 	public static final int DOOR = 1;
+	
+	/** The Constant ELEVEATOR. */
 	public static final int ELEVEATOR = 2;
+	
+	/** The Constant STATIC_NPC. */
 	public static final int STATIC_NPC = 3;
 	
 	
+	/** The Constant ENTER. */
 	public static final String ENTER = "enter";
+	
+	/** The Constant INSPECT. */
 	public static final String INSPECT = "inspect";
+	
+	/** The Constant KNOCK. */
 	public static final String KNOCK = "knock";
 	
 	
 	
+	/**
+	 * Name by type.
+	 *
+	 * @param type
+	 *            the type
+	 * @return the string
+	 */
 	public static String nameByType(int type)
 	{
 		switch (type) 
@@ -34,6 +57,14 @@ public interface EscapyExecutable {
 	}
 	
 	
+	/**
+	 * Type action.
+	 *
+	 * @param type
+	 *            the type
+	 * @param object
+	 *            the object
+	 */
 	public static void typeAction(int type, EscapyExecutableObjects object)
 	{
 		Thread typeActionThread = new Thread(new Runnable() 
@@ -87,6 +118,12 @@ public interface EscapyExecutable {
 	}
 	
 	
+	/**
+	 * Door action.
+	 *
+	 * @param object
+	 *            the object
+	 */
 	public static void doorAction(EscapyExecutableObjects object)
 	{
 		EscapyExecutableBase.actualLocation = 2;

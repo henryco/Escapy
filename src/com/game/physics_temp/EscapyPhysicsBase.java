@@ -2,6 +2,10 @@ package com.game.physics_temp;
 
 import cern.colt.matrix.ObjectMatrix3D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EscapyPhysicsBase.
+ */
 public class EscapyPhysicsBase extends EscapyPhysicsSuper {
 
 	private Thread PHYS_THREAD;
@@ -12,12 +16,23 @@ public class EscapyPhysicsBase extends EscapyPhysicsSuper {
 
 	private EscapyPhysicsCalculationsThread calcThreadOb;
 
+	/**
+	 * Instantiates a new escapy physics base.
+	 *
+	 * @param areaMap
+	 *            the area map
+	 */
 	public EscapyPhysicsBase(ObjectMatrix3D areaMap) {
 		super.addMap(areaMap);
 		this.reInit();
 		return;
 	}
 
+	/**
+	 * Re init.
+	 *
+	 * @return the escapy physics base
+	 */
 	public EscapyPhysicsBase reInit() {
 		tempControllsHelper = TEMP_EscapyPhysicsPlayerControls.createControlls().initInputs();
 		calcThreadOb = new EscapyPhysicsCalculationsThread();
@@ -26,6 +41,11 @@ public class EscapyPhysicsBase extends EscapyPhysicsSuper {
 		return this;
 	}
 
+	/**
+	 * Start physics.
+	 *
+	 * @return the escapy physics base
+	 */
 	public EscapyPhysicsBase startPhysics() {
 		if (initialized) {
 			tempControllsHelper.startThread();
@@ -37,6 +57,9 @@ public class EscapyPhysicsBase extends EscapyPhysicsSuper {
 		return this;
 	}
 
+	/**
+	 * Close physic.
+	 */
 	public void closePhysic() {
 		if (!ended) {
 			tempControllsHelper.stopThread();
@@ -50,6 +73,9 @@ public class EscapyPhysicsBase extends EscapyPhysicsSuper {
 		}
 	}
 
+	/**
+	 * End physics.
+	 */
 	public void endPhysics() {
 		closePhysic();
 		eventObject.clear();
@@ -58,6 +84,11 @@ public class EscapyPhysicsBase extends EscapyPhysicsSuper {
 		System.gc();
 	}
 
+	/**
+	 * Checks if is ended.
+	 *
+	 * @return true, if is ended
+	 */
 	public boolean isEnded() {
 		return ended;
 	}

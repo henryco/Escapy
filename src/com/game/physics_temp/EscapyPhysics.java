@@ -1,27 +1,80 @@
 package com.game.physics_temp;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface EscapyPhysics.
+ */
 public interface EscapyPhysics {
 
+	/** The Constant gravityTime0. */
 	public static final String gravityTime0 = "89fn9";
+	
+	/** The Constant gravityTime1. */
 	public static final String gravityTime1 = "4h3gn";
+	
+	/** The Constant objectPosY0. */
 	public static final String objectPosY0 = "dwe4t";
+	
+	/** The Constant objectPosX0. */
 	public static final String objectPosX0 = "2brme";
+	
+	/** The Constant objectPosYR1. */
 	public static final String objectPosYR1 = "f-0vcz";
+	
+	/** The Constant movLenght. */
 	public static final String movLenght = "80hg3";
+	
+	/** The Constant runLenght. */
 	public static final String runLenght = "d34vza";
+	
+	/** The Constant jumpSpeed. */
 	public static final String jumpSpeed = "19u0v";
+	
+	/** The Constant moveTime0. */
 	public static final String moveTime0 = "23czs";
+	
+	/** The Constant moveTime1. */
 	public static final String moveTime1 = "32zx3";
+	
+	/** The Constant w_c_r. */
 	public static final String w_c_r = "e5zxva";
+	
+	/** The Constant h_c_r. */
 	public static final String h_c_r = "ze2z1";
+	
+	/** The Constant fluct_acc. */
 	public static final String fluct_acc = "9mr3c";
+	
+	/** The Constant inFly. */
 	public static final String inFly = "sxcwe3";
+	
+	/** The Constant notLanded. */
 	public static final String notLanded = "1bx8a";
 
+	/**
+	 * Phys base calculations.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 * @return the escapy physics object super
+	 */
 	public static EscapyPhysicsObjectSuper physBaseCalculations(EscapyPhysicsObjectSuper physObject) {
 		return physObject;
 	}
 
+	/**
+	 * Inits the default mov.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 * @param mov_leng
+	 *            the mov leng
+	 * @param run_leng
+	 *            the run leng
+	 * @param jump_speed
+	 *            the jump speed
+	 * @return the escapy physics object super
+	 */
 	public static EscapyPhysicsObjectSuper initDefaultMov(EscapyPhysicsObjectSuper physObject, float mov_leng,
 			float run_leng, float jump_speed) {
 		physObject.variables.newInt((int) Math.ceil((double) (mov_leng / 5.)), movLenght);
@@ -33,6 +86,21 @@ public interface EscapyPhysics {
 		return physObject;
 	}
 
+	/**
+	 * Default movement.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 * @param left
+	 *            the left
+	 * @param right
+	 *            the right
+	 * @param run
+	 *            the run
+	 * @param jump
+	 *            the jump
+	 * @return the escapy physics object super
+	 */
 	public static EscapyPhysicsObjectSuper defaultMovement(EscapyPhysicsObjectSuper physObject, boolean left,
 			boolean right, boolean run, boolean jump) {
 		physObject.variables.newLong(System.nanoTime(), moveTime1);
@@ -77,6 +145,15 @@ public interface EscapyPhysics {
 		return physObject;
 	}
 
+	/**
+	 * Horizontal map collides.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 * @param delta
+	 *            the delta
+	 * @return the int
+	 */
 	public static int horizontalMapCollides(EscapyPhysicsObjectSuper physObject, int delta) {
 		if (physObject.variables.Int(objectPosY0) != Integer.MAX_VALUE) {
 			while ((EscapyPhysicsSuper.areaMap.get(physObject.variables.Int(objectPosX0) + delta,
@@ -100,6 +177,13 @@ public interface EscapyPhysics {
 		return delta;
 	}
 
+	/**
+	 * Default gravity.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 * @return the escapy physics object super
+	 */
 	public static EscapyPhysicsObjectSuper defaultGravity(EscapyPhysicsObjectSuper physObject) {
 		physObject.variables.Long(System.nanoTime(), gravityTime1);
 		float timeago = (physObject.variables.Long(gravityTime1) - physObject.variables.Long(gravityTime0))
@@ -134,6 +218,13 @@ public interface EscapyPhysics {
 		return physObject;
 	}
 
+	/**
+	 * Inits the default gravity acceleration.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 * @return the escapy physics object super
+	 */
 	public static EscapyPhysicsObjectSuper initDefaultGravityAcceleration(EscapyPhysicsObjectSuper physObject) {
 		physObject.variables.newInt(0, inFly);
 		physObject.variables.newFloat(0, fluct_acc);
@@ -143,6 +234,17 @@ public interface EscapyPhysics {
 		return physObject;
 	}
 
+	/**
+	 * Inits the default physical map.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 * @param colideWidthratio
+	 *            the colide widthratio
+	 * @param colideHeightRatio
+	 *            the colide height ratio
+	 * @return the escapy physics object super
+	 */
 	public static EscapyPhysicsObjectSuper initDefaultPhysicalMap(EscapyPhysicsObjectSuper physObject,
 			float colideWidthratio, float colideHeightRatio) {
 		physObject.variables.newFloat(colideWidthratio, w_c_r);
@@ -154,6 +256,15 @@ public interface EscapyPhysics {
 		return physObject;
 	}
 
+	/**
+	 * Vertical map collides.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 * @param time
+	 *            the time
+	 * @return the int
+	 */
 	public static int verticalMapCollides(EscapyPhysicsObjectSuper physObject, float time) {
 		int deltaY = (int) (time * time * physObject.ay);
 		if ((EscapyPhysicsSuper.areaMap.get(physObject.variables.Int(objectPosX0),
@@ -180,6 +291,12 @@ public interface EscapyPhysics {
 		return deltaY;
 	}
 
+	/**
+	 * Default g debug.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 */
 	public static void default_g_debug(EscapyPhysicsObjectSuper physObject) {
 		float time = (physObject.variables.Long(EscapyPhysics.gravityTime1)
 				- physObject.variables.Long(EscapyPhysics.gravityTime0)) / 1000000000.f;
@@ -191,6 +308,12 @@ public interface EscapyPhysics {
 		System.out.println("xpos: " + physObject.xpos);
 	}
 
+	/**
+	 * Default jump debug.
+	 *
+	 * @param physObject
+	 *            the phys object
+	 */
 	public static void default_jump_debug(EscapyPhysicsObjectSuper physObject) {
 		System.out.println("In Jump: " + TEMP_EscapyPhysicsPlayerControls.isJumping());
 		System.out.println("In Fall: " + TEMP_EscapyPhysicsPlayerControls.isFlyin());
