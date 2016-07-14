@@ -9,11 +9,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.GameEnter;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.NormalMapFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.AbsLight;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
+import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyScreenState;
 
 // TODO: Auto-generated Javadoc
@@ -186,7 +186,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 				this.testNrmlSprite.draw(batcher);
 			this.batcher.end();
 		}
-		((NormalMapFBO) this.nrmlFBO.end()).mergeTarget(batcher, privGdxCamera);
+		((NormalMapFBO) this.nrmlFBO.end()).mergeTargetMultiBuffer(batcher, privGdxCamera);
 		this.privGdxCamera.clear();
 
 		//this.stdFBO.renderFBO();

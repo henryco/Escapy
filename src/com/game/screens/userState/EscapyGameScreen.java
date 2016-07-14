@@ -17,12 +17,12 @@ import com.game.render.extra.normals.EscapyNormalRender;
 import com.game.render.extra.normals.NormalRenderer;
 import com.game.render.extra.std.StdRenderer;
 import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.NormalMapFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
 import com.game.render.fbo.psProcess.mask.EscapyLightMask;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
+import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
@@ -241,9 +241,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.clear();
 		
 		
-		//this.stdFBO.renderFBO();
-		this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
-	
+		this.stdFBO.renderFBO();
+		//this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
+		
 		//this.volumeLights.postRender(nrmlFBO, escapyCamera.getTranslationVec());
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {

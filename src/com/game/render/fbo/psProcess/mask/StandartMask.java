@@ -56,18 +56,7 @@ public class StandartMask extends EscapyMask {
 		this.maskFBO.forceWipeFBO();
 		fbo.renderToBuffer(maskFBO.getFrameBuffer());
 		this.maskFBO.renderFBO();
-		//super.postRenderCamera.update();
-		//super.maskBatch.setProjectionMatrix(super.postRenderCamera.combined());
-		
-		
-		/*		
-		GL20.glEnable(GL20.GL_BLEND);
-		GL11.glBlendFunc(super.modeType[0], super.modeType[1]);
-		g.setColor(super.COLOR);
-		g.fillRect(super.startX, super.startY, super.WIDTH, super.HEIGHT);
-		GL11.glDisable(GL11.GL_BLEND);
-		g.setDrawMode(Graphics.MODE_NORMAL);
-	*/
+
 	}
 	
 

@@ -2,10 +2,10 @@ package com.game.render.fbo.psProcess.program.userState;
 
 import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
-import com.game.render.fbo.NormalMapFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
+import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.render.shader.blend.userState.EscapyStdNrmlShader;
 
 // TODO: Auto-generated Javadoc
