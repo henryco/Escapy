@@ -51,7 +51,7 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 */
 	public EscapyMask() {
 		this.maskBatch = new SpriteBatch();
-		this.getDstSrcBf();
+		this.getDstSrcBlendfunc();
 		this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.initMask();
 	}
@@ -64,7 +64,7 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 */
 	public EscapyMask(EscapyGdxCamera postRenderCamera) {
 		this.maskBatch = new SpriteBatch();
-		this.getDstSrcBf();
+		this.getDstSrcBlendfunc();
 		this.postRenderCamera = postRenderCamera;
 		this.initMask();
 	}
@@ -140,11 +140,9 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	}
 	
 	/**
-	 * <br>
-	 * .
 	 *
 	 * @param camera
-	 *            the camera
+	 *            the camera cannot be null.
 	 * @return the escapy post renderable
 	 */
 	@Override
@@ -163,7 +161,7 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 		return new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA};
 	}
 	
-	private void getDstSrcBf() {
+	protected void getDstSrcBlendfunc() {
 		this.defBlendModeDST = this.maskBatch.getBlendDstFunc();
 		this.defBlendModeSRC = this.maskBatch.getBlendSrcFunc();
 	}

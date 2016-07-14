@@ -43,8 +43,6 @@ public class StandartMask extends EscapyMask {
 	}
 	
 	/**
-	 * <br>
-	 * .
 	 *
 	 * @param fbo
 	 *            the fbo
@@ -55,8 +53,11 @@ public class StandartMask extends EscapyMask {
 	public void postRender(EscapyFBO fbo, TransVec translationVec) {
 		
 		this.maskFBO.forceWipeFBO();
-		fbo.renderToBuffer(maskFBO.getFrameBuffer(), null);
+		fbo.renderToBuffer(maskFBO.getFrameBuffer());
 		this.maskFBO.renderFBO();
+		//super.postRenderCamera.update();
+		//super.maskBatch.setProjectionMatrix(super.postRenderCamera.combined());
+		
 		
 		/*		
 		GL20.glEnable(GL20.GL_BLEND);

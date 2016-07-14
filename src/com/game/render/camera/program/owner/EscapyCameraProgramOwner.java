@@ -1,6 +1,7 @@
-package com.game.render.camera.program;
+package com.game.render.camera.program.owner;
 
 import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.program.CameraProgram;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -151,7 +151,7 @@ public abstract class EscapyFBO {
 	 * <p>Creates new {@link TextureRegion} from contained fbo. </p>
 	 * <p>Dont use it in loop, it has trand to memory leak</p>
 	 *
-	 * @param ePP the e PP
+	 * @param ePP the {@link EscapyPostProcessed}, optional data for render.
 	 * @return the new rendered region
 	 */
 	@Deprecated
@@ -167,7 +167,7 @@ public abstract class EscapyFBO {
 	 * <p>Creates new {@link FrameBuffer} from contained other fbo. </p>
 	 * <p>Dont use it in loop, it has trand to memory leak</p>
 	 *
-	 * @param ePP the e PP
+	 * @param ePP the {@link EscapyPostProcessed}, optional data for render.
 	 * @return the new rendered buffer
 	 */
 	@Deprecated 
@@ -186,7 +186,8 @@ public abstract class EscapyFBO {
 	 * @param buffer - target {@link FrameBuffer} to render for.
 	 * @param ePP - optional {@link EscapyPostProcessed} data for render.
 	 * @param cam - {@link EscapyGdxCamera} cannot be null.
-	 * @return {@link FrameBuffer} with rendered data.*/
+	 * @return {@link FrameBuffer} with rendered data.
+	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)} */
 	public FrameBuffer renderToBuffer(FrameBuffer buffer, EscapyPostProcessed ePP, 
 			EscapyGdxCamera cam) {	
 		buffer.begin();
@@ -199,16 +200,18 @@ public abstract class EscapyFBO {
 	 * <br>this method uses for this {@link FBORenderProgram} and default camera {@link EscapyGdxCamera}.
 	 * @param buffer - target {@link FrameBuffer} to render for.
 	 * @param ePP - optional {@link EscapyPostProcessed} data for render.
-	 * @return {@link FrameBuffer} with rendered data.*/
+	 * @return {@link FrameBuffer} with rendered data.
+	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)}*/
 	public FrameBuffer renderToBuffer(FrameBuffer buffer, EscapyPostProcessed ePP) {
 		return renderToBuffer(buffer, ePP, this.fboCamera);
 	}
 	
 	/**Render data from contained {@link FrameBuffer} into target buffer,
-	 * <br>this method uses for this {@link FBORenderProgram}, default 
+	 * this method uses for this {@link FBORenderProgram}, default 
 	 * camera {@link EscapyGdxCamera} and {@link EscapyPostProcessed} data for render.
 	 * @param buffer - target {@link FrameBuffer} to render for.
-	 * @return {@link FrameBuffer} with rendered data.*/
+	 * @return {@link FrameBuffer} with rendered data.
+	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)}*/
 	public FrameBuffer renderToBuffer(FrameBuffer buffer) {
 		return renderToBuffer(buffer, null, this.fboCamera);
 	}

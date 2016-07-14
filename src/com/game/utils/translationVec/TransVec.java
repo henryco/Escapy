@@ -11,6 +11,9 @@ public class TransVec {
 	private float[] translationVectorArray;
 	private Vector2 translationVector;
 	
+	/** The y. */
+	public float x, y;
+	
 	/**
 	 * Instantiates a new trans vec.
 	 */
@@ -40,6 +43,20 @@ public class TransVec {
 	public TransVec(Vector2 vec2) {
 		this.initVec();
 		this.setTranslationVector(vec2);
+		return;
+	}
+	
+	/**
+	 * Instantiates a new trans vec.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 */
+	public TransVec(float x, float y) {
+		this.initVec();
+		this.setTranslationVector(x, y);
 		return;
 	}
 	
@@ -74,11 +91,11 @@ public class TransVec {
 	 * @param translationMatrix
 	 *            the new translation vector
 	 */
-	public void setTranslationVector(float[] translationMatrix)
-	{
+	public void setTranslationVector(float[] translationMatrix) {
 		this.translationVectorArray = translationMatrix;
-		this.translationVector.x = translationMatrix[0];
-		this.translationVector.y = translationMatrix[1];
+		this.translationVector.set(translationMatrix[0], translationMatrix[1]);
+		this.x = translationMatrix[0];
+		this.y = translationMatrix[1];
 	}
 	
 	/**
@@ -87,14 +104,29 @@ public class TransVec {
 	 * @param translationVector
 	 *            the new translation vector
 	 */
-	public void setTranslationVector(Vector2 translationVector)
-	{
+	public void setTranslationVector(Vector2 translationVector) {
 		this.translationVector = translationVector;
 		this.translationVectorArray[0] = translationVector.x;
 		this.translationVectorArray[1] = translationVector.y;
+		this.x = translationVector.x;
+		this.y = translationVector.y;
 	}
 	
-	
+	/**
+	 * Sets the translation vector.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 */
+	public void setTranslationVector(float x, float y) {
+		this.x = x;
+		this.y = y;
+		this.translationVectorArray[0] = this.x;
+		this.translationVectorArray[1] = this.y;
+		this.translationVector.set(this.x, this.y);
+	}
 
 
 }

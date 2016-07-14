@@ -3,6 +3,7 @@ package com.game.render;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.game.render.camera.holder.CameraProgramHolder;
 import com.game.utils.translationVec.TransVec;
@@ -124,18 +125,35 @@ public class EscapyGdxCamera {
 		this.camera.update();
 		return this;
 	}
+	
+	/**
+	 * Translate camera.
+	 *
+	 * @param translationVec
+	 *            the translation vec
+	 * @return the escapy gdx camera
+	 */
+	public EscapyGdxCamera translateCamera(TransVec translationVec) {
+		this.camera.translate(translationVec.x, translationVec.y);
+		this.camera.update();
+		return this;
+	}
 
 	/**
-	 * Clear.
+	 * Clear current GL buffer. <br><br>
+	 * <b>Gdx.gl.glClearColor(0f, 0f, 0f, 1f); <br>
+	 * Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</b>
 	 */
 	public void clear()
 	{
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 	
 	/**
-	 * Wipe.
+	 * Wipe current GL buffer. <br><br>
+	 * <b>Gdx.gl.glClearColor(0f, 0f, 0f, 0f); <br>
+	 * Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</b>
 	 */
 	public void wipe()
 	{
@@ -201,6 +219,17 @@ public class EscapyGdxCamera {
 		this.camera.position.x = x;
 		this.camera.position.y = y;
 		return this;
+	}
+	
+	/**
+	 * Sets the camera position.
+	 *
+	 * @param position
+	 *            the position
+	 * @return the escapy gdx camera
+	 */
+	public EscapyGdxCamera setCameraPosition(TransVec position) {
+		return this.setCameraPosition(position.x, position.y);
 	}
 
 	/**
@@ -341,11 +370,35 @@ public class EscapyGdxCamera {
 	 * @param translationVec
 	 *            the new translation vec
 	 */
-	public void setTranslationVec(TransVec translationVec) {
+	public void setTranslationVector(TransVec translationVec) {
 		this.translationVec = translationVec;
 	}
 
+	/**
+	 * Update.
+	 */
+	public void update() {
+		this.camera.update();
+	}
 
+	/**
+	 * Update.
+	 *
+	 * @param updateFrustum
+	 *            the update frustum
+	 */
+	public void update(boolean updateFrustum) {
+		this.camera.update(updateFrustum);
+	}
+
+	/**
+	 * Combined.
+	 *
+	 * @return the combined projection and view matrix 
+	 */
+	public Matrix4 combined() {
+		return this.camera.combined;
+	}
 
 
 	
