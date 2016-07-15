@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 
@@ -73,6 +74,8 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 * Inits the mask.
 	 */
 	protected abstract void initMask();
+	
+	public abstract EscapyMask addMaskTarget(FrameBuffer targetBuffer);
 	
 	/**
 	 * Sets the mask position.

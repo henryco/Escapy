@@ -71,7 +71,7 @@ public class EscapyGdxCamera {
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		this.cameraProgramHolders = new CameraProgramHolder();
-		this.translationVec = new TransVec();
+		this.translationVec = new TransVec().setAccuracy(-1);
 		this.updXYintervalLenghts();
 		
 	}
@@ -321,7 +321,7 @@ public class EscapyGdxCamera {
 	 * @return the translation vector array
 	 */
 	public float[] getTranslationVectorArray() {
-		return this.translationVec.getTranslationVectorArray();
+		return this.translationVec.getTransVecArray();
 	}
 	
 	/**
@@ -330,7 +330,7 @@ public class EscapyGdxCamera {
 	 * @return the translation vector
 	 */
 	public Vector2 getTranslationVector() {
-		return this.translationVec.getTranslationVector();
+		return this.translationVec.getTransVec();
 	}
 
 	/**
@@ -341,7 +341,7 @@ public class EscapyGdxCamera {
 	 */
 	public void setTranslationVector(float[] translationMatrix)
 	{
-		this.translationVec.setTranslationVector(translationMatrix);
+		this.translationVec.setTransVec(translationMatrix);
 	}
 	
 	/**
@@ -352,7 +352,7 @@ public class EscapyGdxCamera {
 	 */
 	public void setTranslationVector(Vector2 translationVector)
 	{
-		this.translationVec.setTranslationVector(translationVector);
+		this.translationVec.setTransVec(translationVector);
 	}
 	
 	/**

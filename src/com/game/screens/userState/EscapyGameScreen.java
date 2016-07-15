@@ -113,8 +113,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.volumeLights = new VolumeLightsContainer();
 		this.mouseLight = this.volumeLights.addSource(new SimpleLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
-		this.mask = lightMask.standartMask().setMaskPosition(0, 0, 
-				Gdx.graphics.getWidth(), Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY);
+		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
+				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
 		
 		//XXX
 		
@@ -138,7 +138,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.normalsContainer.addSource(new NormalRenderer(charactersContainer.player()));
 		
 		for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /** FRONT PARALLAX **/
-			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getTranslationVectorArray()));
+			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getTransVecArray()));
 		//XXX
 		
 		super.initializationEnded = true;
@@ -207,7 +207,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
 				controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
-
+		
 	}
 
 	
@@ -240,7 +240,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			this.renderGameObjects(escapyCamera);
 		super.escapyCamera.clear();
 		
-		
+		//this.nrmlFBO.forceWipeFBO();
 		this.stdFBO.renderFBO();
 		//this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
 		

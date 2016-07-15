@@ -1,8 +1,10 @@
 package com.game.render.fbo.psProcess.mask;
 
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
+import com.game.render.fbo.StandartMultiFBO;
 import com.game.utils.translationVec.TransVec;
 
 // TODO: Auto-generated Javadoc
@@ -38,8 +40,8 @@ public class StandartMask extends EscapyMask {
 	@Override
 	protected void initMask() {
 		
-		this.maskFBO = new StandartFBO();//.setRenderProgram(null); //TODO not null!
-		
+		//this.maskFBO = new EscapyStandartMul();//.setRenderProgram(null); //TODO not null!
+		this.maskFBO = new StandartMultiFBO();
 	}
 	
 	/**
@@ -57,6 +59,12 @@ public class StandartMask extends EscapyMask {
 		fbo.renderToBuffer(maskFBO.getFrameBuffer());
 		this.maskFBO.renderFBO();
 
+	}
+
+	@Override
+	public EscapyMask addMaskTarget(FrameBuffer targetBuffer) {
+		((StandartMultiFBO)this.maskFBO).addMultiFrameBuffer(targetBuffer);
+		return this;
 	}
 	
 

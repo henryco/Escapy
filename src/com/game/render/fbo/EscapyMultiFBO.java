@@ -110,7 +110,6 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 		return mergeTargetMultiBuffer(batcher, camera.getCamera());
 	}
 	
-
 	public EscapyFBO mergeTargetMultiBuffer(Batch batcher, OrthographicCamera camera)
 	{
 		if (targetMultiBuffer.length > 0)

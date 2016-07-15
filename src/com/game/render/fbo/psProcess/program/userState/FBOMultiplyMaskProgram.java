@@ -24,6 +24,7 @@ public class FBOMultiplyMaskProgram extends FBORenderProgram<EscapyFBO>{
 	public FBOMultiplyMaskProgram(EscapyFBO fboProgramTarget) {
 		super(fboProgramTarget);
 		this.blednRenderer = new EscapyStdMultiplyRenderer();
+		
 	}
 
 	/* (non-Javadoc)

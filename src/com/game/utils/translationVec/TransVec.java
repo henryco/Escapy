@@ -11,6 +11,8 @@ public class TransVec {
 	private float[] translationVectorArray;
 	private Vector2 translationVector;
 	
+	private int accuracy;
+	
 	/** The y. */
 	public float x, y;
 	
@@ -30,7 +32,7 @@ public class TransVec {
 	 */
 	public TransVec(float[] vec2) {
 		this.initVec();
-		this.setTranslationVector(vec2);
+		this.setTransVec(vec2);
 		return;
 	}
 	
@@ -42,7 +44,7 @@ public class TransVec {
 	 */
 	public TransVec(Vector2 vec2) {
 		this.initVec();
-		this.setTranslationVector(vec2);
+		this.setTransVec(vec2);
 		return;
 	}
 	
@@ -56,13 +58,51 @@ public class TransVec {
 	 */
 	public TransVec(float x, float y) {
 		this.initVec();
-		this.setTranslationVector(x, y);
+		this.setTransVec(x, y);
 		return;
 	}
+	
 	
 	private void initVec() {
 		this.translationVectorArray = new float[2];
 		this.translationVector = new Vector2(0, 0);
+		this.accuracy = (-1);
+	}
+	
+	
+	public TransVec setAccuracy(int acc) {
+		if (acc == (-1)) {
+			this.accuracy = acc;
+			return this;
+		}
+		int tempAcc = 1;
+		for (int i = 0; i < acc; i++){
+			tempAcc *= 10;
+		}
+		this.accuracy = tempAcc;
+		return this;
+	}
+	
+	protected float roundVec(float dta) {
+		
+		return (Math.round(dta*((float)this.accuracy))
+				/((float)this.accuracy));
+	}
+	
+	protected float[] roundVec(float[] dta) {
+		//TODO
+		//for (float dda : dta)
+		//	dda = roundVec(dda);
+		for (int i = 0; i < dta.length; i++)
+			dta[i] = roundVec(dta[i]);
+		return dta;
+	}
+	
+	protected Vector2 roundVec(Vector2 dta) {
+		float x = dta.x;
+		float y = dta.y;
+		dta.set(roundVec(x), roundVec(y));
+		return dta;
 	}
 	
 	/**
@@ -70,7 +110,7 @@ public class TransVec {
 	 *
 	 * @return the translation vector array
 	 */
-	public float[] getTranslationVectorArray() {
+	public float[] getTransVecArray() {
 		return translationVectorArray;
 	}
 
@@ -80,7 +120,7 @@ public class TransVec {
 	 *
 	 * @return the translation vector
 	 */
-	public Vector2 getTranslationVector() {
+	public Vector2 getTransVec() {
 		return translationVector;
 	}
 
@@ -91,7 +131,9 @@ public class TransVec {
 	 * @param translationMatrix
 	 *            the new translation vector
 	 */
-	public void setTranslationVector(float[] translationMatrix) {
+	public void setTransVec(float[] translationMatrix) {
+		if (this.accuracy != (-1)) 	
+			translationMatrix = roundVec(translationMatrix);
 		this.translationVectorArray = translationMatrix;
 		this.translationVector.set(translationMatrix[0], translationMatrix[1]);
 		this.x = translationMatrix[0];
@@ -104,7 +146,9 @@ public class TransVec {
 	 * @param translationVector
 	 *            the new translation vector
 	 */
-	public void setTranslationVector(Vector2 translationVector) {
+	public void setTransVec(Vector2 translationVector) {
+		if (this.accuracy != (-1)) 
+			translationVector = roundVec(translationVector);
 		this.translationVector = translationVector;
 		this.translationVectorArray[0] = translationVector.x;
 		this.translationVectorArray[1] = translationVector.y;
@@ -120,7 +164,11 @@ public class TransVec {
 	 * @param y
 	 *            the y
 	 */
-	public void setTranslationVector(float x, float y) {
+	public void setTransVec(float x, float y) {
+		if (this.accuracy != (-1)) {
+			x = roundVec(x);
+			y = roundVec(y);
+		}
 		this.x = x;
 		this.y = y;
 		this.translationVectorArray[0] = this.x;
