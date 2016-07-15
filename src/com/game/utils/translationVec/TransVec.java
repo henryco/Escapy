@@ -111,9 +111,6 @@ public class TransVec {
 	 * @return the float[]
 	 */
 	protected float[] roundVec(float[] dta) {
-		//TODO
-		//for (float dda : dta)
-		//	dda = roundVec(dda);
 		for (int i = 0; i < dta.length; i++)
 			dta[i] = roundVec(dta[i]);
 		return dta;
