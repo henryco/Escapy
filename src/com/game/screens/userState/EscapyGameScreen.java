@@ -18,9 +18,9 @@ import com.game.render.extra.normals.NormalRenderer;
 import com.game.render.extra.std.StdRenderer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
+import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
-import com.game.render.fbo.psProcess.mask.EscapyLightMask;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
@@ -39,7 +39,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private PlayerControl controlls;
 	private EscapyPhysicsBase physics;
 	private EscapyAnimatorBase animator;
-	private EscapyLightMask lightMask;
+	private LightMaskContainer lightMask;
 	
 	/** The player camera program ID. */
 	protected int playerCameraProgramID;
@@ -102,15 +102,17 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
 		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder()
 				.addCameraProgram(CameraProgramFactory.standartCharacterProgram(this.charactersContainer.player()));
-		this.lightMask = new EscapyLightMask();
 		
 		
 		
 		this.stdFBO = new StandartFBO();
 		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
+		this.lightMask = new LightMaskContainer();
 		this.stdContainer = new ExtraRenderContainer();
 		this.normalsContainer = new ExtraRenderContainer();
-		this.volumeLights = new VolumeLightsContainer();
+		this.volumeLights = new VolumeLightsContainer(nrmlFBO);
+
+		
 		this.mouseLight = this.volumeLights.addSource(new SimpleLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
@@ -241,10 +243,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.clear();
 		
 		//this.nrmlFBO.forceWipeFBO();
-		this.stdFBO.renderFBO();
-		//this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
 		
-		//this.volumeLights.postRender(nrmlFBO, escapyCamera.getTranslationVec());
+		//this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
+		this.volumeLights.postRender(stdFBO, escapyCamera.getTranslationVec());
+		
+		this.stdFBO.renderFBO();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();

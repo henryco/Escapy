@@ -3,8 +3,9 @@ package com.game.render.fbo.psProcess.mask;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.StandartFBO;
+import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartMultiFBO;
+import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.translationVec.TransVec;
 
 // TODO: Auto-generated Javadoc
@@ -20,7 +21,7 @@ public class StandartMask extends EscapyMask {
 	/**
 	 * Instantiates a new standart mask.
 	 */
-	protected StandartMask() {
+	public StandartMask() {
 		super();
 	}
 	
@@ -30,7 +31,7 @@ public class StandartMask extends EscapyMask {
 	 * @param postRenderCamera
 	 *            the post render camera
 	 */
-	protected StandartMask(EscapyGdxCamera postRenderCamera) {
+	public StandartMask(EscapyGdxCamera postRenderCamera) {
 		super(postRenderCamera);
 	}
 
@@ -40,33 +41,63 @@ public class StandartMask extends EscapyMask {
 	@Override
 	protected void initMask() {
 		
-		//this.maskFBO = new EscapyStandartMul();//.setRenderProgram(null); //TODO not null!
 		this.maskFBO = new StandartMultiFBO();
+		//this.maskFBO.setRenderProgram(new FBOMultiplyMaskProgram(maskFBO)); //TODO
 	}
 	
-	/**
-	 * Post render.
-	 *
-	 * @param fbo
-	 *            the fbo
-	 * @param translationVec
-	 *            the translation vec
+
+
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psProcess.mask.EscapyMask#addMaskTarget(com.badlogic.gdx.graphics.glutils.FrameBuffer)
 	 */
 	@Override
-	public void postRender(EscapyFBO fbo, TransVec translationVec) {
-		
-		this.maskFBO.forceWipeFBO();
-		fbo.renderToBuffer(maskFBO.getFrameBuffer());
-		this.maskFBO.renderFBO();
-
+	public EscapyMask addMaskTarget(FrameBuffer targetBuffer) {
+		((EscapyMultiFBO) this.maskFBO).addMultiFrameBuffer(targetBuffer);
+		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psRender.EscapyPostRenderer#postRender(com.game.render.fbo.EscapyFBO, com.game.utils.translationVec.TransVec)
+	 */
 	@Override
-	public EscapyMask addMaskTarget(FrameBuffer targetBuffer) {
-		((StandartMultiFBO)this.maskFBO).addMultiFrameBuffer(targetBuffer);
+	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
+		fbo.begin();
+			this.postRender(translationVec);
+		fbo.end();
+		return fbo;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psRender.EscapyPostRenderer#postRender(com.game.utils.translationVec.TransVec)
+	 */
+	@Override
+	public void postRender(TransVec translationVec) {
+		//this.maskFBO = super.applyColor(this.maskFBO);
+		//fbo.renderToBuffer(maskFBO.getFrameBuffer());
+		//this.maskFBO.renderFBO();
+				
+		super.applyColor(this.maskFBO);
+		this.maskFBO.renderFBO();
+		
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#setPostRenderFBO(com.game.render.fbo.EscapyFBO)
+	 */
+	@Override
+	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) {
+		this.maskFBO = postRednerFBO;
 		return this;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#getPostRenderFBO()
+	 */
+	@Override
+	public EscapyFBO getPostRenderFBO() {
+		return this.maskFBO;
+	}
 
 	
 

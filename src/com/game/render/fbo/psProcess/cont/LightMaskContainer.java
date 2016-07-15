@@ -1,10 +1,13 @@
-package com.game.render.fbo.psProcess.mask;
+package com.game.render.fbo.psProcess.cont;
 
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.psProcess.mask.EscapyMask;
+import com.game.render.fbo.psProcess.mask.StandartMask;
+import com.game.render.fbo.psRender.EscapyPostRenderer;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.translationVec.TransVec;
 
@@ -16,7 +19,7 @@ import com.game.utils.translationVec.TransVec;
  * @author Henry
  *
  */
-public class EscapyLightMask implements EscapyPostRenderable {
+public class LightMaskContainer implements EscapyPostRenderer {
 
 	private ArrayList<EscapyMask> maskList;
 	private EscapyGdxCamera postRenderCamera;
@@ -24,7 +27,7 @@ public class EscapyLightMask implements EscapyPostRenderable {
 	/**
 	 * Create queued lightmask factory.
 	 */
-	public EscapyLightMask()
+	public LightMaskContainer()
 	{
 		this.maskList = new ArrayList<>();
 		postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -35,7 +38,7 @@ public class EscapyLightMask implements EscapyPostRenderable {
 	 * Create queued lightmask factory.
 	 * @param camera - {@link EscapyGdxCamera} object cannot be null.
 	 */
-	public EscapyLightMask(EscapyGdxCamera camera)
+	public LightMaskContainer(EscapyGdxCamera camera)
 	{
 		this.maskList = new ArrayList<>();
 		this.postRenderCamera = camera;
@@ -85,29 +88,30 @@ public class EscapyLightMask implements EscapyPostRenderable {
 	 *            the fbo
 	 * @param translationVec
 	 *            the translation vec
+	 * @return the escapy FBO
 	 * @see EscapyPostRenderable
 	 * @see EscapyFBO
 	 * @see TransVec
 	 */
 	@Override
-	public void postRender(EscapyFBO fbo, TransVec translationVec) {
-		
-		for (EscapyMask mask : maskList) {
-			mask.postRender(fbo, translationVec);
-		}
+	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
+		fbo.begin();
+			this.postRender(translationVec);
+		fbo.end();
+		return fbo;
 	}
 	
-	/**
-	 * Sets the post render camera.
-	 *
-	 * @param camera
-	 *            - {@link EscapyGdxCamera} object cannot be null.
-	 * @return the escapy post renderable
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psRender.EscapyPostRenderer#postRender(com.game.utils.translationVec.TransVec)
 	 */
 	@Override
-	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {
-		this.postRenderCamera = camera;
-		return this;
+	public void postRender(TransVec translationVec) {
+		for (EscapyMask mask : maskList) 
+			mask.postRender(translationVec);
 	}
+
+	
+	
+	
 
 }

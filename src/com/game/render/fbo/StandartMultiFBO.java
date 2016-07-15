@@ -7,20 +7,42 @@ import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.shader.EscapyStdShaderRenderer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StandartMultiFBO.
+ */
 public class StandartMultiFBO extends EscapyMultiFBO {
 
+	/**
+	 * Instantiates a new standart multi FBO.
+	 */
 	public StandartMultiFBO() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new standart multi FBO.
+	 *
+	 * @param multiFrameBuffer
+	 *            the multi frame buffer
+	 */
 	public StandartMultiFBO(FrameBuffer multiFrameBuffer) {
 		super(multiFrameBuffer);
 	}
 
+	/**
+	 * Instantiates a new standart multi FBO.
+	 *
+	 * @param multiFrameBuffer
+	 *            the multi frame buffer
+	 */
 	public StandartMultiFBO(FrameBuffer[] multiFrameBuffer) {
 		super(multiFrameBuffer);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.EscapyFBO#initRenderProgram()
+	 */
 	@Override
 	protected FBORenderProgram<?> initRenderProgram() {
 		

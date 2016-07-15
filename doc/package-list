@@ -17,6 +17,7 @@ com.game.render.fbo.psProcess.mask
 com.game.render.fbo.psProcess.program
 com.game.render.fbo.psProcess.program.userState
 com.game.render.fbo.psRender
+com.game.render.fbo.userState
 com.game.render.shader
 com.game.render.shader.blend
 com.game.render.shader.blend.userState

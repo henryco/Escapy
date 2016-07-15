@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
+import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 
 
@@ -15,7 +17,7 @@ import com.game.render.fbo.psRender.EscapyPostRenderable;
  * GL based lightmask superclass.
  *
  * @author Henry
- * @see EscapyLightMask
+ * @see LightMaskContainer
  */
 public abstract class EscapyMask implements EscapyPostRenderable {
 
@@ -32,13 +34,10 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	protected float startX, startY;
 	
 	/** The color. */
-	protected Color COLOR;
+	protected Color COLOR = new Color();
 	
 	/** The mode type. */
 	protected int[] modeType;
-	
-	/** The def blend mode DST. */
-	protected int defBlendModeSRC, defBlendModeDST;
 	
 	/** The mask batch. */
 	protected Batch maskBatch;
@@ -52,7 +51,6 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 */
 	public EscapyMask() {
 		this.maskBatch = new SpriteBatch();
-		this.getDstSrcBlendfunc();
 		this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.initMask();
 	}
@@ -65,7 +63,6 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 */
 	public EscapyMask(EscapyGdxCamera postRenderCamera) {
 		this.maskBatch = new SpriteBatch();
-		this.getDstSrcBlendfunc();
 		this.postRenderCamera = postRenderCamera;
 		this.initMask();
 	}
@@ -75,6 +72,13 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 */
 	protected abstract void initMask();
 	
+	/**
+	 * Adds the mask target.
+	 *
+	 * @param targetBuffer
+	 *            the target buffer
+	 * @return the escapy mask
+	 */
 	public abstract EscapyMask addMaskTarget(FrameBuffer targetBuffer);
 	
 	/**
@@ -143,18 +147,22 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	}
 	
 	/**
-	 * Sets the post render camera.
+	 * Apply color.
 	 *
-	 * @param camera
-	 *            the camera cannot be null.
-	 * @return the escapy post renderable
+	 * @param <MASKFBO>
+	 *            the generic type
+	 * @param maskFBO
+	 *            the mask FBO
+	 * @return the maskfbo
 	 */
-	@Override
-	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {
-		this.postRenderCamera = camera;
-		return this;
+	protected <MASKFBO extends EscapyFBO> MASKFBO applyColor(MASKFBO maskFBO) {
+		
+		maskFBO.begin();
+		Gdx.gl.glClearColor(this.COLOR.r, this.COLOR.g, this.COLOR.b, 1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		maskFBO.end();
+		return maskFBO;
 	}
-	
 	
 	private int[] modeType(int mode)
 	{	
@@ -165,12 +173,13 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 		return new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA};
 	}
 	
-	/**
-	 * Gets the dst src blendfunc.
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#setPostRenderCamera(com.game.render.EscapyGdxCamera)
 	 */
-	protected void getDstSrcBlendfunc() {
-		this.defBlendModeDST = this.maskBatch.getBlendDstFunc();
-		this.defBlendModeSRC = this.maskBatch.getBlendSrcFunc();
+	@Override
+	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {
+		this.postRenderCamera = camera;
+		return this;
 	}
 	
 }

@@ -70,6 +70,13 @@ public class TransVec {
 	}
 	
 	
+	/**
+	 * Sets the accuracy.
+	 *
+	 * @param acc
+	 *            - dot accuracy, full lenght if (-1)
+	 * @return the trans vec
+	 */
 	public TransVec setAccuracy(int acc) {
 		if (acc == (-1)) {
 			this.accuracy = acc;
@@ -83,12 +90,26 @@ public class TransVec {
 		return this;
 	}
 	
+	/**
+	 * Round vec.
+	 *
+	 * @param dta
+	 *            - value for round
+	 * @return rounded float
+	 */
 	protected float roundVec(float dta) {
 		
 		return (Math.round(dta*((float)this.accuracy))
 				/((float)this.accuracy));
 	}
 	
+	/**
+	 * Round vec.
+	 *
+	 * @param dta
+	 *             - array for round
+	 * @return the float[]
+	 */
 	protected float[] roundVec(float[] dta) {
 		//TODO
 		//for (float dda : dta)
@@ -98,6 +119,13 @@ public class TransVec {
 		return dta;
 	}
 	
+	/**
+	 * Round vec.
+	 *
+	 * @param dta
+	 *            the dta
+	 * @return the vector 2
+	 */
 	protected Vector2 roundVec(Vector2 dta) {
 		float x = dta.x;
 		float y = dta.y;

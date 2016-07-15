@@ -132,9 +132,9 @@ public class EscapyBlendRenderer extends EscapyStdShaderRenderer {
 	 * @param blend
 	 *            the blend
 	 * @param x
-	 *            the x
+	 *            the start X point
 	 * @param y
-	 *            the y
+	 *            the start Y point
 	 * @param camera
 	 *            the camera
 	 * @return the texture
@@ -154,9 +154,9 @@ public class EscapyBlendRenderer extends EscapyStdShaderRenderer {
 	 * @param blend
 	 *            the blend
 	 * @param x
-	 *            the x
+	 *            the start X point
 	 * @param y
-	 *            the y
+	 *            the start Y point
 	 * @param width
 	 *            the width
 	 * @param height

@@ -1,7 +1,8 @@
 package com.game.render.fbo.psProcess.program.userState;
 
+import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
-import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.shader.blend.EscapyBlendRenderer;
@@ -9,9 +10,10 @@ import com.game.render.shader.blend.userState.EscapyStdMultiplyRenderer;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class FBOMultiplyMaskProgram.
+ * The Class FBOMultiplyMaskProgram, that contains target FBO with PROTECTED modifier, so u
+ * can easely get access to it by <b> super.fbo.??? </b>
  */
-public class FBOMultiplyMaskProgram extends FBORenderProgram<EscapyFBO>{
+public class FBOMultiplyMaskProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	private EscapyBlendRenderer blednRenderer;
 	
@@ -21,7 +23,7 @@ public class FBOMultiplyMaskProgram extends FBORenderProgram<EscapyFBO>{
 	 * @param fboProgramTarget
 	 *            the fbo program target
 	 */
-	public FBOMultiplyMaskProgram(EscapyFBO fboProgramTarget) {
+	public FBOMultiplyMaskProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
 		this.blednRenderer = new EscapyStdMultiplyRenderer();
 		
@@ -31,9 +33,10 @@ public class FBOMultiplyMaskProgram extends FBORenderProgram<EscapyFBO>{
 	 * @see com.game.render.fbo.psProcess.program.FBORenderProgram#renderProgram(com.game.render.EscapyGdxCamera, com.game.render.fbo.psProcess.EscapyPostProcessed)
 	 */
 	@Override
-	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
-		// TODO Auto-generated method stub
-		
+	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
+	{
+		this.blednRenderer.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),
+				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera.getCamera());
 	}
 
 	

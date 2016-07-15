@@ -43,6 +43,9 @@ public class NormalMapFBO extends EscapyMultiFBO {
 		super(targetFrameBuffer);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.game.render.fbo.EscapyMultiFBO#initFBO()
+	 */
 	@Override
 	protected void initFBO() {
 		super.initFBO();

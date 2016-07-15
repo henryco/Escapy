@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.GameEnter;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.AbsLight;
@@ -84,9 +85,11 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		this.dist = 5f;
 	
 		/**FIXME TEST FIXME**/
+		this.stdFBO = new StandartFBO();
+		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
 		
 		this.batcher = new SpriteBatch();
-		this.volumeLights = new VolumeLightsContainer();
+		this.volumeLights = new VolumeLightsContainer(nrmlFBO);
 		this.lightsID = new int[lights.length];
 		
 		for (int i = 0; i < lightsID.length; i++)
@@ -95,9 +98,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		this.mouseLight = volumeLights.addSource(new SimpleLight(new float[] { 60, 60 }, new float[] { 200, 150 },
 				new float[] { 0.1f, 1f, 0.1f }, 0.35f, 5f));
 		
-		this.stdFBO = new StandartFBO();
-		this.nrmlFBO = new NormalMapFBO(((StandartFBO)stdFBO).getStdBuffer());
-
+		//this.volumeLights.setPostRenderFBO(nrmlFBO);
 		/**FIXME TEST FIXME**/
 	}
 
@@ -186,15 +187,12 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 				this.testNrmlSprite.draw(batcher);
 			this.batcher.end();
 		}
-		((NormalMapFBO) this.nrmlFBO.end()).mergeTargetMultiBuffer(batcher, privGdxCamera);
+		this.nrmlFBO.end().mergeBuffer();
 		this.privGdxCamera.clear();
 
-		//this.stdFBO.renderFBO();
-		//this.stdFBO.forceWipeFBO();
-		//this.nrmlFBO.forceWipeFBO();
 		this.privGdxCamera.getCamera().update();
-		this.volumeLights.postRender(nrmlFBO, privGdxCamera.getTranslationVec());
-
+		this.volumeLights.postRender(stdFBO, privGdxCamera.getTranslationVec());
+		this.stdFBO.renderFBO();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) /** Back to game **/
 		{
