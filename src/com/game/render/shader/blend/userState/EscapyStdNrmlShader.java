@@ -9,13 +9,13 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.game.render.fbo.psProcess.lights.SimpleLight;
-import com.game.render.shader.EscapyStdShaderRenderer;
+import com.game.render.shader.EscapyShaderRender;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class EscapyStdNrmlShader.
  */
-public class EscapyStdNrmlShader extends EscapyStdShaderRenderer {
+public class EscapyStdNrmlShader extends EscapyShaderRender {
 
 	private static final String VERTEX = "shaders\\nrml\\nrml.vert";
 	private static final String FRAGMENT = "shaders\\nrml\\nrml.frag";
@@ -45,7 +45,8 @@ public class EscapyStdNrmlShader extends EscapyStdShaderRenderer {
 	
 	private void startInit() {
 		this.nrmlShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
-		System.err.println(nrmlShader.isCompiled() ? "compiled: EscapyStdNrmlShader" : nrmlShader.getLog());
+		//System.err.println(nrmlShader.isCompiled() ? "COMPILED: "+this.toString() : "ERROR: "+this.toString()+"\n"+nrmlShader.getLog());
+		super.checkStatus(nrmlShader);
 	}
 	
 	
@@ -250,6 +251,14 @@ public class EscapyStdNrmlShader extends EscapyStdShaderRenderer {
 		shader.end();
 
 		return shader;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.game.render.shader.EscapyShaderRender#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EscapyStdNrmlShader_"+super.id;
 	}
 
 }

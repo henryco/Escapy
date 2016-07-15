@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
+import com.game.render.fbo.psProcess.program.FBORenderProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOMultiplyMaskProgram;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 
 
@@ -36,15 +39,13 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	/** The color. */
 	protected Color COLOR = new Color();
 	
-	/** The mode type. */
-	protected int[] modeType;
-	
 	/** The mask batch. */
 	protected Batch maskBatch;
 	
 	/** The post render camera. */
 	protected EscapyGdxCamera postRenderCamera;
-	
+
+	private EscapyMultiFBO linkedFBO;
 	
 	/**
 	 * Instantiates a new escapy mask.
@@ -52,7 +53,7 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	public EscapyMask() {
 		this.maskBatch = new SpriteBatch();
 		this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		this.initMask();
+		this.linkedFBO = this.initMaskFBO();
 	}
 	
 	/**
@@ -64,13 +65,15 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	public EscapyMask(EscapyGdxCamera postRenderCamera) {
 		this.maskBatch = new SpriteBatch();
 		this.postRenderCamera = postRenderCamera;
-		this.initMask();
+		this.linkedFBO = this.initMaskFBO();
 	}
 	
 	/**
 	 * Inits the mask.
+	 *
+	 * @return the escapy multi FBO
 	 */
-	protected abstract void initMask();
+	protected abstract EscapyMultiFBO initMaskFBO();
 	
 	/**
 	 * Adds the mask target.
@@ -112,6 +115,10 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 */
 	public EscapyMask setColor(Color color) {
 		COLOR = color;
+		System.out.println(COLOR.r);
+		System.out.println(COLOR.g);
+		System.out.println(COLOR.b);
+		System.out.println(COLOR.a);
 		return this;
 	}
 	
@@ -121,7 +128,7 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 * @return mask
 	 */
 	public EscapyMask setMode(int mode) {
-		this.modeType = modeType(mode);
+		this.linkedFBO.setRenderProgram(modeType(mode, linkedFBO));
 		return this;
 	}
 	
@@ -164,13 +171,13 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 		return maskFBO;
 	}
 	
-	private int[] modeType(int mode)
+	private FBORenderProgram<EscapyMultiFBO> modeType(int mode, EscapyMultiFBO fbo)
 	{	
 		if (mode == MULTIPLY)
-			return new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA};
+			return (new FBOMultiplyMaskProgram(fbo));
 		if (mode == COLOR_DODGE)
-			return new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE};
-		return new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA};
+			return (new FBOMultiplyMaskProgram(fbo));
+		return (new FBOMultiplyMaskProgram(fbo));
 	}
 	
 	/* (non-Javadoc)
@@ -181,5 +188,6 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 		this.postRenderCamera = camera;
 		return this;
 	}
+	
 	
 }

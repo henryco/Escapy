@@ -16,7 +16,7 @@ import com.game.utils.translationVec.TransVec;
  */
 public class StandartMask extends EscapyMask {
 
-	private EscapyFBO maskFBO;
+	private EscapyMultiFBO maskFBO;
 	
 	/**
 	 * Instantiates a new standart mask.
@@ -39,10 +39,11 @@ public class StandartMask extends EscapyMask {
 	 * @see com.game.render.fbo.psProcess.mask.EscapyMask#initMask()
 	 */
 	@Override
-	protected void initMask() {
+	protected EscapyMultiFBO initMaskFBO() {
 		
 		this.maskFBO = new StandartMultiFBO();
 		//this.maskFBO.setRenderProgram(new FBOMultiplyMaskProgram(maskFBO)); //TODO
+		return maskFBO;
 	}
 	
 
@@ -52,7 +53,7 @@ public class StandartMask extends EscapyMask {
 	 */
 	@Override
 	public EscapyMask addMaskTarget(FrameBuffer targetBuffer) {
-		((EscapyMultiFBO) this.maskFBO).addMultiFrameBuffer(targetBuffer);
+		this.maskFBO.addMultiFrameBuffer(targetBuffer);
 		return this;
 	}
 
@@ -61,8 +62,11 @@ public class StandartMask extends EscapyMask {
 	 */
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
+		
+		super.applyColor(this.maskFBO);
+		this.maskFBO.mergeBuffer();
 		fbo.begin();
-			this.postRender(translationVec);
+			this.maskFBO.renderFBO();
 		fbo.end();
 		return fbo;
 	}
@@ -72,22 +76,21 @@ public class StandartMask extends EscapyMask {
 	 */
 	@Override
 	public void postRender(TransVec translationVec) {
-		//this.maskFBO = super.applyColor(this.maskFBO);
-		//fbo.renderToBuffer(maskFBO.getFrameBuffer());
-		//this.maskFBO.renderFBO();
-				
+		
 		super.applyColor(this.maskFBO);
+		this.maskFBO.mergeBuffer();
 		this.maskFBO.renderFBO();
 		
 	}
 
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#setPostRenderFBO(com.game.render.fbo.EscapyFBO)
 	 */
 	@Override
 	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) {
-		this.maskFBO = postRednerFBO;
+		this.maskFBO = (EscapyMultiFBO) postRednerFBO;
 		return this;
 	}
 	

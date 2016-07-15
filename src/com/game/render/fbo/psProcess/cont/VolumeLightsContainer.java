@@ -105,7 +105,6 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 		
 		for (AbsLight light : volumeLights) {
 			light.getPosition().sub(translationVec.getTransVec());
-			//fbo.renderFBO(postRenderCamera, light);
 			this.nrmlFBO.renderFBO(postRenderCamera, light);
 		}
 	}

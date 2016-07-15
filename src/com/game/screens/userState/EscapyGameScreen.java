@@ -3,6 +3,7 @@ package com.game.screens.userState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.game.GameEnter;
 import com.game.animator.EscapyAnimatorBase;
@@ -117,6 +118,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
+		this.mask.setColor(new Color((60f/255f), (60f/255f), (60f/255f), 1f));
 		
 		//XXX
 		
@@ -196,11 +198,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	public void update() {
 		
 		this.updDist();
-	//	this.volumeLights.getSourceByID(mouseLight).
-	//		setPosition(new Vector2(mpos[0], mpos[1])).
-	//		setDistance(dist).setIntencity(intencity - 0.4f);
 		this.volumeLights.getSourceByID(mouseLight).
+			setPosition(new Vector2(mpos[0], mpos[1])).
 			setDistance(dist).setIntencity(intencity - 0.4f);
+	//	this.volumeLights.getSourceByID(mouseLight).
+	//		setDistance(dist).setIntencity(intencity - 0.4f);
 		
 		((SimpleLight) this.volumeLights.getSourceByID(mouseLight)).
 		setDimension(new Vector2(screen[0], screen[1]));
@@ -243,8 +245,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.clear();
 		
 		//this.nrmlFBO.forceWipeFBO();
-		
-		//this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
+		//this.stdFBO.forceWipeFBO();
+		this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
+
 		this.volumeLights.postRender(stdFBO, escapyCamera.getTranslationVec());
 		
 		this.stdFBO.renderFBO();

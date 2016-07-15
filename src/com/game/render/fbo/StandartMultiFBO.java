@@ -57,7 +57,7 @@ public class StandartMultiFBO extends EscapyMultiFBO {
 						0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 				this.stdRenderer.drawTextureRegion(super.fbo.mutliTexureRegion,camera.getCamera(),
 						0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				
+			
 			}
 		};
 	}

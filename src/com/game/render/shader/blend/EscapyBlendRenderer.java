@@ -4,15 +4,16 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.game.render.shader.EscapyStdShaderRenderer;
+import com.game.render.shader.EscapyShaderRender;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class EscapyBlendRenderer.
  */
-public class EscapyBlendRenderer extends EscapyStdShaderRenderer {
+public class EscapyBlendRenderer extends EscapyShaderRender {
 
 	private ShaderProgram blendShader;
 	private final String targetMap, blendMap;
@@ -67,7 +68,7 @@ public class EscapyBlendRenderer extends EscapyStdShaderRenderer {
 	 */
 	public EscapyBlendRenderer(String targetMap, String blendMap) {
 		super();
-		this.blendShader = super.stdProgram;
+		this.blendShader = SpriteBatch.createDefaultShader();
 		this.targetMap = targetMap;
 		this.blendMap = blendMap;
 	}
@@ -84,7 +85,7 @@ public class EscapyBlendRenderer extends EscapyStdShaderRenderer {
 	 */
 	public EscapyBlendRenderer(int ID, String targetMap, String blendMap) {
 		super(ID);
-		this.blendShader = super.stdProgram;
+		this.blendShader = SpriteBatch.createDefaultShader();
 		this.targetMap = targetMap;
 		this.blendMap = blendMap;
 	}
@@ -101,7 +102,7 @@ public class EscapyBlendRenderer extends EscapyStdShaderRenderer {
 	public EscapyBlendRenderer initShaderProgram(String VERTEX, String FRAGMENT) {
 		ShaderProgram.pedantic = false;
 		this.blendShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
-		System.err.println(blendShader.isCompiled() ? "compiled: BlendShader: "+id : "ERROR BlendShader: "+id+"\n"+blendShader.getLog());
+		super.checkStatus(blendShader);
 		return this;
 	}
 	
@@ -184,6 +185,14 @@ public class EscapyBlendRenderer extends EscapyStdShaderRenderer {
 		}
 		shader.end();
 		return shader;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.game.render.shader.EscapyShaderRender#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EscapyBlendShader_"+super.id;
 	}
 	
 	

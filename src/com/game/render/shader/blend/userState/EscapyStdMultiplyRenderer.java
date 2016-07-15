@@ -9,16 +9,16 @@ import com.game.render.shader.blend.EscapyBlendRenderer;
 public class EscapyStdMultiplyRenderer extends EscapyBlendRenderer {
 
 	/** The Constant VERTEX. */
-	public static final String VERTEX = "";
+	public static final String VERTEX = "shaders\\blend\\multiply\\multiply.vert";
 	
 	/** The Constant FRAGMENT. */
-	public static final String FRAGMENT = "";
+	public static final String FRAGMENT = "shaders\\blend\\multiply\\multiply.frag";
 	
 	/** The Constant TARGETMAP. */
-	public static final String TARGETMAP = "";
+	public static final String TARGETMAP = "targetMap";
 	
 	/** The Constant BLENDMAP. */
-	public static final String BLENDMAP = "";
+	public static final String BLENDMAP = "blendMap";
 	
 	/**
 	 * Instantiates a new escapy std multiply renderer.
@@ -37,6 +37,12 @@ public class EscapyStdMultiplyRenderer extends EscapyBlendRenderer {
 		super(ID, VERTEX, FRAGMENT, TARGETMAP, BLENDMAP);	
 	}
 	
-	
+	/* (non-Javadoc)
+	 * @see com.game.render.shader.blend.EscapyBlendRenderer#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EscapyStdMultiplyShader_"+super.id;
+	}
 
 }

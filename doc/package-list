@@ -1,5 +1,5 @@
-com.game.animator
 com.game.controlls
+com.game.map
 com.game.physics_temp
 com.game.render
 com.game.render.camera.holder
@@ -22,7 +22,6 @@ com.game.render.shader
 com.game.render.shader.blend
 com.game.render.shader.blend.userState
 com.game.screens
-com.game.screens.game
 com.game.update_loop
 com.game.utils
 com.game.utils.absContainer
