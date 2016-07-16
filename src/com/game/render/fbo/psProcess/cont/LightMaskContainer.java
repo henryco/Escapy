@@ -95,9 +95,8 @@ public class LightMaskContainer implements EscapyPostRenderer {
 	 */
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
-		fbo.begin();
-			this.postRender(translationVec);
-		fbo.end();
+		for (EscapyMask mask : maskList) 
+			fbo = mask.postRender(fbo, translationVec);
 		return fbo;
 	}
 	

@@ -37,7 +37,7 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	protected float startX, startY;
 	
 	/** The color. */
-	protected Color COLOR = new Color();
+	protected Color COLOR = new Color((60f/255f), (60f/255f), (60f/255f), 1f);
 	
 	/** The mask batch. */
 	protected Batch maskBatch;
@@ -115,10 +115,10 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 */
 	public EscapyMask setColor(Color color) {
 		COLOR = color;
-		System.out.println(COLOR.r);
-		System.out.println(COLOR.g);
-		System.out.println(COLOR.b);
-		System.out.println(COLOR.a);
+		//System.out.println(COLOR.r);
+		//System.out.println(COLOR.g);
+		//System.out.println(COLOR.b);
+		//System.out.println(COLOR.a);
 		return this;
 	}
 	
