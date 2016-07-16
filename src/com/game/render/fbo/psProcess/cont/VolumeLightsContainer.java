@@ -30,8 +30,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	 */
 	public VolumeLightsContainer() {
 		
-		this.volumeLights = new ArrayList<>();
-		this.buffer = new ArrayList<>();
+		this.initContainer();
 		this.setPostRenderFBO(new StandartMultiFBO());
 		this.setPostRenderCamera(new EscapyGdxCamera(Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()));
@@ -46,8 +45,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	 */
 	public VolumeLightsContainer(EscapyGdxCamera postRenderCamera) {
 		
-		this.volumeLights = new ArrayList<>();
-		this.buffer = new ArrayList<>();
+		this.initContainer();
 		this.setPostRenderCamera(postRenderCamera);
 		this.setPostRenderFBO(new StandartMultiFBO());
 		return;
@@ -61,8 +59,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	 */
 	public VolumeLightsContainer(EscapyFBO mutliFBO) {
 		
-		this.volumeLights = new ArrayList<>();
-		this.buffer = new ArrayList<>();
+		this.initContainer();
 		this.setPostRenderCamera(new EscapyGdxCamera(Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()));
 		this.setPostRenderFBO(mutliFBO);
@@ -79,11 +76,16 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	 */
 	public VolumeLightsContainer(EscapyGdxCamera postRenderCamera, EscapyFBO mutliFBO) {
 		
-		this.volumeLights = new ArrayList<>();
-		this.buffer = new ArrayList<>();
+		this.initContainer();
 		this.setPostRenderCamera(postRenderCamera);
 		this.setPostRenderFBO(mutliFBO);
 		return;
+	}
+	
+	private void initContainer() {
+		this.volumeLights = new ArrayList<>();
+		this.buffer = new ArrayList<>();
+
 	}
 	
 	/* (non-Javadoc)
@@ -91,6 +93,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	 */
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
+		
 		fbo.begin();
 			this.postRender(translationVec);
 		fbo.end();
@@ -106,7 +109,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 		for (AbsLight light : volumeLights) {
 			light.getPosition().sub(translationVec.getTransVec());
 			this.nrmlFBO.renderFBO(postRenderCamera, light);
-		}
+		} 
 	}
 	
 	/* (non-Javadoc)

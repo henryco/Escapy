@@ -66,6 +66,7 @@ public class StandartMask extends EscapyMask {
 		super.applyColor(this.maskFBO);
 		this.maskFBO.mergeBuffer();
 		fbo.begin();
+			fbo.renderFBO();
 			this.maskFBO.renderFBO();
 		fbo.end();
 		return fbo;

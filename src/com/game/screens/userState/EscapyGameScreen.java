@@ -49,7 +49,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private float[] mpos, screen;
 	private float dist, intencity;
 	
-	private EscapyFBO stdFBO, nrmlFBO, bgrFBO;
+	private EscapyFBO stdFBO, nrmlFBO, bgrFBO, MAINFBO;
 	private EscapyMask mask, bgrMask;
 	
 	private LightMaskContainer lightMask;
@@ -105,7 +105,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder()
 				.addCameraProgram(CameraProgramFactory.standartCharacterProgram(this.charactersContainer.player()));
 		
-		
+		this.MAINFBO = new StandartFBO();
 		this.bgrFBO = new StandartFBO(); //XXX
 		this.stdFBO = new StandartFBO();
 		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
@@ -134,7 +134,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.otherTranslationVec = new TransVec();
 
 		this.bgrContainer.addSource(new StdRenderer(mapContainer.backGround())); //XXX
-		//this.stdContainer.addSource(new StdRenderer(mapContainer.backGround())); //XXX
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < mapContainer.objectSize()[mapContainer.indexTab()[i]]; j++) {
 				this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
@@ -255,16 +254,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			this.renderGameObjects(escapyCamera);
 		super.escapyCamera.clear();
 		
-		//this.nrmlFBO.forceWipeFBO();
-		//this.stdFBO.forceWipeFBO();
-		
-		this.bgrMask.postRender(bgrFBO, escapyCamera.getTranslationVec());
-		this.mask.postRender(stdFBO, escapyCamera.getTranslationVec());
-		this.volumeLights.postRender(stdFBO, escapyCamera.getTranslationVec());
-		
-		this.bgrFBO.renderFBO();
-		this.stdFBO.renderFBO();
-		//this.stdFBO.renderFBO();
+		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
+		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec());
+		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
+
+		this.MAINFBO.renderFBO();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();
