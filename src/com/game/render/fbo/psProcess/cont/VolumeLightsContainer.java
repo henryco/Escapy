@@ -8,7 +8,7 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartMultiFBO;
-import com.game.render.fbo.excp.EscapyFBOTypeException;
+import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.AbsLight;
 import com.game.render.fbo.psRender.EscapyPostRenderer;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
@@ -190,11 +190,11 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#setPostRenderFBO(com.game.render.fbo.EscapyFBO)
 	 */
 	@Override
-	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOTypeException {
+	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException {
 		if (postRednerFBO instanceof EscapyMultiFBO)
 			this.nrmlFBO = (EscapyMultiFBO) postRednerFBO;
 		else 
-			throw new EscapyFBOTypeException();
+			throw new EscapyFBOtypeException();
 		return this;
 	}
 

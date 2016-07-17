@@ -116,6 +116,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.volumeLights = new VolumeLightsContainer(nrmlFBO);
 
 		
+		
 		this.mouseLight = this.volumeLights.addSource(new SimpleLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 

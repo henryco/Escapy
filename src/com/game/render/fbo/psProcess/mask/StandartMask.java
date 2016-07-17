@@ -5,7 +5,7 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartMultiFBO;
-import com.game.render.fbo.excp.EscapyFBOTypeException;
+import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.translationVec.TransVec;
 
@@ -98,11 +98,11 @@ public class StandartMask extends EscapyMask {
 
 	@Override
 	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO)
-			throws EscapyFBOTypeException {
+			throws EscapyFBOtypeException {
 		if (postRednerFBO instanceof EscapyMultiFBO)
 			this.maskFBO = (EscapyMultiFBO) postRednerFBO;
 		else 
-			throw new EscapyFBOTypeException();	
+			throw new EscapyFBOtypeException();	
 		return this;
 	}
 
