@@ -1,6 +1,6 @@
 package com.game.render.fbo.excp;
 
-public class EscapyFBOTypeException extends EscapyFBOException {
+public class EscapyFBOtypeException extends EscapyFBOException {
 
 	/**
 	 * 
@@ -9,10 +9,10 @@ public class EscapyFBOTypeException extends EscapyFBOException {
 
 	protected static final String DEF_EXCP = "Wrong FBO type";
 	
-	public EscapyFBOTypeException() {
+	public EscapyFBOtypeException() {
 		super(DEF_EXCP);
 	}
-	public EscapyFBOTypeException(String excp) {
+	protected EscapyFBOtypeException(String excp) {
 		super(excp);
 	}
 	
