@@ -2,6 +2,7 @@ package com.game.render.fbo.psRender;
 
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.excp.EscapyFBOTypeException;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -18,7 +19,7 @@ public interface EscapyPostRenderable extends EscapyPostRenderer {
 	 *            the post redner FBO
 	 * @return the escapy post renderable
 	 */
-	public abstract <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO);
+	public abstract <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOTypeException;
 	
 	/**
 	 * Gets the post render FBO.

@@ -197,7 +197,7 @@ public abstract class EscapyFBO {
 		
 		FrameBuffer fBuffer = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight(), false);
-		fBuffer = this.renderToBuffer(fBuffer, ePP, this.fboCamera);
+		fBuffer = this.renderOutBuffer(fBuffer, ePP, this.fboCamera);
 		return fBuffer;
 	}
 	
@@ -210,7 +210,7 @@ public abstract class EscapyFBO {
 	 * @param cam - {@link EscapyGdxCamera} cannot be null.
 	 * @return buffer - {@link FrameBuffer} with rendered data.
 	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)} */
-	public FrameBuffer renderToBuffer(FrameBuffer buffer, EscapyPostProcessed ePP, 
+	public FrameBuffer renderOutBuffer(FrameBuffer buffer, EscapyPostProcessed ePP, 
 			EscapyGdxCamera cam) {	
 		buffer.begin();
 			this.renderProgram.renderProgram(cam, ePP);
@@ -224,8 +224,8 @@ public abstract class EscapyFBO {
 	 * @param ePP - optional {@link EscapyPostProcessed} data for render.
 	 * @return buffer - {@link FrameBuffer} with rendered data.
 	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)}*/
-	public FrameBuffer renderToBuffer(FrameBuffer buffer, EscapyPostProcessed ePP) {
-		return renderToBuffer(buffer, ePP, this.fboCamera);
+	public FrameBuffer renderOutBuffer(FrameBuffer buffer, EscapyPostProcessed ePP) {
+		return renderOutBuffer(buffer, ePP, this.fboCamera);
 	}
 	
 	/**Render data from contained {@link FrameBuffer} into target buffer,
@@ -234,12 +234,32 @@ public abstract class EscapyFBO {
 	 * @param buffer - target {@link FrameBuffer} to render for.
 	 * @return buffer - {@link FrameBuffer} with rendered data.
 	 * @see {@link FBORenderProgram#renderProgram(EscapyGdxCamera, EscapyPostProcessed)}*/
-	public FrameBuffer renderToBuffer(FrameBuffer buffer) {
-		return renderToBuffer(buffer, null, this.fboCamera);
+	public FrameBuffer renderOutBuffer(FrameBuffer buffer) {
+		return renderOutBuffer(buffer, null, this.fboCamera);
 	}
 	
+	public EscapyFBO renderToFBO(EscapyFBO fbo) {	
+		this.begin();
+			fbo.renderFBO();
+		this.end();	
+		return this;
+	}
 	
+	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP, 
+			EscapyGdxCamera cam) {	
+		this.begin();
+			fbo.renderFBO(cam, ePP);
+		this.end();	
+		return this;
+	}
 	
+	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP) {	
+		return this.renderToFBO(fbo, ePP, this.fboCamera);
+	}
+	
+	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyGdxCamera cam) {	
+		return this.renderToFBO(fbo, null, cam);
+	}
 	
 	/**
 	 * Method that <b>return </b>{@link FBORenderProgram}.

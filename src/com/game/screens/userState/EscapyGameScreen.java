@@ -250,14 +250,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	public void render(float delta) {
 		
 		super.escapyCamera.clear();
-		//this.MAINFBO.forceClearFBO(); // FIXME WTF???
-		//this.MAINFBO.forceWipeFBO(); // FIXME WTF???
+		this.MAINFBO.forceWipeFBO();
 		super.escapyCamera.holdCamera();
 		this.renderGameObjects(escapyCamera);
 		
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
-		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); // FIXME WTF???
+		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
+	
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
+
 
 		this.MAINFBO.renderFBO();
 		

@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
+import com.game.render.fbo.psProcess.EscapyPostProcessed;
+import com.game.render.fbo.psProcess.program.FBORenderProgram;
+import com.game.render.shader.EscapyStdShaderRenderer;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -15,6 +18,8 @@ import com.game.render.EscapyGdxCamera;
  */
 public abstract class EscapyMultiFBO extends EscapyFBO {
 
+	protected FBORenderProgram<EscapyMultiFBO> stdMutliRenderProgram;
+	
 	/** The target multi buffer. */
 	protected FrameBuffer[] targetMultiBuffer;
 	
@@ -26,6 +31,7 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 	
 	/** The batcher. */
 	protected Batch batcher;
+	
 	
 	
 	/**
@@ -69,6 +75,17 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 		this.mutliTexureRegion = new TextureRegion();
 		this.multiBuffer = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight(), false);
+		
+		this.stdMutliRenderProgram = new FBORenderProgram<EscapyMultiFBO>(this) {
+			private EscapyStdShaderRenderer stdShaderRender 
+				= new EscapyStdShaderRenderer();
+			@Override
+			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
+			{
+				this.stdShaderRender.drawTextureRegion(this.fbo.mutliTexureRegion, camera.getCamera(),
+						0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			}
+		}; 
 	}
 
 	/* (non-Javadoc)
@@ -238,6 +255,26 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 			this.multiBuffer.end();
 			this.mutliTexureRegion.setRegion(this.multiBuffer.getColorBufferTexture());
 		}
+		return this;
+	}
+	
+	public EscapyMultiFBO renderTargetMultiFBO() {
+		this.stdMutliRenderProgram.renderProgram(super.fboCamera, null);
+		return this;
+	}
+	
+	public EscapyMultiFBO renderTargetMultiFBO(EscapyGdxCamera camera) {
+		this.stdMutliRenderProgram.renderProgram(camera, null);
+		return this;
+	}
+	
+	public EscapyMultiFBO renderTargetMultiFBO(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
+		this.stdMutliRenderProgram.renderProgram(camera, ePP);
+		return this;
+	}
+	
+	public EscapyMultiFBO renderTargetMultiFBO(EscapyPostProcessed ePP) {
+		this.stdMutliRenderProgram.renderProgram(super.fboCamera, ePP);
 		return this;
 	}
 	
