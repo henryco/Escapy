@@ -133,9 +133,7 @@ public abstract class EscapyFBO {
 	 * @return the escapy FBO
 	 */
 	public EscapyFBO wipeFBO() {
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		return this;
+		return this.clearFBO(0f,0f,0f,0f);
 	}
 	
 	/**
@@ -145,13 +143,31 @@ public abstract class EscapyFBO {
 	 */
 	public EscapyFBO forceWipeFBO() {
 		this.begin();
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		this.clearFBO(0f,0f,0f,0f);
 		this.end();
 		return this;
 	}
 	
+	public EscapyFBO clearFBO(float r, float g, float b, float a) {
+		Gdx.gl.glClearColor(r, g, b, a);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		return this;
+	}
 	
+	public EscapyFBO forceClearFBO(float r, float g, float b, float a) {
+		this.begin();
+		this.clearFBO(r,g,b,a);
+		this.end();
+		return this;
+	}
+	
+	public EscapyFBO forceClearFBO() {
+		return forceClearFBO(0f,0f,0f,1f);
+	}
+	
+	public EscapyFBO clearFBO() {
+		return this.clearFBO(0f,0f,0f,1f);
+	}
 	
 	/**
 	 * <p>Creates new {@link TextureRegion} from contained fbo. </p>
