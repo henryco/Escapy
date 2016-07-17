@@ -228,8 +228,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		this.bgrFBO.begin().wipeFBO();
 			this.bgrContainer.renderGraphic(escapyCamera);
-		this.bgrFBO.end(); //XXX 
-		
+		this.bgrFBO.end(); 
 		
 		this.stdFBO.begin().wipeFBO();
 			this.stdContainer.renderGraphic(escapyCamera);
@@ -249,13 +248,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	 */
 	@Override
 	public void render(float delta) {
-	
-		super.escapyCamera.holdCamera();
-			this.renderGameObjects(escapyCamera);
+		
 		super.escapyCamera.clear();
-		this.MAINFBO.forceClearFBO();
+		//this.MAINFBO.forceClearFBO(); // FIXME WTF???
+		//this.MAINFBO.forceWipeFBO(); // FIXME WTF???
+		super.escapyCamera.holdCamera();
+		this.renderGameObjects(escapyCamera);
+		
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
-		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec());
+		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); // FIXME WTF???
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 
 		this.MAINFBO.renderFBO();
