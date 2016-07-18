@@ -111,6 +111,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
 		this.lightMask = new LightMaskContainer();
 		this.bgrContainer = new ExtraRenderContainer(); //XXX
+		
 		this.stdContainer = new ExtraRenderContainer();
 		this.normalsContainer = new ExtraRenderContainer();
 		this.volumeLights = new VolumeLightsContainer(nrmlFBO);
