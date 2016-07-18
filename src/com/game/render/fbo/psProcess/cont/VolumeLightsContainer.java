@@ -108,11 +108,12 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	@Override
 	public void postRender(TransVec translationVec) {
 		
-		for (AbsLight light : volumeLights) {
+		volumeLights.forEach((light) -> {
 			light.getPosition().sub(translationVec.getTransVec());
 			this.nrmlFBO.renderFBO(postRenderCamera, light);
-		} 
+		});
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see com.game.utils.absContainer.EscapyContainer#addSource(java.lang.Object)
@@ -132,7 +133,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 		for (AbsLight lightBuff : buffer)
 			if (lightBuff.getId() == ID)
 				return lightBuff;
-			
+		
 		for (AbsLight light : volumeLights)
 			if (light.getId() == ID) {
 				buffer.add(light);

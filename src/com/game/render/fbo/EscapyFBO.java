@@ -54,7 +54,6 @@ public abstract class EscapyFBO {
 		
 	}
 	
-	
 	/**
 	 * <p>Render data from from internal {@link FrameBuffer}</p>
 	 * <p>Use {@link FBORenderProgram}, {@link EscapyGdxCamera}, and {@link EscapyPostProcessed} data (null by default).
