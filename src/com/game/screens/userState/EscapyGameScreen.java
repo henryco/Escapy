@@ -122,7 +122,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
-		this.mask.setColor(new Color((50f/255f), (50f/255f), (50f/255f), 1f));
+		this.mask.setColor(new Color((60f/255f), (60f/255f), (60f/255f), 1f));
 		
 		this.bgrMask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.bgrMask.setMode(EscapyMask.MULTIPLY).addMaskTarget(bgrFBO.getFrameBuffer());
@@ -217,7 +217,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
 				controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
-		
 	}
 
 	
@@ -258,7 +257,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
-	
+	//	this.MAINFBO.renderToFBO(stdFBO);
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 
 
