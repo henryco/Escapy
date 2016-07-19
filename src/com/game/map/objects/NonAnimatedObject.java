@@ -53,8 +53,8 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalRende
 		this.staticObjectSprite = new Sprite(staticObjectTexture);
 		this.staticObjectSprite.flip(false, true);
 		this.staticObjectSprite.setPosition(super.XPos(), super.YPos());
-		this.staticObjectSprite.setSize(staticObjectSprite.getWidth() * (float) zoom(),
-				staticObjectSprite.getHeight() * (float) zoom());
+		this.staticObjectSprite.setSize(staticObjectTexture.getWidth() * (float) zoom(),
+				staticObjectTexture.getHeight() * (float) zoom());
 		
 		
 		//XXX NORMALMAP INIT VVV
@@ -65,8 +65,8 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalRende
 		this.staticNrmlMapSprite = new Sprite(staticNrmlMapTexture);
 		this.staticNrmlMapSprite.flip(false, true);
 		this.staticNrmlMapSprite.setPosition(super.XPos(), super.YPos());
-		this.staticNrmlMapSprite.setSize(staticNrmlMapSprite.getWidth() * (float) zoom(),
-				staticNrmlMapSprite.getHeight() * (float) zoom());
+		this.staticNrmlMapSprite.setSize(staticNrmlMapTexture.getWidth() * (float) zoom(),
+				staticNrmlMapTexture.getHeight() * (float) zoom());
 		
 	}
 
