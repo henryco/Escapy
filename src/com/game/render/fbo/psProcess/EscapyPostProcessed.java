@@ -1,8 +1,8 @@
 package com.game.render.fbo.psProcess;
 
 /**
- * The Interface EscapyPostProcessed.
+ * The Marker Interface EscapyPostProcessed.
  */
 public interface EscapyPostProcessed {
-	//TODO SOME POSTPROCESS STUFF
+	
 }

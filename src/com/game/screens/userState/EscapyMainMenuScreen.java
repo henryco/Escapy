@@ -12,8 +12,8 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
-import com.game.render.fbo.psProcess.lights.AbsLight;
-import com.game.render.fbo.psProcess.lights.SimpleLight;
+import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
+import com.game.render.fbo.psProcess.lights.vol.SimpleVolLight;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyScreenState;
 
@@ -71,12 +71,12 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		
 		
 		
-		AbsLight[] lights = new SimpleLight[4];
+		AbsVolLight[] lights = new SimpleVolLight[4];
 		float[][] colors = new float[][] { { 0.6f, 0.6f, 0.6f }, { 1f, 0.1f, 0.1f }, { 0.1f, 1f, 0.1f },
 				{ 0.1f, 0.1f, 1f } };
 
 		for (int i = 0; i < lights.length; i++) {
-			lights[i] = new SimpleLight(new float[] { 15, 15 }, new float[] { i * 200, i * 150 }, colors[i], 0.9f, 5f);
+			lights[i] = new SimpleVolLight(new float[] { 15, 15 }, new float[] { i * 200, i * 150 }, colors[i], 0.9f, 5f);
 		}
 
 		this.mpos = new float[2];
@@ -95,7 +95,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		for (int i = 0; i < lightsID.length; i++)
 			lightsID[i] = volumeLights.addSource(lights[i]);
 		
-		this.mouseLight = volumeLights.addSource(new SimpleLight(new float[] { 60, 60 }, new float[] { 200, 150 },
+		this.mouseLight = volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, new float[] { 200, 150 },
 				new float[] { 0.1f, 1f, 0.1f }, 0.35f, 5f));
 		
 		//this.volumeLights.setPostRenderFBO(nrmlFBO);
@@ -156,7 +156,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 			setPosition(new Vector2(mpos[0], mpos[1])).
 			setDistance(dist).setIntencity(intencity - 0.4f);
 		
-		((SimpleLight) this.volumeLights.getSourceByID(mouseLight)).
+		((SimpleVolLight) this.volumeLights.getSourceByID(mouseLight)).
 		setDimension(new Vector2(screen[0], screen[1]));
 		
 		

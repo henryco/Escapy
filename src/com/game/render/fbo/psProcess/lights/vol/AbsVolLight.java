@@ -1,4 +1,4 @@
-package com.game.render.fbo.psProcess.lights;
+package com.game.render.fbo.psProcess.lights.vol;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -6,9 +6,9 @@ import com.game.render.fbo.psProcess.EscapyPostProcessed;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class AbsLight.
+ * The Class AbsVolLight.
  */
-public abstract class AbsLight implements EscapyPostProcessed {
+public abstract class AbsVolLight implements EscapyPostProcessed {
 
 	/** The position. */
 	protected Vector2 position;
@@ -31,7 +31,7 @@ public abstract class AbsLight implements EscapyPostProcessed {
 	/**
 	 * Instantiates a new abs light.
 	 */
-	public AbsLight() {
+	public AbsVolLight() {
 
 	}
 
@@ -47,7 +47,7 @@ public abstract class AbsLight implements EscapyPostProcessed {
 	 * @param distance
 	 *            the distance
 	 */
-	public AbsLight(Vector2 position, Vector3 color, float intencity, float distance) {
+	public AbsVolLight(Vector2 position, Vector3 color, float intencity, float distance) {
 		this.position = new Vector2(position);
 		this.color = new Vector3(color);
 		this.intencity = intencity;
@@ -82,7 +82,7 @@ public abstract class AbsLight implements EscapyPostProcessed {
 	 *            the position
 	 * @return the abs light
 	 */
-	public AbsLight setPosition(Vector2 position) {
+	public AbsVolLight setPosition(Vector2 position) {
 		this.position = position;
 		return this;
 	}
@@ -104,7 +104,7 @@ public abstract class AbsLight implements EscapyPostProcessed {
 	 *            the color
 	 * @return the abs light
 	 */
-	public AbsLight setColor(Vector3 color) {
+	public AbsVolLight setColor(Vector3 color) {
 		this.color = color;
 		this.genPublicColors();
 		return this;
@@ -126,7 +126,7 @@ public abstract class AbsLight implements EscapyPostProcessed {
 	 *            the intencity
 	 * @return the abs light
 	 */
-	public AbsLight setIntencity(float intencity) {
+	public AbsVolLight setIntencity(float intencity) {
 		this.intencity = intencity;
 		return this;
 	}
@@ -147,7 +147,7 @@ public abstract class AbsLight implements EscapyPostProcessed {
 	 *            the distance
 	 * @return the abs light
 	 */
-	public AbsLight setDistance(float distance) {
+	public AbsVolLight setDistance(float distance) {
 		this.distance = distance;
 		return this;
 	}

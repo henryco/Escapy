@@ -3,7 +3,7 @@ package com.game.render.fbo.psProcess.program.userState;
 import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
-import com.game.render.fbo.psProcess.lights.SimpleLight;
+import com.game.render.fbo.psProcess.lights.vol.SimpleVolLight;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.render.shader.blend.userState.EscapyStdNrmlShader;
@@ -37,7 +37,7 @@ public class FBOVolumeLightProgram extends FBORenderProgram<NormalMapFBO> {
 	{
 		this.nrmlShader.renderNrmLight(super.fbo.getTargetTextureRegion(), 
 				super.fbo.getNormalMapTexureRegion(), 0, 0, Gdx.graphics.getWidth(), 
-				Gdx.graphics.getHeight(), camera.getCamera(), (SimpleLight) ePP);
+				Gdx.graphics.getHeight(), camera.getCamera(), (SimpleVolLight) ePP);
 
 	}
 

@@ -21,7 +21,7 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
-import com.game.render.fbo.psProcess.lights.SimpleLight;
+import com.game.render.fbo.psProcess.lights.vol.SimpleVolLight;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
@@ -118,7 +118,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		
 		
-		this.mouseLight = this.volumeLights.addSource(new SimpleLight(new float[] { 60, 60 }, 
+		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
@@ -210,7 +210,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	//	this.volumeLights.getSourceByID(mouseLight).
 	//		setDistance(dist).setIntencity(intencity - 0.4f);
 		
-		((SimpleLight) this.volumeLights.getSourceByID(mouseLight)).
+		((SimpleVolLight) this.volumeLights.getSourceByID(mouseLight)).
 		setDimension(new Vector2(screen[0], screen[1]));
 		
 		this.controlls.baseKeyboard_upd();

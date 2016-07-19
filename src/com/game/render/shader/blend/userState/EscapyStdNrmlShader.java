@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.game.render.fbo.psProcess.lights.SimpleLight;
+import com.game.render.fbo.psProcess.lights.vol.SimpleVolLight;
 import com.game.render.shader.EscapyShaderRender;
 
 // TODO: Auto-generated Javadoc
@@ -94,7 +94,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	 *            the simp light
 	 * @return the sprite
 	 */
-	public Sprite renderNrmLight(Sprite colorMap, Sprite normalMap, OrthographicCamera camera, SimpleLight simpLight) {
+	public Sprite renderNrmLight(Sprite colorMap, Sprite normalMap, OrthographicCamera camera, SimpleVolLight simpLight) {
 		this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader,
 				simpLight.getPosition(), simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(),
 				simpLight.getDistance());
@@ -121,7 +121,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	 * @return the texture
 	 */
 	public Texture renderNrmLight(Texture colorMap, Texture normalMap, float x, float y, OrthographicCamera camera,
-			SimpleLight simpLight) {
+			SimpleVolLight simpLight) {
 		this.nrmlShader = initShader(colorMap, normalMap, this.nrmlShader, simpLight.getPosition(),
 				simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(), simpLight.getDistance());
 
@@ -184,7 +184,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	 * @return the texture region
 	 */
 	public TextureRegion renderNrmLight(TextureRegion colorMap, TextureRegion normalMap, float x, float y, float width,
-			float height, OrthographicCamera camera, SimpleLight simpLight) {
+			float height, OrthographicCamera camera, SimpleVolLight simpLight) {
 		this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader,
 				simpLight.getPosition(), simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(),
 				simpLight.getDistance());
