@@ -8,6 +8,8 @@ import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
 import com.game.render.fbo.psProcess.program.userState.FBOColorDodgeProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOLinearDodgeProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOSoftLightProgram;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.absContainer.EscapyAbsContainer;
 import com.game.utils.translationVec.TransVec;
@@ -33,9 +35,8 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 	}
 	public LightContainer mergeContainedFBO(EscapyGdxCamera camera) {
 		this.lightFBO.begin();
-		super.targetsList.forEach(light -> {
-				light.renderGraphic(null, camera);
-			});
+		super.targetsList.forEach(light -> 
+				light.renderGraphic(null, camera));
 		this.lightFBO.end().mergeBuffer();
 		return this;
 	}
@@ -46,9 +47,8 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 	
 	public LightContainer mergeContainedFBO(TransVec translationVec, EscapyGdxCamera camera) {
 		this.lightFBO.begin();
-			super.targetsList.forEach(light -> {
-				light.renderGraphic(translationVec.getTransVecArray(), camera);
-			});
+			super.targetsList.forEach(light -> 
+				light.renderGraphic(translationVec.getTransVecArray(), camera));
 		this.lightFBO.end().mergeBuffer();
 		return this;
 	}
@@ -71,18 +71,17 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 
 	@Override
 	public void postRender(TransVec translationVec) {
-		super.targetsList.forEach(light -> {
-			light.getPosition().sub(translationVec.getTransVec());
-			this.lightFBO.renderFBO(postRenderCamera, light);
-		});
-		this.lightFBO.forceWipeFBO();
+		super.targetsList.forEach(light -> 
+			this.lightFBO.renderFBO(postRenderCamera, light));
 	}
 
 	@Override
 	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException {
 		if (postRednerFBO instanceof EscapyMultiFBO) {
 			this.lightFBO = (EscapyMultiFBO) postRednerFBO;
-			this.lightFBO.setRenderProgram(new FBOColorDodgeProgram(lightFBO));
+			//this.lightFBO.setRenderProgram(new FBOColorDodgeProgram(lightFBO));
+			this.lightFBO.setRenderProgram(new FBOSoftLightProgram(lightFBO));
+			//this.lightFBO.setRenderProgram(new FBOLinearDodgeProgram(lightFBO));
 		}
 		else throw new EscapyFBOtypeException();
 		return this;
