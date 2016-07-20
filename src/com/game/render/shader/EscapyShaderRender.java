@@ -64,9 +64,9 @@ public abstract class EscapyShaderRender {
 	 * @param camera
 	 *            the camera
 	 */
-	public void drawSprite(Sprite sprite, OrthographicCamera camera) {
+	public void drawSprite(Sprite sprite, OrthographicCamera camera) {	
+		camera.update(); //FIXME
 		this.batcher.setProjectionMatrix(camera.combined);
-		camera.update();
 		this.batcher.begin();
 		sprite.draw(batcher);
 		this.batcher.end();

@@ -24,7 +24,7 @@ import com.game.render.fbo.psProcess.cont.LightContainer;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.stdLS.userState.SimpleStdLight;
-import com.game.render.fbo.psProcess.lights.vol.SimpleVolLight;
+import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
@@ -127,8 +127,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		
 		
-		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(2.5f).setPosition(150, 50));
-		
+		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(2.5f).setPosition(150, 50).setColor(new Color(223, 149, 0, 255)));
+		//new Color(223, 149, 0, 255)
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 

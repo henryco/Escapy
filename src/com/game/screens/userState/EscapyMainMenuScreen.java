@@ -13,7 +13,7 @@ import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
-import com.game.render.fbo.psProcess.lights.vol.SimpleVolLight;
+import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyScreenState;
 

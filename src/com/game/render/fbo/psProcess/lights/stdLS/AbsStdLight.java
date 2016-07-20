@@ -1,14 +1,14 @@
 package com.game.render.fbo.psProcess.lights.stdLS;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
+import com.game.render.shader.colorize.userState.EscapyStdColorizeRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
 import com.game.utils.observ.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
@@ -20,21 +20,26 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected Texture lightTexture;
 	protected TransVec position;
 	
-	protected Batch batcher;
+	private EscapyStdColorizeRenderer colorizer;
+	protected Color color;
+
 	
 	private int id;
 	
 	
 	{
 		this.id = this.hashCode();
-		this.batcher = new SpriteBatch();
+		//this.batcher = new SpriteBatch();
 		this.position = new TransVec();
 		this.lightTexture = new Texture(new FileHandle(getDefaultTexure()));
 		this.lightSprite = new Sprite(lightTexture);
 		this.position.setObservedObj(this);
+		this.color = new Color(1, 1, 1, 1);
+		this.colorizer = new EscapyStdColorizeRenderer(id);
 	}
 	
 	public AbsStdLight() {
+		
 	}
 	
 	public AbsStdLight(int id) {
@@ -46,11 +51,11 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	@Override
 	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera) {
-		
-		this.batcher.setProjectionMatrix(escapyCamera.combined());
-		this.batcher.begin();
-			this.lightSprite.draw(batcher);
-		this.batcher.end();
+	
+		this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
+				color.r, color.g, color.b);
+	
+	//	this.colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
 	}
 	
 	@Override
@@ -121,5 +126,19 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return position.getTransVec();
 	}
 
+	public Color getColor() {
+		return color;
+	}
+
+	public AbsStdLight setColor(Color color) {
+		this.color = color;
+		return this;
+	}
+	public AbsStdLight setColor(float r, float g, float b) {
+		this.color.r = r;
+		this.color.g = g;
+		this.color.b = b;
+		return this;
+	}
 }
 
