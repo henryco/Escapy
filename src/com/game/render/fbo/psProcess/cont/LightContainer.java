@@ -36,7 +36,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 		super.targetsList.forEach(light -> {
 				light.renderGraphic(null, camera);
 			});
-		this.lightFBO.end();
+		this.lightFBO.end().mergeBuffer();
 		return this;
 	}
 	
@@ -49,7 +49,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 			super.targetsList.forEach(light -> {
 				light.renderGraphic(translationVec.getTransVecArray(), camera);
 			});
-		this.lightFBO.end();
+		this.lightFBO.end().mergeBuffer();
 		return this;
 	}
 	
