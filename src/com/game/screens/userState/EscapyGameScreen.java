@@ -19,6 +19,7 @@ import com.game.render.extra.normals.NormalRenderer;
 import com.game.render.extra.std.StdRenderer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
+import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.vol.SimpleVolLight;
@@ -49,7 +50,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private float[] mpos, screen;
 	private float dist, intencity;
 	
-	private EscapyFBO stdFBO, nrmlFBO, bgrFBO, MAINFBO;
+	private EscapyFBO stdFBO, nrmlFBO, bgrFBO, lightFBO, MAINFBO;
 	private EscapyMask mask, bgrMask;
 	
 	private LightMaskContainer lightMask;
@@ -109,6 +110,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.bgrFBO = new StandartFBO(); //XXX
 		this.stdFBO = new StandartFBO();
 		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
+		this.lightFBO = new StandartMultiFBO(stdFBO.getFrameBuffer()).setRenderProgram(null);
 		this.lightMask = new LightMaskContainer();
 		this.bgrContainer = new ExtraRenderContainer(); //XXX
 		

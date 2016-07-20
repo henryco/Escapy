@@ -38,5 +38,6 @@ public class ExtraRenderContainer extends EscapyAbsContainer<EscapyExtraRenderer
 		for (EscapyExtraRenderer<?> EER : super.targetsList) 
 			EER.extraRender(EER.getTranslationVec(), escapyCamera);	
 	}
+
 	
 }

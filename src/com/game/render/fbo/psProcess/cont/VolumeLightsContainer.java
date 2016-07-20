@@ -95,7 +95,6 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	 */
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
-		
 		fbo.begin();
 			this.postRender(translationVec);
 		fbo.end();
@@ -194,8 +193,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException {
 		if (postRednerFBO instanceof EscapyMultiFBO)
 			this.nrmlFBO = (EscapyMultiFBO) postRednerFBO;
-		else 
-			throw new EscapyFBOtypeException();
+		else throw new EscapyFBOtypeException();
 		return this;
 	}
 

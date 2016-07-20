@@ -10,10 +10,10 @@ import com.game.render.shader.blend.userState.EscapyStdMultiplyRenderer;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class FBOMultiplyMaskProgram, that contains target FBO with PROTECTED modifier, so u
+ * The Class FBOMultiplyProgram, that contains target FBO with PROTECTED modifier, so u
  * can easely get access to it by <b> super.fbo.??? </b>
  */
-public class FBOMultiplyMaskProgram extends FBORenderProgram<EscapyMultiFBO>{
+public class FBOMultiplyProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	private EscapyBlendRenderer blednRenderer;
 	
@@ -23,10 +23,9 @@ public class FBOMultiplyMaskProgram extends FBORenderProgram<EscapyMultiFBO>{
 	 * @param fboProgramTarget
 	 *            the fbo program target
 	 */
-	public FBOMultiplyMaskProgram(EscapyMultiFBO fboProgramTarget) {
+	public FBOMultiplyProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
 		this.blednRenderer = new EscapyStdMultiplyRenderer();
-		
 	}
 
 	/* (non-Javadoc)

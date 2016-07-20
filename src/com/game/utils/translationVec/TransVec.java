@@ -62,6 +62,12 @@ public class TransVec {
 		return;
 	}
 	
+	public TransVec(TransVec Vec) {
+		this.initVec();
+		this.setTransVec(Vec.getTransVec());
+		return;
+	}
+	
 	
 	private void initVec() {
 		this.translationVectorArray = new float[2];
@@ -159,7 +165,7 @@ public class TransVec {
 	public void setTransVec(float[] translationMatrix) {
 		if (this.accuracy != (-1)) 	
 			translationMatrix = roundVec(translationMatrix);
-		this.translationVectorArray = translationMatrix;
+		this.translationVectorArray = translationMatrix.clone();
 		this.translationVector.set(translationMatrix[0], translationMatrix[1]);
 		this.x = translationMatrix[0];
 		this.y = translationMatrix[1];
@@ -174,7 +180,7 @@ public class TransVec {
 	public void setTransVec(Vector2 translationVector) {
 		if (this.accuracy != (-1)) 
 			translationVector = roundVec(translationVector);
-		this.translationVector = translationVector;
+		this.translationVector = translationVector.cpy();
 		this.translationVectorArray[0] = translationVector.x;
 		this.translationVectorArray[1] = translationVector.y;
 		this.x = translationVector.x;
@@ -201,5 +207,48 @@ public class TransVec {
 		this.translationVector.set(this.x, this.y);
 	}
 
-
+	public TransVec sub (Vector2 v) {
+		this.sub(v.x, v.y);
+		return this;
+	}
+	
+	public TransVec sub(float[] v) {
+		this.sub(v[0], v[1]);
+		return this;
+	}
+	
+	public TransVec sub(float x, float y) {
+		if (this.accuracy != (-1)) {
+			x = roundVec(x);
+			y = roundVec(y);
+		}
+		this.x -= x;
+		this.y -= y;
+		this.translationVector.sub(x, y);
+		this.translationVectorArray[0] = this.x;
+		this.translationVectorArray[1] = this.y;
+		return this;
+	}
+	
+	public TransVec add(Vector2 v) {
+		this.add(v.x, v.y);
+		return this;
+	}
+	public TransVec add(float[] v) {
+		this.add(v[0], v[1]);
+		return this;
+	}
+	
+	public TransVec add(float x, float y) {
+		if (this.accuracy != (-1)) {
+			x = roundVec(x);
+			y = roundVec(y);
+		}
+		this.x += x;
+		this.y += y;
+		this.translationVector.add(x, y);
+		this.translationVectorArray[0] = this.x;
+		this.translationVectorArray[1] = this.y;
+		return this;
+	}
 }

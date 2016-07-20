@@ -20,12 +20,14 @@ public abstract class EscapyAbsContainer<T extends EscapyContainerable>
 	 * Instantiates a new escapy abs container.
 	 */
 	public EscapyAbsContainer() {
-		
+
+		initContainer();
+	}
+
+	protected void initContainer(){
 		this.targetsList = new ArrayList<>();
 		this.buffer = new ArrayList<>();
 	}
-
-	
 	
 	/* (non-Javadoc)
 	 * @see com.game.utils.absContainer.EscapyContainer#addSource(java.lang.Object)

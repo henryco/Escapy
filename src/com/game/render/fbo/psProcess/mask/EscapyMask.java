@@ -11,7 +11,8 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
-import com.game.render.fbo.psProcess.program.userState.FBOMultiplyMaskProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOColorDodgeProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOMultiplyProgram;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 
 
@@ -174,10 +175,10 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	private FBORenderProgram<EscapyMultiFBO> modeType(int mode, EscapyMultiFBO fbo)
 	{	
 		if (mode == MULTIPLY)
-			return (new FBOMultiplyMaskProgram(fbo));
+			return (new FBOMultiplyProgram(fbo));
 		if (mode == COLOR_DODGE)
-			return (new FBOMultiplyMaskProgram(fbo));
-		return (new FBOMultiplyMaskProgram(fbo));
+			return (new FBOColorDodgeProgram(fbo));
+		return (new FBOMultiplyProgram(fbo));
 	}
 	
 	/* (non-Javadoc)

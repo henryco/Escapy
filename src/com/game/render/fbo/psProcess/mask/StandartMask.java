@@ -43,7 +43,6 @@ public class StandartMask extends EscapyMask {
 	protected EscapyMultiFBO initMaskFBO() {
 		
 		this.maskFBO = new StandartMultiFBO();
-		//this.maskFBO.setRenderProgram(new FBOMultiplyMaskProgram(maskFBO)); //TODO
 		return maskFBO;
 	}
 	
