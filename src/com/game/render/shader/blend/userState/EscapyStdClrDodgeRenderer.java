@@ -20,7 +20,7 @@ public class EscapyStdClrDodgeRenderer extends EscapyBlendRenderer {
 
 	@Override
 	public String toString() {
-		return "EscapyStdClrDodgeRenderer"+super.id;
+		return "EscapyStdClrDodgeRenderer_"+super.id;
 	}
 
 }

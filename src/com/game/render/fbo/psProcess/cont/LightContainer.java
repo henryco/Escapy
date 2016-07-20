@@ -7,6 +7,7 @@ import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
+import com.game.render.fbo.psProcess.program.userState.FBOColorDodgeProgram;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.absContainer.EscapyAbsContainer;
 import com.game.utils.translationVec.TransVec;
@@ -27,6 +28,31 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 		this.setPostRenderCamera(postRenderCamera);
 	}
 
+	public LightContainer mergeContainedFBO() {
+		return this.mergeContainedFBO(postRenderCamera);
+	}
+	public LightContainer mergeContainedFBO(EscapyGdxCamera camera) {
+		this.lightFBO.begin();
+		super.targetsList.forEach(light -> {
+				light.renderGraphic(null, camera);
+			});
+		this.lightFBO.end();
+		return this;
+	}
+	
+	public LightContainer mergeContainedFBO(TransVec translationVec) {
+		return this.mergeContainedFBO(translationVec, postRenderCamera);
+	}
+	
+	public LightContainer mergeContainedFBO(TransVec translationVec, EscapyGdxCamera camera) {
+		this.lightFBO.begin();
+			super.targetsList.forEach(light -> {
+				light.renderGraphic(translationVec.getTransVecArray(), camera);
+			});
+		this.lightFBO.end();
+		return this;
+	}
+	
 	@Override
 	protected void initContainer() {
 		super.initContainer();
@@ -49,12 +75,15 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 			light.getPosition().sub(translationVec.getTransVec());
 			this.lightFBO.renderFBO(postRenderCamera, light);
 		});
+		this.lightFBO.forceWipeFBO();
 	}
 
 	@Override
 	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException {
-		if (postRednerFBO instanceof EscapyMultiFBO)
+		if (postRednerFBO instanceof EscapyMultiFBO) {
 			this.lightFBO = (EscapyMultiFBO) postRednerFBO;
+			this.lightFBO.setRenderProgram(new FBOColorDodgeProgram(lightFBO));
+		}
 		else throw new EscapyFBOtypeException();
 		return this;
 	}

@@ -1,6 +1,7 @@
 package com.game.utils.translationVec;
 
 import com.badlogic.gdx.math.Vector2;
+import com.game.utils.observ.SimpleObserver;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -12,6 +13,8 @@ public class TransVec {
 	private Vector2 translationVector;
 	
 	private int accuracy;
+	
+	private SimpleObserver<TransVec> observeObj;
 	
 	/** The y. */
 	public float x, y;
@@ -75,6 +78,9 @@ public class TransVec {
 		this.accuracy = (-1);
 	}
 	
+	public void setObservedObj(SimpleObserver<TransVec> observed) {
+		this.observeObj = observed;
+	}
 	
 	/**
 	 * Sets the accuracy.
@@ -169,6 +175,8 @@ public class TransVec {
 		this.translationVector.set(translationMatrix[0], translationMatrix[1]);
 		this.x = translationMatrix[0];
 		this.y = translationMatrix[1];
+		if (observeObj != null)
+			this.observeObj.stateUpdated(this);
 	}
 	
 	/**
@@ -185,6 +193,8 @@ public class TransVec {
 		this.translationVectorArray[1] = translationVector.y;
 		this.x = translationVector.x;
 		this.y = translationVector.y;
+		if (observeObj != null)
+			this.observeObj.stateUpdated(this);
 	}
 	
 	/**
@@ -205,9 +215,11 @@ public class TransVec {
 		this.translationVectorArray[0] = this.x;
 		this.translationVectorArray[1] = this.y;
 		this.translationVector.set(this.x, this.y);
+		if (observeObj != null)
+			this.observeObj.stateUpdated(this);
 	}
 
-	public TransVec sub (Vector2 v) {
+	public TransVec sub(Vector2 v) {
 		this.sub(v.x, v.y);
 		return this;
 	}
@@ -227,6 +239,8 @@ public class TransVec {
 		this.translationVector.sub(x, y);
 		this.translationVectorArray[0] = this.x;
 		this.translationVectorArray[1] = this.y;
+		if (observeObj != null)
+			this.observeObj.stateUpdated(this);
 		return this;
 	}
 	
@@ -249,6 +263,8 @@ public class TransVec {
 		this.translationVector.add(x, y);
 		this.translationVectorArray[0] = this.x;
 		this.translationVectorArray[1] = this.y;
+		if (observeObj != null)
+			this.observeObj.stateUpdated(this);
 		return this;
 	}
 }

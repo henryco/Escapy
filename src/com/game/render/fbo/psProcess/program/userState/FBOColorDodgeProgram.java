@@ -20,6 +20,7 @@ public class FBOColorDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
 		this.clrDodgeRenderer.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),
 				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera.getCamera());
+	
 	}
 
 }

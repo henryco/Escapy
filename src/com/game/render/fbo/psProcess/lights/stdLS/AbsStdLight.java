@@ -2,26 +2,36 @@ package com.game.render.fbo.psProcess.lights.stdLS;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.game.render.EscapyGdxCamera;
+import com.game.render.EscapyRenderable;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.utils.absContainer.EscapyContainerable;
+import com.game.utils.observ.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
 
-public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProcessed {
+public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProcessed, 
+	EscapyRenderable, SimpleObserver<TransVec> {
 
 	protected Sprite lightSprite;
 	protected Texture lightTexture;
 	protected TransVec position;
+	
+	protected Batch batcher;
 	
 	private int id;
 	
 	
 	{
 		this.id = this.hashCode();
+		this.batcher = new SpriteBatch();
 		this.position = new TransVec();
 		this.lightTexture = new Texture(new FileHandle(getDefaultTexure()));
 		this.lightSprite = new Sprite(lightTexture);
+		this.position.setObservedObj(this);
 	}
 	
 	public AbsStdLight() {
@@ -31,7 +41,21 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.setID(id);
 	}
 	public AbsStdLight(TransVec position) {
-		this.position = position;
+		this.setPosition(position);
+	}
+	
+	@Override
+	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera) {
+		
+		this.batcher.setProjectionMatrix(escapyCamera.combined());
+		this.batcher.begin();
+			this.lightSprite.draw(batcher);
+		this.batcher.end();
+	}
+	
+	@Override
+	public void stateUpdated(TransVec state) {
+		this.lightSprite.setPosition(state.x, state.y);
 	}
 	
 	public AbsStdLight setLightSource(String lightFile) {
@@ -48,6 +72,23 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	public AbsStdLight setSize(float WH) {
 		this.lightSprite.setSize(WH, WH);
+		return this;
+	}
+	
+	public AbsStdLight setPosition(float x, float y) {
+		this.position.setTransVec(x, y);
+		return this;
+	}
+	public AbsStdLight setPosition(float[] xy) {
+		this.setPosition(xy[0], xy[1]);
+		return this;
+	}
+	public AbsStdLight setPosition(Vector2 vec) {
+		this.setPosition(vec.x, vec.y);
+		return this;
+	}
+	public AbsStdLight setPosition(TransVec vec) {
+		this.setPosition(vec.x, vec.y);
 		return this;
 	}
 	
