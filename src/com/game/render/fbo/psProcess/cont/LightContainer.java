@@ -9,6 +9,7 @@ import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
 import com.game.render.fbo.psProcess.program.userState.FBOColorDodgeProgram;
 import com.game.render.fbo.psProcess.program.userState.FBOLinearDodgeProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOScreenDodgeProgram;
 import com.game.render.fbo.psProcess.program.userState.FBOSoftLightProgram;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.absContainer.EscapyAbsContainer;
@@ -80,7 +81,8 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 		if (postRednerFBO instanceof EscapyMultiFBO) {
 			this.lightFBO = (EscapyMultiFBO) postRednerFBO;
 			//this.lightFBO.setRenderProgram(new FBOColorDodgeProgram(lightFBO));
-			this.lightFBO.setRenderProgram(new FBOSoftLightProgram(lightFBO));
+			//this.lightFBO.setRenderProgram(new FBOSoftLightProgram(lightFBO));
+			this.lightFBO.setRenderProgram(new FBOScreenDodgeProgram(lightFBO));
 			//this.lightFBO.setRenderProgram(new FBOLinearDodgeProgram(lightFBO));
 		}
 		else throw new EscapyFBOtypeException();
