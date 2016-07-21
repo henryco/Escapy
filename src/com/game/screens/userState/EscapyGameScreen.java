@@ -127,13 +127,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		
 		
-		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(2.5f).setPosition(150, 50).setColor(new Color(223, 149, 0, 255)));
-		//new Color(223, 149, 0, 255)
+		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(2.5f)
+				.setPosition(150, 50).setColor(new Color(223f/255f, 149f/255f, 0f, 1f)));
+		
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
+		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
-		this.mask.setColor(new Color((60f/255f), (60f/255f), (60f/255f), 1f));
+		this.mask.setColor(new Color((40f/255f), (40f/255f), (40f/255f), 1f));
 		
 		this.bgrMask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.bgrMask.setMode(EscapyMask.MULTIPLY).addMaskTarget(bgrFBO.getFrameBuffer());
@@ -273,9 +275,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	
 		this.stdLights.mergeContainedFBO(escapyCamera);
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
-		this.stdLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
-		//this.stdLights.postRender(escapyCamera.getTranslationVec());
 		
+		this.stdLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.MAINFBO.renderFBO();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {

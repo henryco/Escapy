@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
+import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
+import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.colorize.userState.EscapyStdColorizeRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
 import com.game.utils.observ.SimpleObserver;
@@ -21,21 +24,22 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected TransVec position;
 	
 	private EscapyStdColorizeRenderer colorizer;
+	private EscapyStdShaderRenderer stdRenderer;
 	protected Color color;
-
+	protected EscapyFBO fbo;
 	
 	private int id;
 	
-	
 	{
 		this.id = this.hashCode();
-		//this.batcher = new SpriteBatch();
 		this.position = new TransVec();
 		this.lightTexture = new Texture(new FileHandle(getDefaultTexure()));
 		this.lightSprite = new Sprite(lightTexture);
 		this.position.setObservedObj(this);
 		this.color = new Color(1, 1, 1, 1);
 		this.colorizer = new EscapyStdColorizeRenderer(id);
+		this.stdRenderer = new EscapyStdShaderRenderer(id);
+		this.fbo = new StandartFBO();
 	}
 	
 	public AbsStdLight() {
@@ -49,13 +53,21 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.setPosition(position);
 	}
 	
-	@Override
-	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera) {
-	
+	public void preRender(EscapyGdxCamera escapyCamera) {
+		fbo.begin().wipeFBO();
+		this.stdRenderer.drawSprite(lightSprite, escapyCamera.getCamera());
 		this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
 				color.r, color.g, color.b);
+		this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
+						color.r, color.g, color.b);
+		fbo.end();
+	}
 	
-	//	this.colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
+	@Override
+	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera) {
+
+		//stdRenderer.drawSprite(lightSprite, escapyCamera.getCamera());
+		fbo.renderFBO();
 	}
 	
 	@Override
