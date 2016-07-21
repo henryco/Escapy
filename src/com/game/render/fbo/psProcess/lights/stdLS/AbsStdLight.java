@@ -8,8 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
+import com.game.render.fbo.psProcess.program.FBORenderProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOSoftLightProgram;
 import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.colorize.userState.EscapyStdColorizeRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
@@ -28,6 +31,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected Color color;
 	protected EscapyFBO fbo;
 	
+	protected FBORenderProgram<EscapyMultiFBO> renderProgram;
+	
 	private int id;
 	
 	{
@@ -40,17 +45,21 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.colorizer = new EscapyStdColorizeRenderer(id);
 		this.stdRenderer = new EscapyStdShaderRenderer(id);
 		this.fbo = new StandartFBO();
-	}
-	
-	public AbsStdLight() {
 		
 	}
 	
-	public AbsStdLight(int id) {
-		this.setID(id);
+	public AbsStdLight() {
 	}
-	public AbsStdLight(TransVec position) {
+	public AbsStdLight(EscapyMultiFBO target) {
+		this.renderProgram = new FBOSoftLightProgram(target);
+	}
+	public AbsStdLight(int id, EscapyMultiFBO target) {
+		this.setID(id);
+		this.renderProgram = new FBOSoftLightProgram(target);
+	}
+	public AbsStdLight(TransVec position, EscapyMultiFBO target) {
 		this.setPosition(position);
+		this.renderProgram = new FBOSoftLightProgram(target);
 	}
 	
 	public void preRender(EscapyGdxCamera escapyCamera) {
@@ -150,6 +159,15 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.color.r = r;
 		this.color.g = g;
 		this.color.b = b;
+		return this;
+	}
+
+	public FBORenderProgram<EscapyMultiFBO> getRenderProgram() {
+		return renderProgram;
+	}
+
+	public AbsStdLight setRenderProgram(FBORenderProgram<EscapyMultiFBO> renderProgram) {
+		this.renderProgram = renderProgram;
 		return this;
 	}
 }

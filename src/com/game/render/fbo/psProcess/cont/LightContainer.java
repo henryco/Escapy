@@ -7,10 +7,6 @@ import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
-import com.game.render.fbo.psProcess.program.userState.FBOColorDodgeProgram;
-import com.game.render.fbo.psProcess.program.userState.FBOLinearDodgeProgram;
-import com.game.render.fbo.psProcess.program.userState.FBOScreenDodgeProgram;
-import com.game.render.fbo.psProcess.program.userState.FBOSoftLightProgram;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.absContainer.EscapyAbsContainer;
 import com.game.utils.translationVec.TransVec;
@@ -72,25 +68,21 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 
 	@Override
 	public void postRender(TransVec translationVec) {
-		super.targetsList.forEach(light -> 
-			this.lightFBO.renderFBO(postRenderCamera, light));
+		super.targetsList.forEach(light -> { 
+			this.lightFBO.setRenderProgram(light.getRenderProgram());
+			this.lightFBO.renderFBO(postRenderCamera, light);});
 	}
 
 	@Override
 	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException {
-		if (postRednerFBO instanceof EscapyMultiFBO) {
+		if (postRednerFBO instanceof EscapyMultiFBO) 
 			this.lightFBO = (EscapyMultiFBO) postRednerFBO;
-			//this.lightFBO.setRenderProgram(new FBOColorDodgeProgram(lightFBO));
-			//this.lightFBO.setRenderProgram(new FBOSoftLightProgram(lightFBO));
-			this.lightFBO.setRenderProgram(new FBOScreenDodgeProgram(lightFBO));
-			//this.lightFBO.setRenderProgram(new FBOLinearDodgeProgram(lightFBO));
-		}
 		else throw new EscapyFBOtypeException();
 		return this;
 	}
 
 	@Override
-	public EscapyFBO getPostRenderFBO() {
+	public EscapyMultiFBO getPostRenderFBO() {
 		return this.lightFBO;
 	}
 
@@ -99,6 +91,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 		this.postRenderCamera = camera;
 		return this;
 	}
+	
 
 	
 

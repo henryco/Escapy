@@ -5,15 +5,15 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
-import com.game.render.shader.blend.userState.EscapyStdLinearDodgeRenderer;
+import com.game.render.shader.blend.userState.EscapyStdSoftDodgeRenderer;
 
-public class FBOLinearDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
+public class FBOSoftDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 
-	private EscapyStdLinearDodgeRenderer linearDodgeRenderer;
+	private EscapyStdSoftDodgeRenderer linearDodgeRenderer;
 	
-	public FBOLinearDodgeProgram(EscapyMultiFBO fboProgramTarget) {
+	public FBOSoftDodgeProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.linearDodgeRenderer = new EscapyStdLinearDodgeRenderer();
+		this.linearDodgeRenderer = new EscapyStdSoftDodgeRenderer();
 	}
 
 	@Override
