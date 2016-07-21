@@ -26,7 +26,7 @@ import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.stdLS.userState.SimpleStdLight;
 import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
-import com.game.render.fbo.psProcess.program.userState.FBOSoftDodgeProgram;
+import com.game.render.fbo.psProcess.program.userState.FBOStdProgramFactory;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
@@ -127,10 +127,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		
 		
-		
-		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(2.5f)
+	
+		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(3.5f)
 				.setPosition(150, 50).setColor(new Color(223f/255f, 149f/255f, 0f, 1f))
-				.setRenderProgram(new FBOSoftDodgeProgram(stdLights.getPostRenderFBO())));
+				.setRenderProgram(FBOStdProgramFactory.screenDodge(stdLights.getPostRenderFBO())));
 		
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));

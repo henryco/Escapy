@@ -1,7 +1,5 @@
 package com.game.physics_temp;
 
-import com.badlogic.gdx.Gdx;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class EscapyPhysicsCalculationsThread.
