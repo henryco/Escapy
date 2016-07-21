@@ -216,7 +216,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	@Override
 	public void update() {
 		
-		this.updDist();
+		
 		this.volumeLights.getSourceByID(mouseLight).
 			setPosition(new Vector2(mpos[0], mpos[1])).
 			setDistance(dist).setIntencity(intencity - 0.4f);
@@ -262,7 +262,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	 */
 	@Override
 	public void render(float delta) {
-		
+		this.updDist();
 		super.escapyCamera.clear();
 		this.MAINFBO.forceWipeFBO();
 		this.lightFBO.forceWipeFBO();

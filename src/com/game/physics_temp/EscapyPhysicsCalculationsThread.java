@@ -1,5 +1,7 @@
 package com.game.physics_temp;
 
+import com.badlogic.gdx.Gdx;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class EscapyPhysicsCalculationsThread.
@@ -45,9 +47,9 @@ public class EscapyPhysicsCalculationsThread extends EscapyPhysicsSuper
 	
 		while (physicsOn)
 		{	
-		/**
-		 
-		 MIGHT BE REMOVED FROM POSTRUNNABLE FIXME
+		
+	/*	 
+	//	 MIGHT BE REMOVED FROM POSTRUNNABLE FIXME
 			
 			Gdx.app.postRunnable(new Runnable() {
 				
@@ -63,8 +65,8 @@ public class EscapyPhysicsCalculationsThread extends EscapyPhysicsSuper
 					}	
 				}
 			});
-			
-		**/
+		*/	
+		
 			
 			for (int i = 0; i < eventObject.size(); i++)
 			{
@@ -74,11 +76,12 @@ public class EscapyPhysicsCalculationsThread extends EscapyPhysicsSuper
 							((EscapyPhysicsObjectSuper) physObject.get(i)).ypos, ((EscapyPhysicsObjectSuper) physObject.get(i)).mass,
 								((EscapyPhysicsObjectSuper) physObject.get(i)).tetha,(EscapyPhysicsObjectSuper) physObject.get(i));
 			}	
-	
+		
+			
 			if(physicsOn)
 			{
 				try {
-					Thread.sleep(0, 50000);
+					Thread.sleep(0, 50000);	
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
