@@ -31,7 +31,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 		return this.mergeContainedFBO(postRenderCamera);
 	}
 	public LightContainer mergeContainedFBO(EscapyGdxCamera camera) {
-		super.targetsList.forEach(light -> light.preRender(camera));
 		this.lightFBO.begin();
 		super.targetsList.forEach(light -> light.renderGraphic(null, camera));
 		this.lightFBO.end().mergeBuffer();
@@ -43,7 +42,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 	}
 	
 	public LightContainer mergeContainedFBO(TransVec translationVec, EscapyGdxCamera camera) {
-		super.targetsList.forEach(light -> light.preRender(camera));
 		this.lightFBO.begin();
 			super.targetsList.forEach(light -> light.renderGraphic(translationVec.getTransVecArray(), camera));
 		this.lightFBO.end().mergeBuffer();

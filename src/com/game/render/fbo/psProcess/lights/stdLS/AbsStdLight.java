@@ -1,5 +1,6 @@
 package com.game.render.fbo.psProcess.lights.stdLS;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,9 +29,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	private EscapyStdColorizeRenderer colorizer;
 	private EscapyStdShaderRenderer stdRenderer;
+	
 	protected Color color;
 	protected EscapyFBO fbo;
-	
+	protected EscapyGdxCamera cam;
 	protected FBORenderProgram<EscapyMultiFBO> renderProgram;
 	
 	private int id;
@@ -45,6 +47,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.colorizer = new EscapyStdColorizeRenderer(id);
 		this.stdRenderer = new EscapyStdShaderRenderer(id);
 		this.fbo = new StandartFBO();
+		this.cam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 	}
 	
@@ -64,10 +67,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	public void preRender(EscapyGdxCamera escapyCamera) {
 		fbo.begin().wipeFBO();
-		this.stdRenderer.drawSprite(lightSprite, escapyCamera.getCamera());
-		this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
+		this.stdRenderer.drawSprite(lightSprite, cam.getCamera());
+		this.colorizer.renderColorized(lightSprite, cam.getCamera(),
 				color.r, color.g, color.b);
-		this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
+		this.colorizer.renderColorized(lightSprite, cam.getCamera(),
 						color.r, color.g, color.b);
 		fbo.end();
 	}
@@ -75,8 +78,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	@Override
 	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera) {
 
-		//stdRenderer.drawSprite(lightSprite, escapyCamera.getCamera());
-		fbo.renderFBO();
+		fbo.renderFBO(escapyCamera);
 	}
 	
 	@Override
@@ -153,12 +155,21 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	public AbsStdLight setColor(Color color) {
 		this.color = color;
+		this.preRender(cam);
 		return this;
 	}
 	public AbsStdLight setColor(float r, float g, float b) {
 		this.color.r = r;
 		this.color.g = g;
 		this.color.b = b;
+		this.preRender(cam);
+		return this;
+	}
+	public AbsStdLight setColor(int r255, int g255, int b255) {
+		this.color.r = ((float)(((float)r255)/255f));
+		this.color.g = ((float)(((float)g255)/255f));
+		this.color.b = ((float)(((float)b255)/255f));
+		this.preRender(cam);
 		return this;
 	}
 

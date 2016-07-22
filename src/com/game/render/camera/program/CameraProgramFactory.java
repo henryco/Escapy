@@ -31,7 +31,7 @@ public class CameraProgramFactory {
 	 *            the program target
 	 * @return the camera program
 	 */
-	public static CameraProgram<AbstractCharacters> standartCharacterProgram(AbstractCharacters programTarget) {
+	public static CameraProgram<AbstractCharacters> stdCharacterProgram(AbstractCharacters programTarget) {
 		return new StandartCharacterCamProgram(programTarget);
 	}
 

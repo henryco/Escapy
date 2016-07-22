@@ -26,7 +26,7 @@ import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.stdLS.userState.SimpleStdLight;
 import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
-import com.game.render.fbo.psProcess.program.userState.FBOStdProgramFactory;
+import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
@@ -110,7 +110,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
 		this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
 		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder()
-				.addCameraProgram(CameraProgramFactory.standartCharacterProgram(this.charactersContainer.player()));
+				.addCameraProgram(CameraProgramFactory.stdCharacterProgram(this.charactersContainer.player()));
 		
 		this.MAINFBO = new StandartFBO();
 		this.bgrFBO = new StandartFBO(); //XXX
@@ -128,9 +128,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		
 	
-		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(3.5f)
-				.setPosition(150, 50).setColor(new Color(223f/255f, 149f/255f, 0f, 1f))
-				.setRenderProgram(FBOStdProgramFactory.screenDodge(stdLights.getPostRenderFBO())));
+		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(3f)
+				.setPosition(150, 50).setColor(205, 107, 107)//new Color(223f/255f, 149f/255f, 0f, 1f))
+				.setRenderProgram(FBOStdBlendProgramFactory.vividHue(stdLights.getPostRenderFBO())));
 		
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
@@ -154,7 +154,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < mapContainer.objectSize()[mapContainer.indexTab()[i]]; j++) {
 				this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
-				this.normalsContainer.addSource(new NormalRenderer((EscapyNormalRender) mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
+				if (mapContainer.gameObjects()[mapContainer.indexTab()[i]][j] instanceof EscapyNormalRender)
+					this.normalsContainer.addSource(new NormalRenderer((EscapyNormalRender) mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
 			}
 		for (int i = 0; i < this.charactersContainer.getNpc().length; i++)
 			this.stdContainer.addSource(new StdRenderer(charactersContainer.getNpc()[i]));

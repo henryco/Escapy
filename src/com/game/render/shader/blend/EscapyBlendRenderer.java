@@ -17,6 +17,7 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 
 	private ShaderProgram blendShader;
 	private final String targetMap, blendMap;
+	private String FRAGMENT_NAME = "_";
 	
 	/**
 	 * Instantiates a new escapy blend renderer.
@@ -102,6 +103,7 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 	public EscapyBlendRenderer initShaderProgram(String VERTEX, String FRAGMENT) {
 		ShaderProgram.pedantic = false;
 		this.blendShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
+		this.FRAGMENT_NAME = this.removeFRAG(FRAGMENT);
 		super.checkStatus(blendShader);
 		return this;
 	}
@@ -187,12 +189,21 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 		return shader;
 	}
 
+	private String removeFRAG(String url) {
+		//.frag
+		StringBuffer strb = new StringBuffer(url);
+		if (strb.charAt(strb.length()-5) == '.')
+			strb.delete(strb.length()-5, strb.length());
+		return strb.toString();
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see com.game.render.shader.EscapyShaderRender#toString()
 	 */
 	@Override
 	public String toString() {
-		return "EscapyBlendShader_"+super.id;
+		return "EscapyBlendShader"+"_"+this.FRAGMENT_NAME+"_"+super.id;
 	}
 	
 	
