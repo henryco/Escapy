@@ -20,18 +20,22 @@ public class FBOStdBlendProgramFactory {
 	/** The Constant BLENDMAP. */
 	public static final String BLENDMAP = "blendMap";
 	
-	private static String defaultShadersPath ="shaders\\blend\\";
+	private final static String defaultShadersPath ="shaders\\blend\\";
+	private static String shaderPath = defaultShadersPath;
 	
 	public static String getDefaultShadersPath() {
 		return defaultShadersPath;
 	}
 	public static FBOStdBlendProgramFactory setDefaultShadersPath(String defaultShadersPath) {
-		FBOStdBlendProgramFactory.defaultShadersPath = defaultShadersPath;
+		FBOStdBlendProgramFactory.shaderPath = defaultShadersPath;
 		return new FBOStdBlendProgramFactory();
+	}
+	public static void restoreShaderPath() {
+		shaderPath = defaultShadersPath;
 	}
 	
 	private static String vfpath(String path) {
-		return defaultShadersPath+path+"\\"+path;
+		return shaderPath+path+"\\"+path;
 	}
 	private static String frag(String fragment) {
 		return vfpath(fragment)+".frag";
@@ -85,10 +89,22 @@ public class FBOStdBlendProgramFactory {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("vividHue"), frag("vividHue"), TARGETMAP, BLENDMAP));
 	}
-	
-	
-	
-	
+	public static FBORenderProgram<EscapyMultiFBO> vividSoft(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("vividSoft"), frag("vividSoft"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> DPO(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("DPO"), frag("DPO"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> dodgeMulti(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("dodgeMulti"), frag("dodgeMulti"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> hardColor(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("hardColor"), frag("hardColor"), TARGETMAP, BLENDMAP));
+	}
 	
 	
 	

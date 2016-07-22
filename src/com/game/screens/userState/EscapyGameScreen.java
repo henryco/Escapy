@@ -128,9 +128,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		
 	
-		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(3f)
-				.setPosition(150, 50).setColor(205, 107, 107)//new Color(223f/255f, 149f/255f, 0f, 1f))
-				.setRenderProgram(FBOStdBlendProgramFactory.vividHue(stdLights.getPostRenderFBO())));
+		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(4.5f)
+				.setPosition(400, 450).setColor(205, 107, 107)//new Color(223f/255f, 149f/255f, 0f, 1f))
+				.setRenderProgram(FBOStdBlendProgramFactory.hardColor(stdLights.getPostRenderFBO())));
 		
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
@@ -199,14 +199,22 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			this.intencity -= 0.05f;
 
 		this.mpos[0] = Gdx.input.getX();
-		this.mpos[1] = (Gdx.graphics.getWidth() - Gdx.input.getY());
+		this.mpos[1] = (Gdx.graphics.getHeight() - Gdx.input.getY());
 		
-		System.out.println(" ");
-		System.out.println("DIST: " + dist);
-		System.out.println("intencity: " + intencity);
-		System.out.println("LightPos: " + mpos[0] + " : " + mpos[1]);
+	//	System.out.println(" ");
+	//	System.out.println("DIST: " + dist);
+	//	System.out.println("intencity: " + intencity);
+	//	System.out.println("LightPos: " + mpos[0] + " : " + mpos[1]);
 		System.out.println("ScreenPos: " + screen[0] + " : " + screen[1]);
-
+	//	System.out.println(this.charactersContainer.player().getPhysicalBody().xpos()+" "+this.charactersContainer.player().getPhysicalBody().ypos());
+		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+			this.stdLights.getSourceByID(this.testLight).setPosition(this.charactersContainer.player().getPhysicalBody().getBodyPosition());
+			this.stdLights.getSourceByID(this.testLight).preRender(escapyCamera);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+			this.stdLights.getSourceByID(this.testLight).setPosition(Gdx.input.getX(), Gdx.input.getY());
+			this.stdLights.getSourceByID(this.testLight).preRender(escapyCamera);
+		}
 	}
 	
 	
@@ -274,8 +282,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.renderGameObjects(escapyCamera);
 		
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
-		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
-	
+	//	this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
+		this.MAINFBO.renderToFBO(stdFBO);
 		this.stdLights.mergeContainedFBO(escapyCamera);
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		

@@ -69,6 +69,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 
 	/** The body position. */
 	protected int[] bodyPosition = new int[] { 0, 0 };
+	protected float[] bodyFloatPosition = new float[]{0,0};
 
 	/**
 	 * Instantiates a new abstract characters.
@@ -468,6 +469,11 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		bodyPosition[0] = (int) (xPos + (width * 0.52f));
 		bodyPosition[1] = (int) (yPos + (height * 0.48f));
 		return bodyPosition;
+	}
+	public float[] getBodyFloatPosition() {
+		bodyFloatPosition[0] = (xPos + (width * 0.52f));
+		bodyFloatPosition[1] = (yPos + (height * 0.48f));
+		return bodyFloatPosition;
 	}
 
 	/**

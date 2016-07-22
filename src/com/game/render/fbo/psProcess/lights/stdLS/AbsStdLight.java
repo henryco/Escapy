@@ -74,6 +74,9 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 						color.r, color.g, color.b);
 		fbo.end();
 	}
+	public void preRender() {
+		this.preRender(cam);
+	}
 	
 	@Override
 	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera) {
@@ -83,7 +86,9 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	@Override
 	public void stateUpdated(TransVec state) {
-		this.lightSprite.setPosition(state.x, state.y);
+		float tempX = state.x - (this.lightSprite.getWidth() / 2.f);
+		float tempY = state.y - (this.lightSprite.getHeight() / 2.f);
+		this.lightSprite.setPosition(tempX, tempY);
 	}
 	
 	public AbsStdLight setLightSource(String lightFile) {
@@ -155,21 +160,18 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	public AbsStdLight setColor(Color color) {
 		this.color = color;
-		this.preRender(cam);
 		return this;
 	}
 	public AbsStdLight setColor(float r, float g, float b) {
 		this.color.r = r;
 		this.color.g = g;
 		this.color.b = b;
-		this.preRender(cam);
 		return this;
 	}
 	public AbsStdLight setColor(int r255, int g255, int b255) {
 		this.color.r = ((float)(((float)r255)/255f));
 		this.color.g = ((float)(((float)g255)/255f));
 		this.color.b = ((float)(((float)b255)/255f));
-		this.preRender(cam);
 		return this;
 	}
 

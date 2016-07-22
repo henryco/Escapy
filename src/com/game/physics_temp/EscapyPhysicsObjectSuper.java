@@ -219,7 +219,7 @@ public abstract class EscapyPhysicsObjectSuper extends EscapyPhysicsSuper implem
 	 *
 	 * @return the float
 	 */
-	public float bodyXpos() {
+	public float getBodyXpos() {
 		return (xpos + (width * 0.52f));
 	}
 
@@ -228,10 +228,13 @@ public abstract class EscapyPhysicsObjectSuper extends EscapyPhysicsSuper implem
 	 *
 	 * @return the float
 	 */
-	public float bodyYpos() {
+	public float getBodyYpos() {
 		return (ypos + (height * 0.48f));
 	}
 
+	public float[] getBodyPosition(){
+		return new float[]{getBodyXpos(), getBodyYpos()};
+	}
 	/**
 	 * Sets the position.
 	 *
