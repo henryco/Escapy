@@ -1,24 +1,25 @@
 package com.game.map.objects;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.render.EscapyGdxCamera;
-import com.game.render.extra.normals.EscapyNormalRender;
+import com.game.render.extra.lightMap.EscapyLightMapRenderer;
+import com.game.render.extra.normalMap.EscapyNormalMapRender;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class NonAnimatedObject.
  */
-public class NonAnimatedObject extends InGameObject implements EscapyNormalRender {
+public class NonAnimatedObject extends InGameObject implements EscapyNormalMapRender, 
+	EscapyLightMapRenderer{
 
-	private Texture staticObjectTexture;
-	private Sprite staticObjectSprite;
-	
-	private Texture staticNrmlMapTexture;
-	private Sprite staticNrmlMapSprite;
+	private Texture[] ObTextures;
+	private Sprite[] ObSprites;
 
 	/**
 	 * Instantiates a new non animated object.
@@ -47,51 +48,58 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalRende
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
 
-		this.staticObjectTexture = new Texture(new FileHandle(super.getImgUrl()[0]));
-		this.staticObjectTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-
-		this.staticObjectSprite = new Sprite(staticObjectTexture);
-		this.staticObjectSprite.flip(false, true);
-		this.staticObjectSprite.setPosition(super.XPos(), super.YPos());
-		this.staticObjectSprite.setSize(staticObjectTexture.getWidth() * (float) zoom(),
-				staticObjectTexture.getHeight() * (float) zoom());
+		this.ObTextures = new Texture[]{
+				new Texture(new FileHandle(super.getImgUrl()[0])),
+				new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0])+"NRML.png")),
+				new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0])+"LTM.png"))
+		}; 
+		Arrays.stream(ObTextures).forEach(
+				texture -> texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest));
 		
-		
-		//XXX NORMALMAP INIT VVV
-		this.staticNrmlMapTexture 
-			= new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0])+"NRML.png"));
-		this.staticNrmlMapTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		
-		this.staticNrmlMapSprite = new Sprite(staticNrmlMapTexture);
-		this.staticNrmlMapSprite.flip(false, true);
-		this.staticNrmlMapSprite.setPosition(super.XPos(), super.YPos());
-		this.staticNrmlMapSprite.setSize(staticNrmlMapTexture.getWidth() * (float) zoom(),
-				staticNrmlMapTexture.getHeight() * (float) zoom());
-		
+		this.ObSprites = new Sprite[] {
+				new Sprite(ObTextures[0]), 
+				new Sprite(ObTextures[1]), 
+				new Sprite(ObTextures[2])
+		};
+		Arrays.stream(ObSprites).forEach(
+				sprite -> { 
+					sprite.flip(false, true);
+					sprite.setPosition(super.XPos(), super.YPos());
+					sprite.setSize(
+							sprite.getTexture().getWidth() * (float) zoom(),
+							sprite.getTexture().getHeight() * (float) zoom());
+				});
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
 	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-
 		spriteBatcher.begin();
-			staticObjectSprite.draw(spriteBatcher);
+			ObSprites[0].draw(spriteBatcher);
 		spriteBatcher.end();
 
 	}
 
 	/* (non-Javadoc)
-	 * @see com.game.render.extra.normals.EscapyNormalRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
+	 * @see com.game.render.extra.normalMap.EscapyNormalMapRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
 	 */
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-
 		spriteBatcher.begin();
-			staticNrmlMapSprite.draw(spriteBatcher);
+			ObSprites[1].draw(spriteBatcher);
+		spriteBatcher.end();
+	}
+
+	@Override
+	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
+		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
+		spriteBatcher.begin();
+			ObSprites[2].draw(spriteBatcher);
 		spriteBatcher.end();
 	}
 

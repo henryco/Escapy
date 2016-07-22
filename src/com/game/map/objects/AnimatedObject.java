@@ -9,13 +9,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.animator.EscapyAnimatorObject;
 import com.game.executable.EscapyExecutableObjects;
 import com.game.render.EscapyGdxCamera;
-import com.game.render.extra.normals.EscapyNormalRender;
+import com.game.render.extra.lightMap.EscapyLightMapRenderer;
+import com.game.render.extra.normalMap.EscapyNormalMapRender;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class AnimatedObject.
  */
-public class AnimatedObject extends InGameObject implements EscapyExecutableObjects, EscapyNormalRender {
+public class AnimatedObject extends InGameObject implements EscapyExecutableObjects, 
+	EscapyNormalMapRender, EscapyLightMapRenderer {
 
 	private int[] animPeriod;
 	private AnimatedObject animob;
@@ -167,10 +169,16 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	}
 
 	/* (non-Javadoc)
-	 * @see com.game.render.extra.normals.EscapyNormalRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
+	 * @see com.game.render.extra.normalMap.EscapyNormalMapRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
 	 */
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		// TODO Auto-generated method stub
 		
 	}

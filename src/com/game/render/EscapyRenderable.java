@@ -2,8 +2,7 @@ package com.game.render;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface EscapyRenderable.
- */
+ * The Interface EscapyRenderable.*/
 public interface EscapyRenderable {
 	
 	/**
@@ -14,6 +13,7 @@ public interface EscapyRenderable {
 	 * @param escapyCamera
 	 *            the escapy camera
 	 */
+
 	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera);
 	
 }

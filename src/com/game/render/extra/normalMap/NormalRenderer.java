@@ -1,4 +1,4 @@
-package com.game.render.extra.normals;
+package com.game.render.extra.normalMap;
 
 import com.game.render.EscapyGdxCamera;
 import com.game.render.extra.ExtraRendererSuper;
@@ -7,7 +7,7 @@ import com.game.render.extra.ExtraRendererSuper;
 /**
  * The Class NormalRenderer.
  */
-public class NormalRenderer extends ExtraRendererSuper<EscapyNormalRender> {
+public class NormalRenderer extends ExtraRendererSuper<EscapyNormalMapRender> {
 
 	
 	/**
@@ -16,7 +16,7 @@ public class NormalRenderer extends ExtraRendererSuper<EscapyNormalRender> {
 	 * @param target
 	 *            the target
 	 */
-	public NormalRenderer(EscapyNormalRender target) {
+	public NormalRenderer(EscapyNormalMapRender target) {
 		super(target);
 	}
 

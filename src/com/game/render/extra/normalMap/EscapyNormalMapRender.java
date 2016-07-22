@@ -1,13 +1,13 @@
-package com.game.render.extra.normals;
+package com.game.render.extra.normalMap;
 
 import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface EscapyNormalRender.
+ * The Interface EscapyNormalMapRender.
  */
-public interface EscapyNormalRender extends EscapyRenderable {
+public interface EscapyNormalMapRender extends EscapyRenderable {
 
 	/**
 	 * Render normals.

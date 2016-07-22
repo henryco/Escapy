@@ -132,7 +132,7 @@ public class NPC extends AbstractCharacters implements EscapyAnimatorCharacter{
 	}
 
 	/* (non-Javadoc)
-	 * @see com.game.render.extra.normals.EscapyNormalRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
+	 * @see com.game.render.extra.normalMap.EscapyNormalMapRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
 	 */
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {

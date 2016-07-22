@@ -24,8 +24,8 @@ public class ExtraRenderContainer extends EscapyAbsContainer<EscapyExtraRenderer
 	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-		for (EscapyExtraRenderer<?> EER : super.targetsList) 
-			EER.extraRender(translationMatrix, escapyCamera);	
+		super.targetsList.forEach(
+				EER -> EER.extraRender(translationMatrix, escapyCamera));
 	}
 	
 	/**
@@ -35,8 +35,8 @@ public class ExtraRenderContainer extends EscapyAbsContainer<EscapyExtraRenderer
 	 *            the escapy camera
 	 */
 	public void renderGraphic(EscapyGdxCamera escapyCamera) {
-		for (EscapyExtraRenderer<?> EER : super.targetsList) 
-			EER.extraRender(EER.getTranslationVec(), escapyCamera);	
+		super.targetsList.forEach(
+				EER -> EER.extraRender(EER.getTranslationVec(), escapyCamera));
 	}
 
 	

@@ -10,14 +10,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.animator.EscapyAnimatorSuperCharacter;
 import com.game.render.EscapyRenderable;
-import com.game.render.extra.normals.EscapyNormalRender;
+import com.game.render.extra.normalMap.EscapyNormalMapRender;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class AbstractCharacters.
  */
 public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter 
-	implements EscapyRenderable, EscapyNormalRender {
+	implements EscapyRenderable, EscapyNormalMapRender {
 
 	private float xPos, yPos;
 	private float height, width;
