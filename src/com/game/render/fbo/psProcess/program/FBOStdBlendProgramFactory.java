@@ -16,9 +16,9 @@ import com.game.render.shader.blend.EscapyBlendRenderer;
 public class FBOStdBlendProgramFactory {
 
 	/** The Constant TARGETMAP. */
-	public static final String TARGETMAP = "targetMap";
+	private static final String TARGETMAP = "targetMap";
 	/** The Constant BLENDMAP. */
-	public static final String BLENDMAP = "blendMap";
+	private static final String BLENDMAP = "blendMap";
 	
 	private final static String defaultShadersPath ="shaders\\blend\\";
 	private static String shaderPath = defaultShadersPath;
@@ -101,9 +101,29 @@ public class FBOStdBlendProgramFactory {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("dodgeMulti"), frag("dodgeMulti"), TARGETMAP, BLENDMAP));
 	}
-	public static FBORenderProgram<EscapyMultiFBO> hardColor(EscapyMultiFBO target) {
+	public static FBORenderProgram<EscapyMultiFBO> VSD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
-				new EscapyBlendRenderer(vert("hardColor"), frag("hardColor"), TARGETMAP, BLENDMAP));
+				new EscapyBlendRenderer(vert("VSD"), frag("VSD"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> VCD(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("VCD"), frag("VCD"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> VHD(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("VHD"), frag("VHD"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> VOD(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("VOD"), frag("VOD"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> VOD2(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("VOD2"), frag("VOD2"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> CEB(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("CEB"), frag("CEB"), TARGETMAP, BLENDMAP));
 	}
 	
 	
