@@ -299,8 +299,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		
 		this.stdLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
-	//	this.MAINFBO.renderFBO();
-		this.lightMPFBO.renderFBO();
+		this.MAINFBO.renderFBO();
+		
+		//this.lightMPFBO.renderFBO();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();
