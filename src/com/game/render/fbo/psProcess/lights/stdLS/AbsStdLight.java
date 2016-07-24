@@ -9,11 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
-import com.game.render.fbo.psProcess.program.FBORenderProgram;
-import com.game.render.fbo.psProcess.program.userState.FBOSoftLightProgram;
 import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.colorize.userState.EscapyStdColorizeRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
@@ -33,7 +30,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected Color color;
 	protected EscapyFBO fbo;
 	protected EscapyGdxCamera cam;
-	protected FBORenderProgram<EscapyMultiFBO> renderProgram;
+//	protected FBORenderProgram<EscapyMultiFBO> renderProgram;
 	
 	private int id;
 	
@@ -53,16 +50,12 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	public AbsStdLight() {
 	}
-	public AbsStdLight(EscapyMultiFBO target) {
-		this.renderProgram = new FBOSoftLightProgram(target);
-	}
-	public AbsStdLight(int id, EscapyMultiFBO target) {
+
+	public AbsStdLight(int id) {
 		this.setID(id);
-		this.renderProgram = new FBOSoftLightProgram(target);
 	}
-	public AbsStdLight(TransVec position, EscapyMultiFBO target) {
+	public AbsStdLight(TransVec position) {
 		this.setPosition(position);
-		this.renderProgram = new FBOSoftLightProgram(target);
 	}
 	
 	public void preRender(EscapyGdxCamera escapyCamera) {
@@ -175,13 +168,5 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 
-	public FBORenderProgram<EscapyMultiFBO> getRenderProgram() {
-		return renderProgram;
-	}
-
-	public AbsStdLight setRenderProgram(FBORenderProgram<EscapyMultiFBO> renderProgram) {
-		this.renderProgram = renderProgram;
-		return this;
-	}
 }
 

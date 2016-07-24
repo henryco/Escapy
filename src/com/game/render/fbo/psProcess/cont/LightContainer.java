@@ -7,11 +7,15 @@ import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
+import com.game.render.fbo.psProcess.program.FBORenderProgram;
+import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
+import com.game.render.fbo.psRender.EscapyPostExec;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.absContainer.EscapyAbsContainer;
 import com.game.utils.translationVec.TransVec;
 
-public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements EscapyPostRenderable {
+public class LightContainer extends EscapyAbsContainer<AbsStdLight>
+	implements EscapyPostExec <EscapyMultiFBO> {
 
 	private EscapyGdxCamera postRenderCamera;
 	private EscapyMultiFBO lightFBO;
@@ -21,12 +25,34 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 	}
 	public LightContainer(EscapyFBO mutliFBO) {
 		this.setPostRenderFBO(mutliFBO);
+		this.setRenderProgram(FBOStdBlendProgramFactory.softLight(lightFBO));
+	}
+	public LightContainer(EscapyFBO mutliFBO, FBORenderProgram<EscapyMultiFBO> program) {
+		this.setPostRenderFBO(mutliFBO);
+		this.setRenderProgram(program);
 	}
 	public LightContainer(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera) {
 		this.setPostRenderFBO(mutliFBO);
 		this.setPostRenderCamera(postRenderCamera);
+		this.setRenderProgram(FBOStdBlendProgramFactory.softLight(lightFBO));
 	}
-
+	public LightContainer(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera, 
+			FBORenderProgram<EscapyMultiFBO> program) {
+		this.setPostRenderFBO(mutliFBO);
+		this.setPostRenderCamera(postRenderCamera);
+		this.setRenderProgram(program);
+	}
+	
+	
+	@Override
+	protected void initContainer() {
+		super.initContainer();
+		this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight());
+		this.lightFBO = new StandartMultiFBO();
+	}
+	
+	
 	public LightContainer mergeContainedFBO() {
 		return this.mergeContainedFBO(postRenderCamera);
 	}
@@ -36,7 +62,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 		this.lightFBO.end().mergeBuffer();
 		return this;
 	}
-	
 	public LightContainer mergeContainedFBO(TransVec translationVec) {
 		return this.mergeContainedFBO(translationVec, postRenderCamera);
 	}
@@ -48,13 +73,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 		return this;
 	}
 	
-	@Override
-	protected void initContainer() {
-		super.initContainer();
-		this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
-		this.lightFBO = new StandartMultiFBO();
-	}
 	
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
@@ -66,9 +84,8 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 
 	@Override
 	public void postRender(TransVec translationVec) {
-		super.targetsList.forEach(light -> { 
-			this.lightFBO.setRenderProgram(light.getRenderProgram());
-			this.lightFBO.renderFBO(postRenderCamera, light);});
+		super.targetsList.forEach(light -> 
+			this.lightFBO.renderFBO(postRenderCamera, light));
 	}
 
 	@Override
@@ -87,6 +104,13 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight> implements E
 	@Override
 	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {
 		this.postRenderCamera = camera;
+		return this;
+	}
+	@Override
+	public EscapyPostRenderable setRenderProgram(FBORenderProgram<EscapyMultiFBO> program) {
+		if (program.getFBOTarget() != this.lightFBO)
+			program.setFBOTarget(lightFBO);
+		this.lightFBO.setRenderProgram(program);
 		return this;
 	}
 	

@@ -15,6 +15,10 @@ public class FBOColorDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 		super(fboProgramTarget);
 		this.clrDodgeRenderer = new EscapyStdClrDodgeRenderer();
 	}
+	public FBOColorDodgeProgram() {
+		super();
+		this.clrDodgeRenderer = new EscapyStdClrDodgeRenderer();
+	}
 
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {

@@ -56,25 +56,56 @@ public class FBOStdBlendProgramFactory {
 	}
 	
 	
-	
 	public static FBORenderProgram<EscapyMultiFBO> colorDodge(EscapyMultiFBO target){
 		return new FBOColorDodgeProgram(target);
 	}
+	public static FBORenderProgram<EscapyMultiFBO> colorDodge(){
+		return new FBOColorDodgeProgram();
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> hardDodge(EscapyMultiFBO target) {
 		return new FBOHardDodgeProgram(target);
 	}
+	public static FBORenderProgram<EscapyMultiFBO> hardDodge() {
+		return new FBOHardDodgeProgram();
+	}
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> multiply(EscapyMultiFBO target) {
 		return new FBOMultiplyProgram(target);
 	}
+	public static FBORenderProgram<EscapyMultiFBO> multiply() {
+		return new FBOMultiplyProgram();
+	}
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> screenDodge(EscapyMultiFBO target) {
 		return new FBOScreenDodgeProgram(target);
 	}
+	public static FBORenderProgram<EscapyMultiFBO> screenDodge() {
+		return new FBOScreenDodgeProgram();
+	}
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> softDodge(EscapyMultiFBO target) {
 		return new FBOSoftDodgeProgram(target);
 	}
+	public static FBORenderProgram<EscapyMultiFBO> softDodge() {
+		return new FBOSoftDodgeProgram();
+	}
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> softLight(EscapyMultiFBO target) {
 		return new FBOSoftLightProgram(target);
 	}
+	public static FBORenderProgram<EscapyMultiFBO> softLight() {
+		return new FBOSoftLightProgram();
+	}
+	
+	
+	
 	public static FBORenderProgram<?> volumeLight(EscapyMultiFBO target) throws EscapyFBOtypeException {
 		if (target instanceof NormalMapFBO) return new FBOVolumeLightProgram((NormalMapFBO) target);
 		else throw new EscapyFBOtypeException(); 
@@ -85,47 +116,120 @@ public class FBOStdBlendProgramFactory {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("vividDodge"), frag("vividDodge"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> vividDodge() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("vividDodge"), frag("vividDodge"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> vividHue(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("vividHue"), frag("vividHue"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> vividHue() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("vividHue"), frag("vividHue"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> vividSoft(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("vividSoft"), frag("vividSoft"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> vividSoft() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("vividSoft"), frag("vividSoft"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> DPO(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("DPO"), frag("DPO"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> DPO() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("DPO"), frag("DPO"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> dodgeMulti(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("dodgeMulti"), frag("dodgeMulti"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> dodgeMulti() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("dodgeMulti"), frag("dodgeMulti"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> VSD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VSD"), frag("VSD"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> VSD() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("VSD"), frag("VSD"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> VCD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VCD"), frag("VCD"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> VCD() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("VCD"), frag("VCD"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> VHD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VHD"), frag("VHD"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> VHD() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("VHD"), frag("VHD"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> VOD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VOD"), frag("VOD"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> VOD() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("VOD"), frag("VOD"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> VOD2(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VOD2"), frag("VOD2"), TARGETMAP, BLENDMAP));
 	}
+	public static FBORenderProgram<EscapyMultiFBO> VOD2() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("VOD2"), frag("VOD2"), TARGETMAP, BLENDMAP));
+	}
+	
+	
+	
 	public static FBORenderProgram<EscapyMultiFBO> CEB(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("CEB"), frag("CEB"), TARGETMAP, BLENDMAP));
 	}
-	
+	public static FBORenderProgram<EscapyMultiFBO> CEB() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("CEB"), frag("CEB"), TARGETMAP, BLENDMAP));
+	}
 	
 	
 }

@@ -28,7 +28,7 @@ import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.stdLS.userState.SimpleStdLight;
 import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
-import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
+import com.game.render.fbo.psProcess.program.std.FBOStdMultiProgram;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
@@ -130,11 +130,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.stdLights = new LightContainer(lightFBO);
 		
 		
-		
 	
 		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(4.5f)
-				.setPosition(400, 450).setColor(205, 107, 107)//new Color(223f/255f, 149f/255f, 0f, 1f))
-				.setRenderProgram(FBOStdBlendProgramFactory.VOD2(stdLights.getPostRenderFBO())));
+				.setPosition(400, 450).setColor(205, 107, 107));
 		
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
@@ -207,12 +205,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.mpos[0] = Gdx.input.getX();
 		this.mpos[1] = (Gdx.graphics.getHeight() - Gdx.input.getY());
 		
-	//	System.out.println(" ");
-	//	System.out.println("DIST: " + dist);
-	//	System.out.println("intencity: " + intencity);
-	//	System.out.println("LightPos: " + mpos[0] + " : " + mpos[1]);
-	//	System.out.println("ScreenPos: " + screen[0] + " : " + screen[1]);
-	//	System.out.println(this.charactersContainer.player().getPhysicalBody().xpos()+" "+this.charactersContainer.player().getPhysicalBody().ypos());
 		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
 			this.stdLights.getSourceByID(this.testLight).setPosition(this.charactersContainer.player().getPhysicalBody().getBodyPosition());
 			this.stdLights.getSourceByID(this.testLight).preRender(escapyCamera);
@@ -238,8 +230,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.volumeLights.getSourceByID(mouseLight).
 			setPosition(new Vector2(mpos[0], mpos[1])).
 			setDistance(dist).setIntencity(intencity - 0.4f);
-	//	this.volumeLights.getSourceByID(mouseLight).
-	//		setDistance(dist).setIntencity(intencity - 0.4f);
 		
 		((SimpleVolLight) this.volumeLights.getSourceByID(mouseLight)).
 		setDimension(new Vector2(screen[0], screen[1]));

@@ -105,6 +105,10 @@ public class StandartMask extends EscapyMask {
 		return this;
 	}
 
+
+
+
+
 	
 
 

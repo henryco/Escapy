@@ -16,6 +16,11 @@ public class FBOHardDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 		this.hardDodgeRenderer = new EscapyStdHardDodgeRenderer();
 	}
 
+	public FBOHardDodgeProgram(){
+		super();
+		this.hardDodgeRenderer = new EscapyStdHardDodgeRenderer();
+	}
+
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
 		this.hardDodgeRenderer.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),

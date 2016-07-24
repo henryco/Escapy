@@ -16,6 +16,11 @@ public class FBOScreenDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 		this.scrDodgeRenderer = new EscapyStdScreenDodgeRenderer();
 	}
 
+	public FBOScreenDodgeProgram() {
+		super();
+		this.scrDodgeRenderer = new EscapyStdScreenDodgeRenderer();
+	}
+
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
 		this.scrDodgeRenderer.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),

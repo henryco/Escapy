@@ -20,7 +20,10 @@ public class FBOStdBlendProgram extends FBORenderProgram<EscapyMultiFBO>{
 		super(fboProgramTarget);
 		this.setBlendRenderer(blender);
 	}
-
+	public FBOStdBlendProgram(EscapyBlendRenderer blender) {
+		super();
+		this.setBlendRenderer(blender);
+	}
 	
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {

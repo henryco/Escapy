@@ -36,4 +36,5 @@ public interface EscapyPostRenderable extends EscapyPostRenderer {
 	 * @return the escapy post renderable
 	 */
 	public abstract EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera);
+	
 }

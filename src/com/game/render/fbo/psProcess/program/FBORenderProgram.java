@@ -26,6 +26,9 @@ public abstract class FBORenderProgram<T extends EscapyFBO> {
 		
 		this.fbo = fboProgramTarget;
 	}
+	public FBORenderProgram() {	
+		this.fbo = null;
+	}
 	
 	/**
 	 * Render program.
@@ -44,7 +47,7 @@ public abstract class FBORenderProgram<T extends EscapyFBO> {
 	 *            the fbo program target
 	 * @return the FBO render program
 	 */
-	public FBORenderProgram<T> setFboTarget(T fboProgramTarget)
+	public FBORenderProgram<T> setFBOTarget(T fboProgramTarget)
 	{
 		this.fbo = fboProgramTarget;
 		return this;
@@ -55,7 +58,7 @@ public abstract class FBORenderProgram<T extends EscapyFBO> {
 	 *
 	 * @return the fbo
 	 */
-	public T getFbo() {
+	public T getFBOTarget() {
 		return fbo;
 	}
 	

@@ -16,6 +16,11 @@ public class FBOSoftLightProgram extends FBORenderProgram<EscapyMultiFBO>{
 		this.softLightRenderer = new EscapyStdSoftLightRenderer();
 	}
 
+	public FBOSoftLightProgram() {
+		super();
+		this.softLightRenderer = new EscapyStdSoftLightRenderer();
+	}
+
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
 		this.softLightRenderer.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),

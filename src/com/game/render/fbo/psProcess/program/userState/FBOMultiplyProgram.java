@@ -28,6 +28,11 @@ public class FBOMultiplyProgram extends FBORenderProgram<EscapyMultiFBO>{
 		this.blednRenderer = new EscapyStdMultiplyRenderer();
 	}
 
+	public FBOMultiplyProgram() {
+		super();
+		this.blednRenderer = new EscapyStdMultiplyRenderer();
+	}
+
 	/* (non-Javadoc)
 	 * @see com.game.render.fbo.psProcess.program.FBORenderProgram#renderProgram(com.game.render.EscapyGdxCamera, com.game.render.fbo.psProcess.EscapyPostProcessed)
 	 */

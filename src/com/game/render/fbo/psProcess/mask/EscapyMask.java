@@ -116,10 +116,6 @@ public abstract class EscapyMask implements EscapyPostRenderable {
 	 */
 	public EscapyMask setColor(Color color) {
 		COLOR = color;
-		//System.out.println(COLOR.r);
-		//System.out.println(COLOR.g);
-		//System.out.println(COLOR.b);
-		//System.out.println(COLOR.a);
 		return this;
 	}
 	
