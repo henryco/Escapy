@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
+import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
@@ -19,6 +20,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 
 	private EscapyGdxCamera postRenderCamera;
 	private EscapyMultiFBO lightFBO;
+	private EscapyFBO ortoFBO;
 	
 	public LightContainer() {
 		
@@ -50,6 +52,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		this.lightFBO = new StandartMultiFBO();
+		this.ortoFBO = new StandartFBO();
 	}
 	
 	
@@ -57,9 +60,14 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		return this.mergeContainedFBO(postRenderCamera);
 	}
 	public LightContainer mergeContainedFBO(EscapyGdxCamera camera) {
-		this.lightFBO.begin();
-		super.targetsList.forEach(light -> light.renderGraphic(null, camera));
-		this.lightFBO.end().mergeBuffer();
+		
+		 	this.lightFBO.begin();
+			super.targetsList.forEach(light -> {
+				light.renderAlternative(camera, lightFBO);
+			});
+			
+			this.lightFBO.end().mergeBuffer();
+		
 		return this;
 	}
 	public LightContainer mergeContainedFBO(TransVec translationVec) {
@@ -70,6 +78,16 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		this.lightFBO.begin();
 			super.targetsList.forEach(light -> light.renderGraphic(translationVec.getTransVecArray(), camera));
 		this.lightFBO.end().mergeBuffer();
+		return this;
+	}
+	
+
+	public LightContainer renderMerged(EscapyGdxCamera camera) {
+
+		ortoFBO.begin().wipeFBO();
+		super.targetsList.forEach(light -> light.renderGraphic(null, camera));
+		ortoFBO.end();
+		
 		return this;
 	}
 	
@@ -84,8 +102,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 
 	@Override
 	public void postRender(TransVec translationVec) {
-		super.targetsList.forEach(light -> 
-			this.lightFBO.renderFBO(postRenderCamera, light));
+		this.lightFBO.renderFBO(postRenderCamera);
 	}
 
 	@Override

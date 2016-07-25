@@ -3,8 +3,11 @@ package com.game.render.fbo.psProcess.lights.stdLS;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
@@ -30,7 +33,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected Color color;
 	protected EscapyFBO fbo;
 	protected EscapyGdxCamera cam;
-//	protected FBORenderProgram<EscapyMultiFBO> renderProgram;
+	
+	private Batch batch;
 	
 	private int id;
 	
@@ -45,7 +49,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.stdRenderer = new EscapyStdShaderRenderer(id);
 		this.fbo = new StandartFBO();
 		this.cam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
+		this.batch = new SpriteBatch();
 	}
 	
 	public AbsStdLight() {
@@ -58,7 +62,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.setPosition(position);
 	}
 	
-	public void preRender(EscapyGdxCamera escapyCamera) {
+	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 		fbo.begin().wipeFBO();
 		this.stdRenderer.drawSprite(lightSprite, cam.getCamera());
 		this.colorizer.renderColorized(lightSprite, cam.getCamera(),
@@ -66,15 +70,33 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.colorizer.renderColorized(lightSprite, cam.getCamera(),
 						color.r, color.g, color.b);
 		fbo.end();
+		return this;
 	}
-	public void preRender() {
-		this.preRender(cam);
+	public AbsStdLight preRender() {
+		return this.preRender(cam);
+	}
+	
+	public EscapyFBO renderAlternative(EscapyGdxCamera escapyCamera, EscapyFBO fbo) {
+	
+		int dst = batch.getBlendDstFunc();
+		int scr = batch.getBlendSrcFunc();
+		batch.setProjectionMatrix(escapyCamera.combined());
+		batch.begin();
+		batch.enableBlending();
+		batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
+		batch.draw(this.fbo.getTextureRegion(), 0, 0, 
+				Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
+		batch.setBlendFunction(scr, dst);
+		batch.disableBlending();
+		batch.end();
+		return fbo;
 	}
 	
 	@Override
 	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera) {
 
-		fbo.renderFBO(escapyCamera);
+		fbo.renderFBO(cam);
 	}
 	
 	@Override
@@ -82,6 +104,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		float tempX = state.x - (this.lightSprite.getWidth() / 2.f);
 		float tempY = state.y - (this.lightSprite.getHeight() / 2.f);
 		this.lightSprite.setPosition(tempX, tempY);
+	//	System.out.println(tempX+":::"+tempY);
 	}
 	
 	public AbsStdLight setLightSource(String lightFile) {

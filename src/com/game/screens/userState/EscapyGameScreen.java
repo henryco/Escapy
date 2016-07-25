@@ -131,8 +131,12 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		
 	
-		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(4.5f)
+		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(3)
 				.setPosition(400, 450).setColor(205, 107, 107));
+		
+		this.stdLights.addSource(new SimpleStdLight().scale(3)
+				.setPosition(400, 450).setColor(10, 50, 250).preRender());
+		
 		
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
 				new float[] { 200, 150 }, new float[] { 1f, 1f, 1f }, 0.25f, 5f));
@@ -284,14 +288,18 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
-	//	this.MAINFBO.renderToFBO(stdFBO);
+	
 		this.stdLights.mergeContainedFBO(escapyCamera);
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		
 		this.stdLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.MAINFBO.renderFBO();
 		
-		//this.lightMPFBO.renderFBO();
+
+	//	this.MAINFBO.forceWipeFBO();
+	//	this.stdLights.renderMerged();
+	//	this.MAINFBO.renderFBO();
+		
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();

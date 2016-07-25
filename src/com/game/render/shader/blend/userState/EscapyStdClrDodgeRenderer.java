@@ -17,7 +17,7 @@ public class EscapyStdClrDodgeRenderer extends EscapyBlendRenderer {
 	public EscapyStdClrDodgeRenderer(int ID) {
 		super(ID, VERTEX, FRAGMENT, TARGETMAP, BLENDMAP);
 	}
-
+	
 	@Override
 	public String toString() {
 		return "EscapyStdClrDodgeRenderer_"+super.id;
