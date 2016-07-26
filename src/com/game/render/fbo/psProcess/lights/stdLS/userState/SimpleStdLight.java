@@ -6,6 +6,7 @@ import com.game.utils.translationVec.TransVec;
 public class SimpleStdLight extends AbsStdLight {
 
 	private static String defTexture = "data\\postProcess\\lightSrc256x256_1.png";
+	//private static String defTexture = "data\\postProcess\\lightSrc300x300_4.png";
 	
 	public SimpleStdLight(int id) {
 		super(id);
