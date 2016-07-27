@@ -97,16 +97,19 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	}
 	public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 		
+		super.targetsList.forEach( light -> light.preRender(camera));
+		
 		this.ortoFBO.begin().wipeFBO();
 		
 		this.targetsList.forEach( light -> {
-	
+		
 			this.blender.renderBlended(
 					ortoFBO.getTextureRegion(), 
 					light.getFBO().getTextureRegion(),0,0, 
 					Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
 					postRenderCamera.getCamera());
-
+		
+		
 		});
 		this.ortoFBO.end();
 		return ortoFBO;

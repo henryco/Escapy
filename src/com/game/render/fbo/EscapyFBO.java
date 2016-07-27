@@ -38,21 +38,59 @@ public abstract class EscapyFBO {
 	/** The mainregion. */
 	protected TextureRegion MAINREGION;
 	
+	protected final int regX, regY, regWidth, regHeight;
+	
+	protected final int id;
+	
+	
 	/** 
-	 * <p>Creates new FrameBufferObjects superclass, that contains Gdx {@link FrameBuffer} and other usefull stuff</p> 
-	 * <p><b>See:</b> {@link NormalMapFBO}, {@link StandartFBO}.</p>
+	 * Creates new FrameBufferObjects superclass, that contains Gdx {@link FrameBuffer} and other usefull stuff 
+	 * <b>See:</b> {@link NormalMapFBO}, {@link StandartFBO}.
 	 * */
 	public EscapyFBO() {
-		this.renderProgram = initRenderProgram();
-		this.MAINBUFFER = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), 
-				Gdx.graphics.getHeight(), false);
-		this.MAINREGION = new TextureRegion(this.MAINBUFFER.getColorBufferTexture(), 
-				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		this.fboCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		this.fboBatch = new SpriteBatch();
+		
+		this.regX = 0;
+		this.regY = 0;
+		this.regWidth = Gdx.graphics.getWidth();
+		this.regHeight = Gdx.graphics.getHeight();
+
 		this.initFBO();
 		
 	}
+	
+	public EscapyFBO(int x, int y, int width, int height) {
+		
+		this.regX = x;
+		this.regY = y;
+		this.regWidth = width;
+		this.regHeight = height;
+
+		this.initFBO();
+		
+	}
+	
+	{
+		this.id = this.hashCode();
+	}
+	
+	
+	/**
+	 * Inits the FBO.
+	 */
+	protected void initFBO() {
+		
+		this.renderProgram = initRenderProgram();
+		this.MAINBUFFER = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight(), false);
+		
+		this.MAINREGION = new TextureRegion(this.MAINBUFFER.getColorBufferTexture(), 
+				regX, regY, regWidth, regHeight);
+		this.fboCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this.fboBatch = new SpriteBatch();
+		System.out.println("COMPILED: "+this.toString());
+		
+	}
+	
 	
 	/**
 	 * <p>Render data from from internal {@link FrameBuffer}</p>
@@ -99,10 +137,7 @@ public abstract class EscapyFBO {
 	 */
 	protected abstract FBORenderProgram<?> initRenderProgram();
 	
-	/**
-	 * Inits the FBO.
-	 */
-	protected abstract void initFBO();
+
 	
 	/**
 	 * Begin.
@@ -341,4 +376,9 @@ public abstract class EscapyFBO {
 	}
 
 	public abstract EscapyFBO endMergedBuffer();
+	
+	@Override
+	public String toString() {
+		return "EscapyFBO_"+this.id;
+	}
 }

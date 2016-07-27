@@ -10,7 +10,6 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
-import com.game.render.shader.blend.EscapyBlendRenderer;
 import com.game.render.shader.colorize.userState.EscapyStdColorizeRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
 import com.game.utils.observ.SimpleObserver;
@@ -41,7 +40,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.position.setObservedObj(this);
 		this.color = new Color(1, 1, 1, 1);
 		this.colorizer = new EscapyStdColorizeRenderer(id);
-		this.fbo = new StandartFBO();
+		
+		this.fbo = new StandartFBO(lightSprite.getX(), lightSprite.getY(), 
+				lightSprite.getWidth(), lightSprite.getHeight()); //XXX TEST XXX
+		
 		this.cam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 	}
@@ -66,6 +68,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		fbo.end();
 		return this;
 	}
+
 	public AbsStdLight preRender() {
 		return this.preRender(cam);
 	}
@@ -130,7 +133,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public Texture getLightTexture() {
 		return lightTexture;
 	}
-
+	
 	public TransVec getPosition() {
 		return position;
 	}

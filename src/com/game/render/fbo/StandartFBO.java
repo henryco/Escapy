@@ -1,6 +1,5 @@
 package com.game.render.fbo;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
@@ -26,15 +25,13 @@ public class StandartFBO extends EscapyFBO {
 	public StandartFBO() {
 		super();
 	}
-
-	
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.EscapyFBO#initFBO()
-	 */
-	@Override
-	protected void initFBO() {
+	public StandartFBO(int x, int y, int width, int height) {
+		super(x, y, width, height);
 	}
 	
+	public StandartFBO(float x, float y, float width, float height) {
+		super((int)x, (int)y, (int)width, (int)height);
+	}
 	
 	/* (non-Javadoc)
 	 * @see com.game.render.fbo.EscapyFBO#initRenderProgram()
@@ -46,13 +43,14 @@ public class StandartFBO extends EscapyFBO {
 			
 			private EscapyStdShaderRenderer stdShaderRender 
 				= new EscapyStdShaderRenderer();
-			
+	
 			@Override
 			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
 			{
-				this.stdShaderRender.drawTextureRegion(super.fbo.MAINREGION, camera.getCamera(),
-						0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				this.stdShaderRender.drawTexture(super.fbo.MAINREGION.getTexture(), 
+						camera.getCamera(), super.fbo.regX, super.fbo.regY);
 			}
+			
 		};
 	}
 

@@ -71,6 +71,7 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 	 */
 	@Override
 	protected void initFBO() {
+		super.initFBO();
 		this.batcher = new SpriteBatch();
 		this.mutliTexureRegion = new TextureRegion();
 		this.multiBuffer = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), 
