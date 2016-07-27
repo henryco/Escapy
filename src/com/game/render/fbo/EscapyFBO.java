@@ -126,6 +126,10 @@ public abstract class EscapyFBO {
 	 */
 	public abstract EscapyFBO mergeBuffer();
 	
+	public EscapyFBO restart(){
+		return this.end().begin();
+	}
+	
 	/**
 	 *  Clear buffer, need to use {@link EscapyFBO#begin()} / {@link EscapyFBO#end()}.
 	 *
