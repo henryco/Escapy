@@ -28,6 +28,7 @@ import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.stdLS.userState.SimpleStdLight;
 import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
+import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
 import com.game.render.fbo.psProcess.program.std.FBOStdMultiProgram;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
@@ -127,7 +128,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.normalsContainer = new ExtraRenderContainer();
 		this.lightsMapContainer = new ExtraRenderContainer();
 		this.volumeLights = new VolumeLightsContainer(nrmlFBO);
-		this.stdLights = new LightContainer(lightFBO);
+		this.stdLights = new LightContainer(lightFBO, FBOStdBlendProgramFactory.reverseSoftDodge());
 		
 		
 	
@@ -135,7 +136,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.setPosition(400, 450).setColor(205, 107, 107));
 		
 		this.stdLights.addSource(new SimpleStdLight().scale(3.3f)
-				.setPosition(400, 450).setColor(10, 50, 250).preRender(super.escapyCamera));
+				.setPosition(400, 450).setColor(10, 50, 250));
 		
 		
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
@@ -289,7 +290,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
 		
-//		this.stdLights.mergeContainedFBO(escapyCamera);
+//		this.stdLights.mergeALT(escapyCamera);
 //	/*	
 		this.stdLights.mergeContainedFBO(escapyCamera, 5);
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());

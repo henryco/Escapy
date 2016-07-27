@@ -232,4 +232,22 @@ public class FBOStdBlendProgramFactory {
 	}
 	
 	
+	public static FBORenderProgram<EscapyMultiFBO> strongSoftLight(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("strongSoftLight"), frag("strongSoftLight"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> strongSoftLight() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("strongSoftLight"), frag("strongSoftLight"), TARGETMAP, BLENDMAP));
+	}
+	
+	public static FBORenderProgram<EscapyMultiFBO> reverseSoftDodge(EscapyMultiFBO target) {
+		return new FBOStdBlendProgram(target, 
+				new EscapyBlendRenderer(vert("reverseSoftDodge"), frag("reverseSoftDodge"), TARGETMAP, BLENDMAP));
+	}
+	public static FBORenderProgram<EscapyMultiFBO> reverseSoftDodge() {
+		return new FBOStdBlendProgram(
+				new EscapyBlendRenderer(vert("reverseSoftDodge"), frag("reverseSoftDodge"), TARGETMAP, BLENDMAP));
+	}
+	
 }

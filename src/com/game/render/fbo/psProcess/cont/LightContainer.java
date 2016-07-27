@@ -129,7 +129,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		return this;
 	}
 	public LightContainer mergeContainedFBO_ALT(EscapyGdxCamera camera, EscapyFBO fbo) {
-		
 		this.lightFBO.begin();
 		fbo.renderFBO();
 		this.renderContainedFBO_ALT(camera);
@@ -137,7 +136,24 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		
 		return this;
 	}
+	
+	public LightContainer mergeALT(EscapyGdxCamera camera) {
+		super.targetsList.forEach( light -> light.preRender(camera));
+		this.lightFBO.begin();
+		batch.setProjectionMatrix(camera.combined());
+		batch.begin();
+		super.targetsList.forEach(
+				light -> batch.draw(light.getFBO().getTextureRegion(), 0, 0, 
+						Gdx.graphics.getWidth(), Gdx.graphics.getHeight())
+				);
+		batch.end();
+		this.lightFBO.endMergedBuffer();
+		return this;
+	}
+	
 	public LightContainer renderContainedFBO_ALT(EscapyGdxCamera camera) {
+		
+		
 		
 		int dst = batch.getBlendDstFunc();
 		int scr = batch.getBlendSrcFunc();
