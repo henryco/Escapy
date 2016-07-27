@@ -116,6 +116,11 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 		this.mergeTargetMultiBuffer();
 		return this;
 	}
+	@Override
+	public EscapyFBO endMergedBuffer() {
+		super.MAINBUFFER.end();
+		return this.mergeTargetMultiBuffer();
+	}
 	
 	
 	/**

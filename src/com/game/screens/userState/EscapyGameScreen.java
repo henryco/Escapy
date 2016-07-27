@@ -131,11 +131,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		
 	
-		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(3.3f)
+		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(4f)
 				.setPosition(400, 450).setColor(205, 107, 107));
 		
-		this.stdLights.addSource(new SimpleStdLight().scale(3.3f)
-				.setPosition(400, 450).setColor(10, 50, 250).preRender());
+		this.stdLights.addSource(new SimpleStdLight().scale(4f)
+				.setPosition(400, 450).setColor(10, 50, 250).preRender(super.escapyCamera));
 		
 		
 		this.mouseLight = this.volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, 
@@ -211,12 +211,12 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
 			this.stdLights.getSourceByID(this.testLight).setPosition(this.charactersContainer.player().getPhysicalBody().getBodyPosition());
-			this.stdLights.getSourceByID(this.testLight).preRender(escapyCamera);
+			this.stdLights.getSourceByID(this.testLight).preRender(super.escapyCamera);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.F)) {
 			this.stdLights.getSourceByID(this.testLight).setPosition(Gdx.input.getX() 
 					-escapyCamera.getTranslationVector().x, Gdx.input.getY()-escapyCamera.getTranslationVector().y);
-			this.stdLights.getSourceByID(this.testLight).preRender(escapyCamera);
+			this.stdLights.getSourceByID(this.testLight).preRender(super.escapyCamera);
 		}
 	}
 	
@@ -284,22 +284,23 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.lightFBO.forceWipeFBO();
 		
 		super.escapyCamera.holdCamera();
+		
 		this.renderGameObjects(escapyCamera);
 		
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
 		
-		this.stdLights.mergeContainedFBO(escapyCamera);
+//		this.stdLights.mergeContainedFBO(escapyCamera);
+//	/*	
+		this.stdLights.mergeContainedALT(escapyCamera);
 		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		
 		this.stdLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.MAINFBO.renderFBO();
-		
-	//	this.stdLights.renderContainedFBO(escapyCamera);
+//	*/	
 	
-		
-		
+	//	this.stdLights.renderALT(escapyCamera).renderFBO();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();

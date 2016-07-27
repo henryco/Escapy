@@ -4,14 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
-import com.game.render.shader.EscapyStdShaderRenderer;
+import com.game.render.shader.blend.EscapyBlendRenderer;
 import com.game.render.shader.colorize.userState.EscapyStdColorizeRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
 import com.game.utils.observ.SimpleObserver;
@@ -25,7 +24,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected TransVec position;
 	
 	private EscapyStdColorizeRenderer colorizer;
-	private EscapyStdShaderRenderer stdRenderer;
+	
 	
 	protected Color color;
 	protected EscapyFBO fbo;
@@ -42,9 +41,9 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.position.setObservedObj(this);
 		this.color = new Color(1, 1, 1, 1);
 		this.colorizer = new EscapyStdColorizeRenderer(id);
-		this.stdRenderer = new EscapyStdShaderRenderer(id);
 		this.fbo = new StandartFBO();
 		this.cam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		
 	}
 	
 	public AbsStdLight() {
@@ -59,10 +58,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 		fbo.begin().wipeFBO();
-		this.stdRenderer.drawSprite(lightSprite, cam.getCamera());
-		this.colorizer.renderColorized(lightSprite, cam.getCamera(),
+		this.colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
+		this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
 				color.r, color.g, color.b);
-		this.colorizer.renderColorized(lightSprite, cam.getCamera(),
+		this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
 						color.r, color.g, color.b);
 		fbo.end();
 		return this;
@@ -71,14 +70,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this.preRender(cam);
 	}
 	
-	public void renderAlternative(Batch batch) {
-
-			batch.draw(this.fbo.getTextureRegion(), 0, 0, 
-				Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-	}
-	
-
 	
 	@Override
 	public void stateUpdated(TransVec state) {

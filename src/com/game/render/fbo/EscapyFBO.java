@@ -237,27 +237,43 @@ public abstract class EscapyFBO {
 		return renderOutBuffer(buffer, null, this.fboCamera);
 	}
 	
-	public EscapyFBO renderToFBO(EscapyFBO fbo) {	
+	
+	public EscapyFBO renderToFBO(EscapyFBO fbo) {
+		fbo.renderFBO();
+		return this;
+	}
+	
+	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP, EscapyGdxCamera cam) {	
+		fbo.renderFBO(cam, ePP);
+		return this;
+	}
+	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP) {	
+		return this.renderToFBO(fbo, ePP, this.fboCamera);
+	}
+	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyGdxCamera cam) {	
+		return this.renderToFBO(fbo, null, cam);
+	}
+	
+	
+	public EscapyFBO forceRenderToFBO(EscapyFBO fbo) {	
 		this.begin();
 			fbo.renderFBO();
 		this.end();	
 		return this;
 	}
-	
-	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP, 
+	public EscapyFBO forceRenderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP, 
 			EscapyGdxCamera cam) {	
 		this.begin();
 			fbo.renderFBO(cam, ePP);
 		this.end();	
 		return this;
 	}
-	
-	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP) {	
-		return this.renderToFBO(fbo, ePP, this.fboCamera);
+	public EscapyFBO forceRenderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP) {	
+		return this.forceRenderToFBO(fbo, ePP, this.fboCamera);
 	}
 	
-	public EscapyFBO renderToFBO(EscapyFBO fbo, EscapyGdxCamera cam) {	
-		return this.renderToFBO(fbo, null, cam);
+	public EscapyFBO forceRenderToFBO(EscapyFBO fbo, EscapyGdxCamera cam) {	
+		return this.forceRenderToFBO(fbo, null, cam);
 	}
 	
 	/**
@@ -319,4 +335,6 @@ public abstract class EscapyFBO {
 	public void setTextureRegion(TextureRegion MAINREGION) {
 		this.MAINREGION = MAINREGION;
 	}
+
+	public abstract EscapyFBO endMergedBuffer();
 }

@@ -130,6 +130,12 @@ public class StandartFBO extends EscapyFBO {
 	}
 
 
+	@Override
+	public EscapyFBO endMergedBuffer() {
+		return this.end();
+	}
+
+
 	
 	
 
