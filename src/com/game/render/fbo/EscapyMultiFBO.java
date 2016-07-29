@@ -79,7 +79,7 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 		
 		this.stdMutliRenderProgram = new FBORenderProgram<EscapyMultiFBO>(this) {
 			private EscapyStdShaderRenderer stdShaderRender 
-				= new EscapyStdShaderRenderer();
+				= new EscapyStdShaderRenderer(super.fbo.getId());
 			@Override
 			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
 			{

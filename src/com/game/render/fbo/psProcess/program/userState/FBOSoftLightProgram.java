@@ -13,7 +13,7 @@ public class FBOSoftLightProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	public FBOSoftLightProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.softLightRenderer = new EscapyStdSoftLightRenderer();
+		this.softLightRenderer = new EscapyStdSoftLightRenderer(super.fbo.getId());
 	}
 
 	public FBOSoftLightProgram() {

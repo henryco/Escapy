@@ -13,7 +13,7 @@ public class FBOColorDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	public FBOColorDodgeProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.clrDodgeRenderer = new EscapyStdClrDodgeRenderer();
+		this.clrDodgeRenderer = new EscapyStdClrDodgeRenderer(super.fbo.getId());
 	}
 	public FBOColorDodgeProgram() {
 		super();

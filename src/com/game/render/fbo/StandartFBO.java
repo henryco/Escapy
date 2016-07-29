@@ -42,7 +42,7 @@ public class StandartFBO extends EscapyFBO {
 		return new FBORenderProgram<StandartFBO>(this) {
 			
 			private EscapyStdShaderRenderer stdShaderRender 
-				= new EscapyStdShaderRenderer();
+				= new EscapyStdShaderRenderer(super.fbo.getId());
 	
 			@Override
 			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 

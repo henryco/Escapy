@@ -49,7 +49,7 @@ public class StandartMultiFBO extends EscapyMultiFBO {
 		return new FBORenderProgram<StandartMultiFBO>(this) {
 			
 			private EscapyStdShaderRenderer stdRenderer
-				= new EscapyStdShaderRenderer();
+				= new EscapyStdShaderRenderer(super.fbo.getId());
 			
 			@Override
 			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {

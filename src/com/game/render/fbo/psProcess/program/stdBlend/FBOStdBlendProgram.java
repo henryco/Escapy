@@ -14,7 +14,7 @@ public class FBOStdBlendProgram extends FBORenderProgram<EscapyMultiFBO>{
 	
 	public FBOStdBlendProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.setBlendRenderer(new EscapyStdMultiplyRenderer());
+		this.setBlendRenderer(new EscapyStdMultiplyRenderer(super.fbo.getId()));
 	}
 	public FBOStdBlendProgram(EscapyMultiFBO fboProgramTarget, EscapyBlendRenderer blender) {
 		super(fboProgramTarget);

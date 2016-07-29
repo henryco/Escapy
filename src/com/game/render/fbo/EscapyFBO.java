@@ -40,7 +40,7 @@ public abstract class EscapyFBO {
 	
 	protected final int regX, regY, regWidth, regHeight;
 	
-	protected final int id;
+	private final int id;
 	
 	
 	/** 
@@ -379,6 +379,10 @@ public abstract class EscapyFBO {
 	
 	@Override
 	public String toString() {
-		return "EscapyFBO_"+this.id;
+		return "EscapyFBO_"+this.getId();
+	}
+
+	public int getId() {
+		return id;
 	}
 }

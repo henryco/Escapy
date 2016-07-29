@@ -25,7 +25,7 @@ public class FBOMultiplyProgram extends FBORenderProgram<EscapyMultiFBO>{
 	 */
 	public FBOMultiplyProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.blednRenderer = new EscapyStdMultiplyRenderer();
+		this.blednRenderer = new EscapyStdMultiplyRenderer(super.fbo.getId());
 	}
 
 	public FBOMultiplyProgram() {

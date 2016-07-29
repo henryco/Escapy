@@ -11,16 +11,14 @@ public class FBOStdProgram extends FBORenderProgram<EscapyFBO>{
 
 	private EscapyStdShaderRenderer stdShaderRender;
 	
-	{
-		this.stdShaderRender = new EscapyStdShaderRenderer();
-	}
-	
 	public FBOStdProgram() {
 		super();
+		this.stdShaderRender = new EscapyStdShaderRenderer();
 	}
 
 	public FBOStdProgram(EscapyFBO fboProgramTarget) {
 		super(fboProgramTarget);
+		this.stdShaderRender = new EscapyStdShaderRenderer(super.fbo.getId());
 	}
 
 	@Override

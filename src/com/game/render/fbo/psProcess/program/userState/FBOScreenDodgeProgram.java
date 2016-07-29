@@ -13,7 +13,7 @@ public class FBOScreenDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	public FBOScreenDodgeProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.scrDodgeRenderer = new EscapyStdScreenDodgeRenderer();
+		this.scrDodgeRenderer = new EscapyStdScreenDodgeRenderer(super.fbo.getId());
 	}
 
 	public FBOScreenDodgeProgram() {

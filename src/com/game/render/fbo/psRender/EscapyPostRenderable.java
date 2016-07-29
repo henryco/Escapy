@@ -1,6 +1,5 @@
 package com.game.render.fbo.psRender;
 
-import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
 
@@ -28,13 +27,5 @@ public interface EscapyPostRenderable extends EscapyPostRenderer {
 	 */
 	public abstract EscapyFBO getPostRenderFBO();
 	
-	/**
-	 * Sets the post render camera.
-	 *
-	 * @param camera
-	 *            the camera
-	 * @return the escapy post renderable
-	 */
-	public abstract EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera);
 	
 }

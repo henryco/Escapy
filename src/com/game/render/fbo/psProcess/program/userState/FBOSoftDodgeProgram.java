@@ -13,7 +13,7 @@ public class FBOSoftDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 	
 	public FBOSoftDodgeProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.linearDodgeRenderer = new EscapyStdSoftDodgeRenderer();
+		this.linearDodgeRenderer = new EscapyStdSoftDodgeRenderer(super.fbo.getId());
 	}
 
 	public FBOSoftDodgeProgram() {

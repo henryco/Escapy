@@ -109,6 +109,13 @@ public class LightMaskContainer implements EscapyPostRenderer {
 			mask.postRender(translationVec);
 	}
 
+	@Override
+	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 	
 	

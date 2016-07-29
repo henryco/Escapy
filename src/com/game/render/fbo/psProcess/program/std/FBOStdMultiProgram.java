@@ -10,16 +10,14 @@ import com.game.render.shader.EscapyStdShaderRenderer;
 public class FBOStdMultiProgram extends FBORenderProgram <EscapyMultiFBO>{
 
 	private EscapyStdShaderRenderer stdRenderer;
-		
-	{
-		this.stdRenderer = new EscapyStdShaderRenderer();
-	}
-	
+
 	public FBOStdMultiProgram() {
 		super();
+		this.stdRenderer = new EscapyStdShaderRenderer();
 	}
 	public FBOStdMultiProgram(EscapyMultiFBO target) {
 		super(target);
+		this.stdRenderer = new EscapyStdShaderRenderer(super.fbo.getId());
 	}
 
 	@Override

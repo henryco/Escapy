@@ -1,5 +1,6 @@
 package com.game.render.fbo.psRender;
 
+import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.utils.translationVec.TransVec;
 
@@ -28,4 +29,6 @@ public interface EscapyPostRenderer {
 	 */
 	public abstract void postRender(TransVec translationVec);
 	
+	public abstract EscapyPostRenderer setPostRenderCamera(EscapyGdxCamera camera);
+
 }

@@ -58,7 +58,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private float[] mpos, screen;
 	private float dist, intencity;
 	
-	private EscapyFBO stdFBO, nrmlFBO, bgrFBO, lightMPFBO, lightFBO, MAINFBO;
+	private EscapyFBO stdFBO, nrmlFBO, bgrFBO, lightBuff,
+						lightMapFBO, lightFBO, MAINFBO;
 	private EscapyMask mask, bgrMask;
 	
 	private LightMaskContainer lightMask;
@@ -118,9 +119,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.MAINFBO = new StandartFBO();
 		this.bgrFBO = new StandartFBO(); //XXX
 		this.stdFBO = new StandartFBO();
-		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
+		this.lightBuff = new StandartFBO();
+		this.nrmlFBO = new NormalMapFBO(lightBuff.getFrameBuffer());
+	//	this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
 		this.lightFBO = new StandartMultiFBO(stdFBO.getFrameBuffer());
-		this.lightMPFBO = new StandartFBO();
+		this.lightMapFBO = new StandartFBO();
 		this.lightMask = new LightMaskContainer();
 		this.bgrContainer = new ExtraRenderContainer(); //XXX
 		
@@ -128,7 +131,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.normalsContainer = new ExtraRenderContainer();
 		this.lightsMapContainer = new ExtraRenderContainer();
 		this.volumeLights = new VolumeLightsContainer(nrmlFBO);
-		this.stdLights = new LightContainer(lightFBO, FBOStdBlendProgramFactory.reverseSoftDodge());
+		this.stdLights = new LightContainer(lightFBO, FBOStdBlendProgramFactory.softLight());
 		
 		
 	
@@ -213,7 +216,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
 			this.stdLights.getSourceByID(this.testLight).setPosition(this.charactersContainer.player().getPhysicalBody().getBodyPosition());
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+		if (Gdx.input.isKeyPressed(Input.Keys.F)|| Gdx.input.isTouched(0)) {
 			this.stdLights.getSourceByID(this.testLight).setPosition(Gdx.input.getX() 
 					-escapyCamera.getTranslationVector().x, Gdx.input.getY()-escapyCamera.getTranslationVector().y);
 		}
@@ -259,9 +262,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			this.stdContainer.renderGraphic(escapyCamera);
 		this.stdFBO.end();
 		
-		this.lightMPFBO.begin().wipeFBO();
+		this.lightMapFBO.begin().wipeFBO();
 			this.lightsMapContainer.renderGraphic(escapyCamera);
-		this.lightMPFBO.end();
+		this.lightMapFBO.end();
 	
 		this.nrmlFBO.begin().wipeFBO();
 		((NormalMapFBO) this.nrmlFBO).maskNormal();
@@ -281,6 +284,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.clear();
 		this.MAINFBO.forceWipeFBO();
 		this.lightFBO.forceWipeFBO();
+		this.lightBuff.forceWipeFBO();
 		
 		super.escapyCamera.holdCamera();
 		
@@ -290,15 +294,20 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
 		
-//		this.stdLights.mergeALT(escapyCamera);
 //	/*	
 		this.stdLights.mergeContainedFBO(escapyCamera, 5);
-		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
+
+		this.stdLights.postRender(lightBuff, escapyCamera.getTranslationVec(), 3);
+//		this.stdLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		
-		this.stdLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
-		this.MAINFBO.renderFBO();
+		this.nrmlFBO.mergeBuffer();
+
+//		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());		
+				
+		this.MAINFBO.forceRenderToFBO(lightBuff).renderFBO();
+//		this.MAINFBO.renderFBO();
 //	*/	
-		
+
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();
 			super.gameState.setScreen(super.gameState.getStatesContainer().getMenuScreen());

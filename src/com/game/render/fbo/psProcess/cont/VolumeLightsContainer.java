@@ -11,7 +11,6 @@ import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
 import com.game.render.fbo.psRender.EscapyPostRenderer;
-import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.utils.absContainer.EscapyContainer;
 import com.game.utils.translationVec.TransVec;
 
@@ -19,7 +18,7 @@ import com.game.utils.translationVec.TransVec;
 /**
  * The Class VolumeLightsContainer.
  */
-public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRenderable,
+public class VolumeLightsContainer implements EscapyPostRenderer,
 	EscapyContainer<AbsVolLight> {
 
 	private List<AbsVolLight> volumeLights, buffer;
@@ -33,7 +32,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	public VolumeLightsContainer() {
 		
 		this.initContainer();
-		this.setPostRenderFBO(new StandartMultiFBO());
+		this.setNormalsFBO(new StandartMultiFBO());
 		this.setPostRenderCamera(new EscapyGdxCamera(Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()));
 		return;
@@ -49,7 +48,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 		
 		this.initContainer();
 		this.setPostRenderCamera(postRenderCamera);
-		this.setPostRenderFBO(new StandartMultiFBO());
+		this.setNormalsFBO(new StandartMultiFBO());
 		return;
 	}
 	
@@ -64,7 +63,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 		this.initContainer();
 		this.setPostRenderCamera(new EscapyGdxCamera(Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()));
-		this.setPostRenderFBO(mutliFBO);
+		this.setNormalsFBO(mutliFBO);
 		return;
 	}
 	
@@ -80,14 +79,13 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 		
 		this.initContainer();
 		this.setPostRenderCamera(postRenderCamera);
-		this.setPostRenderFBO(mutliFBO);
+		this.setNormalsFBO(mutliFBO);
 		return;
 	}
 	
 	private void initContainer() {
 		this.volumeLights = new ArrayList<>();
 		this.buffer = new ArrayList<>();
-
 	}
 	
 	/* (non-Javadoc)
@@ -181,33 +179,22 @@ public class VolumeLightsContainer implements EscapyPostRenderer, EscapyPostRend
 	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#setPostRenderCamera(com.game.render.EscapyGdxCamera)
 	 */
 	@Override
-	public EscapyPostRenderable setPostRenderCamera(EscapyGdxCamera camera) {
+	public EscapyPostRenderer setPostRenderCamera(EscapyGdxCamera camera) {
 		this.postRenderCamera = camera;
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#setPostRenderFBO(com.game.render.fbo.EscapyFBO)
-	 */
-	@Override
-	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException {
-		if (postRednerFBO instanceof EscapyMultiFBO)
-			this.nrmlFBO = (EscapyMultiFBO) postRednerFBO;
-		else throw new EscapyFBOtypeException();
-		return this;
+	public VolumeLightsContainer setNormalsFBO(EscapyFBO nrmlMapFBO) 
+			throws EscapyFBOtypeException {
+		if (nrmlMapFBO instanceof EscapyMultiFBO) {
+			this.nrmlFBO = (EscapyMultiFBO) nrmlMapFBO;
+			return this;
+		}	throw new EscapyFBOtypeException();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#getPostRenderFBO()
-	 */
-	@Override
-	public EscapyFBO getPostRenderFBO() {
+	public EscapyMultiFBO getNormalsFBO() {
 		return this.nrmlFBO;
 	}
-
-
-
-	
 
 	
 

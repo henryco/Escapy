@@ -25,7 +25,7 @@ public class FBOVolumeLightProgram extends FBORenderProgram<NormalMapFBO> {
 	public FBOVolumeLightProgram(NormalMapFBO fboProgramTarget) 
 	{
 		super(fboProgramTarget);
-		this.nrmlShader = new EscapyStdNrmlShader();
+		this.nrmlShader = new EscapyStdNrmlShader(super.fbo.getId());
 	}
 	
 

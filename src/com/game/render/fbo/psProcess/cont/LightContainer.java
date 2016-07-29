@@ -14,13 +14,14 @@ import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
 import com.game.render.fbo.psRender.EscapyPostExec;
+import com.game.render.fbo.psRender.EscapyPostIterative;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.render.shader.blend.EscapyBlendRenderer;
 import com.game.utils.absContainer.EscapyAbsContainer;
 import com.game.utils.translationVec.TransVec;
 
 public class LightContainer extends EscapyAbsContainer<AbsStdLight>
-	implements EscapyPostExec <EscapyMultiFBO> {
+	implements EscapyPostExec <EscapyMultiFBO>, EscapyPostIterative {
 
 	private EscapyGdxCamera postRenderCamera;
 	private EscapyMultiFBO lightFBO;
@@ -175,13 +176,20 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		return this;
 	}
 	
+	@Override
+	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec, int times) {
+		fbo.begin();
+		while (times > 0) {
+			this.postRender(translationVec);
+			times -=1;
+		}	fbo.end().mergeBuffer();
+		return fbo;
+	}
 	
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
-		fbo.begin();
-			this.postRender(translationVec);
-		fbo.end();
-		return fbo;
+
+		return this.postRender(fbo, translationVec, 1);
 	}
 
 	@Override
@@ -214,6 +222,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		this.lightFBO.setRenderProgram(program);
 		return this;
 	}
+	
 	
 
 	
