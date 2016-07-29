@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
+import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
@@ -25,6 +26,8 @@ public class VolumeLightsContainer implements EscapyPostRenderer,
 	private EscapyGdxCamera postRenderCamera;
 	
 	private EscapyMultiFBO nrmlFBO;
+	private EscapyFBO lightMapFBO;
+	
 	
 	/**
 	 * Instantiates a new volume lights container.
@@ -55,15 +58,26 @@ public class VolumeLightsContainer implements EscapyPostRenderer,
 	/**
 	 * Instantiates a new volume lights container.
 	 *
-	 * @param mutliFBO
+	 * @param nrmlMapFBO
 	 *            the mutli FBO
 	 */
-	public VolumeLightsContainer(EscapyFBO mutliFBO) {
+	public VolumeLightsContainer(EscapyFBO nrmlMapFBO, EscapyFBO lightMapFBO) {
 		
 		this.initContainer();
 		this.setPostRenderCamera(new EscapyGdxCamera(Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()));
-		this.setNormalsFBO(mutliFBO);
+		this.setNormalsFBO(nrmlMapFBO);
+		this.setLightMapFBO(lightMapFBO);
+		return;
+	}
+	
+	public VolumeLightsContainer(EscapyFBO nrmlMapFBO) {
+		
+		this.initContainer();
+		this.setPostRenderCamera(new EscapyGdxCamera(Gdx.graphics.getWidth(), 
+				Gdx.graphics.getHeight()));
+		this.setNormalsFBO(nrmlMapFBO);
+		this.setLightMapFBO(new StandartFBO());
 		return;
 	}
 	
@@ -75,11 +89,22 @@ public class VolumeLightsContainer implements EscapyPostRenderer,
 	 * @param mutliFBO
 	 *            the mutli FBO
 	 */
-	public VolumeLightsContainer(EscapyGdxCamera postRenderCamera, EscapyFBO mutliFBO) {
+	public VolumeLightsContainer(EscapyGdxCamera postRenderCamera, EscapyFBO nrmlMapFBO, 
+			EscapyFBO lightMapFBO) {
 		
 		this.initContainer();
 		this.setPostRenderCamera(postRenderCamera);
-		this.setNormalsFBO(mutliFBO);
+		this.setNormalsFBO(nrmlMapFBO);
+		this.setLightMapFBO(lightMapFBO);
+		return;
+	}
+	
+	public VolumeLightsContainer(EscapyGdxCamera postRenderCamera, EscapyFBO nrmlMapFBO ) {
+		
+		this.initContainer();
+		this.setPostRenderCamera(postRenderCamera);
+		this.setNormalsFBO(nrmlMapFBO);
+		this.setLightMapFBO(new StandartFBO());
 		return;
 	}
 	
@@ -207,6 +232,14 @@ public class VolumeLightsContainer implements EscapyPostRenderer,
 	public VolumeLightsContainer mergeContainedFBO(EscapyGdxCamera camera) {
 		this.nrmlFBO.mergeTargetMultiBuffer(camera);
 		return this;
+	}
+
+	public EscapyFBO getLightMapFBO() {
+		return lightMapFBO;
+	}
+
+	public void setLightMapFBO(EscapyFBO lightMapFBO) {
+		this.lightMapFBO = lightMapFBO;
 	}
 
 

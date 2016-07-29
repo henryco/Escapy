@@ -23,6 +23,10 @@ import com.game.utils.translationVec.TransVec;
 public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	implements EscapyPostExec <EscapyMultiFBO>, EscapyPostIterative, EscapyFBOContainer {
 
+//	public final static FBOStdBlendProgramFactory light = new FBOStdBlendProgramFactory();
+	
+	public final static class light extends FBOStdBlendProgramFactory {};
+	
 	private EscapyGdxCamera postRenderCamera;
 	private EscapyMultiFBO lightFBO;
 	private EscapyFBO ortoFBO;
@@ -35,7 +39,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	private Batch batch;
 	
 	public LightContainer() {
-		
 	}
 	public LightContainer(EscapyFBO mutliFBO) {
 		this.setPostRenderFBO(mutliFBO);
@@ -55,6 +58,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		this.setPostRenderFBO(mutliFBO);
 		this.setPostRenderCamera(postRenderCamera);
 		this.setRenderProgram(program);
+		
 	}
 	
 	
