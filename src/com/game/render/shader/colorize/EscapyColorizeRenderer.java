@@ -32,6 +32,7 @@ public class EscapyColorizeRenderer extends EscapyShaderRender {
 		this.TARGETMAP = TARGETMAP;
 	}
 	
+	@Override
 	public EscapyColorizeRenderer initShaderProgram(String VERTEX, String FRAGMENT) {
 		ShaderProgram.pedantic = false;
 		this.colorizeShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.game.render.shader.blend.EscapyBlendRenderer;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -45,6 +46,8 @@ public abstract class EscapyShaderRender {
 	 * @see java.lang.Object#toString()
 	 */
 	public abstract String toString();
+	
+	public abstract EscapyShaderRender initShaderProgram(String VERTEX, String FRAGMENT);
 	
 	/**
 	 * Check status.
@@ -148,5 +151,12 @@ public abstract class EscapyShaderRender {
 		return this.id;
 	}
 	
+	protected String removeFRAG(String url) {
+		//.frag
+		StringBuffer strb = new StringBuffer(url);
+		if (strb.charAt(strb.length()-5) == '.')
+			strb.delete(strb.length()-5, strb.length());
+		return strb.toString();
+	}
 	
 }

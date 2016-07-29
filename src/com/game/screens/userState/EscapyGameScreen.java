@@ -310,7 +310,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();
 			super.gameState.setScreen(super.gameState.getStatesContainer().getMenuScreen());
-		} 
+		}  
 			
 	} 
 

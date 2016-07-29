@@ -27,7 +27,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	 */
 	public EscapyStdNrmlShader() {
 		super();
-		this.startInit();
+		this.initShaderProgram(VERTEX, FRAGMENT);
 		return;
 	}
 	
@@ -39,16 +39,9 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	 */
 	public EscapyStdNrmlShader(int ID) {
 		super(ID);	
-		this.startInit();
+		this.initShaderProgram(VERTEX, FRAGMENT);
 		return;
 	}
-	
-	private void startInit() {
-		this.nrmlShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
-		//System.err.println(nrmlShader.isCompiled() ? "COMPILED: "+this.toString() : "ERROR: "+this.toString()+"\n"+nrmlShader.getLog());
-		super.checkStatus(nrmlShader);
-	}
-	
 	
 
 	/**
@@ -259,6 +252,14 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	@Override
 	public String toString() {
 		return "EscapyStdNrmlShader_"+super.id;
+	}
+
+	@Override
+	public EscapyShaderRender initShaderProgram(String VERTEX, String FRAGMENT) {
+		ShaderProgram.pedantic = false;
+		this.nrmlShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
+		super.checkStatus(nrmlShader);		
+		return this;
 	}
 
 }

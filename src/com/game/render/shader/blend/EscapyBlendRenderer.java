@@ -100,10 +100,11 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 	 *            the fragment
 	 * @return the escapy blend renderer
 	 */
+	@Override
 	public EscapyBlendRenderer initShaderProgram(String VERTEX, String FRAGMENT) {
 		ShaderProgram.pedantic = false;
 		this.blendShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
-		this.FRAGMENT_NAME = this.removeFRAG(FRAGMENT);
+		this.FRAGMENT_NAME = super.removeFRAG(FRAGMENT);
 		super.checkStatus(blendShader);
 		return this;
 	}
@@ -189,14 +190,7 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 		return shader;
 	}
 
-	private String removeFRAG(String url) {
-		//.frag
-		StringBuffer strb = new StringBuffer(url);
-		if (strb.charAt(strb.length()-5) == '.')
-			strb.delete(strb.length()-5, strb.length());
-		return strb.toString();
-	}
-	
+
 	
 	/* (non-Javadoc)
 	 * @see com.game.render.shader.EscapyShaderRender#toString()

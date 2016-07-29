@@ -56,6 +56,11 @@ public class EscapyStdShaderRenderer extends EscapyShaderRender {
 		return "EscapyStdShader_"+super.id;
 	}
 
+	@Override
+	public EscapyShaderRender initShaderProgram(String VERTEX, String FRAGMENT) {
+		return this;
+	}
+
 	
 	
 }
