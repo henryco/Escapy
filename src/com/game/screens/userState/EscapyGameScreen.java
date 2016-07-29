@@ -299,12 +299,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		this.stdLights.postRender(lightBuff, escapyCamera.getTranslationVec(), 3);
 //		this.stdLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
-		
-		this.nrmlFBO.mergeBuffer();
 
-//		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());		
-				
-		this.MAINFBO.forceRenderToFBO(lightBuff).renderFBO();
+		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());		
+
+		lightBuff.renderFBO();
+//		this.MAINFBO.forceRenderToFBO(lightBuff).renderFBO();
 //		this.MAINFBO.renderFBO();
 //	*/	
 

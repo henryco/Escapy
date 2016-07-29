@@ -21,7 +21,7 @@ import com.game.utils.absContainer.EscapyAbsContainer;
 import com.game.utils.translationVec.TransVec;
 
 public class LightContainer extends EscapyAbsContainer<AbsStdLight>
-	implements EscapyPostExec <EscapyMultiFBO>, EscapyPostIterative {
+	implements EscapyPostExec <EscapyMultiFBO>, EscapyPostIterative, EscapyFBOContainer {
 
 	private EscapyGdxCamera postRenderCamera;
 	private EscapyMultiFBO lightFBO;
@@ -72,13 +72,14 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	
 	
 	
-	
+	@Override
 	public LightContainer mergeContainedFBO() {	
 		return this.mergeContainedFBO(this.postRenderCamera);
 	}
 	public LightContainer mergeContainedFBO(int iterations) {	
 		return this.mergeContainedFBO(this.postRenderCamera, iterations);
 	}
+	@Override
 	public LightContainer mergeContainedFBO(EscapyGdxCamera camera) {
 		
 		EscapyFBO temp = renderContainedFBO(camera);
@@ -96,6 +97,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		lightFBO.endMergedBuffer();
 		return this;
 	}
+	
 	public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 		
 		super.targetsList.forEach( light -> light.preRender(camera));

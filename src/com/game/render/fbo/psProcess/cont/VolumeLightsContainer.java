@@ -19,7 +19,7 @@ import com.game.utils.translationVec.TransVec;
  * The Class VolumeLightsContainer.
  */
 public class VolumeLightsContainer implements EscapyPostRenderer,
-	EscapyContainer<AbsVolLight> {
+	EscapyContainer<AbsVolLight>, EscapyFBOContainer {
 
 	private List<AbsVolLight> volumeLights, buffer;
 	private EscapyGdxCamera postRenderCamera;
@@ -93,6 +93,7 @@ public class VolumeLightsContainer implements EscapyPostRenderer,
 	 */
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
+		this.nrmlFBO.mergeBuffer();
 		fbo.begin();
 			this.postRender(translationVec);
 		fbo.end();
@@ -196,7 +197,19 @@ public class VolumeLightsContainer implements EscapyPostRenderer,
 		return this.nrmlFBO;
 	}
 
-	
+	@Override
+	public VolumeLightsContainer mergeContainedFBO() {
+		this.nrmlFBO.mergeBuffer();
+		return this;
+	}
+
+	@Override
+	public VolumeLightsContainer mergeContainedFBO(EscapyGdxCamera camera) {
+		this.nrmlFBO.mergeTargetMultiBuffer(camera);
+		return this;
+	}
+
+
 
 	
 	
