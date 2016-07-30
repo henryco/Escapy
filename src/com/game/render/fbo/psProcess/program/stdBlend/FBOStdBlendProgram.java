@@ -14,7 +14,7 @@ public class FBOStdBlendProgram extends FBORenderProgram<EscapyMultiFBO>{
 	
 	public FBOStdBlendProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.setBlendRenderer(new EscapyStdMultiplyRenderer(super.fbo.getId()));
+		this.setBlendRenderer(new EscapyStdMultiplyRenderer(super.getFBOTarget().getId()));
 	}
 	public FBOStdBlendProgram(EscapyMultiFBO fboProgramTarget, EscapyBlendRenderer blender) {
 		super(fboProgramTarget);
@@ -27,8 +27,9 @@ public class FBOStdBlendProgram extends FBORenderProgram<EscapyMultiFBO>{
 	
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
-		this.settedBlender.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),
+		this.settedBlender.renderBlended(super.getFBOTarget().getMultiTextureRegion(), super.getFBOTarget().getTextureRegion(),
 				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera.getCamera());
+		
 	}
 	public EscapyBlendRenderer getBlendRenderer() {
 		return settedBlender;

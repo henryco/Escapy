@@ -79,11 +79,11 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 		
 		this.stdMutliRenderProgram = new FBORenderProgram<EscapyMultiFBO>(this) {
 			private EscapyStdShaderRenderer stdShaderRender 
-				= new EscapyStdShaderRenderer(super.fbo.getId());
+				= new EscapyStdShaderRenderer(super.getFBOTarget().getId());
 			@Override
 			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
 			{
-				this.stdShaderRender.drawTextureRegion(this.fbo.mutliTexureRegion, camera.getCamera(),
+				this.stdShaderRender.drawTextureRegion(this.getFBOTarget().mutliTexureRegion, camera.getCamera(),
 						0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			}
 		}; 

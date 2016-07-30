@@ -13,7 +13,7 @@ public class FBOScreenDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	public FBOScreenDodgeProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.scrDodgeRenderer = new EscapyStdScreenDodgeRenderer(super.fbo.getId());
+		this.scrDodgeRenderer = new EscapyStdScreenDodgeRenderer(super.getFBOTarget().getId());
 	}
 
 	public FBOScreenDodgeProgram() {
@@ -23,7 +23,7 @@ public class FBOScreenDodgeProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
-		this.scrDodgeRenderer.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),
+		this.scrDodgeRenderer.renderBlended(super.getFBOTarget().getMultiTextureRegion(), super.getFBOTarget().getTextureRegion(),
 				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera.getCamera());
 	}
 

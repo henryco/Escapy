@@ -11,8 +11,8 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartFBO;
-import com.game.render.fbo.psProcess.cont.VolumeLightsContainer;
 import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
+import com.game.render.fbo.psProcess.lights.vol.VolumeLightsExecutor;
 import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyScreenState;
@@ -33,7 +33,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 	
 	
 	
-	private VolumeLightsContainer volumeLights;
+	private VolumeLightsExecutor volumeLights;
 	private int[] lightsID;
 	private int mouseLight;
 	private EscapyFBO nrmlFBO;
@@ -89,14 +89,14 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
 		
 		this.batcher = new SpriteBatch();
-		this.volumeLights = new VolumeLightsContainer(nrmlFBO);
+		this.volumeLights = new VolumeLightsExecutor(nrmlFBO);
 		this.lightsID = new int[lights.length];
 		
-		for (int i = 0; i < lightsID.length; i++)
-			lightsID[i] = volumeLights.addSource(lights[i]);
+		//for (int i = 0; i < lightsID.length; i++)
+		//	lightsID[i] = volumeLights.addSource(lights[i]);
 		
-		this.mouseLight = volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, new float[] { 200, 150 },
-				new float[] { 0.1f, 1f, 0.1f }, 0.35f, 5f));
+		//this.mouseLight = volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, new float[] { 200, 150 },
+		//		new float[] { 0.1f, 1f, 0.1f }, 0.35f, 5f));
 		
 		//this.volumeLights.setPostRenderFBO(nrmlFBO);
 		/**FIXME TEST FIXME**/
@@ -149,16 +149,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 	 */
 	@Override
 	public void render(float delta) 
-	{
-	
-		this.updDist();
-		this.volumeLights.getSourceByID(mouseLight).
-			setPosition(new Vector2(mpos[0], mpos[1])).
-			setDistance(dist).setIntencity(intencity - 0.4f);
-		
-		((SimpleVolLight) this.volumeLights.getSourceByID(mouseLight)).
-		setDimension(new Vector2(screen[0], screen[1]));
-		
+	{	
 		
 		/**
 		 * > 
@@ -191,7 +182,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		this.privGdxCamera.clear();
 
 		this.privGdxCamera.getCamera().update();
-		this.volumeLights.postRender(stdFBO, privGdxCamera.getTranslationVec());
+//		this.volumeLights.postRender(stdFBO, privGdxCamera.getTranslationVec());
 		this.stdFBO.renderFBO();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) /** Back to game **/

@@ -49,13 +49,13 @@ public class StandartMultiFBO extends EscapyMultiFBO {
 		return new FBORenderProgram<StandartMultiFBO>(this) {
 			
 			private EscapyStdShaderRenderer stdRenderer
-				= new EscapyStdShaderRenderer(super.fbo.getId());
+				= new EscapyStdShaderRenderer(super.getFBOTarget().getId());
 			
 			@Override
 			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
-				this.stdRenderer.drawTextureRegion(super.fbo.MAINREGION, camera.getCamera(),
+				this.stdRenderer.drawTextureRegion(super.getFBOTarget().MAINREGION, camera.getCamera(),
 						0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				this.stdRenderer.drawTextureRegion(super.fbo.mutliTexureRegion,camera.getCamera(),
+				this.stdRenderer.drawTextureRegion(super.getFBOTarget().mutliTexureRegion,camera.getCamera(),
 						0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			
 			}

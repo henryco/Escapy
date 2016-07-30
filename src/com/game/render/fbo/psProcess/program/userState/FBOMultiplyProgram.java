@@ -25,7 +25,7 @@ public class FBOMultiplyProgram extends FBORenderProgram<EscapyMultiFBO>{
 	 */
 	public FBOMultiplyProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.blednRenderer = new EscapyStdMultiplyRenderer(super.fbo.getId());
+		this.blednRenderer = new EscapyStdMultiplyRenderer(super.getFBOTarget().getId());
 	}
 
 	public FBOMultiplyProgram() {
@@ -39,7 +39,7 @@ public class FBOMultiplyProgram extends FBORenderProgram<EscapyMultiFBO>{
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
 	{
-		this.blednRenderer.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),
+		this.blednRenderer.renderBlended(super.getFBOTarget().getMultiTextureRegion(), super.getFBOTarget().getTextureRegion(),
 				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera.getCamera());
 	}
 

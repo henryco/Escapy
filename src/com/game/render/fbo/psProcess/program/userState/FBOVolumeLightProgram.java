@@ -25,7 +25,7 @@ public class FBOVolumeLightProgram extends FBORenderProgram<NormalMapFBO> {
 	public FBOVolumeLightProgram(NormalMapFBO fboProgramTarget) 
 	{
 		super(fboProgramTarget);
-		this.nrmlShader = new EscapyStdNrmlShader(super.fbo.getId());
+		this.nrmlShader = new EscapyStdNrmlShader(super.getFBOTarget().getId());
 	}
 	
 
@@ -35,8 +35,8 @@ public class FBOVolumeLightProgram extends FBORenderProgram<NormalMapFBO> {
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
 	{
-		this.nrmlShader.renderNrmLight(super.fbo.getTargetTextureRegion(), 
-				super.fbo.getNormalMapTexureRegion(), 0, 0, Gdx.graphics.getWidth(), 
+		this.nrmlShader.renderNrmLight(super.getFBOTarget().getTargetTextureRegion(), 
+				super.getFBOTarget().getNormalMapTexureRegion(), 0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight(), camera.getCamera(), (SimpleVolLight) ePP);
 
 	}

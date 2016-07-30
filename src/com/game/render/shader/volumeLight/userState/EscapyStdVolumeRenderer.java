@@ -7,11 +7,11 @@ public class EscapyStdVolumeRenderer extends EscapyVolumeRenderer{
 	public static final String VERTEX = "shaders\\dynamicLights\\dynamicLights.vert";
 	public static final String FRAGMENT = "shaders\\dynamicLights\\dynamicLights.frag";
 	
-	public EscapyStdVolumeRenderer(int ID, String VERTEX, String FRAGMENT) {
+	public EscapyStdVolumeRenderer(int ID) {
 		super(ID, VERTEX, FRAGMENT);
 	}
 
-	public EscapyStdVolumeRenderer(String VERTEX, String FRAGMENT) {
+	public EscapyStdVolumeRenderer() {
 		super(VERTEX, FRAGMENT);	
 	}
 

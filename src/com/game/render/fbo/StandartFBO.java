@@ -25,12 +25,20 @@ public class StandartFBO extends EscapyFBO {
 	public StandartFBO() {
 		super();
 	}
+	public StandartFBO(int ID) {
+		super(ID);
+	}
 	public StandartFBO(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
-	
+	public StandartFBO(int ID, int x, int y, int width, int height) {
+		super(ID, x, y, width, height);
+	}
 	public StandartFBO(float x, float y, float width, float height) {
 		super((int)x, (int)y, (int)width, (int)height);
+	}
+	public StandartFBO(int ID, float x, float y, float width, float height) {
+		super(ID, (int)x, (int)y, (int)width, (int)height);
 	}
 	
 	/* (non-Javadoc)
@@ -42,13 +50,13 @@ public class StandartFBO extends EscapyFBO {
 		return new FBORenderProgram<StandartFBO>(this) {
 			
 			private EscapyStdShaderRenderer stdShaderRender 
-				= new EscapyStdShaderRenderer(super.fbo.getId());
+				= new EscapyStdShaderRenderer(super.getFBOTarget().getId());
 	
 			@Override
 			public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) 
 			{
-				this.stdShaderRender.drawTexture(super.fbo.MAINREGION.getTexture(), 
-						camera.getCamera(), super.fbo.regX, super.fbo.regY);
+				this.stdShaderRender.drawTexture(super.getFBOTarget().MAINREGION.getTexture(), 
+						camera.getCamera(), super.getFBOTarget().regX, super.getFBOTarget().regY);
 			}
 			
 		};

@@ -13,7 +13,7 @@ public class FBOSoftLightProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	public FBOSoftLightProgram(EscapyMultiFBO fboProgramTarget) {
 		super(fboProgramTarget);
-		this.softLightRenderer = new EscapyStdSoftLightRenderer(super.fbo.getId());
+		this.softLightRenderer = new EscapyStdSoftLightRenderer(super.getFBOTarget().getId());
 	}
 
 	public FBOSoftLightProgram() {
@@ -23,7 +23,7 @@ public class FBOSoftLightProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
-		this.softLightRenderer.renderBlended(super.fbo.getMultiTextureRegion(), super.fbo.getTextureRegion(),
+		this.softLightRenderer.renderBlended(super.getFBOTarget().getMultiTextureRegion(), super.getFBOTarget().getTextureRegion(),
 				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera.getCamera());
 	}
 

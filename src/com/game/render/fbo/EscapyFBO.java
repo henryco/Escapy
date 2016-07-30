@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -38,6 +39,8 @@ public abstract class EscapyFBO {
 	/** The mainregion. */
 	protected TextureRegion MAINREGION;
 	
+	protected Sprite MAINSPRITE;
+	
 	protected final int regX, regY, regWidth, regHeight;
 	
 	private final int id;
@@ -53,9 +56,20 @@ public abstract class EscapyFBO {
 		this.regY = 0;
 		this.regWidth = Gdx.graphics.getWidth();
 		this.regHeight = Gdx.graphics.getHeight();
-
-		this.initFBO();
 		
+		this.id = this.hashCode();
+		this.initFBO();
+	}
+	
+	public EscapyFBO(int ID) {
+		
+		this.regX = 0;
+		this.regY = 0;
+		this.regWidth = Gdx.graphics.getWidth();
+		this.regHeight = Gdx.graphics.getHeight();
+		
+		this.id = ID;
+		this.initFBO();
 	}
 	
 	public EscapyFBO(int x, int y, int width, int height) {
@@ -64,13 +78,20 @@ public abstract class EscapyFBO {
 		this.regY = y;
 		this.regWidth = width;
 		this.regHeight = height;
-
-		this.initFBO();
 		
+		this.id = this.hashCode();
+		this.initFBO();
 	}
 	
-	{
-		this.id = this.hashCode();
+	public EscapyFBO(int ID, int x, int y, int width, int height) {
+		
+		this.regX = x;
+		this.regY = y;
+		this.regWidth = width;
+		this.regHeight = height;
+		
+		this.id = ID;
+		this.initFBO();
 	}
 	
 	
@@ -85,6 +106,9 @@ public abstract class EscapyFBO {
 		
 		this.MAINREGION = new TextureRegion(this.MAINBUFFER.getColorBufferTexture(), 
 				regX, regY, regWidth, regHeight);
+		
+		this.MAINSPRITE = new Sprite(MAINREGION);
+		
 		this.fboCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.fboBatch = new SpriteBatch();
 		System.out.println("COMPILED: "+this.toString());
@@ -384,5 +408,13 @@ public abstract class EscapyFBO {
 
 	public int getId() {
 		return id;
+	}
+
+	public Sprite getSpriteRegion() {
+		return MAINSPRITE;
+	}
+
+	public void setSpriteRegion(Sprite mAINSPRITE) {
+		MAINSPRITE = mAINSPRITE;
 	}
 }
