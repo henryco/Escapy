@@ -153,7 +153,6 @@ public abstract class StdCharacter extends AbstractCharacters
 	public void defineJumpAnimation() {
 		// TODO Auto-generated method stub
 	}
-
 	/* (non-Javadoc)
 	 * @see com.game.animator.EscapyAnimatorCharacter#defineInteractAnimation()
 	 */
@@ -161,7 +160,6 @@ public abstract class StdCharacter extends AbstractCharacters
 	public void defineInteractAnimation() {
 		// TODO Auto-generated method stub
 	}
-
 	/* (non-Javadoc)
 	 * @see com.game.animator.EscapyAnimatorCharacter#defineOtherAnimation()
 	 */
@@ -169,7 +167,6 @@ public abstract class StdCharacter extends AbstractCharacters
 	public void defineOtherAnimation() {
 		// TODO Auto-generated method stub
 	}
-
 	/* (non-Javadoc)
 	 * @see com.game.animator.EscapyAnimatorCharacter#InterruptAnimator(com.game.animator.EscapyAnimatorCharacter)
 	 */

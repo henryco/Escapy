@@ -8,15 +8,13 @@ import java.util.ArrayList;
 import com.game.characters.states.stdCharacter.StdCharacter;
 import com.game.characters.states.stdCharacter.stdNPC.NPC;
 import com.game.characters.states.stdCharacter.stdPlayer.Player;
-import com.game.render.EscapyGdxCamera;
-import com.game.render.EscapyRenderable;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class InitCharacters.
  */
-public class InitCharacters implements EscapyRenderable {
+public class InitCharacters {
 
 	private ArrayList<String>[] playerAnimationUrlTab;
 	private ArrayList<Integer>[] playerTimeTab;
@@ -60,18 +58,6 @@ public class InitCharacters implements EscapyRenderable {
 				e.printStackTrace();
 			} 
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
-	 */
-	@Override
-	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) 
-	{
-		for (int i = 0; i < this.npc().length; i++)
-			this.npc()[i].renderGraphic(translationMatrix, escapyCamera);
-		this.player.renderGraphic(translationMatrix, escapyCamera);
-		
 	}
 
 

@@ -23,7 +23,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		EscapyPhysicsEvent {
 
 	private float xPos, yPos;
-
 	private float zoom;
 
 	private int HP = 100;
@@ -142,44 +141,51 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		this.fall = listToTime(times[4]);
 		this.land = listToTime(times[5]);
 		
-		this.standImgNRML = listToNRML(urls[0]);
-		this.standImgLTMP = listToLTMP(urls[0]);
+		this.standImgNRML = listToPREF(urls[0], "NRML.png");
+		this.standImgLTMP = listToPREF(urls[0], "LTMP.png");
+		
+		this.walkImgNRML = listToPREF(urls[1], "NRML.png");
+		this.walkImgLTMP = listToPREF(urls[1], "LTMP.png");
+		
+		this.runImgNRML = listToPREF(urls[2], "NRML.png");
+		this.runImgLTMP = listToPREF(urls[2], "LTMP.png");
+		
+		this.jumpImgNRML = listToPREF(urls[3], "NRML.png");
+		this.jumpImgLTMP = listToPREF(urls[3], "LTMP.png");
+		
+		this.fallImgNRML = listToPREF(urls[4], "NRML.png");
+		this.fallImgLTMP = listToPREF(urls[4], "LTMP.png");
+		
+		this.landImgNRML = listToPREF(urls[5], "NRML.png");
+		this.landImgLTMP = listToPREF(urls[5], "LTMP.png");
 		
 		this.zoom = zoom;
 		this.actualFrame = 0;
 	}
 
 	private Texture[] listToImg(ArrayList<String> urls) {
+		
 		Texture[] img = new Texture[urls.size()];
 		Iterator<String> iterator = urls.iterator();
 		for (int i = 0; i < img.length; i++) {
 			img[i] = new Texture(new FileHandle(iterator.next()));
 			img[i].setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-
-		}
-		return img;
+		}	return img;
 	}
-	
-	private Texture[] listToNRML(ArrayList<String> urls) {
-		Texture[] img = new Texture[urls.size()];
-		Iterator<String> iterator = urls.iterator();
-		for (int i = 0; i < img.length; i++) {
-			img[i] = new Texture(new FileHandle(this.removePNG(iterator.next()))+"NRML.png");
-			img[i].setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
-		}
-		return img;
-	}
-	
-	private Texture[] listToLTMP(ArrayList<String> urls) {
-		Texture[] img = new Texture[urls.size()];
-		Iterator<String> iterator = urls.iterator();
-		for (int i = 0; i < img.length; i++) {
-			img[i] = new Texture(new FileHandle(this.removePNG(iterator.next()))+"LTMP.png");
-			img[i].setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-
-		}
-		return img;
+	private Texture[] listToPREF(ArrayList<String> urls, String postFix) {
+		
+		Texture[] img = null;
+		try {
+			img = new Texture[urls.size()];
+			Iterator<String> iterator = urls.iterator();
+			for (int i = 0; i < img.length; i++) {
+				img[i] = new Texture(new FileHandle(this.removePNG(iterator.next()))+postFix);
+				img[i].setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+			}
+		} catch (com.badlogic.gdx.utils.GdxRuntimeException excp) {
+		//	excp.printStackTrace();
+		} return img;
 	}
 	
 	private int[] listToTime(ArrayList<Integer> times) {
