@@ -1,5 +1,6 @@
 package com.game.render.camera.program;
 
+import com.game.physics_temp.EscapyPhysicsEvent;
 import com.game.render.EscapyGdxCamera;
 
 // TODO: Auto-generated Javadoc
@@ -9,7 +10,7 @@ import com.game.render.EscapyGdxCamera;
  * @param <T>
  *            the generic type
  */
-public abstract class CameraProgram<T> {
+public abstract class CameraProgram<T extends EscapyPhysicsEvent> {
 
 	/** The program target. */
 	protected T programTarget;

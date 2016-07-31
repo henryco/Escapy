@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.animator.EscapyAnimatorCharacter;
+import com.game.physics_temp.EscapyPhysicsObjectSuper;
 import com.game.render.EscapyGdxCamera;
 
 
@@ -138,6 +139,36 @@ public class NPC extends AbstractCharacters implements EscapyAnimatorCharacter{
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void definePhysicalSystem(EscapyPhysicsObjectSuper physObject) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void physicalCalculations(EscapyPhysicsObjectSuper physObject) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public EscapyPhysicsObjectSuper getPhysicalBody() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

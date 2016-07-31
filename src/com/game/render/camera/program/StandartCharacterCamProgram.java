@@ -7,7 +7,8 @@ import com.game.render.EscapyGdxCamera;
 /**
  * The Class StandartCharacterCamProgram.
  */
-public class StandartCharacterCamProgram extends CameraProgram<AbstractCharacters> {
+public class StandartCharacterCamProgram 
+	extends CameraProgram <AbstractCharacters> {
 
 	/** The map size Y. */
 	protected int mapSizeX, mapSizeY;
@@ -77,20 +78,20 @@ public class StandartCharacterCamProgram extends CameraProgram<AbstractCharacter
 				dl_Xmax = Math.abs(escapyCamera.getxIntervalLenght()[0]);
 				camMoveTargetX = escapyCamera.getHorizontalBorders()[1];
 				valX = (-1);
-				if (super.programTarget.getBodyPosition()[0] == camMoveTargetX)
+				if (super.programTarget.getPhysicalBody().getBodyPosition()[0] == camMoveTargetX)
 					valX = 0;
-				else if (super.programTarget.getBodyPosition()[0] > camMoveTargetX)
+				else if (super.programTarget.getPhysicalBody().getBodyPosition()[0] > camMoveTargetX)
 					valX = 1;
 			} else if (super.programTarget.lastWasRight()) {
 				dl_Xmax = Math.abs(escapyCamera.getxIntervalLenght()[1]);
 				camMoveTargetX = escapyCamera.getHorizontalBorders()[0];
 				valX = 1;
-				if (super.programTarget.getBodyPosition()[0] == camMoveTargetX)
+				if (super.programTarget.getPhysicalBody().getBodyPosition()[0] == camMoveTargetX)
 					valX = 0;
-				else if (super.programTarget.getBodyPosition()[0] < camMoveTargetX)
+				else if (super.programTarget.getPhysicalBody().getBodyPosition()[0] < camMoveTargetX)
 					valX = (-1);
 			}
-			dlx = Math.abs(super.programTarget.getBodyPosition()[0] - camMoveTargetX);
+			dlx = Math.abs(super.programTarget.getPhysicalBody().getBodyPosition()[0] - camMoveTargetX);
 		}
 
 		if (super.programTarget.isLastStand())// ||
@@ -98,7 +99,7 @@ public class StandartCharacterCamProgram extends CameraProgram<AbstractCharacter
 		// escapyCamera.getxIntervalLenght()[0])// (sWidth / 2.f))
 		{
 			if (super.programTarget.isLastStand())
-				camMoveTargetX = super.programTarget.getBodyPosition()[0];
+				camMoveTargetX = (int) super.programTarget.getPhysicalBody().getBodyPosition()[0];
 
 			// if (super.programTarget.getBodyPosition()[0] <
 			// escapyCamera.getxIntervalLenght()[0])// (sWidth / 2.f))

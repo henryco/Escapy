@@ -123,8 +123,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.stdContainer = new ExtraRenderContainer();
 		this.normalsContainer = new ExtraRenderContainer();
 		this.lightsMapContainer = new ExtraRenderContainer();
-		this.volumeLights = new VolumeLightsExecutor(nrmlFBO, lightMapFBO, lightBuffFBO)
-				.setAmbientIntsity(0.395f).setLightIntensity(0.36f);
+		this.volumeLights = new VolumeLightsExecutor();//nrmlFBO, lightMapFBO, lightBuffFBO)
+			//	.setAmbientIntsity(0.405f).setLightIntensity(0.360f);
 		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.softLight());
 
 		
@@ -161,6 +161,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		this.stdContainer.addSource(new StdRenderer(charactersContainer.player()));
 		this.normalsContainer.addSource(new NormalRenderer(charactersContainer.player()));
+		this.lightsMapContainer.addSource(new LightMapRenderer(charactersContainer.player()));
 		
 		for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /** FRONT PARALLAX **/
 			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getTransVecArray()));
@@ -232,7 +233,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.nrmlFBO.begin().wipeFBO();
 		((NormalMapFBO) this.nrmlFBO).maskNormal();
 			this.normalsContainer.renderGraphic(escapyCamera);
-		this.nrmlFBO.end();
+		this.nrmlFBO.end().mergeBuffer();
 	}
 
 	
@@ -258,14 +259,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
 		
-//	/*	
+	
 		this.stdLights.mergeContainedFBO(escapyCamera, 5);
 		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 4);
-		
-		this.volumeLights.postRender(MAINFBO, escapyCamera.getTranslationVec());
+
+		this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO, 
+				0.360f, 0.495f);
 		
 		this.MAINFBO.renderFBO();
-//	*/	
+
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();

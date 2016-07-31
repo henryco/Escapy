@@ -25,8 +25,8 @@ public class Player extends AbstractCharacters
 	private boolean downLeft = false, downRight = false, pressedJump = false, downLShift = false, pressedF = false,
 			isMoving = false;
 
-	private Sprite characterSprite, NRMLSprite;
-	private Texture[] actualTexture, actualNRMLTexture;
+	private Sprite characterSprite, NRMLSprite, LTMPSprite;
+	private Texture[] actualTexture, actualNRMLTexture, actualLTMPTexture;
 
 	private EscapyPhysicsObjectDefault physBody;
 
@@ -45,10 +45,10 @@ public class Player extends AbstractCharacters
 		super(urls, times, zoom);
 
 		super.setXPos(100);
-		super.setWidht(characterSprite.getWidth());
-		super.setHeight(characterSprite.getHeight());
-
-		this.physBody = new EscapyPhysicsObjectDefault(widht(), height(), mass(), xPos(), yPos(), this);
+	
+		this.physBody 
+			= new EscapyPhysicsObjectDefault(characterSprite.getWidth(),
+					characterSprite.getHeight(), 0, xPos(), yPos(), this);
 		this.physBody.setCalculation(true);
 
 		addAnimatedCharacter(this);
@@ -72,6 +72,11 @@ public class Player extends AbstractCharacters
 		this.NRMLSprite.flip(false, true);
 		this.NRMLSprite.setSize(NRMLSprite.getWidth() * (float) zoom(),
 				NRMLSprite.getHeight() * (float) zoom());
+		
+		this.LTMPSprite = new Sprite(super.standImgLTMP[0]);
+		this.LTMPSprite.flip(false, true);
+		this.LTMPSprite.setSize(LTMPSprite.getWidth() * (float) zoom(),
+				LTMPSprite.getHeight() * (float) zoom());
 		
 	}
 
@@ -116,7 +121,24 @@ public class Player extends AbstractCharacters
 		
 	}
 	
+	@Override
+	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
+		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
 
+		try {
+			if (lastWasRight())
+				this.LTMPSprite = this.setFrame0(actualLTMPTexture[actualFrame]);
+			else if (lastWasLeft())
+				this.LTMPSprite = this.setFrame180(actualLTMPTexture[actualFrame]);
+		} catch (IndexOutOfBoundsException e) {}
+		
+		super.spriteBatcher.begin();
+			this.LTMPSprite.setPosition(super.xPos(), super.yPos());
+			this.LTMPSprite.draw(spriteBatcher);
+		super.spriteBatcher.end();
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see com.game.animator.EscapyAnimatorCharacter#defineStandAnimation()
 	 */
@@ -129,6 +151,7 @@ public class Player extends AbstractCharacters
 			setLastStand(true);
 			this.actualTexture = super.animation(standImg, stand);
 			this.actualNRMLTexture = super.animation(standImgNRML, stand);
+			this.actualLTMPTexture = super.animation(standImgLTMP, stand);
 		} else {
 			setLastStand(false);
 		}
@@ -307,6 +330,8 @@ public class Player extends AbstractCharacters
 		this.pressedJump = downSpace;
 		this.isMoving = isMoving;
 	}
+
+	
 
 	
 

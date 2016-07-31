@@ -147,6 +147,21 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 	}
 	
 	
+	
+	public EscapyFBO postRenderLights(EscapyFBO targetFBO, EscapyFBO nrmlMapFBO,
+			EscapyFBO lightMapFBO, EscapyFBO lightsFBO, float lightIntensity, 
+			float ambientIntesity) {
+		
+		targetFBO.begin().renderFBO();
+			this.volRenderer.renderVolumeLights(
+					0, 0, lightsFBO.getTextureRegion(), nrmlMapFBO.getTextureRegion(), 
+					lightMapFBO.getTextureRegion(), this.canvasDim, 
+					ambientIntesity, lightIntensity, this.postRenderCamera.getCamera());
+		targetFBO.end();
+		return targetFBO;
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#postRender(com.game.render.fbo.EscapyFBO, com.game.utils.translationVec.TransVec)
 	 */

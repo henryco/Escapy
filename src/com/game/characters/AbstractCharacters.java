@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.animator.EscapyAnimatorSuperCharacter;
+import com.game.physics_temp.EscapyPhysicsEvent;
 import com.game.render.EscapyRenderable;
+import com.game.render.extra.lightMap.EscapyLightMapRenderer;
 import com.game.render.extra.normalMap.EscapyNormalMapRender;
 
 // TODO: Auto-generated Javadoc
@@ -17,12 +19,11 @@ import com.game.render.extra.normalMap.EscapyNormalMapRender;
  * The Class AbstractCharacters.
  */
 public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter 
-	implements EscapyRenderable, EscapyNormalMapRender {
+	implements EscapyRenderable, EscapyNormalMapRender, EscapyLightMapRenderer,
+		EscapyPhysicsEvent {
 
 	private float xPos, yPos;
-	private float height, width;
-	private float mass;
-	private float Vx, Vy;
+
 	private float zoom;
 
 	private int HP = 100;
@@ -37,6 +38,10 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	protected Texture[] standImgNRML, landImgNRML, walkImgNRML,
 		runImgNRML, jumpImgNRML, fallImgNRML;
 
+	protected Texture[] standImgLTMP, landImgLTMP, walkImgLTMP,
+		runImgLTMP, jumpImgLTMP, fallImgLTMP;
+	
+	
 	/** The sprite batcher. */
 	protected SpriteBatch spriteBatcher;
 
@@ -70,6 +75,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	/** The body position. */
 	protected int[] bodyPosition = new int[] { 0, 0 };
 	protected float[] bodyFloatPosition = new float[]{0,0};
+
 
 	/**
 	 * Instantiates a new abstract characters.
@@ -119,6 +125,8 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	 */
 	protected abstract Sprite setFrame180(Texture texture);
 
+
+	
 	private void fillDataTabs(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		
 		this.standImg = listToImg(urls[0]);
@@ -135,6 +143,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		this.land = listToTime(times[5]);
 		
 		this.standImgNRML = listToNRML(urls[0]);
+		this.standImgLTMP = listToLTMP(urls[0]);
 		
 		this.zoom = zoom;
 		this.actualFrame = 0;
@@ -156,6 +165,17 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		Iterator<String> iterator = urls.iterator();
 		for (int i = 0; i < img.length; i++) {
 			img[i] = new Texture(new FileHandle(this.removePNG(iterator.next()))+"NRML.png");
+			img[i].setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+
+		}
+		return img;
+	}
+	
+	private Texture[] listToLTMP(ArrayList<String> urls) {
+		Texture[] img = new Texture[urls.size()];
+		Iterator<String> iterator = urls.iterator();
+		for (int i = 0; i < img.length; i++) {
+			img[i] = new Texture(new FileHandle(this.removePNG(iterator.next()))+"LTMP.png");
 			img[i].setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
 		}
@@ -253,101 +273,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	 */
 	public void setYPos(float yPos) {
 		this.yPos = yPos;
-	}
-
-	/**
-	 * Height.
-	 *
-	 * @return the float
-	 */
-	public float height() {
-		return height;
-	}
-
-	/**
-	 * Sets the height.
-	 *
-	 * @param height
-	 *            the new height
-	 */
-	public void setHeight(float height) {
-		this.height = height;
-	}
-
-	/**
-	 * Widht.
-	 *
-	 * @return the float
-	 */
-	public float widht() {
-		return width;
-	}
-
-	/**
-	 * Sets the widht.
-	 *
-	 * @param widht
-	 *            the new widht
-	 */
-	public void setWidht(float widht) {
-		this.width = widht;
-	}
-
-	/**
-	 * Mass.
-	 *
-	 * @return the float
-	 */
-	public float mass() {
-		return mass;
-	}
-
-	/**
-	 * Sets the mass.
-	 *
-	 * @param mass
-	 *            the new mass
-	 */
-	public void setMass(float mass) {
-		this.mass = mass;
-	}
-
-	/**
-	 * Vx.
-	 *
-	 * @return the float
-	 */
-	public float Vx() {
-		return Vx;
-	}
-
-	/**
-	 * Sets the vx.
-	 *
-	 * @param vx
-	 *            the new vx
-	 */
-	public void setVx(float vx) {
-		Vx = vx;
-	}
-
-	/**
-	 * Vy.
-	 *
-	 * @return the float
-	 */
-	public float Vy() {
-		return Vy;
-	}
-
-	/**
-	 * Sets the vy.
-	 *
-	 * @param vy
-	 *            the new vy
-	 */
-	public void setVy(float vy) {
-		Vy = vy;
 	}
 
 	/**
@@ -458,22 +383,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	protected void setRightlast() {
 		lastWasRight = true;
 		lastWasLeft = false;
-	}
-
-	/**
-	 * Gets the body position.
-	 *
-	 * @return the body position
-	 */
-	public int[] getBodyPosition() {
-		bodyPosition[0] = (int) (xPos + (width * 0.52f));
-		bodyPosition[1] = (int) (yPos + (height * 0.48f));
-		return bodyPosition;
-	}
-	public float[] getBodyFloatPosition() {
-		bodyFloatPosition[0] = (xPos + (width * 0.52f));
-		bodyFloatPosition[1] = (yPos + (height * 0.48f));
-		return bodyFloatPosition;
 	}
 
 	/**

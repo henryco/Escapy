@@ -1,5 +1,7 @@
 package com.game.map.objects;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -25,8 +27,7 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	private int actualFrame;
 	private boolean animationEnded = false;
 
-	private Texture objectTexture;
-	private TextureRegion objectTextureRegion;
+	private Sprite[] obSpriteSTD, obSpriteNRML, obSpriteLTM;
 
 	/**
 	 * Instantiates a new animated object.
@@ -59,11 +60,12 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 			@Override
 			public void defineAnimation() {
 				long time1 = System.nanoTime() - time0;
-				if (currentFrame > 9)
-					currentFrame = 0;
+			
 				if ((time1 / 1000000) >= getAnimPeriod()[currentFrame]) {
 					time0 = System.nanoTime();
 					currentFrame++;
+					if (currentFrame > 9)
+						currentFrame = 0;
 				}
 				animob.setActualFrame(currentFrame); // FIXME
 
@@ -75,7 +77,6 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 					interruptObjectAnimation(object);
 					currentFrame = 0;
 					animationEnded = true;
-					System.gc();
 				}
 			}
 		};
@@ -92,12 +93,38 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
+		Texture[] obTempTexs = null;
+		
+		try {
+			
+			obTempTexs = new Texture[]{
+					new Texture(new FileHandle(getImgUrl()[0])),
+					new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0])+"NRML.png")),
+					new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0])+"LTM.png"))
+			};
+			
+			Arrays.stream(obTempTexs).forEach(
+					texture -> texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest));
+			
+			this.obSpriteSTD = makeSpriteArray(obTempTexs[0], XPos(), YPos(), (float) zoom());
+			this.obSpriteNRML = makeSpriteArray(obTempTexs[1], XPos(), YPos(), (float) zoom());
+			this.obSpriteLTM = makeSpriteArray(obTempTexs[2], XPos(), YPos(), (float) zoom());
+			
+		} catch (com.badlogic.gdx.utils.GdxRuntimeException excp) {
+				
+			//excp.printStackTrace();
+			try {
+				
+				obTempTexs = new Texture[]{new Texture(new FileHandle(getImgUrl()[0]))};
+				obTempTexs[0].setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+				this.obSpriteSTD = makeSpriteArray(obTempTexs[0], XPos(), YPos(), (float) zoom());
+				
+			} catch (com.badlogic.gdx.utils.GdxRuntimeException exc) {
+				exc.printStackTrace();
+			}
+		}
 
-		this.objectTexture = new Texture(new FileHandle(getImgUrl()[0]));
-		this.objectTexture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-
-		this.objectTextureRegion = new TextureRegion(objectTexture, 0, 0,
-				(int) ((float) objectTexture.getWidth() / 10.), objectTexture.getHeight());
+		System.gc();
 	}
 
 	/* (non-Javadoc)
@@ -105,15 +132,37 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-
-		objectTextureRegion.setRegion((int) ((objectTexture.getWidth() / 10.) * (animob.getActualFrame())), 0,
-				(int) ((float) objectTexture.getWidth() / 10.), objectTexture.getHeight());
-
-		spriteBatcher.begin();
-		makeSpriteFromTexture(objectTextureRegion, XPos(), YPos(), (float) zoom()).draw(spriteBatcher);
-		spriteBatcher.end();
+		if (obSpriteSTD != null) {
+			spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
+			spriteBatcher.begin();
+			obSpriteSTD[animob.getActualFrame()].draw(spriteBatcher);
+			spriteBatcher.end();
+		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.game.render.extra.normalMap.EscapyNormalMapRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
+	 */
+	@Override
+	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
+		if (obSpriteNRML != null) {
+			spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
+			spriteBatcher.begin();
+			obSpriteNRML[animob.getActualFrame()].draw(spriteBatcher);
+			spriteBatcher.end();
+		}
+	}
+
+	@Override
+	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
+		if (obSpriteLTM != null) {
+			spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
+			spriteBatcher.begin();
+			obSpriteLTM[animob.getActualFrame()].draw(spriteBatcher);
+			spriteBatcher.end();
+		}
+	}
+	
 
 	/**
 	 * Make sprite from texture.
@@ -129,12 +178,29 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	 * @return the sprite
 	 */
 	protected Sprite makeSpriteFromTexture(TextureRegion texture, float xpos, float ypos, float zoom) {
+		
 		Sprite sprite = new Sprite(texture);
 		sprite.flip(false, true);
 		sprite.setPosition(xpos, ypos);
 		sprite.setSize(sprite.getWidth() * zoom, sprite.getHeight() * zoom);
+		
 		return sprite;
+	}	
+
+	
+	private Sprite[] makeSpriteArray(Texture texture, float xpos, float ypos, float zoom) {
+		
+		Sprite[] arr = new Sprite[10];
+		TextureRegion texReg = new TextureRegion(texture, 0, 0,
+				(int) ((float) texture.getWidth() / 10.), texture.getHeight());
+		
+		for (int i = 0; i < 10; i++) {
+			texReg.setRegion((int) ((texture.getWidth() / 10.) * i), 0,
+					(int) ((float) texture.getWidth() / 10.), texture.getHeight());
+			arr[i] = makeSpriteFromTexture(texReg, xpos, ypos, zoom);
+		}	return arr;
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see com.game.executable.EscapyExecutableObjects#actionAnimation()
@@ -168,19 +234,5 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 		this.actualFrame = actualFrame;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.extra.normalMap.EscapyNormalMapRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
-	 */
-	@Override
-	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
