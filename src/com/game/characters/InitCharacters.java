@@ -5,9 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.game.characters.stdCharacter.StdCharacter;
-import com.game.characters.stdCharacter.stdNPC.NPC;
-import com.game.characters.stdCharacter.stdPlayer.Player;
+import com.game.characters.states.stdCharacter.StdCharacter;
+import com.game.characters.states.stdCharacter.stdNPC.NPC;
+import com.game.characters.states.stdCharacter.stdPlayer.Player;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 

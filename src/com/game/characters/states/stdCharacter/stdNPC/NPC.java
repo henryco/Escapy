@@ -1,8 +1,8 @@
-package com.game.characters.stdCharacter.stdNPC;
+package com.game.characters.states.stdCharacter.stdNPC;
 
 import java.util.ArrayList;
 
-import com.game.characters.stdCharacter.StdCharacter;
+import com.game.characters.states.stdCharacter.StdCharacter;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;
 
 

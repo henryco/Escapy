@@ -1,8 +1,8 @@
-package com.game.characters.stdCharacter.stdPlayer;
+package com.game.characters.states.stdCharacter.stdPlayer;
 
 import java.util.ArrayList;
 
-import com.game.characters.stdCharacter.StdCharacter;
+import com.game.characters.states.stdCharacter.StdCharacter;
 import com.game.controlls.EscapyPlayerControlls;
 import com.game.physics_temp.EscapyPhysics;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;

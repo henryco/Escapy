@@ -1,4 +1,4 @@
-package com.game.characters.stdCharacter;
+package com.game.characters.states.stdCharacter;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.animator.EscapyAnimatorCharacter;
-import com.game.characters.AbstractCharacters;
+import com.game.characters.states.AbstractCharacters;
 import com.game.physics_temp.EscapyPhysicsEvent;
 import com.game.physics_temp.EscapyPhysicsObjectDefault;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;

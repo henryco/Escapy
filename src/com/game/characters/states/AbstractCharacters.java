@@ -1,4 +1,4 @@
-package com.game.characters;
+package com.game.characters.states;
 
 import java.util.ArrayList;
 import java.util.Iterator;
