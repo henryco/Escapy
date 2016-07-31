@@ -27,7 +27,7 @@ public class PlayerControl implements InputProcessor {
 	}
 
 	/**
-	 * Player controller.
+	 * StdCharacter controller.
 	 *
 	 * @return the player control
 	 */

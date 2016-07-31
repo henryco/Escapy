@@ -123,8 +123,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.stdContainer = new ExtraRenderContainer();
 		this.normalsContainer = new ExtraRenderContainer();
 		this.lightsMapContainer = new ExtraRenderContainer();
-		this.volumeLights = new VolumeLightsExecutor();//nrmlFBO, lightMapFBO, lightBuffFBO)
-			//	.setAmbientIntsity(0.405f).setLightIntensity(0.360f);
+		this.volumeLights = new VolumeLightsExecutor();
+		
 		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.softLight());
 
 		
@@ -156,8 +156,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				if (mapContainer.gameObjects()[mapContainer.indexTab()[i]][j] instanceof EscapyLightMapRenderer)
 					this.lightsMapContainer.addSource(new LightMapRenderer((EscapyLightMapRenderer) mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
 			}
-		for (int i = 0; i < this.charactersContainer.getNpc().length; i++)
-			this.stdContainer.addSource(new StdRenderer(charactersContainer.getNpc()[i]));
+		for (int i = 0; i < this.charactersContainer.npc().length; i++)
+			this.stdContainer.addSource(new StdRenderer(charactersContainer.npc()[i]));
 		
 		this.stdContainer.addSource(new StdRenderer(charactersContainer.player()));
 		this.normalsContainer.addSource(new NormalRenderer(charactersContainer.player()));

@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.game.characters.stdCharacter.StdCharacter;
+import com.game.characters.stdCharacter.stdNPC.NPC;
+import com.game.characters.stdCharacter.stdPlayer.Player;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 
@@ -17,7 +20,7 @@ public class InitCharacters implements EscapyRenderable {
 
 	private ArrayList<String>[] playerAnimationUrlTab;
 	private ArrayList<Integer>[] playerTimeTab;
-	private Player player;
+	private StdCharacter player;
 	private NPC[] npc;
 	
 	/**
@@ -31,23 +34,6 @@ public class InitCharacters implements EscapyRenderable {
 		
 	}
 
-	/**
-	 * Player.
-	 *
-	 * @return the player
-	 */
-	public Player player() {
-		return player;
-	}
-
-	/**
-	 * Npc.
-	 *
-	 * @return the NP c[]
-	 */
-	public NPC[] npc() {
-		return getNpc();
-	}
 
 	@SuppressWarnings("unchecked")
 	private void loadAnimationDataFF()
@@ -82,18 +68,48 @@ public class InitCharacters implements EscapyRenderable {
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) 
 	{
-		for (int i = 0; i < this.getNpc().length; i++)
-			this.getNpc()[i].renderGraphic(translationMatrix, escapyCamera);
+		for (int i = 0; i < this.npc().length; i++)
+			this.npc()[i].renderGraphic(translationMatrix, escapyCamera);
 		this.player.renderGraphic(translationMatrix, escapyCamera);
 		
 	}
 
+
+
+	
+	/**
+	 * StdCharacter.
+	 *
+	 * @return the player
+	 */
+	public Player player() {
+		return (Player) this.player;
+	}
+	
+	public Player getPlayer() {
+		return (Player) this.player;
+	}
+	
+	public InitCharacters createNewPlayer(Player newPlayer){
+		this.player = newPlayer;
+		return this;
+	}
+	
+	/**
+	 * Npc.
+	 *
+	 * @return the NP c[]
+	 */
+	public NPC getNPC(int index) {
+		return this.npc[index];
+	}
+	
 	/**
 	 * Gets the npc.
 	 *
 	 * @return the npc
 	 */
-	public NPC[] getNpc() {
+	public NPC[] npc() {
 		return npc;
 	}
 
@@ -106,5 +122,4 @@ public class InitCharacters implements EscapyRenderable {
 	public void setNpc(NPC[] npc) {
 		this.npc = npc;
 	}
-
 }

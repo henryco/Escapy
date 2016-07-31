@@ -1,4 +1,4 @@
-package com.game.characters;
+package com.game.characters.stdCharacter;
 
 import java.util.ArrayList;
 
@@ -6,27 +6,24 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.animator.EscapyAnimatorCharacter;
-import com.game.controlls.EscapyPlayerControlls;
-import com.game.physics_temp.EscapyPhysics;
+import com.game.characters.AbstractCharacters;
 import com.game.physics_temp.EscapyPhysicsEvent;
 import com.game.physics_temp.EscapyPhysicsObjectDefault;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;
-import com.game.physics_temp.TEMP_EscapyPhysicsPlayerControls;
 import com.game.render.EscapyGdxCamera;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Player.
+ * The Class StdCharacter.
  */
-public class Player extends AbstractCharacters
-		implements EscapyAnimatorCharacter, EscapyPhysicsEvent, EscapyPlayerControlls {
+public abstract class StdCharacter extends AbstractCharacters
+		implements EscapyAnimatorCharacter, EscapyPhysicsEvent {
 
-	@SuppressWarnings("unused")
-	private boolean downLeft = false, downRight = false, pressedJump = false, downLShift = false, pressedF = false,
-			isMoving = false;
 
 	private Sprite characterSprite, NRMLSprite, LTMPSprite;
-	private Texture[] actualTexture, actualNRMLTexture, actualLTMPTexture;
+	protected Texture[] actualTexture;
+	protected Texture[] actualNRMLTexture;
+	protected Texture[] actualLTMPTexture;
 
 	private EscapyPhysicsObjectDefault physBody;
 
@@ -41,21 +38,31 @@ public class Player extends AbstractCharacters
 	 * @param zoom
 	 *            the zoom
 	 */
-	public Player(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
+	public StdCharacter(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		super(urls, times, zoom);
-
-		super.setXPos(100);
-	
-		this.physBody 
-			= new EscapyPhysicsObjectDefault(characterSprite.getWidth(),
-					characterSprite.getHeight(), 0, xPos(), yPos(), this);
-		this.physBody.setCalculation(true);
-
-		addAnimatedCharacter(this);
-		initCharacterAnimator(this);
+		this.initCharacter();
+		
 
 	}
 
+	public StdCharacter(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom, int[] position) {
+		super(urls, times, zoom);
+		super.setPosition(position);
+		this.initCharacter();
+	}
+	
+	private void initCharacter() {
+	
+		this.physBody 
+			= new EscapyPhysicsObjectDefault(characterSprite.getWidth(),
+				characterSprite.getHeight(), 0, xPos(), yPos(), this);
+		this.physBody.setCalculation(true);
+
+		super.addAnimatedCharacter(this);
+		super.initCharacterAnimator(this);
+	}
+	
+	
 	/* (non-Javadoc)
 	 * @see com.game.characters.AbstractCharacters#initializeGraphic()
 	 */
@@ -140,88 +147,6 @@ public class Player extends AbstractCharacters
 	
 	
 	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineStandAnimation()
-	 */
-	@Override
-	public void defineStandAnimation() {
-		if (!isMoving) {
-			if (!isLastStand()) {
-				actualFrame = 0;
-			}
-			setLastStand(true);
-			this.actualTexture = super.animation(standImg, stand);
-			this.actualNRMLTexture = super.animation(standImgNRML, stand);
-			this.actualLTMPTexture = super.animation(standImgLTMP, stand);
-		} else {
-			setLastStand(false);
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineMovAnimation()
-	 */
-	@Override
-	public void defineMovAnimation() {
-		if (!lastFall && downRight & !downLShift) {
-			if (!TEMP_EscapyPhysicsPlayerControls.isFlyin()) {
-				if (!isLastMov()) {
-					actualFrame = 0;
-				}
-				setLastMov(true);
-				actualTexture = super.animation(walkImg, walk);
-				setRightlast();
-			}
-		} else if (!downRight && downLShift) {
-			setLastMov(false);
-		}
-
-		if (!lastFall && downLeft && !downLShift) {
-			if (!TEMP_EscapyPhysicsPlayerControls.isFlyin()) {
-				if (!isLastMov()) {
-					actualFrame = 0;
-				}
-				setLastMov(true);
-				actualTexture = super.animation(walkImg, walk);
-				setLeftlast();
-			}
-		} else if (!downLeft && downLShift) {
-			setLastMov(false);
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineRunAnimation()
-	 */
-	@Override
-	public void defineRunAnimation() {
-		if (!lastFall && downRight && downLShift) {
-			if (!TEMP_EscapyPhysicsPlayerControls.isFlyin()) {
-				if (!isLastRun()) {
-					actualFrame = 0;
-				}
-				setLastRun(true);
-				actualTexture = super.animation(runImg, run);
-				setRightlast();
-			}
-		} else if (!downRight && !downLShift) {
-			setLastRun(false);
-		}
-
-		if (!lastFall && downLeft && downLShift) {
-			if (!TEMP_EscapyPhysicsPlayerControls.isFlyin()) {
-				if (!isLastRun()) {
-					actualFrame = 0;
-				}
-				setLastRun(true);
-				actualTexture = super.animation(runImg, run);
-				setLeftlast();
-			}
-		} else if (!downLeft && !downLShift) {
-			setLastRun(false);
-		}
-	}
-
-	/* (non-Javadoc)
 	 * @see com.game.animator.EscapyAnimatorCharacter#defineJumpAnimation()
 	 */
 	@Override
@@ -281,33 +206,6 @@ public class Player extends AbstractCharacters
 		return characterSp;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.physics_temp.EscapyPhysicsEvent#definePhysicalSystem(com.game.physics_temp.EscapyPhysicsObjectSuper)
-	 */
-	@Override
-	public void definePhysicalSystem(EscapyPhysicsObjectSuper physObject) {
-		physObject = EscapyPhysics.initDefaultGravityAcceleration(physObject);
-		physObject = EscapyPhysics.initDefaultMov(physObject, super.movSpeed, super.runSpeed, 120);
-		physObject = EscapyPhysics.initDefaultPhysicalMap(physObject, 0.52f, 0.875f);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.game.physics_temp.EscapyPhysicsEvent#physicalCalculations(com.game.physics_temp.EscapyPhysicsObjectSuper)
-	 */
-	@Override
-	public void physicalCalculations(EscapyPhysicsObjectSuper physObject) {
-		physObject = EscapyPhysics.defaultGravity(physObject);
-		physObject = EscapyPhysics.defaultMovement(physObject, this.downLeft, this.downRight, this.downLShift, false);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.game.physics_temp.EscapyPhysicsEvent#physicalEvent(float, float, float, float, com.game.physics_temp.EscapyPhysicsObjectSuper)
-	 */
-	@Override
-	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
-		super.setXPos(xpos);
-		super.setYPos(ypos);
-	}
 
 	/* (non-Javadoc)
 	 * @see com.game.physics_temp.EscapyPhysicsEvent#getPhysicalBody()
@@ -317,21 +215,6 @@ public class Player extends AbstractCharacters
 		return physBody;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.controlls.EscapyPlayerControlls#updateControlls(boolean, boolean, boolean, boolean, boolean, boolean)
-	 */
-	@Override
-	public void updateControlls(boolean downA, boolean downD, boolean downSpace, boolean downLShift, boolean isMoving,
-			boolean downF) {
-		this.downLeft = downA;
-		this.downRight = downD;
-		this.downLShift = downLShift;
-		this.pressedF = downF;
-		this.pressedJump = downSpace;
-		this.isMoving = isMoving;
-	}
-
-	
 
 	
 
