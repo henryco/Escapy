@@ -34,8 +34,8 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 	private EscapyVolumeRenderer volRenderer;
 	
 	{
-		this.lightIntensity = 0.35f;
-		this.ambientIntsity = 0.35f;
+		this.lightIntensity = 0.36f;
+		this.ambientIntsity = 0.39f;
 		this.volRenderer = new EscapyStdVolumeRenderer();
 		this.canvasDim = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
@@ -225,16 +225,18 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		return lightIntensity;
 	}
 
-	public void setLightIntensity(float lightIntensity) {
+	public VolumeLightsExecutor setLightIntensity(float lightIntensity) {
 		this.lightIntensity = lightIntensity;
+		return this;
 	}
 
 	public float getAmbientIntsity() {
 		return ambientIntsity;
 	}
 
-	public void setAmbientIntsity(float ambientIntsity) {
+	public VolumeLightsExecutor setAmbientIntsity(float ambientIntsity) {
 		this.ambientIntsity = ambientIntsity;
+		return this;
 	}
 
 

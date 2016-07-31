@@ -123,7 +123,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.stdContainer = new ExtraRenderContainer();
 		this.normalsContainer = new ExtraRenderContainer();
 		this.lightsMapContainer = new ExtraRenderContainer();
-		this.volumeLights = new VolumeLightsExecutor(nrmlFBO, lightMapFBO, lightBuffFBO);
+		this.volumeLights = new VolumeLightsExecutor(nrmlFBO, lightMapFBO, lightBuffFBO)
+				.setAmbientIntsity(0.395f).setLightIntensity(0.36f);
 		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.softLight());
 
 		
