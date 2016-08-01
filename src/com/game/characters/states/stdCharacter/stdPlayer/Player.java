@@ -98,6 +98,8 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 				}
 				super.setLastMov(true);
 				super.actualTexture = super.animation(walkImg, walk);
+				super.actualNRMLTexture = super.animation(walkImgNRML, walk);
+				super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
 				super.setRightlast();
 			}
 		} else if (!downRight && downLShift) {
@@ -111,6 +113,8 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 				}
 				super.setLastMov(true);
 				super.actualTexture = super.animation(walkImg, walk);
+				super.actualNRMLTexture = super.animation(walkImgNRML, walk);
+				super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
 				super.setLeftlast();
 			}
 		} else if (!downLeft && downLShift) {
@@ -130,6 +134,8 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 				}
 				super.setLastRun(true);
 				super.actualTexture = super.animation(runImg, run);
+				super.actualNRMLTexture = super.animation(runImgNRML, run);
+				super.actualLTMPTexture = super.animation(runImgLTMP, run);
 				super.setRightlast();
 			}
 		} else if (!downRight && !downLShift) {
@@ -143,6 +149,8 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 				}
 				super.setLastRun(true);
 				super.actualTexture = super.animation(runImg, run);
+				super.actualNRMLTexture = super.animation(runImgNRML, run);
+				super.actualLTMPTexture = super.animation(runImgLTMP, run);
 				super.setLeftlast();
 			}
 		} else if (!downLeft && !downLShift) {
