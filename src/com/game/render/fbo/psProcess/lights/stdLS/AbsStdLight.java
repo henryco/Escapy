@@ -26,7 +26,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	
 	protected Color color;
-	protected EscapyFBO fbo;
+	protected EscapyFBO fbo, lightMap;
 	protected EscapyGdxCamera cam;
 
 	
@@ -42,21 +42,47 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.colorizer = new EscapyStdColorizeRenderer(id);
 		
 		this.fbo = new StandartFBO(lightSprite.getX(), lightSprite.getY(), 
-				lightSprite.getWidth(), lightSprite.getHeight()); //XXX TEST XXX
+				lightSprite.getWidth(), lightSprite.getHeight()); 
 		
 		this.cam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 	}
 	
 	public AbsStdLight() {
+		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
-
+	
+	public AbsStdLight(EscapyFBO lightMap) {
+		this.setLightMapFBO(lightMap);
+	}
+	public AbsStdLight(int id, EscapyFBO lightMap) {
+		this.setID(id);
+		this.setLightMapFBO(lightMap);
+	}
 	public AbsStdLight(int id) {
 		this.setID(id);
+		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
 	public AbsStdLight(TransVec position) {
 		this.setPosition(position);
+		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
+	public AbsStdLight(TransVec position, EscapyFBO lightMap) {
+		this.setPosition(position);
+		this.setLightMapFBO(lightMap);
+	}
+	public AbsStdLight(int id, TransVec position, EscapyFBO lightMap) {
+		this.setID(id);
+		this.setPosition(position);
+		this.setLightMapFBO(lightMap);
+	}
+	public AbsStdLight(int id, TransVec position) {
+		this.setID(id);
+		this.setPosition(position);
+		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
+	}
+	
+	
 	
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 		fbo.begin().wipeFBO();
@@ -167,6 +193,14 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	public EscapyFBO getFBO() {
 		return fbo;
+	}
+
+	public EscapyFBO getLightMapFBO() {
+		return lightMap;
+	}
+
+	public void setLightMapFBO(EscapyFBO lightMap) {
+		this.lightMap = lightMap;
 	}
 
 }

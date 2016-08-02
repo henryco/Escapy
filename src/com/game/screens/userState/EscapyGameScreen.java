@@ -114,7 +114,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.MAINFBO = new StandartFBO();
 		this.bgrFBO = new StandartFBO(); 
 		this.stdFBO = new StandartFBO();
-		this.nrmlFBO = new NormalMapFBO(lightBuffFBO.getFrameBuffer());
+		this.nrmlFBO = new NormalMapFBO();
 		this.lightStdFBO = new StandartMultiFBO(stdFBO.getFrameBuffer());
 		this.lightMapFBO = new StandartFBO();
 		this.lightMask = new LightMaskContainer();
@@ -129,11 +129,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		
 	
-		this.testLight = this.stdLights.addSource(new SimpleStdLight().scale(3.3f)
-				.setPosition(400, 450).setColor(205, 107, 107));
+		this.testLight = this.stdLights.addSource(new SimpleStdLight(lightMapFBO)
+				.scale(3.3f).setPosition(400, 450).setColor(205, 107, 107));
 		
-		this.mouseLight = this.stdLights.addSource(new SimpleStdLight().scale(3.3f)
-				.setPosition(400, 450).setColor(10, 50, 250));
+		this.mouseLight = this.stdLights.addSource(new SimpleStdLight(lightMapFBO)
+				.scale(3.3f).setPosition(400, 450).setColor(10, 50, 250));
 		
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
@@ -264,7 +264,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 4);
 
 		this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO, 
-				0.360f, 0.495f);
+				0.360f, 0.395f);
 		
 		this.MAINFBO.renderFBO();
 
