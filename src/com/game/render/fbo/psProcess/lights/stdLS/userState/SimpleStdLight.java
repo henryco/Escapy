@@ -59,7 +59,7 @@ public class SimpleStdLight extends AbsStdLight {
 		super(id, lightMap);
 	}
 	public SimpleStdLight(EscapyFBO lightMap){
-		super(lightMap.getId(), lightMap);
+		super(lightMap);
 	}
 	public SimpleStdLight(){
 		super();
