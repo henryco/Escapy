@@ -272,16 +272,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.holdCamera();
 		
 		this.renderGameObjects(escapyCamera);
-		
+	
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
-		
+	
 	//	this.MAINFBO.forceRenderToFBO(stdFBO);
 		
 		this.MAINFBO.renderFBO();
-		
 		this.stdLights.mergeContainedFBO(escapyCamera, 5);
-		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 7);
+		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 2);
 		
 		this.MAINFBO.renderFBO();
 		this.MAINFBO.forceRenderToFBO(lightBuffFBO);
@@ -289,7 +288,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.MAINFBO.renderFBO();
 		this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO, 
 				stdLights.getLightIntensity(), stdLights.getAmbientIntensity());
-		
+	
 		this.MAINFBO.renderFBO();
 	
 
