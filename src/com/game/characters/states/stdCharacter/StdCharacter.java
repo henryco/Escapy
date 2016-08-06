@@ -119,7 +119,9 @@ public abstract class StdCharacter extends AbstractCharacters
 				this.NRMLSprite = this.setFrame0(actualNRMLTexture[actualFrame]);
 			else if (lastWasLeft())
 				this.NRMLSprite = this.setFrame180(actualNRMLTexture[actualFrame]);
-		} catch (IndexOutOfBoundsException | NullPointerException e) {}
+		} catch (IndexOutOfBoundsException | NullPointerException e) {
+			System.out.println("problem");
+		}
 		
 		super.spriteBatcher.begin();
 			this.NRMLSprite.setPosition(super.xPos(), super.yPos());
@@ -137,7 +139,8 @@ public abstract class StdCharacter extends AbstractCharacters
 				this.LTMPSprite = this.setFrame0(actualLTMPTexture[actualFrame]);
 			else if (lastWasLeft())
 				this.LTMPSprite = this.setFrame180(actualLTMPTexture[actualFrame]);
-		} catch (IndexOutOfBoundsException | NullPointerException e) {}
+		} catch (IndexOutOfBoundsException | NullPointerException e) {
+		}
 		
 		super.spriteBatcher.begin();
 			this.LTMPSprite.setPosition(super.xPos(), super.yPos());

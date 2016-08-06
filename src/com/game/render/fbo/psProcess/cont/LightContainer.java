@@ -23,7 +23,6 @@ import com.game.utils.translationVec.TransVec;
 public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	implements EscapyPostExec <EscapyMultiFBO>, EscapyPostIterative, EscapyFBOContainer {
 
-//	public final static FBOStdBlendProgramFactory light = new FBOStdBlendProgramFactory();
 	
 	public final static class light extends FBOStdBlendProgramFactory {};
 	
@@ -77,20 +76,21 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	
 	
 	@Override
-	public LightContainer mergeContainedFBO() {	
+	public EscapyFBO mergeContainedFBO() {	
 		return this.mergeContainedFBO(this.postRenderCamera);
 	}
-	public LightContainer mergeContainedFBO(int iterations) {	
+	public EscapyFBO mergeContainedFBO(int iterations) {	
 		return this.mergeContainedFBO(this.postRenderCamera, iterations);
 	}
+	
 	@Override
-	public LightContainer mergeContainedFBO(EscapyGdxCamera camera) {
+	public EscapyFBO mergeContainedFBO(EscapyGdxCamera camera) {
 		
 		EscapyFBO temp = renderContainedFBO(camera);
 		lightFBO.forceRenderToFBO(temp).endMergedBuffer();
-		return this;
+		return lightFBO;
 	}
-	public LightContainer mergeContainedFBO(EscapyGdxCamera camera, int iterations) {
+	public EscapyFBO mergeContainedFBO(EscapyGdxCamera camera, int iterations) {
 		
 		EscapyFBO temp = renderContainedFBO(camera);
 		lightFBO.begin();
@@ -99,7 +99,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 			iterations -=1;
 		}
 		lightFBO.endMergedBuffer();
-		return this;
+		return lightFBO;
 	}
 	
 	public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
@@ -159,8 +159,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	}
 	
 	public LightContainer renderContainedFBO_ALT(EscapyGdxCamera camera) {
-		
-		
 		
 		int dst = batch.getBlendDstFunc();
 		int scr = batch.getBlendSrcFunc();
@@ -229,9 +227,24 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		return this;
 	}
 	
+	public float getAmbientIntensity() {
+		return this.lightFBO.getRenderProgram().getAmbientIntensity();
+	}
 	
-
+	public float getLightIntensity() {
+		return this.lightFBO.getRenderProgram().getLightIntensity();
+	}
 	
+	public void setAmbientIntesity(float amb) {
+		this.lightFBO.getRenderProgram().setAmbientIntensity(amb);
+		System.out.println("amb: "+this.lightFBO.getRenderProgram().getAmbientIntensity()+" "
+					+ "::: "+" inten: "+this.lightFBO.getRenderProgram().getLightIntensity());
+	}
+	public void setLightIntensity(float lgt) {
+		this.lightFBO.getRenderProgram().setLightIntensity(lgt);
+		System.out.println("amb: "+this.lightFBO.getRenderProgram().getAmbientIntensity()+" "
+				+ "::: "+" inten: "+this.lightFBO.getRenderProgram().getLightIntensity());
+	}
 
 
 	

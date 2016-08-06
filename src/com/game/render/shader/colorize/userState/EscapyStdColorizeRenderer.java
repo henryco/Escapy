@@ -12,12 +12,13 @@ public class EscapyStdColorizeRenderer extends EscapyColorizeRenderer {
 	
 	/** The Constant TARGETMAP. */
 	public static final String TARGETMAP = "targetMap";
+	public static final String LIGHTMAP = "u_lightMap";
 	
 	public EscapyStdColorizeRenderer() {
-		super(TARGETMAP, VERTEX, FRAGMENT);	
+		super(TARGETMAP, LIGHTMAP, VERTEX, FRAGMENT);	
 	}
 	public EscapyStdColorizeRenderer(int ID) {
-		super(ID, TARGETMAP, VERTEX, FRAGMENT);	
+		super(ID, TARGETMAP, LIGHTMAP, VERTEX, FRAGMENT);	
 	}
 	
 	@Override

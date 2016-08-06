@@ -34,6 +34,14 @@ public abstract class FBORenderProgram<T extends EscapyFBO> {
 	private T fbo;
 	private T[] fboArray;
 	
+	private float ambientIntensity, lightInensity;
+	
+	{	/**default vaules */
+		this.ambientIntensity  = 0.15f;
+		this.lightInensity = 0.5f;
+	}
+	
+	
 	/**
 	 * Instantiates a new FBO render program.
 	 *
@@ -111,6 +119,20 @@ public abstract class FBORenderProgram<T extends EscapyFBO> {
 	
 	public arrayFBO<T> getFBOArray() {
 		return new arrayFBO<T>(this.fboArray);
+	}
+	public float getAmbientIntensity() {
+		return ambientIntensity;
+	}
+	public FBORenderProgram<T> setAmbientIntensity(float ambientIntensity) {
+		this.ambientIntensity = ambientIntensity;
+		return this;
+	}
+	public float getLightIntensity() {
+		return lightInensity;
+	}
+	public FBORenderProgram<T> setLightIntensity(float lightInensity) {
+		this.lightInensity = lightInensity;
+		return this;
 	}
 	
 	

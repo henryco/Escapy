@@ -63,6 +63,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private TransVec otherTranslationVec;
 	
 	
+	//private float amb, inten;
+	
+	
 	/**
 	 * Instantiates a new escapy game screen.
 	 *
@@ -99,7 +102,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		System.out.println("@init state");
 
 		
-		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
+	//	this.animator = EscapyAnimatorBase.createAnimator().initAnimator();//.startAnimator();
 		this.controlls = PlayerControl.playerController();
 		this.mapContainer = new InitMap(super.settings.Location(), super.settings.getFrameWIDHT(),
 				super.settings.getFrameHEIGHT(), super.settings.scaleRatio());
@@ -108,7 +111,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
 		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder()
 				.addCameraProgram(CameraProgramFactory.stdCharacterProgram(this.charactersContainer.player()));
+		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
 		
+		//amb = 0.35f;
+		//inten = 0.35f;
 		
 		this.lightBuffFBO = new StandartFBO();
 		this.MAINFBO = new StandartFBO();
@@ -125,15 +131,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.lightsMapContainer = new ExtraRenderContainer();
 		this.volumeLights = new VolumeLightsExecutor();
 		
-		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.softLight());
+		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.strongSoftLight());
 
 		
 	
 		this.testLight = this.stdLights.addSource(new SimpleStdLight(lightMapFBO)
-				.scale(3.3f).setPosition(400, 450).setColor(205, 107, 107));
+				.scale(3.8f).setPosition(400, 450).setColor(205, 107, 107));
 		
 		this.mouseLight = this.stdLights.addSource(new SimpleStdLight(lightMapFBO)
-				.scale(3.3f).setPosition(400, 450).setColor(10, 50, 250));
+				.scale(3.8f).setPosition(400, 450).setColor(10, 50, 250));
 		
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
@@ -192,6 +198,18 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 					-escapyCamera.getTranslationVector().x, Gdx.input.getY()-escapyCamera.getTranslationVector().y);
 		}
 		
+		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+			this.stdLights.setAmbientIntesity(stdLights.getAmbientIntensity() + 0.01f);
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+			this.stdLights.setAmbientIntesity(stdLights.getAmbientIntensity() - 0.01f);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+			this.stdLights.setLightIntensity(stdLights.getLightIntensity() + 0.01f);
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+			this.stdLights.setLightIntensity(stdLights.getLightIntensity() - 0.01f);
+		}
 	}
 	
 	
@@ -258,16 +276,27 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
-		
-	
-		this.stdLights.mergeContainedFBO(escapyCamera, 5);
-		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 4);
-
-		this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO, 
-				0.360f, 0.395f);
+	//	this.MAINFBO.forceRenderToFBO(stdFBO);
 		
 		this.MAINFBO.renderFBO();
+		
+		this.stdLights.mergeContainedFBO(escapyCamera, 5);
+		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 7);
+		
+		this.MAINFBO.renderFBO();
+		this.MAINFBO.forceRenderToFBO(lightBuffFBO);
+			
+		this.MAINFBO.renderFBO();
+		this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO, 
+				stdLights.getLightIntensity(), stdLights.getAmbientIntensity());
+		
+		this.MAINFBO.renderFBO();
+	
 
+	//	this.stdLights.mergeContainedFBO(escapyCamera, 5);
+	//	MAINFBO.begin();
+	//	stdLights.postRender(null);
+	//	MAINFBO.end().renderFBO();
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 			this.pause();

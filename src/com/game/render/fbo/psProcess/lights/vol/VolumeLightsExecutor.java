@@ -29,13 +29,13 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 	
 	private Vector2 canvasDim;
 	
-	private float lightIntensity, ambientIntsity;
+	private float lightIntensity, ambientIntesity;
 
 	private EscapyVolumeRenderer volRenderer;
 	
 	{
 		this.lightIntensity = 0.36f;
-		this.ambientIntsity = 0.39f;
+		this.ambientIntesity = 0.39f;
 		this.volRenderer = new EscapyStdVolumeRenderer();
 		this.canvasDim = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
@@ -182,7 +182,7 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		
 		this.volRenderer.renderVolumeLights(
 			0, 0, this.lightBuffFBO.getTextureRegion(), this.nrmlFBO.getTextureRegion(),
-			this.lightMapFBO.getTextureRegion(), this.canvasDim, this.ambientIntsity, 
+			this.lightMapFBO.getTextureRegion(), this.canvasDim, this.ambientIntesity, 
 			this.lightIntensity, this.postRenderCamera.getCamera());
 	}
 
@@ -209,15 +209,15 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 	}
 
 	@Override
-	public VolumeLightsExecutor mergeContainedFBO() {
+	public EscapyFBO mergeContainedFBO() {
 		this.nrmlFBO.mergeBuffer();
-		return this;
+		return nrmlFBO;
 	}
 
 	@Override
-	public VolumeLightsExecutor mergeContainedFBO(EscapyGdxCamera camera) {
+	public EscapyFBO mergeContainedFBO(EscapyGdxCamera camera) {
 		this.nrmlFBO.mergeTargetMultiBuffer(camera);
-		return this;
+		return nrmlFBO;
 	}
 
 	public EscapyFBO getLightMapFBO() {
@@ -246,11 +246,11 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 	}
 
 	public float getAmbientIntsity() {
-		return ambientIntsity;
+		return ambientIntesity;
 	}
 
 	public VolumeLightsExecutor setAmbientIntsity(float ambientIntsity) {
-		this.ambientIntsity = ambientIntsity;
+		this.ambientIntesity = ambientIntsity;
 		return this;
 	}
 

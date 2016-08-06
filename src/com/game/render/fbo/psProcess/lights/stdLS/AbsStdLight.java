@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
@@ -24,11 +25,11 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	private EscapyStdColorizeRenderer colorizer;
 	
-	
 	protected Color color;
 	protected EscapyFBO fbo, lightMap;
 	protected EscapyGdxCamera cam;
 
+	private Vector2 resolution;
 	
 	private int id;
 	
@@ -36,16 +37,17 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.id = this.hashCode();
 		this.position = new TransVec();
 		this.lightTexture = new Texture(new FileHandle(getDefaultTexure()));
+		this.lightTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		this.lightSprite = new Sprite(lightTexture);
 		this.position.setObservedObj(this);
 		this.color = new Color(1, 1, 1, 1);
 		this.colorizer = new EscapyStdColorizeRenderer(id);
 		
-		this.fbo = new StandartFBO(lightSprite.getX(), lightSprite.getY(), 
-				lightSprite.getWidth(), lightSprite.getHeight()); 
-		
+		this.fbo = new StandartFBO(id); 
 		this.cam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
+		this.resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 	}
 	
 	public AbsStdLight() {
@@ -85,12 +87,19 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
+		
 		fbo.begin().wipeFBO();
 		this.colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
-		this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
-				color.r, color.g, color.b);
-	//	this.colorizer.renderColorized(lightSprite, escapyCamera.getCamera(),
-	//					color.r, color.g, color.b);
+
+		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
+			escapyCamera.getCamera(), color.r, color.g, color.b, 
+			getPositionVec(), resolution, 10);
+		
+		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
+			escapyCamera.getCamera(), color.r, color.g, color.b, 
+			getPositionVec(), resolution, 10);
+			
+		
 		fbo.end();
 		return this;
 	}
