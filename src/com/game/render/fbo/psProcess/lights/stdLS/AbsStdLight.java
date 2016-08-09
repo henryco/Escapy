@@ -98,8 +98,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
 			escapyCamera.getCamera(), color.r, color.g, color.b, 
 			getPositionVec(), resolution, 10);
-			
-		
+	
+		fbo.renderFBO();
 		fbo.end();
 		return this;
 	}

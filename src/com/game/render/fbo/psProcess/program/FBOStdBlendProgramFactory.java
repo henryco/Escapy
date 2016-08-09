@@ -235,14 +235,14 @@ public class FBOStdBlendProgramFactory {
 	public static FBORenderProgram<EscapyMultiFBO> strongSoftLight(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("strongSoftLight"), frag("strongSoftLight"), TARGETMAP, BLENDMAP))
-				.setAmbientIntensity(0.15f)
-				.setLightIntensity(0.5f);
+				.setAmbientIntensity(0.75f)
+				.setLightIntensity(0.2f);
 	}
 	public static FBORenderProgram<EscapyMultiFBO> strongSoftLight() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("strongSoftLight"), frag("strongSoftLight"), TARGETMAP, BLENDMAP))
-					.setAmbientIntensity(0.15f)
-					.setLightIntensity(0.5f);
+					.setAmbientIntensity(0.75f)
+					.setLightIntensity(0.2f);
 	}
 	
 	public static FBORenderProgram<EscapyMultiFBO> reverseSoftDodge(EscapyMultiFBO target) {

@@ -115,7 +115,8 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 					light.getFBO().getTextureRegion(),0,0, 
 					Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
 					postRenderCamera.getCamera());
-		
+			
+			this.ortoFBO.renderFBO();
 		
 		});
 		this.ortoFBO.end();

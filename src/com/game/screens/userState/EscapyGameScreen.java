@@ -63,9 +63,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private TransVec otherTranslationVec;
 	
 	
-	//private float amb, inten;
-	
-	
 	/**
 	 * Instantiates a new escapy game screen.
 	 *
@@ -102,7 +99,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		System.out.println("@init state");
 
 		
-	//	this.animator = EscapyAnimatorBase.createAnimator().initAnimator();//.startAnimator();
 		this.controlls = PlayerControl.playerController();
 		this.mapContainer = new InitMap(super.settings.Location(), super.settings.getFrameWIDHT(),
 				super.settings.getFrameHEIGHT(), super.settings.scaleRatio());
@@ -113,8 +109,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.addCameraProgram(CameraProgramFactory.stdCharacterProgram(this.charactersContainer.player()));
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
 		
-		//amb = 0.35f;
-		//inten = 0.35f;
+	
 		
 		this.lightBuffFBO = new StandartFBO();
 		this.MAINFBO = new StandartFBO();
@@ -125,22 +120,18 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.lightMapFBO = new StandartFBO();
 		this.lightMask = new LightMaskContainer();
 		this.bgrContainer = new ExtraRenderContainer(); 
-		
 		this.stdContainer = new ExtraRenderContainer();
 		this.normalsContainer = new ExtraRenderContainer();
 		this.lightsMapContainer = new ExtraRenderContainer();
 		this.volumeLights = new VolumeLightsExecutor();
-		
 		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.strongSoftLight());
 
 		
-	
 		this.testLight = this.stdLights.addSource(new SimpleStdLight(lightMapFBO)
-				.scale(3.8f).setPosition(400, 450).setColor(205, 107, 107));
+				.scale(4f).setPosition(400, 450).setColor(205, 107, 107));
 		
 		this.mouseLight = this.stdLights.addSource(new SimpleStdLight(lightMapFBO)
-				.scale(3.8f).setPosition(400, 450).setColor(10, 50, 250));
-		
+				.scale(4f).setPosition(400, 450).setColor(10, 50, 250));
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
@@ -148,12 +139,12 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		this.bgrMask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.bgrMask.setMode(EscapyMask.MULTIPLY).addMaskTarget(bgrFBO.getFrameBuffer());
-		//XXX
+		
 		
 
 		this.otherTranslationVec = new TransVec();
 
-		this.bgrContainer.addSource(new StdRenderer(mapContainer.backGround())); //XXX
+		this.bgrContainer.addSource(new StdRenderer(mapContainer.backGround())); 
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < mapContainer.objectSize()[mapContainer.indexTab()[i]]; j++) {
 				this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
@@ -171,7 +162,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /** FRONT PARALLAX **/
 			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getTransVecArray()));
-		//XXX
+		
 		
 		super.initializationEnded = true;
 
@@ -211,7 +202,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			this.stdLights.setLightIntensity(stdLights.getLightIntensity() - 0.01f);
 		}
 	}
-	
 	
 	
 	
@@ -275,11 +265,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	
 		this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
-	
-	//	this.MAINFBO.forceRenderToFBO(stdFBO);
 		
 		this.MAINFBO.renderFBO();
-		this.stdLights.mergeContainedFBO(escapyCamera, 5);
+		this.stdLights.mergeContainedFBO(escapyCamera, 7);
 		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 2);
 		
 		this.MAINFBO.renderFBO();

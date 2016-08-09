@@ -91,6 +91,13 @@ public class EscapyGdxCamera {
 		return this;
 	}
 	
+	public EscapyGdxCamera holdCamera(float delta) 
+	{
+		this.setTranslationVector(cameraProgramHolders.holdCamera(screenWidth, screenHeight, 1, this));
+		this.camera.translate(this.getTranslationVectorArray()[0], this.getTranslationVectorArray()[1]);
+		this.camera.update();
+		return this;
+	}
 	
 
 	private void updXYintervalLenghts() 
