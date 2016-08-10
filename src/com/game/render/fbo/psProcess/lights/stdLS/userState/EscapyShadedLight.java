@@ -1,14 +1,13 @@
 package com.game.render.fbo.psProcess.lights.stdLS.userState;
 
+import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
 import com.game.utils.translationVec.TransVec;
 
 public class EscapyShadedLight extends EscapyStdLight {
 
 	
-	public EscapyShadedLight() {
-		super();
-	}
 	public EscapyShadedLight(EscapyFBO lightMap) {
 		super(lightMap);
 	}
@@ -45,8 +44,30 @@ public class EscapyShadedLight extends EscapyStdLight {
 	public EscapyShadedLight(TransVec pos) {
 		super(pos);
 	}
+	public EscapyShadedLight() {
+		super();
+	}
 
+	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
+		
+		fbo.begin().wipeFBO();
+		colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
 
+		colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
+			escapyCamera.getCamera(), color.r, color.g, color.b, 
+			getPositionVec(), resolution, 10);
+		
+		colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
+			escapyCamera.getCamera(), color.r, color.g, color.b, 
+			getPositionVec(), resolution, 10);
+	
+		fbo.renderFBO();
+		fbo.end();
+		return this;
+	}
 
+	public AbsStdLight preRender() {
+		return this.preRender(cam);
+	}
 
 }

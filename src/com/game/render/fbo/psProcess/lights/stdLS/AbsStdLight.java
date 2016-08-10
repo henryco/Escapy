@@ -23,13 +23,13 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected Texture lightTexture;
 	protected TransVec position;
 	
-	private EscapyStdColorizeRenderer colorizer;
+	protected EscapyStdColorizeRenderer colorizer;
 	
 	protected Color color;
 	protected EscapyFBO fbo, lightMap;
 	protected EscapyGdxCamera cam;
 
-	private Vector2 resolution;
+	protected Vector2 resolution;
 	
 	private int id;
 	
