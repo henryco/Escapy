@@ -23,10 +23,9 @@ import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightContainer;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
-import com.game.render.fbo.psProcess.lights.stdLS.userState.SimpleStdLight;
+import com.game.render.fbo.psProcess.lights.stdLS.userState.EscapyShadedLight;
 import com.game.render.fbo.psProcess.lights.vol.VolumeLightsExecutor;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
-import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
@@ -115,7 +114,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.MAINFBO = new StandartFBO();
 		this.bgrFBO = new StandartFBO(); 
 		this.stdFBO = new StandartFBO();
-		this.nrmlFBO = new NormalMapFBO();
+		this.nrmlFBO = new StandartFBO();
 		this.lightStdFBO = new StandartMultiFBO(stdFBO.getFrameBuffer());
 		this.lightMapFBO = new StandartFBO();
 		this.lightMask = new LightMaskContainer();
@@ -127,11 +126,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.strongSoftLight());
 
 		
-		this.testLight = this.stdLights.addSource(new SimpleStdLight(lightMapFBO)
+		this.testLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO)
 				.scale(4f).setPosition(400, 450).setColor(205, 107, 107));
 		
-		this.mouseLight = this.stdLights.addSource(new SimpleStdLight(lightMapFBO)
-				.scale(4f).setPosition(400, 450).setColor(10, 50, 250));
+		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO)
+				.scale(3.4f).setPosition(400, 450).setColor(10, 50, 250));
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
@@ -238,8 +237,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			this.lightsMapContainer.renderGraphic(escapyCamera);
 		this.lightMapFBO.end();
 	
-		this.nrmlFBO.begin().wipeFBO();
-		((NormalMapFBO) this.nrmlFBO).maskNormal();
+		this.nrmlFBO.begin().clearFBO(0.502f, 0.502f, 1f, 1f);
 			this.normalsContainer.renderGraphic(escapyCamera);
 		this.nrmlFBO.end().mergeBuffer();
 	}

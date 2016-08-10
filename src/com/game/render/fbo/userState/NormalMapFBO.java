@@ -10,20 +10,20 @@ import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.fbo.psProcess.program.userState.FBOVolumeLightProgram;
 
 // TODO: Auto-generated Javadoc
-/**
+/**@deprecated
  * The Class NormalMapFBO.
  */
 public class NormalMapFBO extends EscapyMultiFBO {
 
 
-	/**
+	/**@deprecated
 	 * Instantiates a new normal map FBO.
 	 */
 	public NormalMapFBO() {
 		super();
 	}
 	
-	/**
+	/**@deprecated
 	 * Instantiates a new normal map FBO.
 	 *
 	 * @param targetFrameBuffer
@@ -33,7 +33,7 @@ public class NormalMapFBO extends EscapyMultiFBO {
 		super(targetFrameBuffer);
 	}
 	
-	/**
+	/**@deprecated
 	 * Instantiates a new normal map FBO.
 	 *
 	 * @param targetFrameBuffer
@@ -60,7 +60,7 @@ public class NormalMapFBO extends EscapyMultiFBO {
 	}
 
 	
-	/**
+	/**@deprecated
 	 * Mask normal.
 	 *
 	 * @return the escapy FBO

@@ -9,7 +9,7 @@ import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.render.shader.blend.userState.EscapyStdNrmlShader;
 
 // TODO: Auto-generated Javadoc
-/**
+/**@deprecated
  * The Class FBOVolumeLightProgram.
  */
 public class FBOVolumeLightProgram extends FBORenderProgram<NormalMapFBO> {

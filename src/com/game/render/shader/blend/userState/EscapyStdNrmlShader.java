@@ -12,7 +12,7 @@ import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.shader.EscapyShaderRender;
 
 // TODO: Auto-generated Javadoc
-/**
+/**@deprecated
  * The Class EscapyStdNrmlShader.
  */
 public class EscapyStdNrmlShader extends EscapyShaderRender {
@@ -22,7 +22,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	private ShaderProgram nrmlShader;
 
 	
-	/**
+	/**@deprecated
 	 * Instantiates a new escapy nrml shader.
 	 */
 	public EscapyStdNrmlShader() {
@@ -31,7 +31,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 		return;
 	}
 	
-	/**
+	/**@deprecated
 	 * Instantiates a new escapy std nrml shader.
 	 *
 	 * @param ID
@@ -44,7 +44,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	}
 	
 
-	/**
+	/**@deprecated
 	 * Render nrm light.
 	 *
 	 * @param colorMap
@@ -74,7 +74,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 		return colorMap;
 	}
 
-	/**
+	/**@deprecated
 	 * Render nrm light.
 	 *
 	 * @param colorMap
@@ -88,15 +88,15 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	 * @return the sprite
 	 */
 	public Sprite renderNrmLight(Sprite colorMap, Sprite normalMap, OrthographicCamera camera, SimpleVolLight simpLight) {
-		this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader,
-				simpLight.getPosition(), simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(),
-				simpLight.getDistance());
+	//	this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader,
+	//			simpLight.getPosition(), simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(),
+	//			simpLight.getDistance());
 
 		super.drawSprite(colorMap, camera);
 		return colorMap;
 	}
 
-	/**
+	/**@deprecated
 	 * Render nrm light.
 	 *
 	 * @param colorMap
@@ -115,14 +115,14 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	 */
 	public Texture renderNrmLight(Texture colorMap, Texture normalMap, float x, float y, OrthographicCamera camera,
 			SimpleVolLight simpLight) {
-		this.nrmlShader = initShader(colorMap, normalMap, this.nrmlShader, simpLight.getPosition(),
-				simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(), simpLight.getDistance());
+	//	this.nrmlShader = initShader(colorMap, normalMap, this.nrmlShader, simpLight.getPosition(),
+	//			simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(), simpLight.getDistance());
 
 		super.drawTexture(colorMap, camera, x, y);
 		return colorMap;
 	}
 
-	/**
+	/**@deprecated
 	 * Render nrm light.
 	 *
 	 * @param colorMap
@@ -155,7 +155,7 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 		return colorMap;
 	}
 
-	/**
+	/**@deprecated
 	 * Render nrm light.
 	 *
 	 * @param colorMap
@@ -178,15 +178,15 @@ public class EscapyStdNrmlShader extends EscapyShaderRender {
 	 */
 	public TextureRegion renderNrmLight(TextureRegion colorMap, TextureRegion normalMap, float x, float y, float width,
 			float height, OrthographicCamera camera, SimpleVolLight simpLight) {
-		this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader,
-				simpLight.getPosition(), simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(),
-				simpLight.getDistance());
+	//	this.nrmlShader = initShader(colorMap.getTexture(), normalMap.getTexture(), this.nrmlShader,
+	//			simpLight.getPosition(), simpLight.getDimension(), simpLight.getColor(), simpLight.getIntencity(),
+	//			simpLight.getDistance());
 
 		super.drawTextureRegion(colorMap, camera, x, y, width, height);
 		return colorMap;
 	}
 
-	/**
+	/**@deprecated
 	 * Render nrm light.
 	 *
 	 * @param colorMap

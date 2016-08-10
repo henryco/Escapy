@@ -1,7 +1,6 @@
 package com.game.render.fbo.psProcess.program;
 
 import com.game.render.fbo.EscapyMultiFBO;
-import com.game.render.fbo.excp.EscapyFBOtypeException;
 import com.game.render.fbo.psProcess.program.stdBlend.FBOStdBlendProgram;
 import com.game.render.fbo.psProcess.program.userState.FBOColorDodgeProgram;
 import com.game.render.fbo.psProcess.program.userState.FBOHardDodgeProgram;
@@ -9,8 +8,6 @@ import com.game.render.fbo.psProcess.program.userState.FBOMultiplyProgram;
 import com.game.render.fbo.psProcess.program.userState.FBOScreenDodgeProgram;
 import com.game.render.fbo.psProcess.program.userState.FBOSoftDodgeProgram;
 import com.game.render.fbo.psProcess.program.userState.FBOSoftLightProgram;
-import com.game.render.fbo.psProcess.program.userState.FBOVolumeLightProgram;
-import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.render.shader.blend.EscapyBlendRenderer;
 
 public class FBOStdBlendProgramFactory {
@@ -102,13 +99,6 @@ public class FBOStdBlendProgramFactory {
 	}
 	public static FBORenderProgram<EscapyMultiFBO> softLight() {
 		return new FBOSoftLightProgram();
-	}
-	
-	
-	
-	public static FBORenderProgram<?> volumeLight(EscapyMultiFBO target) throws EscapyFBOtypeException {
-		if (target instanceof NormalMapFBO) return new FBOVolumeLightProgram((NormalMapFBO) target);
-		else throw new EscapyFBOtypeException(); 
 	}
 	
 	

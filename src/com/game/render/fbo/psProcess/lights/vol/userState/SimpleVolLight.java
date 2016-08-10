@@ -2,24 +2,24 @@ package com.game.render.fbo.psProcess.lights.vol.userState;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
+//import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
 
 // TODO: Auto-generated Javadoc
-/**
+/**@deprecated
  * The Class SimpleVolLight.
  */
-public class SimpleVolLight extends AbsVolLight {
+public class SimpleVolLight  {
 
 	private Vector2 dimension;
 
-	/**
+	/**@deprecated
 	 * Instantiates a new simple light.
 	 */
 	public SimpleVolLight() {
 		super();
 	}
 
-	/**
+	/**@deprecated
 	 * Instantiates a new simple light.
 	 *
 	 * @param dimension
@@ -34,12 +34,12 @@ public class SimpleVolLight extends AbsVolLight {
 	 *            the distance
 	 */
 	public SimpleVolLight(Vector2 dimension, Vector2 position, Vector3 color, float intencity, float distance) {
-		super(position, color, intencity, distance);
+	//	super(position, color, intencity, distance);
 		this.dimension = new Vector2(dimension);
 		return;
 	}
 
-	/**
+	/**@deprecated
 	 * Instantiates a new simple light.
 	 *
 	 * @param dimension
@@ -54,7 +54,7 @@ public class SimpleVolLight extends AbsVolLight {
 	 *            the distance
 	 */
 	public SimpleVolLight(float[] dimension, float[] position, float[] color, float intencity, float distance) {
-		super(new Vector2(position[0], position[1]), new Vector3(color[0], color[1], color[2]), intencity, distance);
+	//	super(new Vector2(position[0], position[1]), new Vector3(color[0], color[1], color[2]), intencity, distance);
 		this.dimension = new Vector2(dimension[0], dimension[1]);
 		return;
 	}

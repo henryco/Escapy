@@ -5,15 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.game.GameEnter;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartFBO;
-import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
+//import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
 import com.game.render.fbo.psProcess.lights.vol.VolumeLightsExecutor;
-import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyScreenState;
 
@@ -71,13 +68,10 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		
 		
 		
-		AbsVolLight[] lights = new SimpleVolLight[4];
-		float[][] colors = new float[][] { { 0.6f, 0.6f, 0.6f }, { 1f, 0.1f, 0.1f }, { 0.1f, 1f, 0.1f },
-				{ 0.1f, 0.1f, 1f } };
 
-		for (int i = 0; i < lights.length; i++) {
-			lights[i] = new SimpleVolLight(new float[] { 15, 15 }, new float[] { i * 200, i * 150 }, colors[i], 0.9f, 5f);
-		}
+//		for (int i = 0; i < lights.length; i++) {
+//			lights[i] = new SimpleVolLight(new float[] { 15, 15 }, new float[] { i * 200, i * 150 }, colors[i], 0.9f, 5f);
+//		}
 
 		this.mpos = new float[2];
 		this.screen = new float[] { 60, 60 };
@@ -90,7 +84,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		
 		this.batcher = new SpriteBatch();
 		this.volumeLights = new VolumeLightsExecutor(nrmlFBO);
-		this.lightsID = new int[lights.length];
+	//	this.lightsID = new int[lights.length];
 		
 		//for (int i = 0; i < lightsID.length; i++)
 		//	lightsID[i] = volumeLights.addSource(lights[i]);
