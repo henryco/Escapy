@@ -42,7 +42,7 @@ public abstract class EscapyFBO {
 	protected Sprite MAINSPRITE;
 	
 	protected final int regX, regY, regWidth, regHeight;
-	
+				
 	private final int id;
 	
 	
@@ -101,8 +101,7 @@ public abstract class EscapyFBO {
 	protected void initFBO() {
 		
 		this.renderProgram = initRenderProgram();
-		this.MAINBUFFER = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight(), false);
+		this.MAINBUFFER = new FrameBuffer(Format.RGBA8888, regWidth, regHeight, false);
 		
 		this.MAINREGION = new TextureRegion(this.MAINBUFFER.getColorBufferTexture(), 
 				regX, regY, regWidth, regHeight);
