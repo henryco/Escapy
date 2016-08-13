@@ -57,8 +57,8 @@ public class EscapyGdxCamera {
 	 */
 	public EscapyGdxCamera(int screenWidth, int screenHeight) 
 	{
-		this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		this.camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this.camera = new OrthographicCamera(screenWidth, screenHeight);
+		this.camera.setToOrtho(true, screenWidth, screenHeight);
 		this.initGdxCamera(screenWidth, screenHeight);
 		
 		return;

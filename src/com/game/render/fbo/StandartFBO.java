@@ -40,6 +40,9 @@ public class StandartFBO extends EscapyFBO {
 	public StandartFBO(int ID, float x, float y, float width, float height) {
 		super(ID, (int)x, (int)y, (int)width, (int)height);
 	}
+	public StandartFBO(int ID, int width, int height) {
+		super(ID, width, height);
+	}
 	
 	/* (non-Javadoc)
 	 * @see com.game.render.fbo.EscapyFBO#initRenderProgram()

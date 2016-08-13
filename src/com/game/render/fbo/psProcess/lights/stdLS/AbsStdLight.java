@@ -27,10 +27,9 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	protected Color color;
 	protected EscapyFBO fbo, lightMap;
-	protected EscapyGdxCamera cam;
 
 	protected Vector2 resolution;
-	
+	protected float scale;
 	private int id;
 	
 	{
@@ -44,10 +43,9 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.colorizer = new EscapyStdColorizeRenderer(id);
 		
 		this.fbo = new StandartFBO(id); 
-		this.cam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		this.resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
+		this.scale = 1.f;
 	}
 	
 	public AbsStdLight() {
@@ -104,10 +102,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 
-	public AbsStdLight preRender() {
-		return this.preRender(cam);
-	}
-	
 	
 	@Override
 	public void stateUpdated(TransVec state) {
@@ -125,6 +119,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public AbsStdLight scale(float scale) {
 		this.lightSprite.setSize(lightTexture.getWidth() * scale,
 				lightTexture.getHeight() * scale);
+		this.scale = scale;
 		return this;
 	}
 	

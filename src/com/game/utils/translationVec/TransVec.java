@@ -1,5 +1,7 @@
 package com.game.utils.translationVec;
 
+import java.util.function.Function;
+
 import com.badlogic.gdx.math.Vector2;
 import com.game.utils.observ.SimpleObserver;
 
@@ -100,6 +102,22 @@ public class TransVec {
 		}
 		this.accuracy = tempAcc;
 		return this;
+	}
+	
+	public float func(Function<float[], Float> funct) {
+		return funct.apply(this.translationVectorArray).floatValue();
+	}
+	
+	public float[] arrfunc(Function<Float, Float> funct) {
+		return new float[]{
+				funct.apply(this.translationVectorArray[0]).floatValue(),
+				funct.apply(this.translationVectorArray[1]).floatValue()
+		};
+	}
+	
+	public TransVec vecfunc(Function<Float, Float> funct) {
+		return new TransVec(funct.apply(this.translationVectorArray[0]).floatValue(),
+				funct.apply(this.translationVectorArray[1]).floatValue());
 	}
 	
 	/**
@@ -219,16 +237,18 @@ public class TransVec {
 			this.observeObj.stateUpdated(this);
 	}
 
+	public TransVec sub(TransVec vec) {
+		this.sub(vec.x, vec.y);
+		return this;
+	}
 	public TransVec sub(Vector2 v) {
 		this.sub(v.x, v.y);
 		return this;
 	}
-	
 	public TransVec sub(float[] v) {
 		this.sub(v[0], v[1]);
 		return this;
 	}
-	
 	public TransVec sub(float x, float y) {
 		if (this.accuracy != (-1)) {
 			x = roundVec(x);
@@ -244,6 +264,10 @@ public class TransVec {
 		return this;
 	}
 	
+	public TransVec add(TransVec vec) {
+		this.add(vec.x, vec.y);
+		return this;
+	}
 	public TransVec add(Vector2 v) {
 		this.add(v.x, v.y);
 		return this;

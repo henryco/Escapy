@@ -96,7 +96,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		lightFBO.begin();
 		while (iterations > 0) {
 			lightFBO.renderToFBO(temp);
-			iterations -=1;
+			iterations -= 1;
 		}
 		lightFBO.endMergedBuffer();
 		return lightFBO;

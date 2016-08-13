@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
-import com.game.render.fbo.userState.NormalMapFBO;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -92,6 +91,34 @@ public abstract class EscapyFBO {
 		
 		this.id = ID;
 		this.initFBO();
+	}
+	
+	public EscapyFBO(int ID, int width, int height) {
+		
+		this.regX = 0;
+		this.regY = 0;
+		this.regWidth = width;
+		this.regHeight = height;
+		
+		this.id = ID;
+		this.initFBO();
+		
+		this.MAINREGION = new TextureRegion(MAINBUFFER.getColorBufferTexture());
+		this.MAINSPRITE = new Sprite(MAINREGION);
+	}
+	
+	public EscapyFBO(int width, int height) {
+		
+		this.regX = 0;
+		this.regY = 0;
+		this.regWidth = width;
+		this.regHeight = height;
+		
+		this.id = this.hashCode();
+		this.initFBO();
+		
+		this.MAINREGION = new TextureRegion(MAINBUFFER.getColorBufferTexture());
+		this.MAINSPRITE = new Sprite(MAINREGION);
 	}
 	
 	
@@ -415,5 +442,21 @@ public abstract class EscapyFBO {
 
 	public void setSpriteRegion(Sprite mAINSPRITE) {
 		MAINSPRITE = mAINSPRITE;
+	}
+
+	public int getRegX() {
+		return regX;
+	}
+
+	public int getRegY() {
+		return regY;
+	}
+
+	public int getRegWidth() {
+		return regWidth;
+	}
+
+	public int getRegHeight() {
+		return regHeight;
 	}
 }
