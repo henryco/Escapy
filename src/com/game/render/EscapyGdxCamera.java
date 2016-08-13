@@ -64,6 +64,15 @@ public class EscapyGdxCamera {
 		return;
 	}
 
+	public EscapyGdxCamera(boolean yDown, int screenWidth, int screenHeight) 
+	{
+		this.camera = new OrthographicCamera(screenWidth, screenHeight);
+		this.camera.setToOrtho(yDown, screenWidth, screenHeight);
+		this.initGdxCamera(screenWidth, screenHeight);
+		
+		return;
+	}
+	
 	private void initGdxCamera(int screenWidth, int screenHeight)
 	{
 		this.xInterval = new float[2];

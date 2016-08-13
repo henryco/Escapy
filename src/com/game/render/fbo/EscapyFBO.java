@@ -119,6 +119,7 @@ public abstract class EscapyFBO {
 		
 		this.MAINREGION = new TextureRegion(MAINBUFFER.getColorBufferTexture());
 		this.MAINSPRITE = new Sprite(MAINREGION);
+		
 	}
 	
 	
