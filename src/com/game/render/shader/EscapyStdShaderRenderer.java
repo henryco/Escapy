@@ -1,5 +1,6 @@
 package com.game.render.shader;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
@@ -11,7 +12,7 @@ public class EscapyStdShaderRenderer extends EscapyShaderRender {
 
 
 	/** The std program. */
-	protected final ShaderProgram stdProgram;
+	protected ShaderProgram stdProgram;
 	
 	
 	/**
@@ -58,6 +59,9 @@ public class EscapyStdShaderRenderer extends EscapyShaderRender {
 
 	@Override
 	public EscapyShaderRender initShaderProgram(String VERTEX, String FRAGMENT) {
+		ShaderProgram.pedantic = false;
+		this.stdProgram = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
+		super.checkStatus(stdProgram);
 		return this;
 	}
 

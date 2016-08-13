@@ -459,4 +459,9 @@ public abstract class EscapyFBO {
 	public int getRegHeight() {
 		return regHeight;
 	}
+
+	public EscapyGdxCamera getFBOCamera() {
+		return fboCamera;
+	}
+
 }

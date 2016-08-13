@@ -71,7 +71,7 @@ public class EscapyColorizeRenderer extends EscapyShaderRender {
 	}
 	
 	
-	private ShaderProgram initShader(Texture target, Texture lMap, ShaderProgram shader, 
+	protected ShaderProgram initShader(Texture target, Texture lMap, ShaderProgram shader, 
 			float r, float g, float b, Vector2 center, Vector2 fSize, float coeff) {
 		shader.begin();
 		{

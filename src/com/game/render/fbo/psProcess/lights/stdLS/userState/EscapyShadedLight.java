@@ -5,14 +5,16 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
-import com.game.render.fbo.psProcess.program.stdShadow.FBOStdShadowsProgram;
+import com.game.render.shader.shadow.userState.EscapyStdShadowRenderer;
 import com.game.utils.translationVec.TransVec;
 
 public class EscapyShadedLight extends EscapyStdLight {
 
+	private EscapyStdShadowRenderer shadowRenderer;
 	private EscapyFBO lightMapFBO, shadowMapFBO;
-	private EscapyGdxCamera cam;
+	private EscapyGdxCamera lightCam, shadowCam;
 	private TransVec transPos;
+	
 	
 	public EscapyShadedLight(EscapyFBO lightMap) {
 		super(lightMap);
@@ -71,30 +73,35 @@ public class EscapyShadedLight extends EscapyStdLight {
 		
 		this.lightMapFBO = new StandartFBO(super.getID(), super.getLightTexture().getWidth(),
 				super.getLightTexture().getHeight());
-	//	this.lightMapFBO.setRenderProgram(new FBOStdShadowsProgram(lightMapFBO));
 		this.shadowMapFBO = new StandartFBO(super.getID(), lightMapFBO.getRegWidth(), 1);
-		this.cam = new EscapyGdxCamera(lightMapFBO.getRegWidth(), lightMapFBO.getRegHeight());
+		this.lightCam = new EscapyGdxCamera(lightMapFBO.getRegWidth(), lightMapFBO.getRegHeight());
+		this.shadowCam = new EscapyGdxCamera(shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
+		
 		this.transPos = new TransVec();
+		this.shadowRenderer = new EscapyStdShadowRenderer(super.getID());
 	}
 	
 	@Override
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 	
 		transPos.sub(escapyCamera.getTranslationVector());
-		cam.setCameraPosition(transPos.arrfunc(n -> n / scale));
+		lightCam.setCameraPosition(transPos.arrfunc(n -> n / scale));
 		Sprite tempSprite = new Sprite(lightMap.getTextureRegion());
 		tempSprite.setSize(lightMap.getTextureRegion().getRegionWidth() / scale, 
 				lightMap.getTextureRegion().getRegionHeight() / scale);
 	
 		lightMapFBO.begin().wipeFBO();
-		colorizer.drawSprite(tempSprite, cam.getCamera());
+		colorizer.drawSprite(tempSprite, lightCam.getCamera());
 		lightMapFBO.end();
 		lightMapFBO.renderFBO();
 		
-		shadowMapFBO.begin().wipeFBO();
+		shadowMapFBO.begin().wipeFBO();//.clearFBO(1f, 1f, 1f, 1f);
+		shadowRenderer.renderShadow(lightMapFBO.getTextureRegion(), shadowCam.getCamera(),
+				shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight(),0, 0, 
+				shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
 		
 		shadowMapFBO.end();
-		
+		shadowMapFBO.renderFBO();
 		/*		
 		fbo.begin().wipeFBO();
 		colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
