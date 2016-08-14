@@ -12,13 +12,11 @@ import com.game.utils.observ.SimpleObserver;
 public class TransVec {
 
 	private float[] translationVectorArray;
-	private Vector2 translationVector;
-	
+	//private Vector2 translationVector;
 	private int accuracy;
-	
 	private SimpleObserver<TransVec> observeObj;
 	
-	/** The y. */
+	public final int ID = this.hashCode();
 	public float x, y;
 	
 	/**
@@ -37,21 +35,11 @@ public class TransVec {
 	 */
 	public TransVec(float[] vec2) {
 		this.initVec();
-		this.setTransVec(vec2);
+		this.setTransVec(vec2[0], vec2[1]);
+	
 		return;
 	}
 	
-	/**
-	 * Instantiates a new trans vec.
-	 *
-	 * @param vec2
-	 *            the vec 2
-	 */
-	public TransVec(Vector2 vec2) {
-		this.initVec();
-		this.setTransVec(vec2);
-		return;
-	}
 	
 	/**
 	 * Instantiates a new trans vec.
@@ -64,20 +52,23 @@ public class TransVec {
 	public TransVec(float x, float y) {
 		this.initVec();
 		this.setTransVec(x, y);
+	
 		return;
 	}
 	
 	public TransVec(TransVec Vec) {
 		this.initVec();
-		this.setTransVec(Vec.getTransVec());
+		this.setTransVec(Vec.getVecArray()[0], Vec.getVecArray()[1]);
+	
 		return;
 	}
 	
 	
 	private void initVec() {
 		this.translationVectorArray = new float[2];
-		this.translationVector = new Vector2(0, 0);
+	//	this.translationVector = new Vector2(0, 0);
 		this.accuracy = (-1);
+		
 	}
 	
 	public void setObservedObj(SimpleObserver<TransVec> observed) {
@@ -104,20 +95,28 @@ public class TransVec {
 		return this;
 	}
 	
-	public float func(Function<float[], Float> funct) {
-		return funct.apply(this.translationVectorArray).floatValue();
-	}
 	
-	public float[] arrfunc(Function<Float, Float> funct) {
+	public float[] arrfuncf(Function<Float, Float> funct) {
 		return new float[]{
 				funct.apply(this.translationVectorArray[0]).floatValue(),
-				funct.apply(this.translationVectorArray[1]).floatValue()
-		};
+				funct.apply(this.translationVectorArray[1]).floatValue()};
+	}
+	public TransVec vecfuncf(Function<Float, Float> funct) {
+		return new TransVec(
+				funct.apply(this.translationVectorArray[0]).floatValue(),
+				funct.apply(this.translationVectorArray[1]).floatValue());
 	}
 	
-	public TransVec vecfunc(Function<Float, Float> funct) {
-		return new TransVec(funct.apply(this.translationVectorArray[0]).floatValue(),
-				funct.apply(this.translationVectorArray[1]).floatValue());
+	public float ffuncv(Function<TransVec, Float> funct) {
+		return funct.apply(this).floatValue();
+	}
+	public float[] arrfuncv(Function<TransVec, float[]> funct) {
+		float[] tmp = funct.apply(this);
+		return new float[]{tmp[0], tmp[1]};
+	}
+	public TransVec vecfuncv(Function<TransVec, TransVec> funct) {
+		TransVec tmp = new TransVec(this);
+		return (funct.apply(tmp));
 	}
 	
 	/**
@@ -165,18 +164,8 @@ public class TransVec {
 	 *
 	 * @return the translation vector array
 	 */
-	public float[] getTransVecArray() {
+	public float[] getVecArray() {
 		return translationVectorArray;
-	}
-
-
-	/**
-	 * Gets the translation vector.
-	 *
-	 * @return the translation vector
-	 */
-	public Vector2 getTransVec() {
-		return translationVector;
 	}
 
 
@@ -190,7 +179,6 @@ public class TransVec {
 		if (this.accuracy != (-1)) 	
 			translationMatrix = roundVec(translationMatrix);
 		this.translationVectorArray = translationMatrix.clone();
-		this.translationVector.set(translationMatrix[0], translationMatrix[1]);
 		this.x = translationMatrix[0];
 		this.y = translationMatrix[1];
 		if (observeObj != null)
@@ -199,14 +187,13 @@ public class TransVec {
 	
 	/**
 	 * Sets the translation vector.
-	 *
+	 * @deprecated
 	 * @param translationVector
 	 *            the new translation vector
 	 */
 	public void setTransVec(Vector2 translationVector) {
 		if (this.accuracy != (-1)) 
 			translationVector = roundVec(translationVector);
-		this.translationVector = translationVector.cpy();
 		this.translationVectorArray[0] = translationVector.x;
 		this.translationVectorArray[1] = translationVector.y;
 		this.x = translationVector.x;
@@ -232,9 +219,12 @@ public class TransVec {
 		this.y = y;
 		this.translationVectorArray[0] = this.x;
 		this.translationVectorArray[1] = this.y;
-		this.translationVector.set(this.x, this.y);
 		if (observeObj != null)
 			this.observeObj.stateUpdated(this);
+	}
+	
+	public void setTransVec(TransVec vec) {
+		this.setTransVec(vec.x, vec.y);
 	}
 
 	public TransVec sub(TransVec vec) {
@@ -256,7 +246,6 @@ public class TransVec {
 		}
 		this.x -= x;
 		this.y -= y;
-		this.translationVector.sub(x, y);
 		this.translationVectorArray[0] = this.x;
 		this.translationVectorArray[1] = this.y;
 		if (observeObj != null)
@@ -284,11 +273,16 @@ public class TransVec {
 		}
 		this.x += x;
 		this.y += y;
-		this.translationVector.add(x, y);
 		this.translationVectorArray[0] = this.x;
 		this.translationVectorArray[1] = this.y;
 		if (observeObj != null)
 			this.observeObj.stateUpdated(this);
 		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return this.ID+"| "+translationVectorArray[0]+
+				" : "+translationVectorArray[1]+" ";
 	}
 }

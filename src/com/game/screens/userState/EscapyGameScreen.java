@@ -24,6 +24,7 @@ import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightContainer;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.lights.stdLS.userState.EscapyShadedLight;
+import com.game.render.fbo.psProcess.lights.stdLS.userState.EscapyStdLight;
 import com.game.render.fbo.psProcess.lights.vol.VolumeLightsExecutor;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
 import com.game.screens.EscapyMainState;
@@ -127,12 +128,14 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 
 		
-		this.testLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 2)
-				.scale(4f).setPosition(600, 400).setColor(205, 107, 107));
+	
+		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 3)
+				.scale(4f).setPosition(400, 450).setColor(10, 50, 250));
 
-		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 2)
-				.scale(3.4f).setPosition(400, 450).setColor(10, 50, 250));
-		
+	//	this.testLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 2)
+	//			.scale(4f).setPosition(600, 420).setColor(205, 107, 107));
+		this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO)
+				.scale(3.4f).setPosition(600, 420).setColor(205, 107, 107));
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
@@ -162,7 +165,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.lightsMapContainer.addSource(new LightMapRenderer(charactersContainer.player()));
 		
 		for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /** FRONT PARALLAX **/
-			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getTransVecArray()));
+			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
 		
 		
 		super.initializationEnded = true;
@@ -179,17 +182,20 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	protected void updDist() {
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-			this.stdLights.getSourceByID(this.testLight).setPosition(this.charactersContainer.player().getPhysicalBody().getBodyPosition());
+			this.stdLights.getSourceByID(this.testLight).setPosition(
+					this.charactersContainer.player().getPhysicalBody().getBodyPosition());
 		}
 		if (Gdx.input.isTouched(0)) {
-			this.stdLights.getSourceByID(this.testLight).setPosition(Gdx.input.getX() 
-					-escapyCamera.getTranslationVector().x, Gdx.input.getY()-escapyCamera.getTranslationVector().y);
+			this.stdLights.getSourceByID(this.testLight).setPosition(
+					Gdx.input.getX() + escapyCamera.getShiftVec().x, 
+					Gdx.input.getY() + escapyCamera.getShiftVec().y);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-			this.stdLights.getSourceByID(this.mouseLight).setPosition(Gdx.input.getX() 
-					-escapyCamera.getTranslationVector().x, Gdx.input.getY()-escapyCamera.getTranslationVector().y);
+			this.stdLights.getSourceByID(this.mouseLight).setPosition(
+					Gdx.input.getX() + escapyCamera.getShiftVec().x, 
+					Gdx.input.getY() + escapyCamera.getShiftVec().y);
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
 			this.stdLights.setAmbientIntesity(stdLights.getAmbientIntensity() + 0.01f);
 		}
@@ -268,7 +274,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		this.MAINFBO.renderFBO();
 		this.stdLights.mergeContainedFBO(escapyCamera, 7).renderFBO();
-//	/*	
+	/*	
 		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 2);
 		
 		this.MAINFBO.renderFBO();

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.game.render.shader.EscapyShaderRender;
+import com.game.utils.translationVec.TransVec;
 
 public class EscapyColorizeRenderer extends EscapyShaderRender {
 
@@ -47,26 +48,26 @@ public class EscapyColorizeRenderer extends EscapyShaderRender {
 	
 	
 	public void renderColorized(Sprite target, Sprite lMap, OrthographicCamera camera, 
-			float r, float g, float b, Vector2 center, Vector2 fSize, float coeff) {
+			float r, float g, float b, TransVec center, Vector2 fSize, float coeff) {
 		
 		this.colorizeShader = initShader(target.getTexture(), lMap.getTexture(), 
-				this.colorizeShader, r, g, b, center, fSize, coeff);
+				this.colorizeShader, r, g, b, null, fSize, coeff);
 		super.drawSprite(target, camera);
 	}
 	
 	public void renderColorized(Texture target, Texture lMap, OrthographicCamera camera, 
-			float r, float g, float b,float x, float y, Vector2 center, Vector2 fSize, float coeff) {
+			float r, float g, float b,float x, float y, TransVec center, Vector2 fSize, float coeff) {
 		
-		this.colorizeShader = initShader(target, lMap, this.colorizeShader, r, g, b, center, fSize, coeff);
+		this.colorizeShader = initShader(target, lMap, this.colorizeShader, r, g, b, null, fSize, coeff);
 		super.drawTexture(target, camera, x, y);
 	}
 	
 	public void renderColorized(TextureRegion target,TextureRegion lMap, OrthographicCamera camera, 
 			float r, float g, float b, float x, float y, float width, 
-			float height, Vector2 center, Vector2 fSize, float coeff) {
+			float height, TransVec center, Vector2 fSize, float coeff) {
 		
 		this.colorizeShader = initShader(target.getTexture(), lMap.getTexture(), 
-				this.colorizeShader, r, g, b, center, fSize, coeff);
+				this.colorizeShader, r, g, b, null, fSize, coeff);
 		super.drawTextureRegion(target, camera, x, y, width, height);
 	}
 	
@@ -86,7 +87,7 @@ public class EscapyColorizeRenderer extends EscapyShaderRender {
 			shader.setUniformf("colorB", b);
 			
 			
-			shader.setUniformf("u_lightCenter", center);
+		//	shader.setUniformf("u_lightCenter", center);
 			shader.setUniformf("u_fieldSize", fSize);
 			shader.setUniformf("u_coeff", coeff);
 		}

@@ -22,6 +22,11 @@ public class EscapyGdxCamera {
 	private CameraProgramHolder cameraProgramHolders;
 
 	private TransVec translationVec;
+	private TransVec shiftVec;
+	
+	{	this.shiftVec = new TransVec(0f, 0f);
+	
+	}
 	
 	/**
 	 * Instantiates a new escapy gdx camera.
@@ -95,7 +100,8 @@ public class EscapyGdxCamera {
 	public EscapyGdxCamera holdCamera() 
 	{
 		this.setTranslationVector(cameraProgramHolders.holdCamera(screenWidth, screenHeight, 1, this));
-		this.camera.translate(this.getTranslationVectorArray()[0], this.getTranslationVectorArray()[1]);
+		
+		this.translateCamera(this.translationVec.getVecArray());
 		this.camera.update();
 		return this;
 	}
@@ -103,7 +109,8 @@ public class EscapyGdxCamera {
 	public EscapyGdxCamera holdCamera(float delta) 
 	{
 		this.setTranslationVector(cameraProgramHolders.holdCamera(screenWidth, screenHeight, 1, this));
-		this.camera.translate(this.getTranslationVectorArray()[0], this.getTranslationVectorArray()[1]);
+	
+		this.translateCamera(this.translationVec.getVecArray());
 		this.camera.update();
 		return this;
 	}
@@ -137,6 +144,7 @@ public class EscapyGdxCamera {
 	 * @return the escapy gdx camera
 	 */
 	public EscapyGdxCamera translateCamera(float x, float y) {
+		this.shiftVec.add(x, y);
 		this.camera.translate(x, y);
 		this.camera.update();
 		return this;
@@ -230,10 +238,8 @@ public class EscapyGdxCamera {
 	 *            the y
 	 * @return the escapy gdx camera
 	 */
-	public EscapyGdxCamera setCameraPosition(float x, float y)
-	{
-		this.camera.position.x = x;
-		this.camera.position.y = y;
+	public EscapyGdxCamera setCameraPosition(float x, float y) {
+		this.translateCamera(x - camera.position.x, y - camera.position.y);
 		return this;
 	}
 	
@@ -337,24 +343,9 @@ public class EscapyGdxCamera {
 	 * @return the translation vector array
 	 */
 	public float[] getTranslationVectorArray() {
-		return this.translationVec.getTransVecArray();
+		return this.translationVec.getVecArray();
 	}
 	
-	/**
-	 * Gets the translation vector.
-	 *
-	 * @return the translation vector
-	 */
-	public Vector2 getTranslationVector() {
-		return this.translationVec.getTransVec();
-	}
-
-	/**
-	 * Sets the translation vector.
-	 *
-	 * @param translationMatrix
-	 *            the new translation vector
-	 */
 	public void setTranslationVector(float[] translationMatrix)
 	{
 		this.translationVec.setTransVec(translationMatrix);
@@ -390,6 +381,14 @@ public class EscapyGdxCamera {
 		this.translationVec = translationVec;
 	}
 
+	public TransVec getShiftVec() {
+		return this.shiftVec;
+	}
+	
+	public float[] getShiftVecArr() {
+		return this.shiftVec.getVecArray();
+	}
+	
 	/**
 	 * Update.
 	 */

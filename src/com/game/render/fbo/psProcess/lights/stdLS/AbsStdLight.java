@@ -11,6 +11,7 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
+import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.colorize.userState.EscapyStdColorizeRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
 import com.game.utils.observ.SimpleObserver;
@@ -24,6 +25,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected TransVec position;
 	
 	protected EscapyStdColorizeRenderer colorizer;
+	protected EscapyStdShaderRenderer stdRenderer;
 	
 	protected Color color;
 	protected EscapyFBO fbo, lightMap;
@@ -46,6 +48,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		
 		this.resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.scale = 1.f;
+		this.stdRenderer = new EscapyStdShaderRenderer(id);
 	}
 	
 	public AbsStdLight() {
@@ -87,15 +90,15 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 		
 		fbo.begin().wipeFBO();
-		this.colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
+		this.stdRenderer.drawSprite(lightSprite, escapyCamera.getCamera());
 
 		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
 			escapyCamera.getCamera(), color.r, color.g, color.b, 
-			getPositionVec(), resolution, 10);
+			getPosition(), resolution, 10);
 		
 		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
 			escapyCamera.getCamera(), color.r, color.g, color.b, 
-			getPositionVec(), resolution, 10);
+			getPosition(), resolution, 10);
 	
 		fbo.renderFBO();
 		fbo.end();
@@ -108,6 +111,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		float tempX = state.x - (this.lightSprite.getWidth() / 2.f);
 		float tempY = state.y - (this.lightSprite.getHeight() / 2.f);
 		this.lightSprite.setPosition(tempX, tempY);
+	//	System.out.println(getID()+"| "+tempX+" "+tempY);
 	}
 	
 	public AbsStdLight setLightSource(String lightFile) {
@@ -168,11 +172,11 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return position;
 	}
 	public float[] getPositionArray() {
-		return position.getTransVecArray();
+		return position.getVecArray();
 	}
-	public Vector2 getPositionVec() {
-		return position.getTransVec();
-	}
+//	public Vector2 getPositionVec() {
+//		return position.getVec2();
+//	}
 
 	public Color getColor() {
 		return color;
