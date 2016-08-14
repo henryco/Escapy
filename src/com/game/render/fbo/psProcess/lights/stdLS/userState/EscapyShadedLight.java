@@ -5,6 +5,7 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
+import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.shadow.userState.EscapyStdShadowMapRenderer;
 import com.game.render.shader.shadow.userState.EscapyStdShadowRenderer;
 import com.game.utils.translationVec.TransVec;
@@ -13,6 +14,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 
 	private EscapyStdShadowMapRenderer shadowMapRenderer;
 	private EscapyStdShadowRenderer shadowRenderer;
+	private EscapyStdShaderRenderer stdRenderer;
 	private EscapyFBO lightMapFBO, shadowMapFBO, shadowFBO;
 	private EscapyGdxCamera lightCam, shadowMapCam, shadowCam;
 	private TransVec transPos;
@@ -82,11 +84,15 @@ public class EscapyShadedLight extends EscapyStdLight {
 
 	private void initBlock(int lacc) {
 		
+		if (lacc > 2048) lacc = 2048;
+		else if (lacc < 64) lacc = 64;
+		
 		this.lightMapFBO = new StandartFBO(super.getID(), super.getLightTexture().getWidth(),
 				super.getLightTexture().getHeight());
 		this.shadowMapFBO = new StandartFBO(super.getID(), lacc, 1);
 		this.shadowFBO = new StandartFBO(super.getID(), super.getLightTexture().getWidth(),
 				super.getLightTexture().getHeight());
+	
 		this.lightCam = new EscapyGdxCamera(lightMapFBO.getRegWidth(), lightMapFBO.getRegHeight());
 		this.shadowMapCam = new EscapyGdxCamera(shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
 		this.shadowCam = new EscapyGdxCamera(false, shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
@@ -94,6 +100,8 @@ public class EscapyShadedLight extends EscapyStdLight {
 		this.transPos = new TransVec();
 		this.shadowMapRenderer = new EscapyStdShadowMapRenderer(super.getID());
 		this.shadowRenderer = new EscapyStdShadowRenderer(super.getID());
+		
+		this.stdRenderer = new EscapyStdShaderRenderer(super.getID());
 	}
 	
 	/**
@@ -115,10 +123,8 @@ public class EscapyShadedLight extends EscapyStdLight {
 		tempSprite.setSize(lightMap.getTextureRegion().getRegionWidth() / scale, 
 				lightMap.getTextureRegion().getRegionHeight() / scale);
 	
-		lightMapFBO.begin().wipeFBO();
-		{
-			colorizer.drawSprite(tempSprite, lightCam.getCamera());
-		}
+		lightMapFBO.begin().clearFBO(1f,1f,1f,1f);
+			stdRenderer.drawSprite(tempSprite, lightCam.getCamera());
 		lightMapFBO.end();
 		lightMapFBO.renderFBO();
 		
@@ -130,7 +136,6 @@ public class EscapyShadedLight extends EscapyStdLight {
 					shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
 		}
 		shadowMapFBO.end();
-		shadowMapFBO.renderFBO();
 		
 		shadowFBO.begin().wipeFBO(); 
 		{
@@ -142,23 +147,23 @@ public class EscapyShadedLight extends EscapyStdLight {
 		shadowFBO.end();
 		shadowFBO.renderFBO();
 		
-		/*		
-		fbo.begin().wipeFBO();
-		colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
-
-		colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color.r, color.g, color.b, 
-			getPositionVec(), resolution, 10);
-		
-		colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color.r, color.g, color.b, 
-			getPositionVec(), resolution, 10);
+		Sprite shadowSprite = new Sprite(shadowFBO.getTextureRegion());
+		shadowSprite.setSize(shadowFBO.getRegWidth()*scale, shadowFBO.getRegHeight()*scale);
+		shadowSprite.setPosition(lightSprite.getX(), lightSprite.getY());
 	
-		fbo.renderFBO();
-		fbo.end();
-		//*/		
-
+		super.fbo.begin().wipeFBO();
 		
+		this.stdRenderer.drawSprite(shadowSprite, escapyCamera.getCamera());
+		super.colorizer.renderColorized(lightSprite, shadowSprite, 
+				escapyCamera.getCamera(), color.r, color.g, color.b, 
+				getPositionVec(), resolution, 10);
+		super.colorizer.renderColorized(lightSprite, shadowSprite, 
+				escapyCamera.getCamera(), color.r, color.g, color.b, 
+				getPositionVec(), resolution, 10);
+		super.fbo.renderFBO();
+		super.fbo.end();
+	
+
 		return this;
 	}
 	

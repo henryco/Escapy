@@ -79,12 +79,13 @@ public class EscapyColorizeRenderer extends EscapyShaderRender {
 			target.bind(0);
 			super.batcher.setShader(shader);
 			
+			shader.setUniformi(LIGHTMAP, 1);
 			shader.setUniformi(TARGETMAP, 0);
 			shader.setUniformf("colorR", r);
 			shader.setUniformf("colorG", g);
 			shader.setUniformf("colorB", b);
 			
-			shader.setUniformi(LIGHTMAP, 1);
+			
 			shader.setUniformf("u_lightCenter", center);
 			shader.setUniformf("u_fieldSize", fSize);
 			shader.setUniformf("u_coeff", coeff);
