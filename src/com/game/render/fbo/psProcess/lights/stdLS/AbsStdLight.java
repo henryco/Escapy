@@ -37,9 +37,11 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	{
 		this.id = this.hashCode();
 		this.position = new TransVec();
-		this.lightTexture = new Texture(new FileHandle(getDefaultTexure()));
-		this.lightTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		this.lightSprite = new Sprite(lightTexture);
+		try {
+			this.lightTexture = new Texture(new FileHandle(getDefaultTexure()));
+			this.lightTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			this.lightSprite = new Sprite(lightTexture);
+		} catch (Exception e) {}
 		this.position.setObservedObj(this);
 		this.color = new Color(1, 1, 1, 1);
 		this.colorizer = new EscapyStdColorizeRenderer(id);
@@ -111,7 +113,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		float tempX = state.x - (this.lightSprite.getWidth() / 2.f);
 		float tempY = state.y - (this.lightSprite.getHeight() / 2.f);
 		this.lightSprite.setPosition(tempX, tempY);
-	//	System.out.println(getID()+"| "+tempX+" "+tempY);
 	}
 	
 	public AbsStdLight setLightSource(String lightFile) {

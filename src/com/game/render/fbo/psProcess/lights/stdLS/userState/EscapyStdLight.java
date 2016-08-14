@@ -6,7 +6,8 @@ import com.game.utils.translationVec.TransVec;
 
 public class EscapyStdLight extends AbsStdLight {
 
-	private static final String defTexture = "data\\postProcess\\lightSrc256x256_1.png";
+//	private static final String defTexture = "data\\postProcess\\lightSrc256x256_1.png";
+	private static final String defTexture = "data\\postProcess\\lightSrc512x512_1.png";
 	
 	public EscapyStdLight(int id) {
 		super(id);

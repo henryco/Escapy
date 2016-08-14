@@ -130,12 +130,12 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 	
 		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 3)
-				.scale(4f).setPosition(400, 450).setColor(10, 50, 250));
+				.scale(2f).setPosition(400, 450).setColor(10, 50, 250));
 
-	//	this.testLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 2)
-	//			.scale(4f).setPosition(600, 420).setColor(205, 107, 107));
-		this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO)
-				.scale(3.4f).setPosition(600, 420).setColor(205, 107, 107));
+		this.testLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 3)
+				.scale(2f).setPosition(600, 420).setColor(205, 107, 107));
+	//	this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO)
+	//			.scale(3.4f).setPosition(600, 420).setColor(205, 107, 107));
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
@@ -273,8 +273,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
 		this.MAINFBO.renderFBO();
-		this.stdLights.mergeContainedFBO(escapyCamera, 7).renderFBO();
-	/*	
+		this.stdLights.mergeContainedFBO(escapyCamera, 7);//.renderFBO();
+//	/*	
 		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 2);
 		
 		this.MAINFBO.renderFBO();

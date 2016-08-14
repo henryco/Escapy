@@ -138,7 +138,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 		lightMapFBO.begin().clearFBO(1f,1f,1f,1f);
 			stdRenderer.drawSprite(tempSprite, lightCam.getCamera());
 		lightMapFBO.end();
-		lightMapFBO.renderFBO();
+//		lightMapFBO.renderFBO();
 		
 		shadowMapFBO.begin().wipeFBO();
 		{
@@ -157,7 +157,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 					shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
 		}
 		shadowFBO.end();
-		shadowFBO.renderFBO();
+//		shadowFBO.renderFBO();
 		
 		Sprite shadowSprite = new Sprite(shadowFBO.getTextureRegion());
 		shadowSprite.scale(scale);
@@ -166,6 +166,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 			
 		super.fbo.begin().wipeFBO();
 		{
+		
 			super.colorizer.renderColorized(lightSprite, shadowSprite, 
 				escapyCamera.getCamera(), color.r, color.g, color.b, 
 				getPosition(), resolution, 10);
