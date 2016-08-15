@@ -18,6 +18,7 @@ public class TransVec {
 	
 	public final int ID = this.hashCode();
 	public float x, y;
+
 	
 	/**
 	 * Instantiates a new trans vec.
@@ -66,13 +67,13 @@ public class TransVec {
 	
 	private void initVec() {
 		this.translationVectorArray = new float[2];
-	//	this.translationVector = new Vector2(0, 0);
 		this.accuracy = (-1);
 		
 	}
 	
-	public void setObservedObj(SimpleObserver<TransVec> observed) {
+	public TransVec setObservedObj(SimpleObserver<TransVec> observed) {
 		this.observeObj = observed;
+		return this;
 	}
 	
 	/**
@@ -95,7 +96,13 @@ public class TransVec {
 		return this;
 	}
 	
-	
+	public TransVec funcf(Function<Float, Float> funct) {
+		return this.setTransVec(funct.apply(this.translationVectorArray[0]).floatValue(),
+				funct.apply(this.translationVectorArray[1]).floatValue());
+	}
+	public TransVec funcv(Function<TransVec, TransVec> funct) {
+		return this.setTransVec(funct.apply(this));
+	}
 	public float[] arrfuncf(Function<Float, Float> funct) {
 		return new float[]{
 				funct.apply(this.translationVectorArray[0]).floatValue(),
@@ -106,7 +113,6 @@ public class TransVec {
 				funct.apply(this.translationVectorArray[0]).floatValue(),
 				funct.apply(this.translationVectorArray[1]).floatValue());
 	}
-	
 	public float ffuncv(Function<TransVec, Float> funct) {
 		return funct.apply(this).floatValue();
 	}
@@ -175,7 +181,7 @@ public class TransVec {
 	 * @param translationMatrix
 	 *            the new translation vector
 	 */
-	public void setTransVec(float[] translationMatrix) {
+	public TransVec setTransVec(float[] translationMatrix) {
 		if (this.accuracy != (-1)) 	
 			translationMatrix = roundVec(translationMatrix);
 		this.translationVectorArray = translationMatrix.clone();
@@ -183,6 +189,7 @@ public class TransVec {
 		this.y = translationMatrix[1];
 		if (observeObj != null)
 			this.observeObj.stateUpdated(this);
+		return this;
 	}
 	
 	/**
@@ -209,8 +216,9 @@ public class TransVec {
 	 *            the x
 	 * @param y
 	 *            the y
+	 * @return 
 	 */
-	public void setTransVec(float x, float y) {
+	public TransVec setTransVec(float x, float y) {
 		if (this.accuracy != (-1)) {
 			x = roundVec(x);
 			y = roundVec(y);
@@ -221,10 +229,11 @@ public class TransVec {
 		this.translationVectorArray[1] = this.y;
 		if (observeObj != null)
 			this.observeObj.stateUpdated(this);
+		return this;
 	}
 	
-	public void setTransVec(TransVec vec) {
-		this.setTransVec(vec.x, vec.y);
+	public TransVec setTransVec(TransVec vec) {
+		return this.setTransVec(vec.x, vec.y);
 	}
 
 	public TransVec sub(TransVec vec) {

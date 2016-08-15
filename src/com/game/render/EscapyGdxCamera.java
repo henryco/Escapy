@@ -357,8 +357,8 @@ public class EscapyGdxCamera {
 	 * @param translationVector
 	 *            the new translation vector
 	 */
-	public void setTranslationVector(Vector2 translationVector)
-	{
+	@SuppressWarnings("deprecation")
+	public void setTranslationVector(Vector2 translationVector) {
 		this.translationVec.setTransVec(translationVector);
 	}
 	

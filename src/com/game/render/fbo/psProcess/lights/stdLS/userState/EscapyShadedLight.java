@@ -1,7 +1,6 @@
 package com.game.render.fbo.psProcess.lights.stdLS.userState;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
@@ -125,7 +124,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 			this.shadowRenderer = new EscapyStdShadowRenderer(super.getID());
 		}
 		
-		super.resolution = new Vector2(super.getLightTexture().getWidth() * scale,
+		super.resolution = new TransVec(super.getLightTexture().getWidth() * scale,
 				super.getLightTexture().getHeight() * scale);
 	}
 	
@@ -155,7 +154,6 @@ public class EscapyShadedLight extends EscapyStdLight {
 			stdRenderer.drawSprite(tempSprite, lightCam.getCamera());
 		lightMapFBO.end();
 		
-		
 		shadowMapFBO.begin().wipeFBO();
 			shadowMapRenderer.renderShadow(
 				lightMapFBO.getTextureRegion(), shadowMapCam.getCamera(), 
@@ -178,12 +176,12 @@ public class EscapyShadedLight extends EscapyStdLight {
 			
 		super.fbo.begin().wipeFBO();
 		{
-			super.colorizer.renderColorized(lightSprite, shadowSprite, 
-				escapyCamera.getCamera(), color.r, color.g, color.b, 
-				getPosition(), resolution, coeff);
-			super.colorizer.renderColorized(lightSprite, shadowSprite, 
-				escapyCamera.getCamera(), color.r, color.g, color.b, 
-				getPosition(), resolution, coeff);
+			super.colorizer.renderLightSrc(lightSprite, shadowSprite, 
+				escapyCamera.getCamera(), color, 
+				lightAngles, resolution, coeff);
+			super.colorizer.renderLightSrc(lightSprite, shadowSprite, 
+				escapyCamera.getCamera(), color, 
+				lightAngles, resolution, coeff);
 			super.fbo.renderFBO();
 		}	super.fbo.end();
 		return this;

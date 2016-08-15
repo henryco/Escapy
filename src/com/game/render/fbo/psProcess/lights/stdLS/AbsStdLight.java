@@ -12,7 +12,7 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.shader.EscapyStdShaderRenderer;
-import com.game.render.shader.colorize.userState.EscapyStdColorizeRenderer;
+import com.game.render.shader.colorize.userState.EscapyStdLghtSrcRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
 import com.game.utils.observ.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
@@ -22,15 +22,17 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	protected Sprite lightSprite;
 	protected Texture lightTexture;
-	protected TransVec position;
 	
-	protected EscapyStdColorizeRenderer colorizer;
+	protected EscapyStdLghtSrcRenderer colorizer;
 	protected EscapyStdShaderRenderer stdRenderer;
 	
 	protected Color color;
 	protected EscapyFBO fbo, lightMap;
 	
-	protected Vector2 resolution;
+	protected TransVec position;
+	protected TransVec resolution;
+	protected TransVec lightAngles;
+	
 	protected float scale;
 	protected float coeff;
 	
@@ -38,17 +40,21 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	{
 		this.id = this.hashCode();
-		this.position = new TransVec();
-		this.position.setObservedObj(this);
+		
+		this.position = new TransVec().setObservedObj(this);
+		this.resolution = new TransVec(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this.lightAngles = new TransVec(0f, 0f); 
+		
 		this.color = new Color(1, 1, 1, 1);
-		this.colorizer = new EscapyStdColorizeRenderer(id);
+		
+		this.colorizer = new EscapyStdLghtSrcRenderer(id);
+		this.stdRenderer = new EscapyStdShaderRenderer(id);
 		
 		this.fbo = new StandartFBO(id); 
 		
-		this.resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.scale = 1.f;
 		this.coeff = 1.f;
-		this.stdRenderer = new EscapyStdShaderRenderer(id);
+		
 	}
 	
 	public AbsStdLight() {
@@ -90,13 +96,13 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		fbo.begin().wipeFBO();
 		this.stdRenderer.drawSprite(lightSprite, escapyCamera.getCamera());
 
-		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color.r, color.g, color.b, 
-			getPosition(), resolution, coeff);
+		this.colorizer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
+			escapyCamera.getCamera(), color, 
+			lightAngles, resolution, coeff);
 		
-		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color.r, color.g, color.b, 
-			getPosition(), resolution, coeff);
+		this.colorizer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
+			escapyCamera.getCamera(), color, 
+			lightAngles, resolution, coeff);
 	
 		fbo.renderFBO();
 		fbo.end();
@@ -116,7 +122,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 			this.lightTexture = new Texture(new FileHandle(lightFile));
 			this.lightTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			this.lightSprite = new Sprite(lightTexture);
-		} catch (Exception e) {}
+		} catch (Exception e) {e.printStackTrace();}
 		return this;
 	}
 	
@@ -148,10 +154,34 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.setPosition(vec.x, vec.y);
 		return this;
 	}
+	
 	public AbsStdLight setCoeff(float cf) {
 		this.coeff = cf;
 		if (coeff > 1 || coeff < 0) coeff = 0.5f;
 		return this;
+	}
+	
+	public AbsStdLight setAngles(float srcAngle, float shiftAngle) {
+		this.lightAngles.setTransVec(srcAngle, shiftAngle);
+		return this;
+	}
+	public AbsStdLight setAngles(float[] angles) {
+		return this.setAngles(angles[0], angles[1]);
+	}
+	public AbsStdLight setAngles(TransVec angles) {
+		return this.setAngles(angles.x, angles.y);
+	}
+	public AbsStdLight addAgngles(float srcAngle, float shiftAngle) {
+		this.lightAngles.add(srcAngle, shiftAngle);
+		if (lightAngles.x >= 1) lightAngles.sub(1, 0);
+		if (lightAngles.y >= 1) lightAngles.sub(0, 1);
+		return this;
+	}
+	public AbsStdLight addAgngles(float[] angles) {
+		return this.addAgngles(angles[0], angles[1]);
+	}
+	public AbsStdLight addAgngles(TransVec angles) {
+		return this.addAgngles(angles.x, angles.y);
 	}
 	
 	public abstract String getDefaultTexure();
