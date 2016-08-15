@@ -29,19 +29,16 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	protected Color color;
 	protected EscapyFBO fbo, lightMap;
-
+	
 	protected Vector2 resolution;
 	protected float scale;
+	protected float coeff;
+	
 	private int id;
 	
 	{
 		this.id = this.hashCode();
 		this.position = new TransVec();
-		try {
-			this.lightTexture = new Texture(new FileHandle(getDefaultTexure()));
-			this.lightTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-			this.lightSprite = new Sprite(lightTexture);
-		} catch (Exception e) {}
 		this.position.setObservedObj(this);
 		this.color = new Color(1, 1, 1, 1);
 		this.colorizer = new EscapyStdColorizeRenderer(id);
@@ -50,6 +47,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		
 		this.resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.scale = 1.f;
+		this.coeff = 1.f;
 		this.stdRenderer = new EscapyStdShaderRenderer(id);
 	}
 	
@@ -87,8 +85,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
 	
-	
-	
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 		
 		fbo.begin().wipeFBO();
@@ -96,11 +92,11 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
 			escapyCamera.getCamera(), color.r, color.g, color.b, 
-			getPosition(), resolution, 10);
+			getPosition(), resolution, coeff);
 		
 		this.colorizer.renderColorized(lightSprite, lightMap.getSpriteRegion(), 
 			escapyCamera.getCamera(), color.r, color.g, color.b, 
-			getPosition(), resolution, 10);
+			getPosition(), resolution, coeff);
 	
 		fbo.renderFBO();
 		fbo.end();
@@ -116,8 +112,11 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 	
 	public AbsStdLight setLightSource(String lightFile) {
-		this.lightTexture = new Texture(new FileHandle(lightFile));
-		this.lightSprite = new Sprite(lightTexture);
+		try {
+			this.lightTexture = new Texture(new FileHandle(lightFile));
+			this.lightTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			this.lightSprite = new Sprite(lightTexture);
+		} catch (Exception e) {}
 		return this;
 	}
 	
@@ -149,6 +148,11 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.setPosition(vec.x, vec.y);
 		return this;
 	}
+	public AbsStdLight setCoeff(float cf) {
+		this.coeff = cf;
+		if (coeff > 1 || coeff < 0) coeff = 0.5f;
+		return this;
+	}
 	
 	public abstract String getDefaultTexure();
 
@@ -175,9 +179,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public float[] getPositionArray() {
 		return position.getVecArray();
 	}
-//	public Vector2 getPositionVec() {
-//		return position.getVec2();
-//	}
 
 	public Color getColor() {
 		return color;

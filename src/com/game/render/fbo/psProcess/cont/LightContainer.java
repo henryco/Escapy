@@ -37,7 +37,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	
 	private Batch batch;
 	
-	public LightContainer() {
+	public LightContainer() { 
 	}
 	public LightContainer(EscapyFBO mutliFBO) {
 		this.setPostRenderFBO(mutliFBO);

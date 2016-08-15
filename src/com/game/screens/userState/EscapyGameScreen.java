@@ -129,13 +129,16 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		
 	
-		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 3)
-				.scale(2f).setPosition(400, 450).setColor(10, 50, 250));
+		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(
+				lightMapFBO, 3, EscapyShadedLight.texture.RND_1024).scale(1f).
+				setPosition(400, 450).setColor(10, 50, 250).setCoeff(0.65f));
 
-		this.testLight = this.stdLights.addSource(new EscapyShadedLight(lightMapFBO, 3)
-				.scale(2f).setPosition(600, 420).setColor(205, 107, 107));
-	//	this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO)
-	//			.scale(3.4f).setPosition(600, 420).setColor(205, 107, 107));
+		this.testLight = this.stdLights.addSource(new EscapyShadedLight(
+				lightMapFBO, 3, EscapyShadedLight.texture.RND_1024).scale(1f).
+				setPosition(600, 420).setColor(205, 107, 107).setCoeff(0.65f));
+	
+		//	this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO)
+		//		.scale(3.4f).setPosition(600, 420).setColor(205, 107, 107));
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
