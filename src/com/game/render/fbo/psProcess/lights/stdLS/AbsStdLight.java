@@ -43,7 +43,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		
 		this.position = new TransVec().setObservedObj(this);
 		this.resolution = new TransVec(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		this.lightAngles = new TransVec(0f, 0f); 
+		this.lightAngles = new TransVec(1f, 0f); 
 		
 		this.color = new Color(1, 1, 1, 1);
 		
@@ -161,28 +161,27 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 	
-	public AbsStdLight setAngles(float srcAngle, float shiftAngle) {
-		this.lightAngles.setTransVec(srcAngle, shiftAngle);
+	public AbsStdLight setAngle(float srcAngle, float shiftAngle) {
+		this.lightAngles.setTransVec(srcAngle, 0);
+		this.rotAngle(shiftAngle);
 		return this;
 	}
-	public AbsStdLight setAngles(float[] angles) {
-		return this.setAngles(angles[0], angles[1]);
+	public AbsStdLight setAngle(float angle) {
+		return this.setAngle(angle, 0);
 	}
-	public AbsStdLight setAngles(TransVec angles) {
-		return this.setAngles(angles.x, angles.y);
+	public AbsStdLight setAngle(float[] angles) {
+		return this.setAngle(angles[0], angles[1]);
 	}
-	public AbsStdLight addAgngles(float srcAngle, float shiftAngle) {
-		this.lightAngles.add(srcAngle, shiftAngle);
-		if (lightAngles.x >= 1) lightAngles.sub(1, 0);
-		if (lightAngles.y >= 1) lightAngles.sub(0, 1);
+	public AbsStdLight setAngle(TransVec angles) {
+		return this.setAngle(angles.x, angles.y);
+	}
+	public AbsStdLight rotAngle(float shiftAngle) {
+		this.lightAngles.add(shiftAngle, shiftAngle);
+		if (lightAngles.x > 1) lightAngles.sub(1, 0);
+		if (lightAngles.y > 1) lightAngles.sub(0, 1);
 		return this;
 	}
-	public AbsStdLight addAgngles(float[] angles) {
-		return this.addAgngles(angles[0], angles[1]);
-	}
-	public AbsStdLight addAgngles(TransVec angles) {
-		return this.addAgngles(angles.x, angles.y);
-	}
+
 	
 	public abstract String getDefaultTexure();
 
