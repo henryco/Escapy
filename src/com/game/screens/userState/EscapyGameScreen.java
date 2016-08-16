@@ -131,7 +131,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	
 		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(
 				lightMapFBO, 3, EscapyShadedLight.texture.RND_1024).scale(1f).
-				setPosition(400, 450).setColor(10, 50, 250).setCoeff(0.65f));
+				setPosition(400, 450).setColor(10, 50, 250).setCoeff(0.65f).
+				setAngle(0.125f));
 
 		this.testLight = this.stdLights.addSource(new EscapyShadedLight(
 				lightMapFBO, 3, EscapyShadedLight.texture.RND_1024).scale(1f).
@@ -198,15 +199,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 					Gdx.input.getX() + escapyCamera.getShiftVec().x, 
 					Gdx.input.getY() + escapyCamera.getShiftVec().y);
 		}
-
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-			this.stdLights.setAmbientIntesity(stdLights.getAmbientIntensity() + 0.01f);
+			this.stdLights.getSourceByID(this.mouseLight).rotAngle(0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
 			this.stdLights.setAmbientIntesity(stdLights.getAmbientIntensity() - 0.01f);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-			this.stdLights.setLightIntensity(stdLights.getLightIntensity() + 0.01f);
+			this.stdLights.getSourceByID(this.mouseLight).rotAngle(-0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
 			this.stdLights.setLightIntensity(stdLights.getLightIntensity() - 0.01f);

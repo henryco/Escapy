@@ -35,6 +35,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	protected float scale;
 	protected float coeff;
+	protected float correct;
 	
 	private int id;
 	
@@ -54,7 +55,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		
 		this.scale = 1.f;
 		this.coeff = 1.f;
-		
+		this.correct = 0.5f;
 	}
 	
 	public AbsStdLight() {
@@ -97,12 +98,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.stdRenderer.drawSprite(lightSprite, escapyCamera.getCamera());
 
 		this.colorizer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color, 
-			lightAngles, resolution, coeff);
+			escapyCamera.getCamera(), color, lightAngles, resolution, coeff, correct);
 		
 		this.colorizer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color, 
-			lightAngles, resolution, coeff);
+			escapyCamera.getCamera(), color, lightAngles, resolution, coeff, correct);
 	
 		fbo.renderFBO();
 		fbo.end();
@@ -161,27 +160,36 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 	
-	public AbsStdLight setAngle(float srcAngle, float shiftAngle) {
+	public AbsStdLight setAngle(float srcAngle, float shiftAngle, float corr) {
 		this.lightAngles.setTransVec(srcAngle, 0);
+		this.setAngleCorrection(corr);
 		this.rotAngle(shiftAngle);
 		return this;
 	}
 	public AbsStdLight setAngle(float angle) {
-		return this.setAngle(angle, 0);
+		return this.setAngle(angle, 0, 0.5f);
 	}
 	public AbsStdLight setAngle(float[] angles) {
-		return this.setAngle(angles[0], angles[1]);
+		return this.setAngle(angles[0], angles[1], 0.5f);
 	}
 	public AbsStdLight setAngle(TransVec angles) {
-		return this.setAngle(angles.x, angles.y);
+		return this.setAngle(angles.x, angles.y, 0.5f);
 	}
+	
 	public AbsStdLight rotAngle(float shiftAngle) {
 		this.lightAngles.add(shiftAngle, shiftAngle);
-		if (lightAngles.x > 1) lightAngles.sub(1, 0);
-		if (lightAngles.y > 1) lightAngles.sub(0, 1);
+		if (lightAngles.x > 0.5f + correct) lightAngles.sub(1, 0);
+		if (lightAngles.y > 0.5f + correct) lightAngles.sub(0, 1);
+		if (lightAngles.x < -0.5f + correct) lightAngles.add(1, 0);
+		if (lightAngles.y < -0.5f + correct) lightAngles.add(0, 1);
+		System.out.println(lightAngles);
 		return this;
 	}
-
+	
+	public AbsStdLight setAngleCorrection(float corr) {
+		this.correct = corr;
+		return this;
+	}
 	
 	public abstract String getDefaultTexure();
 
