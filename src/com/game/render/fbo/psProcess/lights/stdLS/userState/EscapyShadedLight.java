@@ -182,12 +182,13 @@ public class EscapyShadedLight extends EscapyStdLight {
 			super.colorizer.renderLightSrc(lightSprite, shadowSprite, 
 				escapyCamera.getCamera(), color, lightAngles, 
 				resolution, coeff, correct);
-			super.colorizer.renderLightSrc(lightSprite, shadowSprite, 
-					escapyCamera.getCamera(), color, lightAngles, 
-					resolution, coeff, correct);
-			super.fbo.renderFBO();
+		//	super.colorizer.renderLightSrc(lightSprite, shadowSprite, 
+		//			escapyCamera.getCamera(), color, lightAngles, 
+		//			resolution, coeff, correct);
 			
-		}	super.fbo.end();
+		}	
+		super.fbo.end();
+	
 		return this;
 	}
 	

@@ -147,8 +147,9 @@ public abstract class EscapyFBO {
 	 * <p>Render data from from internal {@link FrameBuffer}</p>
 	 * <p>Use {@link FBORenderProgram}, {@link EscapyGdxCamera}, and {@link EscapyPostProcessed} data (null by default).
 	 */
-	public void renderFBO() {
+	public EscapyFBO renderFBO() {
 		this.renderProgram.renderProgram(this.fboCamera, null);
+		return this;
 	}
 	
 	/**
@@ -156,8 +157,9 @@ public abstract class EscapyFBO {
 	 *
 	 * @param ePP {@link EscapyPostProcessed} optional data
 	 */
-	public void renderFBO(EscapyPostProcessed ePP) {
+	public EscapyFBO renderFBO(EscapyPostProcessed ePP) {
 		this.renderProgram.renderProgram(this.fboCamera, ePP);
+		return this;
 	}
 	
 	/**
@@ -166,8 +168,9 @@ public abstract class EscapyFBO {
 	 * @param camera {@link EscapyGdxCamera} cannot be null
 	 * @param ePP {@link EscapyPostProcessed} optional data
 	 */
-	public void renderFBO(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
+	public EscapyFBO renderFBO(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
 		this.renderProgram.renderProgram(camera, ePP);
+		return this;
 	}
 	
 	/**
@@ -175,8 +178,9 @@ public abstract class EscapyFBO {
 	 *
 	 * @param camera {@link EscapyGdxCamera} cannot be null
 	 */
-	public void renderFBO(EscapyGdxCamera camera) {
+	public EscapyFBO renderFBO(EscapyGdxCamera camera) {
 		this.renderProgram.renderProgram(camera, null);
+		return this;
 	}
 	
 	
