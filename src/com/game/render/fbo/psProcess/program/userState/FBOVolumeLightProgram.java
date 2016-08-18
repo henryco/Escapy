@@ -3,7 +3,7 @@ package com.game.render.fbo.psProcess.program.userState;
 import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
-import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
+import com.game.render.fbo.psProcess.lights.volLight.userState.SimpleVolLight;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.render.shader.blend.userState.EscapyStdNrmlShader;

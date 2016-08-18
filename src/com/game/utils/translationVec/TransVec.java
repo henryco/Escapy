@@ -41,7 +41,6 @@ public class TransVec {
 		return;
 	}
 	
-	
 	/**
 	 * Instantiates a new trans vec.
 	 *
@@ -63,7 +62,6 @@ public class TransVec {
 	
 		return;
 	}
-	
 	
 	private void initVec() {
 		this.translationVectorArray = new float[2];
@@ -289,9 +287,23 @@ public class TransVec {
 		return this;
 	}
 	
+	public TransVec setX(float x) {
+		return this.setTransVec(x, this.getVecArray()[1]);
+	}
+	public TransVec setY(float y) {
+		return this.setTransVec(this.getVecArray()[0], y);
+	}
+	public float getX() {
+		return this.x;
+	}
+	public float getY() {
+		return this.y;
+	}
+	
 	@Override
 	public String toString() {
 		return this.ID+"| "+translationVectorArray[0]+
 				" : "+translationVectorArray[1]+" ";
 	}
+
 }

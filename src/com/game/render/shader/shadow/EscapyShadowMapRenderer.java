@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.Vector2;
 import com.game.render.shader.EscapyShaderRender;
 
 public class EscapyShadowMapRenderer extends EscapyShaderRender {
@@ -42,6 +41,19 @@ public class EscapyShadowMapRenderer extends EscapyShaderRender {
 		super.checkStatus(shadowProgram);
 		return this;
 	}
+
+	protected ShaderProgram initShader(Texture sourceMap, float lwidht, float lheight,
+			ShaderProgram shader) {
+		
+		shader.begin();
+		{
+			sourceMap.bind(0);
+			super.batcher.setShader(shader);
+			shader.setUniformi(SOURCEMAP, 0);
+			shader.setUniformf("resolution", lwidht, lheight);
+		}	shader.end();
+		return shader;
+	}
 	
 	public void renderShadow(TextureRegion reg, OrthographicCamera camera, 
 			float resX, float resY, float x, float y, float widht, float height) {
@@ -58,19 +70,6 @@ public class EscapyShadowMapRenderer extends EscapyShaderRender {
 		super.drawSprite(reg, camera);
 	}
 	
-	protected ShaderProgram initShader(Texture sourceMap, float lwidht, float lheight,
-			ShaderProgram shader) {
-		
-		shader.begin();
-		{
-			sourceMap.bind(0);
-			super.batcher.setShader(shader);
-			shader.setUniformi(SOURCEMAP, 0);
-			shader.setUniformf("resolution", lwidht, lheight);
-		}
-		shader.end();
-		return shader;
-	}
 	
 	@Override
 	public String toString() {

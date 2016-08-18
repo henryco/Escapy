@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.game.render.fbo.psProcess.lights.vol.userState.SimpleVolLight;
+import com.game.render.fbo.psProcess.lights.volLight.userState.SimpleVolLight;
 import com.game.render.shader.EscapyShaderRender;
 
 // TODO: Auto-generated Javadoc

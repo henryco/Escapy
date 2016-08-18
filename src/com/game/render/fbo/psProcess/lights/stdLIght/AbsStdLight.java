@@ -1,4 +1,6 @@
-package com.game.render.fbo.psProcess.lights.stdLS;
+package com.game.render.fbo.psProcess.lights.stdLIght;
+
+import java.util.function.Function;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -12,7 +14,7 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.shader.EscapyStdShaderRenderer;
-import com.game.render.shader.colorize.userState.EscapyStdLghtSrcRenderer;
+import com.game.render.shader.lightSrc.userState.EscapyStdLghtSrcRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
 import com.game.utils.observ.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
@@ -32,10 +34,12 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected TransVec position;
 	protected TransVec resolution;
 	protected TransVec lightAngles;
+	protected TransVec radius;
 	
 	protected float scale;
 	protected float coeff;
 	protected float correct;
+
 	
 	private int id;
 	
@@ -45,6 +49,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.position = new TransVec().setObservedObj(this);
 		this.resolution = new TransVec(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.lightAngles = new TransVec(1f, 0f); 
+		this.radius = new TransVec(0, 0);
 		
 		this.color = new Color(1, 1, 1, 1);
 		
@@ -60,8 +65,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	
 	public AbsStdLight() {
 		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
-	}
-	
+	}	
 	public AbsStdLight(EscapyFBO lightMap) {
 		this.setLightMapFBO(lightMap);
 	}
@@ -95,15 +99,9 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 		
 		fbo.begin().wipeFBO();
-		this.stdRenderer.drawSprite(lightSprite, escapyCamera.getCamera());
-
 		this.colorizer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color, lightAngles, resolution, coeff, correct);
-		
-		this.colorizer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color, lightAngles, resolution, coeff, correct);
-	
-		fbo.renderFBO();
+			escapyCamera.getCamera(), color, lightAngles, resolution, coeff, correct, radius);
+		this.colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
 		fbo.end();
 		return this;
 	}
@@ -182,13 +180,46 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		if (lightAngles.y > 0.5f + correct) lightAngles.sub(0, 1);
 		if (lightAngles.x < -0.5f + correct) lightAngles.add(1, 0);
 		if (lightAngles.y < -0.5f + correct) lightAngles.add(0, 1);
-		System.out.println(lightAngles);
+	//	System.out.println(lightAngles);
 		return this;
+	}
+	public TransVec getRotAngle(){
+		return new TransVec(this.lightAngles.getVecArray());
 	}
 	
 	public AbsStdLight setAngleCorrection(float corr) {
 		this.correct = corr;
 		return this;
+	}
+	
+	public float getMinRadius() {
+		return this.radius.x;
+	}
+	public float getMaxRadius() {
+		return this.radius.y;
+	}
+	
+	/** 
+	 * @param minRadius - minimal radius, value range from 0.0 to 1.0;
+	 * @return {@link AbsStdLight}
+	 */
+	public AbsStdLight setMinRadius(float minRadius) {
+		this.radius.setX((minRadius <= 0) ? 0 : minRadius);
+		return this;
+	}
+	public AbsStdLight setMinRadius(Function<Float, Float> funct) {
+		return this.setMinRadius(funct.apply(this.radius.getX()));
+	}
+	/** 
+	 * @param maxRadius - maximal radius, value range from 0.0 to 1.0;
+	 * @return {@link AbsStdLight}
+	 */
+	public AbsStdLight setMaxRadius(float maxRadius) {
+		this.radius.setY((maxRadius <= 0) ? 0 : maxRadius);
+		return this;
+	}
+	public AbsStdLight setMaxRadius(Function<Float, Float> funct) {
+		return this.setMaxRadius(funct.apply(this.radius.getY()));
 	}
 	
 	public abstract String getDefaultTexure();
@@ -249,6 +280,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public void setLightMapFBO(EscapyFBO lightMap) {
 		this.lightMap = lightMap;
 	}
+	
 
 }
 

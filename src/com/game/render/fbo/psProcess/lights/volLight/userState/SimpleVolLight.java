@@ -1,8 +1,8 @@
-package com.game.render.fbo.psProcess.lights.vol.userState;
+package com.game.render.fbo.psProcess.lights.volLight.userState;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-//import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
+//import com.game.render.fbo.psProcess.lights.volLight.AbsVolLight;
 
 // TODO: Auto-generated Javadoc
 /**@deprecated

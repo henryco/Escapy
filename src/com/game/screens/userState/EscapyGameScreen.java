@@ -23,9 +23,9 @@ import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightContainer;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
-import com.game.render.fbo.psProcess.lights.stdLS.userState.EscapyShadedLight;
-import com.game.render.fbo.psProcess.lights.stdLS.userState.EscapyStdLight;
-import com.game.render.fbo.psProcess.lights.vol.VolumeLightsExecutor;
+import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight;
+import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyStdLight;
+import com.game.render.fbo.psProcess.lights.volLight.VolumeLightsExecutor;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
@@ -127,19 +127,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.strongSoftLight());
 
 
-		
-	
 		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(
-				lightMapFBO, 3, EscapyShadedLight.texture.RND_1024).scale(1f).
-				setPosition(400, 450).setColor(10, 50, 250).setCoeff(0.65f).
+				lightMapFBO, 3, EscapyShadedLight.texture.RND_1024).scale(1.5f).
+				setPosition(400, 450).setColor(10, 50, 250).setCoeff(1f).
 				setAngle(0.125f));
+		
+		this.testLight = this.stdLights.addSource(new EscapyStdLight(
+				lightMapFBO, EscapyShadedLight.texture.RND_1024).scale(1f).
+				setPosition(600, 420).setColor(205, 107, 107).setCoeff(1f));
 
-		this.testLight = this.stdLights.addSource(new EscapyShadedLight(
-				lightMapFBO, 3, EscapyShadedLight.texture.RND_1024).scale(1f).
-				setPosition(600, 420).setColor(205, 107, 107).setCoeff(0.65f));
-	
-		//	this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO)
-		//		.scale(3.4f).setPosition(600, 420).setColor(205, 107, 107));
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
@@ -204,13 +200,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			this.stdLights.getSourceByID(this.mouseLight).rotAngle(0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
-			this.stdLights.setAmbientIntesity(stdLights.getAmbientIntensity() - 0.01f);
+			this.stdLights.getSourceByID(this.mouseLight).setMinRadius(r -> r - 0.02f);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
 			this.stdLights.getSourceByID(this.mouseLight).rotAngle(-0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
-			this.stdLights.setLightIntensity(stdLights.getLightIntensity() - 0.01f);
+			this.stdLights.getSourceByID(this.mouseLight).setMinRadius(r -> r + 0.02f);
 		}
 	}
 	

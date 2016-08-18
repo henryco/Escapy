@@ -1,4 +1,4 @@
-package com.game.render.fbo.psProcess.lights.vol;
+package com.game.render.fbo.psProcess.lights.volLight;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;

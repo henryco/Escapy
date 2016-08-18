@@ -9,9 +9,6 @@ import com.game.GameEnter;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
-//import com.game.render.fbo.psProcess.lights.vol.AbsVolLight;
-import com.game.render.fbo.psProcess.lights.vol.VolumeLightsExecutor;
-import com.game.render.fbo.userState.NormalMapFBO;
 import com.game.screens.EscapyScreenState;
 
 // TODO: Auto-generated Javadoc
@@ -27,12 +24,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 	private float[] mpos, screen;
 	private float dist, intencity;
-	
-	
-	
-	private VolumeLightsExecutor volumeLights;
-	private int[] lightsID;
-	private int mouseLight;
+
 	private EscapyFBO nrmlFBO;
 	private EscapyFBO stdFBO;
 	private SpriteBatch batcher;
@@ -80,10 +72,10 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 	
 		/**FIXME TEST FIXME**/
 		this.stdFBO = new StandartFBO();
-		this.nrmlFBO = new NormalMapFBO(stdFBO.getFrameBuffer());
+
 		
 		this.batcher = new SpriteBatch();
-		this.volumeLights = new VolumeLightsExecutor(nrmlFBO);
+
 	//	this.lightsID = new int[lights.length];
 		
 		//for (int i = 0; i < lightsID.length; i++)

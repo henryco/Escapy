@@ -1,7 +1,7 @@
-package com.game.render.fbo.psProcess.lights.stdLS.userState;
+package com.game.render.fbo.psProcess.lights.stdLIght.userState;
 
 import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
+import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.utils.translationVec.TransVec;
 
 public class EscapyStdLight extends AbsStdLight {

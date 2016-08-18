@@ -1,16 +1,13 @@
 package com.game.render.fbo.psProcess.cont;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
-import com.game.render.fbo.psProcess.lights.stdLS.AbsStdLight;
+import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
 import com.game.render.fbo.psRender.EscapyPostExec;
@@ -34,8 +31,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	private final static String FRAGMENT ="shaders\\blend\\colorMix\\colorMix.frag";
 	
 	private EscapyBlendRenderer blender;
-	
-	private Batch batch;
+
 	
 	public LightContainer() { 
 	}
@@ -67,7 +63,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		this.lightFBO = new StandartMultiFBO();
-		this.batch = new SpriteBatch();
 		this.blender = new EscapyBlendRenderer(VERTEX, FRAGMENT, "targetMap", "blendMap");
 		this.ortoFBO = new StandartFBO();
 	}
@@ -123,63 +118,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		return ortoFBO;
 	}
 	
-	
-	
-	public LightContainer mergeContainedFBO_ALT() {
-		return this.mergeContainedFBO_ALT(postRenderCamera);
-	}
-	public LightContainer mergeContainedFBO_ALT(EscapyGdxCamera camera) {
-		
-		this.lightFBO.begin();
-		this.renderContainedFBO_ALT(camera);
-		this.lightFBO.end().mergeBuffer();
-		
-		return this;
-	}
-	public LightContainer mergeContainedFBO_ALT(EscapyGdxCamera camera, EscapyFBO fbo) {
-		this.lightFBO.begin();
-		fbo.renderFBO();
-		this.renderContainedFBO_ALT(camera);
-		this.lightFBO.end().mergeBuffer();
-		
-		return this;
-	}
-	
-	public LightContainer mergeALT(EscapyGdxCamera camera) {
-		super.targetsList.forEach( light -> light.preRender(camera));
-		this.lightFBO.begin();
-		batch.setProjectionMatrix(camera.combined());
-		batch.begin();
-		super.targetsList.forEach(
-				light -> batch.draw(light.getFBO().getTextureRegion(), 0, 0, 
-						Gdx.graphics.getWidth(), Gdx.graphics.getHeight())
-				);
-		batch.end();
-		this.lightFBO.endMergedBuffer();
-		return this;
-	}
-	
-	public LightContainer renderContainedFBO_ALT(EscapyGdxCamera camera) {
-		
-		int dst = batch.getBlendDstFunc();
-		int scr = batch.getBlendSrcFunc();
-		batch.setProjectionMatrix(camera.combined());
-		
-		batch.begin();
-		batch.enableBlending();
-			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
-		
-			super.targetsList.forEach(
-					light -> batch.draw(light.getFBO().getTextureRegion(), 0, 0, 
-							Gdx.graphics.getWidth(), Gdx.graphics.getHeight())
-					);
-		
-			batch.setBlendFunction(scr, dst);
-		batch.disableBlending();
-		batch.end();
-		
-		return this;
-	}
 	
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec, int times) {

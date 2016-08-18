@@ -1,4 +1,4 @@
-package com.game.render.shader.colorize;
+package com.game.render.shader.lightSrc;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -48,33 +48,36 @@ public class EscapyLghtSrcRenderer extends EscapyShaderRender {
 	
 	
 	public void renderLightSrc(Sprite target, Sprite lMap, OrthographicCamera camera, 
-			Color color, TransVec angles, TransVec fSize, float coeff, float correction) {
+			Color color, TransVec angles, TransVec fSize, float coeff, 
+			float correction, TransVec radius) {
 		
 		this.colorizeShader = initShader(target.getTexture(), lMap.getTexture(), 
-				this.colorizeShader, color, angles, fSize, coeff, correction);
+				this.colorizeShader, color, angles, fSize, coeff, correction, radius);
 		super.drawSprite(target, camera);
 	}
 	
 	public void renderLightSrc(Texture target, Texture lMap, OrthographicCamera camera, Color color,
-			float x, float y, TransVec angles, TransVec fSize, float coeff, float correction) {
+			float x, float y, TransVec angles, TransVec fSize, float coeff, 
+			float correction, TransVec radius) {
 		
 		this.colorizeShader = initShader(target, lMap, this.colorizeShader, color, angles, 
-				fSize, coeff, correction);
+				fSize, coeff, correction, radius);
 		super.drawTexture(target, camera, x, y);
 	}
 	
 	public void renderLightSrc(TextureRegion target,TextureRegion lMap, OrthographicCamera camera, 
 			Color color, float x, float y, float width, float height, 
-			TransVec angles, TransVec fSize, float coeff, float correction) {
+			TransVec angles, TransVec fSize, float coeff, float correction, TransVec radius) {
 		
 		this.colorizeShader = initShader(target.getTexture(), lMap.getTexture(), 
-				this.colorizeShader, color, angles, fSize, coeff, correction);
+				this.colorizeShader, color, angles, fSize, coeff, correction, radius);
 		super.drawTextureRegion(target, camera, x, y, width, height);
 	}
 	
 	
 	protected ShaderProgram initShader(Texture target, Texture lMap, ShaderProgram shader, 
-			Color color, TransVec angles, TransVec fSize, float coeff, float correction) {
+			Color color, TransVec angles, TransVec fSize, float coeff, 
+			float correction, TransVec radius) {
 		shader.begin();
 		{
 			lMap.bind(1);
@@ -88,6 +91,7 @@ public class EscapyLghtSrcRenderer extends EscapyShaderRender {
 			shader.setUniformf("u_fieldSize", fSize.x, fSize.y);
 			shader.setUniformf("u_coeff", coeff);
 			shader.setUniformf("u_angCorrect", correction);
+			shader.setUniformf("u_radius", radius.x, radius.y);
 		}
 		shader.end();
 		

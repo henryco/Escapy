@@ -1,6 +1,6 @@
-package com.game.render.shader.colorize.userState;
+package com.game.render.shader.lightSrc.userState;
 
-import com.game.render.shader.colorize.EscapyLghtSrcRenderer;
+import com.game.render.shader.lightSrc.EscapyLghtSrcRenderer;
 
 public class EscapyStdLghtSrcRenderer extends EscapyLghtSrcRenderer {
 
