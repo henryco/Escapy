@@ -49,7 +49,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.position = new TransVec().setObservedObj(this);
 		this.resolution = new TransVec(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.lightAngles = new TransVec(1f, 0f); 
-		this.radius = new TransVec(0, 0);
+		this.radius = new TransVec(0, 1f);
 		
 		this.color = new Color(1, 1, 1, 1);
 		
@@ -100,8 +100,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		
 		fbo.begin().wipeFBO();
 		this.colorizer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color, lightAngles, resolution, coeff, correct, radius);
-		this.colorizer.drawSprite(lightSprite, escapyCamera.getCamera());
+			escapyCamera.getCamera(), color, lightAngles, resolution, 
+			coeff, correct, radius);
 		fbo.end();
 		return this;
 	}

@@ -57,17 +57,29 @@ public class EscapyBlurRenderer extends EscapyShaderRender{
 	
 	public void renderBlured(Sprite reg, OrthographicCamera cam, float widht, float height, 
 			TransVec dir) {
-		this.blurProgram = initShader(reg.getTexture(), blurProgram, widht, height, dir.x, dir.y);
-		super.drawSprite(reg, cam);
+		renderBlured(reg, cam, widht, height, dir.x, dir.y);
 	}
 	public void renderBlured(Texture reg, OrthographicCamera cam, float widht, float height, 
 			float x, float y, TransVec dir) {
-		this.blurProgram = initShader(reg, blurProgram, widht, height, dir.x, dir.y);
-		super.drawTexture(reg, cam, x, y);
+		renderBlured(reg, cam, widht, height, x, y, dir.x, dir.y);
 	}
 	public void renderBlured(TextureRegion reg, OrthographicCamera cam, float widht, float height, 
 			float x, float y, TransVec dir) {
-		this.blurProgram = initShader(reg.getTexture(), blurProgram, widht, height, dir.x, dir.y);
+		renderBlured(reg, cam, widht, height, x, y, dir.x, dir.y);
+	}
+	public void renderBlured(Sprite reg, OrthographicCamera cam, float widht, float height, 
+			float dirX, float dirY) {
+		this.blurProgram = initShader(reg.getTexture(), blurProgram, widht, height, dirX, dirY);
+		super.drawSprite(reg, cam);
+	}
+	public void renderBlured(Texture reg, OrthographicCamera cam, float widht, float height, 
+			float x, float y, float dirX, float dirY) {
+		this.blurProgram = initShader(reg, blurProgram, widht, height, dirX, dirY);
+		super.drawTexture(reg, cam, x, y);
+	}
+	public void renderBlured(TextureRegion reg, OrthographicCamera cam, float widht, float height, 
+			float x, float y, float dirX, float dirY) {
+		this.blurProgram = initShader(reg.getTexture(), blurProgram, widht, height, dirX, dirY);
 		super.drawTextureRegion(reg, cam, x, y, widht, height);
 	}
 	

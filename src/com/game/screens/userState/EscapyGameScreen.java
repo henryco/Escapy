@@ -128,7 +128,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 
 		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(
-				lightMapFBO, 3, EscapyShadedLight.texture.RND_1024).scale(1.5f).
+				lightMapFBO, 4, EscapyShadedLight.texture.RND_1024).scale(1.3f).
 				setPosition(400, 450).setColor(10, 50, 250).setCoeff(1f).
 				setAngle(0.125f));
 		
@@ -273,7 +273,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
 		this.MAINFBO.renderFBO();
-		this.stdLights.mergeContainedFBO(escapyCamera, 7);//.renderFBO();
+		this.stdLights.mergeContainedFBO(escapyCamera, 7);
 //	/*	
 		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 2);
 		

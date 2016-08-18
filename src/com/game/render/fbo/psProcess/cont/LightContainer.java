@@ -14,6 +14,8 @@ import com.game.render.fbo.psRender.EscapyPostExec;
 import com.game.render.fbo.psRender.EscapyPostIterative;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
 import com.game.render.shader.blend.EscapyBlendRenderer;
+import com.game.render.shader.blur.userState.EscapyStdBlurRenderer;
+import com.game.render.shader.blur.userState.EscapyStdBlurRenderer.EscapyBlur;
 import com.game.utils.absContainer.EscapyAbsContainer;
 import com.game.utils.translationVec.TransVec;
 
@@ -25,13 +27,13 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	
 	private EscapyGdxCamera postRenderCamera;
 	private EscapyMultiFBO lightFBO;
-	private EscapyFBO ortoFBO;
+	private EscapyFBO ortoFBO, blurFBO;
 	
 	private final static String VERTEX ="shaders\\blend\\colorMix\\colorMix.vert";
 	private final static String FRAGMENT ="shaders\\blend\\colorMix\\colorMix.frag";
 	
 	private EscapyBlendRenderer blender;
-
+	private EscapyStdBlurRenderer blurRednerer;
 	
 	public LightContainer() { 
 	}
@@ -64,7 +66,9 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 				Gdx.graphics.getHeight());
 		this.lightFBO = new StandartMultiFBO();
 		this.blender = new EscapyBlendRenderer(VERTEX, FRAGMENT, "targetMap", "blendMap");
+		this.blurRednerer = new EscapyStdBlurRenderer(EscapyBlur.GAUSSIAN_13, 1f, 1f);
 		this.ortoFBO = new StandartFBO();
+		this.blurFBO = new StandartFBO();
 	}
 	
 	
@@ -100,22 +104,34 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 		
 		super.targetsList.forEach( light -> light.preRender(camera));
-		
-		this.ortoFBO.begin().wipeFBO();
-		
+
+		this.blurFBO.begin().wipeFBO();	
 		this.targetsList.forEach( light -> {
 		
 			this.blender.renderBlended(
-					ortoFBO.getTextureRegion(), 
+					blurFBO.getTextureRegion(), 
 					light.getFBO().getTextureRegion(),0,0, 
 					Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
 					postRenderCamera.getCamera());
-			
-			this.ortoFBO.renderFBO();
-		
+			this.blurFBO.renderFBO();
 		});
+		this.blurFBO.end();
+		this.ortoFBO.begin().wipeFBO();
+			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
+					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
+					blurFBO.getRegHeight(), 1, 0);
+			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
+					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
+					blurFBO.getRegHeight(), 0, 1);
+			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
+					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
+					blurFBO.getRegHeight(), -1, 0);
+			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
+					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
+					blurFBO.getRegHeight(), 0, -1);
 		this.ortoFBO.end();
 		return ortoFBO;
+	//	return blurFBO;
 	}
 	
 	

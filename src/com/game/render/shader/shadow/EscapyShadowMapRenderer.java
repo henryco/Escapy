@@ -7,10 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.game.render.shader.EscapyShaderRender;
+import com.game.utils.translationVec.TransVec;
 
 public class EscapyShadowMapRenderer extends EscapyShaderRender {
 
-	private ShaderProgram shadowProgram;
+	protected ShaderProgram shadowProgram;
 	private final String SOURCEMAP;
 
 	public EscapyShadowMapRenderer(String SOURCEMAP) {
@@ -43,7 +44,7 @@ public class EscapyShadowMapRenderer extends EscapyShaderRender {
 	}
 
 	protected ShaderProgram initShader(Texture sourceMap, float lwidht, float lheight,
-			ShaderProgram shader) {
+			TransVec angles, float correct, ShaderProgram shader) {
 		
 		shader.begin();
 		{
@@ -51,22 +52,29 @@ public class EscapyShadowMapRenderer extends EscapyShaderRender {
 			super.batcher.setShader(shader);
 			shader.setUniformi(SOURCEMAP, 0);
 			shader.setUniformf("resolution", lwidht, lheight);
+			shader.setUniformf("u_angles", angles.x, angles.y);
+			shader.setUniformf("u_angCorrect", correct);
 		}	shader.end();
 		return shader;
 	}
 	
 	public void renderShadow(TextureRegion reg, OrthographicCamera camera, 
-			float resX, float resY, float x, float y, float widht, float height) {
-		this.shadowProgram = initShader(reg.getTexture(), resX, resY, shadowProgram);
+			float resX, float resY, float x, float y, float widht, float height, 
+			TransVec lightAngles, float correct) {
+		
+		this.shadowProgram = initShader(reg.getTexture(), resX, resY,
+				lightAngles, correct, shadowProgram);
 		super.drawTextureRegion(reg, camera, x, y, widht, height);
 	}
 	public void renderShadow(Texture reg, OrthographicCamera camera, float resX,
-			float resY, float x, float y) {
-		this.shadowProgram = initShader(reg, resX, resY, shadowProgram);
+			float resY, float x, float y, TransVec lightAngles, float correct) {
+		this.shadowProgram = initShader(reg, resX, resY, lightAngles, correct, shadowProgram);
 		super.drawTexture(reg, camera, x, y);
 	}
-	public void renderShadow(Sprite reg, OrthographicCamera camera, float regX, float regY) {
-		this.shadowProgram = initShader(reg.getTexture(), regX, regY, shadowProgram);
+	public void renderShadow(Sprite reg, OrthographicCamera camera, float regX, float regY,
+			TransVec lightAngles, float correct) {
+		this.shadowProgram = initShader(reg.getTexture(), regX, regY,
+				lightAngles, correct, shadowProgram);
 		super.drawSprite(reg, camera);
 	}
 	
