@@ -52,10 +52,17 @@ public class FBOStdBlendProgramFactory {
 				new EscapyBlendRenderer(vert(vertex), frag(fragment), targetMap, blendMap));
 	}
 	
-	
+	/** 
+	 * Color Dodge blend program, good for colorblind lights
+	 * @return {@link FBORenderProgram}
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> colorDodge(EscapyMultiFBO target){
 		return new FBOColorDodgeProgram(target);
 	}
+	/** 
+	 * Color Dodge blend program, good for colorblind lights
+	 * @return {@link FBORenderProgram}
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> colorDodge(){
 		return new FBOColorDodgeProgram();
 	}
@@ -77,10 +84,17 @@ public class FBOStdBlendProgramFactory {
 		return new FBOMultiplyProgram();
 	}
 	
-	
+	/** 
+	 * Screen + Color Dodge blend program, very good for colorblind lights
+	 * @return {@link FBORenderProgram}
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> screenDodge(EscapyMultiFBO target) {
 		return new FBOScreenDodgeProgram(target);
 	}
+	/** 
+	 * Screen + Color Dodge blend program, very good for colorblind lights
+	 * @return {@link FBORenderProgram}
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> screenDodge() {
 		return new FBOScreenDodgeProgram();
 	}
@@ -93,10 +107,17 @@ public class FBOStdBlendProgramFactory {
 		return new FBOSoftDodgeProgram();
 	}
 	
-	
+	/** 
+	 * Soft light blend program, it's also might be good for colorblind lights
+	 * @return {@link FBORenderProgram}
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> softLight(EscapyMultiFBO target) {
 		return new FBOSoftLightProgram(target);
 	}
+	/** 
+	 * Soft light blend program, it's also might be good for colorblind lights
+	 * @return {@link FBORenderProgram}
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> softLight() {
 		return new FBOSoftLightProgram();
 	}
@@ -134,16 +155,24 @@ public class FBOStdBlendProgramFactory {
 	}
 	
 	
-	
+	/**
+	 * Color Dodge + Pinglight + Overlay blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> DPO(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("DPO"), frag("DPO"), TARGETMAP, BLENDMAP));
 	}
+	/**
+	 * Color Dodge + Pinglight + Overlay blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> DPO() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("DPO"), frag("DPO"), TARGETMAP, BLENDMAP));
 	}
-	
 	
 	
 	public static FBORenderProgram<EscapyMultiFBO> dodgeMulti(EscapyMultiFBO target) {
@@ -156,89 +185,161 @@ public class FBOStdBlendProgramFactory {
 	}
 	
 	
-	
+	/**
+	 * Vivid + Saturation + ColorDodget blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VSD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VSD"), frag("VSD"), TARGETMAP, BLENDMAP));
 	}
+	/**
+	 * Vivid + Saturation + ColorDodget blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VSD() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("VSD"), frag("VSD"), TARGETMAP, BLENDMAP));
 	}
 	
 	
-	
+	/**
+	 * Vivid + Color + colorDodge blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VCD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VCD"), frag("VCD"), TARGETMAP, BLENDMAP));
 	}
+	/**
+	 * Vivid + Color + colorDodge blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VCD() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("VCD"), frag("VCD"), TARGETMAP, BLENDMAP));
 	}
 	
 	
-	
+	/**
+	 * Vivid + Hue + colorDodge blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VHD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VHD"), frag("VHD"), TARGETMAP, BLENDMAP));
 	}
+	/**
+	 * Vivid + Hue + colorDodge blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VHD() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("VHD"), frag("VHD"), TARGETMAP, BLENDMAP));
 	}
 	
 	
-	
+	/**
+	 * Vivid + Overlay + colorDodge blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VOD(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VOD"), frag("VOD"), TARGETMAP, BLENDMAP));
 	}
+	/**
+	 * Vivid + Overlay + colorDodge blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VOD() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("VOD"), frag("VOD"), TARGETMAP, BLENDMAP));
 	}
 	
 	
-	
+	/**
+	 * cDodge + Vivid + Overlay + cDodge blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VOD2(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("VOD2"), frag("VOD2"), TARGETMAP, BLENDMAP));
 	}
+	/**
+	 * cDodge + Vivid + Overlay + cDodge blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> VOD2() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("VOD2"), frag("VOD2"), TARGETMAP, BLENDMAP));
 	}
 	
 	
-	
+	/**
+	 * Color + Exlusion + colorBurn blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> CEB(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("CEB"), frag("CEB"), TARGETMAP, BLENDMAP));
 	}
+	/**
+	 * Color + Exlusion + colorBurn blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> CEB() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("CEB"), frag("CEB"), TARGETMAP, BLENDMAP));
 	}
 	
-	
+	/**
+	 * Soft light blend program, but repeated, might be good for colorblind lights
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> strongSoftLight(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("strongSoftLight"), frag("strongSoftLight"), TARGETMAP, BLENDMAP))
 				.setAmbientIntensity(0.75f)
 				.setLightIntensity(0.2f);
 	}
+	/**
+	 * Soft light blend program, but repeated, might be good for colorblind lights
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> strongSoftLight() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("strongSoftLight"), frag("strongSoftLight"), TARGETMAP, BLENDMAP))
 					.setAmbientIntensity(0.75f)
 					.setLightIntensity(0.2f);
 	}
-	
+	/**
+	 * cDodge + Softlight + Softlight blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> reverseSoftDodge(EscapyMultiFBO target) {
 		return new FBOStdBlendProgram(target, 
 				new EscapyBlendRenderer(vert("reverseSoftDodge"), frag("reverseSoftDodge"), TARGETMAP, BLENDMAP));
 	}
+	/**
+	 * cDodge + Softlight + Softlight blend program
+	 * @param target {@link EscapyMultiFBO}
+	 * @author Henry 
+	 */
 	public static FBORenderProgram<EscapyMultiFBO> reverseSoftDodge() {
 		return new FBOStdBlendProgram(
 				new EscapyBlendRenderer(vert("reverseSoftDodge"), frag("reverseSoftDodge"), TARGETMAP, BLENDMAP));

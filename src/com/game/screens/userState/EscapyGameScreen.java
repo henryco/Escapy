@@ -124,17 +124,17 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.normalsContainer = new ExtraRenderContainer();
 		this.lightsMapContainer = new ExtraRenderContainer();
 		this.volumeLights = new VolumeLightsExecutor();
-		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.strongSoftLight());
+		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.screenDodge());
 
 
 		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(
-				lightMapFBO, 4, EscapyShadedLight.texture.RND_1024).scale(1.3f).
-				setPosition(400, 450).setColor(10, 50, 250).setCoeff(1f).
+				lightMapFBO, 4, EscapyShadedLight.texture.RND_1024).scale(2f).
+				setPosition(400, 450).setColor(0, 0, 0).setCoeff(1f).
 				setAngle(0.125f));
 		
-		this.testLight = this.stdLights.addSource(new EscapyStdLight(
-				lightMapFBO, EscapyShadedLight.texture.RND_1024).scale(1f).
-				setPosition(600, 420).setColor(205, 107, 107).setCoeff(1f));
+	//	this.testLight = this.stdLights.addSource(new EscapyStdLight(
+	//			lightMapFBO, EscapyShadedLight.texture.RND_1024).scale(1f).
+	//			setPosition(600, 420).setColor(205, 107, 107).setCoeff(1f));
 
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
@@ -275,15 +275,16 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.MAINFBO.renderFBO();
 		this.stdLights.mergeContainedFBO(escapyCamera, 7);
 //	/*	
-		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 2);
+		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
 		
 		this.MAINFBO.renderFBO();
-		this.MAINFBO.forceRenderToFBO(lightBuffFBO);
+		this.MAINFBO.forceRenderToFBO(lightBuffFBO);//.forceRenderToFBO(lightBuffFBO);
 			
 		this.MAINFBO.renderFBO();
 		this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO, 
 				stdLights.getLightIntensity(), stdLights.getAmbientIntensity());
 	
+		this.MAINFBO.renderFBO();
 		this.MAINFBO.renderFBO();
 //	*/
 
