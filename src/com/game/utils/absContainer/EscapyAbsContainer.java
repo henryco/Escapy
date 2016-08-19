@@ -20,7 +20,6 @@ public abstract class EscapyAbsContainer<T extends EscapyContainerable>
 	 * Instantiates a new escapy abs container.
 	 */
 	public EscapyAbsContainer() {
-
 		initContainer();
 	}
 
