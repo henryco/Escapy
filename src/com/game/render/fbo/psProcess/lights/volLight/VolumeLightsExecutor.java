@@ -1,5 +1,7 @@
 package com.game.render.fbo.psProcess.lights.volLight;
 
+import java.util.function.Function;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.game.render.EscapyGdxCamera;
@@ -52,7 +54,6 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 				Gdx.graphics.getHeight()));
 		return;
 	}
-	
 	public VolumeLightsExecutor(float lightIntensity, float ambientIntesity) {
 		
 		this.setNormalsFBO(new StandartMultiFBO());
@@ -64,7 +65,6 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		this.setAmbientIntsity(ambientIntesity);
 		return;
 	}
-	
 	/**
 	 * Instantiates a new volume lights container.
 	 *
@@ -79,7 +79,6 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		this.setLightBuffFBO(new StandartFBO());
 		return;
 	}
-	
 	/**
 	 * Instantiates a new volume lights container.
 	 *
@@ -95,7 +94,6 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		this.setLightBuffFBO(lightBuffFBO);
 		return;
 	}
-	
 	public VolumeLightsExecutor(EscapyFBO nrmlMapFBO, EscapyFBO lightMapFBO, 
 		EscapyFBO lightBuffFBO, float lightIntensity, float ambientIntesity) {
 		
@@ -108,7 +106,6 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		this.setAmbientIntsity(ambientIntesity);
 		return;
 	}
-	
 	public VolumeLightsExecutor(EscapyFBO nrmlMapFBO) {
 		
 		this.setPostRenderCamera(new EscapyGdxCamera(Gdx.graphics.getWidth(), 
@@ -118,7 +115,6 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		this.setLightBuffFBO(new StandartFBO());
 		return;
 	}
-	
 	/**
 	 * Instantiates a new volume lights container.
 	 *
@@ -136,7 +132,6 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		this.setLightBuffFBO(new StandartFBO());
 		return;
 	}
-	
 	public VolumeLightsExecutor(EscapyGdxCamera postRenderCamera, EscapyFBO nrmlMapFBO ) {
 		
 		this.setPostRenderCamera(postRenderCamera);
@@ -239,18 +234,25 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 	public float getLightIntensity() {
 		return lightIntensity;
 	}
-
+	
+	public VolumeLightsExecutor setLightIntensity(Function<Float, Float> f) {
+		return this.setLightIntensity(f.apply(this.lightIntensity));
+	}
 	public VolumeLightsExecutor setLightIntensity(float lightIntensity) {
 		this.lightIntensity = lightIntensity;
+		System.out.println("LI: "+lightIntensity);
 		return this;
 	}
 
-	public float getAmbientIntsity() {
+	public float getAmbientIntensity() {
 		return ambientIntesity;
 	}
-
+	public VolumeLightsExecutor setAmbientIntsity(Function<Float, Float> f) {
+		return this.setAmbientIntsity(f.apply(this.ambientIntesity));
+	}
 	public VolumeLightsExecutor setAmbientIntsity(float ambientIntsity) {
 		this.ambientIntesity = ambientIntsity;
+		System.out.println("AI: "+ambientIntsity);
 		return this;
 	}
 

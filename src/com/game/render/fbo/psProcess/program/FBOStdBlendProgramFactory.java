@@ -89,14 +89,16 @@ public class FBOStdBlendProgramFactory {
 	 * @return {@link FBORenderProgram}
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> screenDodge(EscapyMultiFBO target) {
-		return new FBOScreenDodgeProgram(target);
+		return new FBOScreenDodgeProgram(target).setAmbientIntensity(0.8f)
+				.setLightIntensity(0.4f);
 	}
 	/** 
 	 * Screen + Color Dodge blend program, very good for colorblind lights
 	 * @return {@link FBORenderProgram}
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> screenDodge() {
-		return new FBOScreenDodgeProgram();
+		return new FBOScreenDodgeProgram().setAmbientIntensity(0.8f)
+				.setLightIntensity(0.4f);
 	}
 	
 	

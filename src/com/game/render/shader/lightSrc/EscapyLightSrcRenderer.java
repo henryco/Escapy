@@ -10,36 +10,32 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.game.render.shader.EscapyShaderRender;
 import com.game.utils.translationVec.TransVec;
 
-public class EscapyLghtSrcRenderer extends EscapyShaderRender {
+public class EscapyLightSrcRenderer extends EscapyShaderRender {
 
 	private ShaderProgram colorizeShader;
-	private final String TARGETMAP, LIGHTMAP;
+	private final String LIGHTMAP;
 	
-	public EscapyLghtSrcRenderer(String TARGETMAP, String LIGHTMAP, String VERTEX, String FRAGMENT) {
+	public EscapyLightSrcRenderer(String LIGHTMAP, String VERTEX, String FRAGMENT) {
 		super();
 		this.initShaderProgram(VERTEX, FRAGMENT);
-		this.TARGETMAP = TARGETMAP;
 		this.LIGHTMAP = LIGHTMAP;
 	}
-	public EscapyLghtSrcRenderer(int ID, String TARGETMAP, String LIGHTMAP, String VERTEX, String FRAGMENT) {
+	public EscapyLightSrcRenderer(int ID, String LIGHTMAP, String VERTEX, String FRAGMENT) {
 		super(ID);
 		this.initShaderProgram(VERTEX, FRAGMENT);
-		this.TARGETMAP = TARGETMAP;
 		this.LIGHTMAP = LIGHTMAP;
 	}
-	public EscapyLghtSrcRenderer(String TARGETMAP, String LIGHTMAP) {
+	public EscapyLightSrcRenderer(String LIGHTMAP) {
 		super();
-		this.TARGETMAP = TARGETMAP;
 		this.LIGHTMAP = LIGHTMAP;
 	}
-	public EscapyLghtSrcRenderer(int ID, String TARGETMAP, String LIGHTMAP) {
+	public EscapyLightSrcRenderer(int ID, String LIGHTMAP) {
 		super(ID);
-		this.TARGETMAP = TARGETMAP;
 		this.LIGHTMAP = LIGHTMAP;
 	}
 	
 	@Override
-	public EscapyLghtSrcRenderer initShaderProgram(String VERTEX, String FRAGMENT) {
+	public EscapyLightSrcRenderer initShaderProgram(String VERTEX, String FRAGMENT) {
 		ShaderProgram.pedantic = false;
 		this.colorizeShader = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));
 		super.checkStatus(colorizeShader);
@@ -49,52 +45,51 @@ public class EscapyLghtSrcRenderer extends EscapyShaderRender {
 	
 	public void renderLightSrc(Sprite target, Sprite lMap, OrthographicCamera camera, 
 			Color color, TransVec angles, TransVec fSize, float coeff, 
-			float correction, TransVec radius) {
+			float correction, TransVec radius, TransVec umbra) {
 		
-		this.colorizeShader = initShader(target.getTexture(), lMap.getTexture(), 
-				this.colorizeShader, color, angles, fSize, coeff, correction, radius);
+		this.colorizeShader = initShader(lMap.getTexture(), 
+				this.colorizeShader, color, angles, fSize, coeff, correction, radius, umbra);
 		super.drawSprite(target, camera);
 	}
 	
 	public void renderLightSrc(Texture target, Texture lMap, OrthographicCamera camera, Color color,
 			float x, float y, TransVec angles, TransVec fSize, float coeff, 
-			float correction, TransVec radius) {
+			float correction, TransVec radius, TransVec umbra) {
 		
-		this.colorizeShader = initShader(target, lMap, this.colorizeShader, color, angles, 
-				fSize, coeff, correction, radius);
+		this.colorizeShader = initShader(lMap, this.colorizeShader, color, angles, 
+				fSize, coeff, correction, radius, umbra);
 		super.drawTexture(target, camera, x, y);
 	}
 	
 	public void renderLightSrc(TextureRegion target,TextureRegion lMap, OrthographicCamera camera, 
 			Color color, float x, float y, float width, float height, 
-			TransVec angles, TransVec fSize, float coeff, float correction, TransVec radius) {
+			TransVec angles, TransVec fSize, float coeff,
+			float correction, TransVec radius, TransVec umbra) {
 		
-		this.colorizeShader = initShader(target.getTexture(), lMap.getTexture(), 
-				this.colorizeShader, color, angles, fSize, coeff, correction, radius);
+		this.colorizeShader = initShader(lMap.getTexture(), 
+				this.colorizeShader, color, angles, fSize, coeff, correction, radius, umbra);
 		super.drawTextureRegion(target, camera, x, y, width, height);
 	}
 	
 	
-	protected ShaderProgram initShader(Texture target, Texture lMap, ShaderProgram shader, 
+	protected ShaderProgram initShader(Texture lMap, ShaderProgram shader, 
 			Color color, TransVec angles, TransVec fSize, float coeff, 
-			float correction, TransVec radius) {
+			float correction, TransVec radius, TransVec umbra) {
 		shader.begin();
 		{
-			lMap.bind(1);
-			target.bind(0);
+			lMap.bind(0);
 			super.batcher.setShader(shader);
 			
-			shader.setUniformi(LIGHTMAP, 1);
-			shader.setUniformi(TARGETMAP, 0);
+			shader.setUniformi(LIGHTMAP, 0);
 			shader.setUniformf("u_color", color.r, color.g, color.b);
 			shader.setUniformf("u_angles", angles.x, angles.y);
 			shader.setUniformf("u_fieldSize", fSize.x, fSize.y);
 			shader.setUniformf("u_coeff", coeff);
 			shader.setUniformf("u_angCorrect", correction);
 			shader.setUniformf("u_radius", radius.x, radius.y);
+			shader.setUniformf("u_umbra", umbra.x, umbra.y);
 		}
 		shader.end();
-		
 		return shader;
 	}
 	

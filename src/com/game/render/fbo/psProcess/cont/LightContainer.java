@@ -120,37 +120,38 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		while (iterations > 0) {
 			lightFBO.renderToFBO(temp);
 			iterations -= 1;
-		}
-		lightFBO.endMergedBuffer();
-		return lightFBO;
+		}	return lightFBO.endMergedBuffer();
 	}
 	
 	public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 		
-		super.targetsList.forEach( light -> light.preRender(camera));
-
+		super.targetsList.forEach( light -> {if (light.isVisible()) light.preRender(camera);});
+		int[] flag = new int[]{0};
 		this.blurFBO.begin().wipeFBO();	
 		this.targetsList.forEach( light -> {
 		
-			this.blender.renderBlended(
-					blurFBO.getTextureRegion(), 
-					light.getFBO().getTextureRegion(),0,0, 
-					Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
-					postRenderCamera.getCamera());
-			this.blurFBO.renderFBO();
+			if (light.isVisible()) {
+				this.blender.renderBlended(
+						blurFBO.getTextureRegion(), 
+						light.getFBO().getTextureRegion(),0,0, 
+						Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
+						postRenderCamera.getCamera());
+				this.blurFBO.renderFBO();
+				flag[0] += 1;
+			}
 		});
 		this.blurFBO.end();
 		
-		if (!isBlured)
+		if (!isBlured || flag[0] == 0)
 			return this.blurFBO;
 
 		this.ortoFBO.begin().wipeFBO();
 			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
 					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
-					blurFBO.getRegHeight(), 1, 0);
+					blurFBO.getRegHeight(), 0, 1);
 			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
 					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
-					blurFBO.getRegHeight(), 0, 1);
+					blurFBO.getRegHeight(), 1, 0);
 			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
 					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
 					blurFBO.getRegHeight(), -1, 0);
