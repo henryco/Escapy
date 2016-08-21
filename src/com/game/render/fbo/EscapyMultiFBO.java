@@ -302,5 +302,11 @@ public abstract class EscapyMultiFBO extends EscapyFBO {
 		return this.targetMultiBuffer;
 	}
 
+	protected static FrameBuffer[] getBuffer(EscapyFBO[] fbos) {
+		FrameBuffer[] buff = new FrameBuffer[fbos.length];
+		for (int i = 0; i < fbos.length; i++)
+			buff[i] = fbos[i].getFrameBuffer();
+		return buff;
+	}
 
 }

@@ -23,7 +23,6 @@ import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightContainer;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
-import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyStdLight;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightSrcFactory;
@@ -53,12 +52,12 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private int mouseLight;
 	private int testLight;
 
-	private EscapyFBO stdFBO, nrmlFBO, bgrFBO, lightBuffFBO,
-						lightMapFBO, lightStdFBO, MAINFBO;
+	private EscapyFBO stdFBO, nrmlFBO, bgrFBO, lightStdFBO,
+				lightBuffFBO, lightMapFBO, lightShadeFBO, MAINFBO;
 	private EscapyMask mask, bgrMask;
 	
 	private LightMaskContainer lightMask;
-	private LightContainer stdLights;
+	private LightContainer shadedLights, stdLights;
 	private VolumeLightsExecutor volumeLights;
 	private ExtraRenderContainer stdContainer, normalsContainer, bgrContainer, lightsMapContainer;
 	
@@ -118,26 +117,27 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.bgrFBO = new StandartFBO(); 
 		this.stdFBO = new StandartFBO();
 		this.nrmlFBO = new StandartFBO();
-		this.lightStdFBO = new StandartMultiFBO(stdFBO.getFrameBuffer());
+		this.lightShadeFBO = new StandartMultiFBO(stdFBO);
+		this.lightStdFBO = new StandartMultiFBO(stdFBO);
 		this.lightMapFBO = new StandartFBO();
+		
 		this.lightMask = new LightMaskContainer();
 		this.bgrContainer = new ExtraRenderContainer(); 
 		this.stdContainer = new ExtraRenderContainer();
 		this.normalsContainer = new ExtraRenderContainer();
 		this.lightsMapContainer = new ExtraRenderContainer();
 		this.volumeLights = new VolumeLightsExecutor();
-		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.screenDodge(), true);
+		this.shadedLights = new LightContainer(lightShadeFBO, LightContainer.light.screenDodge(), false);
+		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.strongSoftLight(), false);
 
+		this.mouseLight = this.shadedLights.addSource(new EscapyShadedLight(
+				lightMapFBO, 4, EscapyLightSrcFactory.RND_512()).setMaxRadius(1.35f).
+				setPosition(400, 450).setColor(0, 0, 0).
+				setAngle(0.125f).setVisible(true).setScale(2));
 
-		this.mouseLight = this.stdLights.addSource(new EscapyShadedLight(
-				lightMapFBO, 4, EscapyLightSrcFactory.RND_2048()).setMaxRadius(1f).
-				setPosition(400, 450).setColor(0, 0, 0).setCoeff(1f).
-				setAngle(0.125f).setVisible(true));
-		
-	//	this.testLight = this.stdLights.addSource(new EscapyStdLight(
-	//			lightMapFBO, EscapyShadedLight.texture.RND_1024).scale(1f).
-	//			setPosition(600, 420).setColor(205, 107, 107).setCoeff(0f).setVisible(true));
-
+		this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO,
+				EscapyLightSrcFactory.RND_512()).setPosition(600, 420).
+				setColor(205, 107, 107).setVisible(true).setScale(2));
 		
 		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
 				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
@@ -193,46 +193,46 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 					Gdx.input.getY() + escapyCamera.getShiftVec().y);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-			this.stdLights.getSourceByID(this.mouseLight).setPosition(
+			this.shadedLights.getSourceByID(this.mouseLight).setPosition(
 					Gdx.input.getX() + escapyCamera.getShiftVec().x, 
 					Gdx.input.getY() + escapyCamera.getShiftVec().y);
 		}
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-			this.stdLights.getSourceByID(this.mouseLight).rotAngle(0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).rotAngle(0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
-			this.stdLights.getSourceByID(this.mouseLight).setMinRadius(r -> r - 0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).setMinRadius(r -> r - 0.01f);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-			this.stdLights.getSourceByID(this.mouseLight).rotAngle(-0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).rotAngle(-0.01f);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.O)) {
-			this.stdLights.getSourceByID(this.mouseLight).addAngle(0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).addAngle(0.01f);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-			this.stdLights.getSourceByID(this.mouseLight).addAngle(-0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).addAngle(-0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
-			this.stdLights.getSourceByID(this.mouseLight).setMinRadius(r -> r + 0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).setMinRadius(r -> r + 0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.T)) {
-			this.stdLights.getSourceByID(this.mouseLight).setMaxRadius(r -> r + 0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).setMaxRadius(r -> r + 0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.G)) {
-			this.stdLights.getSourceByID(this.mouseLight).setMaxRadius(r -> r - 0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).setMaxRadius(r -> r - 0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.Y)) {
-			this.stdLights.getSourceByID(this.mouseLight).setUmbraCoeff(c -> c + 0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).setUmbraCoeff(c -> c + 0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.H)) {
-			this.stdLights.getSourceByID(this.mouseLight).setUmbraCoeff(c -> c - 0.01f);
+			this.shadedLights.getSourceByID(this.mouseLight).setUmbraCoeff(c -> c - 0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.U)) {
-			this.stdLights.getSourceByID(this.mouseLight).setUmbraRecess(rc -> rc + 1);
+			this.shadedLights.getSourceByID(this.mouseLight).setUmbraRecess(rc -> rc + 1);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.J)) {
-			this.stdLights.getSourceByID(this.mouseLight).setUmbraRecess(rc -> rc - 1);
+			this.shadedLights.getSourceByID(this.mouseLight).setUmbraRecess(rc -> rc - 1);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.N)) {
 			this.volumeLights.setAmbientIntsity(am -> am + 0.01f);
@@ -247,10 +247,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			this.volumeLights.setLightIntensity(am -> am - 0.01f);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.I)) {
-			this.stdLights.getSourceByID(this.mouseLight).setVisible(true);
+			this.shadedLights.getSourceByID(this.mouseLight).setVisible(true);
 		}
 		else if (Gdx.input.isKeyPressed(Input.Keys.K)) {
-			this.stdLights.getSourceByID(this.mouseLight).setVisible(false);
+			this.shadedLights.getSourceByID(this.mouseLight).setVisible(false);
 		}
 		
 		
@@ -308,8 +308,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.updDist();
 		super.escapyCamera.clear();
 		this.MAINFBO.forceWipeFBO();
-		this.lightStdFBO.forceWipeFBO();
+		this.lightShadeFBO.forceWipeFBO();
 		this.lightBuffFBO.forceWipeFBO();
+		this.lightStdFBO.forceWipeFBO();
 		
 		super.escapyCamera.holdCamera();
 		
@@ -319,8 +320,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
 		this.MAINFBO.renderFBO();
+		this.shadedLights.mergeContainedFBO(escapyCamera, 7);
 		this.stdLights.mergeContainedFBO(escapyCamera, 7);
 //	/*	
+		
+		this.shadedLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
 		this.stdLights.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
 		
 		this.MAINFBO.renderFBO();

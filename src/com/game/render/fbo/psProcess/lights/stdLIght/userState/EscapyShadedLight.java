@@ -113,10 +113,11 @@ public class EscapyShadedLight extends EscapyStdLight {
 			this.shadowRenderer = new EscapyStdShadowRenderer(super.getID());
 		}
 		
-		super.resolution = new TransVec(super.lightSource.getWidth(),
-				super.lightSource.getHeight());
+		super.resolution = new TransVec(super.lightSource.getWidth() * scale,
+				super.lightSource.getHeight() * scale);
 		super.srcRenderer = new EscapyStdShadedLightSrcRenderer(super.getID());
-		super.umbra = new TransVec(0.6f, 7f);
+		super.umbra = new TransVec(0.32f, 8f);
+
 	}
 	
 	/**
@@ -135,11 +136,11 @@ public class EscapyShadedLight extends EscapyStdLight {
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 
 		lightCam.setCameraPosition(transPos.
-	 			vecfuncv(v -> v.sub(escapyCamera.getShiftVec())).arrfuncf(n -> n));
+	 			vecfuncv(v -> v.sub(escapyCamera.getShiftVec())).arrfuncf(n -> n / scale));
 
 		Sprite tempSprite = new Sprite(lightMap.getTextureRegion());
-		tempSprite.setSize(lightMap.getTextureRegion().getRegionWidth(), 
-				lightMap.getTextureRegion().getRegionHeight());
+		tempSprite.setSize(lightMap.getTextureRegion().getRegionWidth() / scale, 
+				lightMap.getTextureRegion().getRegionHeight() / scale);
 		
 		lightMapFBO.begin().clearFBO(1f,1f,1f,1f);
 			stdRenderer.drawSprite(tempSprite, lightCam.getCamera());
@@ -162,10 +163,12 @@ public class EscapyShadedLight extends EscapyStdLight {
 
 		Sprite shadowSprite = new Sprite(shadowFBO.getTextureRegion());
 		shadowSprite.setPosition(lightSource.getX(), lightSource.getY());
-	
+		lightSprite = new Sprite(shadowFBO.getTextureRegion());
+		lightSprite.setPosition(lightSource.getX(), lightSource.getY());
+		lightSprite.setScale(scale);
 		this.fbo.begin().wipeFBO();
 		{
-			super.srcRenderer.renderLightSrc(shadowSprite, shadowSprite, 
+			super.srcRenderer.renderLightSrc(lightSprite, shadowSprite, 
 				escapyCamera.getCamera(), color, lightAngles, 
 				resolution, coeff, correct, radius, umbra);
 		}	this.fbo.end();

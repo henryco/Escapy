@@ -21,6 +21,7 @@ import com.game.utils.translationVec.TransVec;
 public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProcessed, 
 	 SimpleObserver<TransVec> {
 		
+	protected Sprite lightSprite;
 	protected EscapyLightType lightSource;
 	protected EscapyStdShaderRenderer stdRenderer;
 	protected EscapyLightSrcRenderer srcRenderer;
@@ -36,11 +37,12 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	protected float coeff;
 	protected float correct;
-
+	protected float scale;
+	
 	protected boolean visible;
 	
 	private int id;
-	private Sprite lightSprite;
+	
 	
 	{
 		this.id = this.hashCode();
@@ -58,6 +60,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		
 		this.fbo = new StandartFBO(id); 
 
+		this.scale = 1;
 		this.coeff = 1.f;
 		this.correct = 0.5f;
 		
@@ -100,7 +103,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 
 		lightSprite.setPosition(lightSource.getX(), lightSource.getY());
-		
 		fbo.begin().wipeFBO();
 		this.srcRenderer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
 			escapyCamera.getCamera(), color, lightAngles, resolution, 
@@ -122,10 +124,15 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		EscapyFBO lightFBO = new StandartFBO(this.getID(), (int)this.lightSource.getWidth(),
 				(int) this.lightSource.getHeight());
 		this.lightSprite = new Sprite(lightFBO.forceWipeFBO().getTextureRegion());
+		this.lightSprite.setScale(scale);
 		System.out.println(lightSource);
 		return this;
 	}
-
+	public AbsStdLight setScale(float scale){
+		this.scale = scale;
+		this.lightSprite.setScale(scale);
+		return this;
+	}
 	public AbsStdLight setPosition(float x, float y) {
 		this.position.setTransVec(x, y);
 		return this;

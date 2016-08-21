@@ -187,7 +187,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException {
 		if (postRednerFBO instanceof EscapyMultiFBO) 
 			this.lightFBO = (EscapyMultiFBO) postRednerFBO;
-		else throw new EscapyFBOtypeException();
+		else throw new EscapyFBOtypeException("Lost EscapyMultiFBO");
 		return this;
 	}
 

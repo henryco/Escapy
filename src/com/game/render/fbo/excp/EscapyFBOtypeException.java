@@ -12,7 +12,7 @@ public class EscapyFBOtypeException extends EscapyFBOException {
 	public EscapyFBOtypeException() {
 		super(DEF_EXCP);
 	}
-	protected EscapyFBOtypeException(String excp) {
+	public EscapyFBOtypeException(String excp) {
 		super(excp);
 	}
 	

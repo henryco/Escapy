@@ -29,7 +29,9 @@ public class StandartMultiFBO extends EscapyMultiFBO {
 	public StandartMultiFBO(FrameBuffer multiFrameBuffer) {
 		super(multiFrameBuffer);
 	}
-
+	public StandartMultiFBO(EscapyFBO fbo) {
+		super(fbo.getFrameBuffer());
+	}
 	/**
 	 * Instantiates a new standart multi FBO.
 	 *
@@ -39,7 +41,10 @@ public class StandartMultiFBO extends EscapyMultiFBO {
 	public StandartMultiFBO(FrameBuffer[] multiFrameBuffer) {
 		super(multiFrameBuffer);
 	}
-
+	public StandartMultiFBO(EscapyFBO[] fbo) {
+		super(getBuffer(fbo));
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.game.render.fbo.EscapyFBO#initRenderProgram()
 	 */
@@ -61,5 +66,6 @@ public class StandartMultiFBO extends EscapyMultiFBO {
 			}
 		};
 	}
+
 
 }
