@@ -1,5 +1,7 @@
 package com.game.render.fbo.psProcess.cont;
 
+import java.util.function.Function;
+
 import com.badlogic.gdx.Gdx;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
@@ -136,7 +138,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 						light.getFBO().getTextureRegion(),0,0, 
 						Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
 						postRenderCamera.getCamera());
-				this.blurFBO.renderFBO();
 				flag[0] += 1;
 			}
 		});
@@ -229,6 +230,14 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 				+ "::: "+" inten: "+this.lightFBO.getRenderProgram().getLightIntensity());
 		return this;
 	}
+	
+	public LightContainer setAmbientIntesity(Function<Float, Float> f) {
+		return this.setAmbientIntesity(f.apply(this.lightFBO.getRenderProgram().getAmbientIntensity()));
+	}
+	public LightContainer setLightIntensity(Function<Float, Float> f) {
+		return this.setLightIntensity(f.apply(this.lightFBO.getRenderProgram().getLightIntensity()));
+	}
+	
 	public LightContainer setBlur(boolean blur) {
 		this.isBlured = blur;
 		return this;

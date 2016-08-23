@@ -234,28 +234,25 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 	public float getLightIntensity() {
 		return lightIntensity;
 	}
-	
-	public VolumeLightsExecutor setLightIntensity(Function<Float, Float> f) {
-		return this.setLightIntensity(f.apply(this.lightIntensity));
-	}
-	public VolumeLightsExecutor setLightIntensity(float lightIntensity) {
-		this.lightIntensity = lightIntensity;
-		System.out.println("LI: "+lightIntensity);
-		return this;
-	}
-
 	public float getAmbientIntensity() {
 		return ambientIntesity;
 	}
-	public VolumeLightsExecutor setAmbientIntsity(Function<Float, Float> f) {
+	public VolumeLightsExecutor setAmbientIntesity(Function<Float, Float> f) {
 		return this.setAmbientIntsity(f.apply(this.ambientIntesity));
+	}
+	public VolumeLightsExecutor setLightIntensity(Function<Float, Float> f) {
+		return this.setLightIntensity(f.apply(this.lightIntensity));
 	}
 	public VolumeLightsExecutor setAmbientIntsity(float ambientIntsity) {
 		this.ambientIntesity = ambientIntsity;
 		System.out.println("AI: "+ambientIntsity);
 		return this;
 	}
-
+	public VolumeLightsExecutor setLightIntensity(float lightIntensity) {
+		this.lightIntensity = lightIntensity;
+		System.out.println("LI: "+lightIntensity);
+		return this;
+	}
 
 
 	

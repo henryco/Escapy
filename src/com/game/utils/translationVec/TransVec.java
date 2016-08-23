@@ -12,7 +12,6 @@ import com.game.utils.observ.SimpleObserver;
 public class TransVec {
 
 	private float[] translationVectorArray;
-	//private Vector2 translationVector;
 	private int accuracy;
 	private SimpleObserver<TransVec> observeObj;
 	
