@@ -41,9 +41,7 @@ public abstract class EscapyShaderRender {
 	}
 	
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	public abstract String toString();
 	
 	public abstract EscapyShaderRender initShaderProgram(String VERTEX, String FRAGMENT);

@@ -9,10 +9,10 @@ import com.game.render.shader.blend.EscapyBlendRenderer;
 public class EscapyStdMultiplyRenderer extends EscapyBlendRenderer {
 
 	/** The Constant VERTEX. */
-	public static final String VERTEX = "shaders\\blend\\multiply\\multiply.vert";
+	public static final String VERTEX = "data/shaders/blend/multiply/multiply.vert";
 	
 	/** The Constant FRAGMENT. */
-	public static final String FRAGMENT = "shaders\\blend\\multiply\\multiply.frag";
+	public static final String FRAGMENT = "data/shaders/blend/multiply/multiply.frag";
 	
 	/** The Constant TARGETMAP. */
 	public static final String TARGETMAP = "targetMap";

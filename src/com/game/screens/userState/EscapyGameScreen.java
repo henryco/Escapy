@@ -79,10 +79,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		return;
 	}
 	
-	
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#show()
-	 */
+
 	@Override
 	public void show() {
 		System.out.println("@show");
@@ -91,10 +88,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	}
 
 	
-	
-	/* (non-Javadoc)
-	 * @see com.game.screens.EscapyMainState#initState()
-	 */
+
 	@Override
 	public Screen initState() {
 		System.out.println("@init state");
@@ -166,7 +160,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.normalsContainer.addSource(new NormalRenderer(charactersContainer.player()));
 		this.lightsMapContainer.addSource(new LightMapRenderer(charactersContainer.player()));
 		
-		for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /** FRONT PARALLAX **/
+		for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /* FRONT PARALLAX */
 			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
 		
 		
@@ -181,7 +175,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	/**
 	 * Upd dist.
 	 */
-	protected void updDist() {
+   private void updDist() {
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
 			this.stdLights.getSourceByID(this.testLight).setPosition(
@@ -257,11 +251,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	}
 	
 	
-	
-	
-	/* (non-Javadoc)
-	 * @see com.game.update_loop.Updatable#update()
-	 */
+
 	@Override
 	public void update() {
 		
@@ -272,10 +262,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	}
 
 	
-	
-	/* (non-Javadoc)
-	 * @see com.game.screens.EscapyMainState#renderGameObjects(com.game.render.EscapyGdxCamera)
-	 */
+
 	@Override
 	public void renderGameObjects(EscapyGdxCamera escapyCamera) {
 
@@ -298,10 +285,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	
 	
-	
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#render(float)
-	 */
+
 	@Override
 	public void render(float delta) {
 		
@@ -348,16 +332,14 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	
 	
 	
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#pause()
-	 */
+
 	@Override
 	public void pause() {
 		
 		this.animator.closeAnimator();
 		this.physics.closePhysic();
 
-		/** TEST **/
+		/* TEST */
 		// super.escapyCamera.getCameraProgramHolder().removeCameraProgram(playerCameraProgramID);
 
 		super.gameState.getStatesContainer().getUpdLoopedQueue().removeFromUpdQueueLast();
@@ -365,9 +347,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	
 	
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#resume()
-	 */
+
 	@Override
 	public void resume() {
 		this.animator.initAnimator().startAnimator();
@@ -376,24 +356,16 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.gameState.getStatesContainer().getUpdLoopedQueue().addToUpdQueue(this);
 	}
 
-		
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#hide()
-	 */
+
 	@Override
 	public void hide() {
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#resize(int, int)
-	 */
 	@Override
 	public void resize(int width, int height) {
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#dispose()
-	 */
+
 	@Override
 	public void dispose() {
 		try {

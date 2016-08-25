@@ -87,9 +87,7 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.map.objects.InGameObject#initializeGraphic()
-	 */
+
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
@@ -127,9 +125,7 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 		System.gc();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
-	 */
+
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		if (obSpriteSTD != null) {
@@ -140,9 +136,7 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.game.render.extra.normalMap.EscapyNormalMapRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
-	 */
+
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		if (obSpriteNRML != null) {
@@ -202,17 +196,12 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	}
 	
 
-	/* (non-Javadoc)
-	 * @see com.game.executable.EscapyExecutableObjects#actionAnimation()
-	 */
 	@Override
 	public void actionAnimation() {
 		startObjectAnimator(animator);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.executable.EscapyExecutableObjects#actionAnimationFinish()
-	 */
+
 	@Override
 	public boolean actionAnimationFinish() {
 		if (animationEnded) {

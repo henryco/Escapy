@@ -63,33 +63,29 @@ public abstract class StdCharacter extends AbstractCharacters
 	}
 	
 	
-	/* (non-Javadoc)
-	 * @see com.game.characters.AbstractCharacters#initializeGraphic()
-	 */
+
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
 
 		this.characterSprite = new Sprite(super.standImg[0]);
 		this.characterSprite.flip(false, true);
-		this.characterSprite.setSize(characterSprite.getWidth() * (float) zoom(),
-				characterSprite.getHeight() * (float) zoom());
+		this.characterSprite.setSize(characterSprite.getWidth() * zoom(),
+				characterSprite.getHeight() * zoom());
 		
 		this.NRMLSprite = new Sprite(super.standImgNRML[0]);
 		this.NRMLSprite.flip(false, true);
-		this.NRMLSprite.setSize(NRMLSprite.getWidth() * (float) zoom(),
-				NRMLSprite.getHeight() * (float) zoom());
+		this.NRMLSprite.setSize(NRMLSprite.getWidth() * zoom(),
+				NRMLSprite.getHeight() * zoom());
 		
 		this.LTMPSprite = new Sprite(super.standImgLTMP[0]);
 		this.LTMPSprite.flip(false, true);
-		this.LTMPSprite.setSize(LTMPSprite.getWidth() * (float) zoom(),
-				LTMPSprite.getHeight() * (float) zoom());
+		this.LTMPSprite.setSize(LTMPSprite.getWidth() * zoom(),
+				LTMPSprite.getHeight() * zoom());
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
-	 */
+
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) 
 	{
@@ -107,9 +103,7 @@ public abstract class StdCharacter extends AbstractCharacters
 
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.game.render.extra.normalMap.EscapyNormalMapRender#renderNormals(float[], com.game.render.EscapyGdxCamera)
-	 */
+
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
@@ -139,7 +133,7 @@ public abstract class StdCharacter extends AbstractCharacters
 				this.LTMPSprite = this.setFrame0(actualLTMPTexture[actualFrame]);
 			else if (lastWasLeft())
 				this.LTMPSprite = this.setFrame180(actualLTMPTexture[actualFrame]);
-		} catch (IndexOutOfBoundsException | NullPointerException e) {
+		} catch (IndexOutOfBoundsException | NullPointerException ignored) {
 		}
 		
 		super.spriteBatcher.begin();
@@ -149,67 +143,46 @@ public abstract class StdCharacter extends AbstractCharacters
 	}
 	
 	
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineJumpAnimation()
-	 */
+
 	@Override
 	public void defineJumpAnimation() {
-		// TODO Auto-generated method stub
-	}
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineInteractAnimation()
-	 */
-	@Override
-	public void defineInteractAnimation() {
-		// TODO Auto-generated method stub
-	}
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineOtherAnimation()
-	 */
-	@Override
-	public void defineOtherAnimation() {
-		// TODO Auto-generated method stub
-	}
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#InterruptAnimator(com.game.animator.EscapyAnimatorCharacter)
-	 */
-	@Override
-	public void InterruptAnimator(EscapyAnimatorCharacter character) {
-		// TODO Auto-generated method stub
 	}
 
-	
-	
-	/* (non-Javadoc)
-	 * @see com.game.characters.AbstractCharacters#setFrame0(com.badlogic.gdx.graphics.Texture)
-	 */
+	@Override
+	public void defineInteractAnimation() {
+	}
+
+	@Override
+	public void defineOtherAnimation() {
+	}
+
+	@Override
+	public void InterruptAnimator(EscapyAnimatorCharacter character) {
+	}
+
+
 	@Override
 	protected Sprite setFrame0(Texture texture) {
 		
 		Sprite characterSp = new Sprite(texture);
 		characterSp.flip(false, true);
-		characterSp.setSize(characterSp.getWidth() * (float) zoom(),
-				characterSp.getHeight() * (float) zoom());
+		characterSp.setSize(characterSp.getWidth() * zoom(),
+				characterSp.getHeight() * zoom());
 		return characterSp;
 		
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.game.characters.AbstractCharacters#setFrame180(com.badlogic.gdx.graphics.Texture)
-	 */
+
 	@Override
 	protected Sprite setFrame180(Texture texture) {
 		Sprite characterSp = new Sprite(texture);
 		characterSp.flip(true, true);
-		characterSp.setSize(characterSp.getWidth() * (float) zoom(),
-				characterSp.getHeight() * (float) zoom());
+		characterSp.setSize(characterSp.getWidth() * zoom(),
+				characterSp.getHeight() * zoom());
 		return characterSp;
 	}
 
 
-	/* (non-Javadoc)
-	 * @see com.game.physics_temp.EscapyPhysicsEvent#getPhysicalBody()
-	 */
+
 	@Override
 	public EscapyPhysicsObjectSuper getPhysicalBody() {
 		return physBody;

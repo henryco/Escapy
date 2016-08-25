@@ -5,10 +5,10 @@ import com.game.render.shader.blend.EscapyBlendRenderer;
 public class EscapyStdScreenDodgeRenderer extends EscapyBlendRenderer{
 
 	/** The Constant VERTEX. */
-	public static final String VERTEX = "shaders\\blend\\scrClrDdg\\scrClrDdg.vert";
+	public static final String VERTEX = "data/shaders/blend/scrClrDdg/scrClrDdg.vert";
 	
 	/** The Constant FRAGMENT. */
-	public static final String FRAGMENT = "shaders\\blend\\scrClrDdg\\scrClrDdg.frag";
+	public static final String FRAGMENT = "data/shaders/blend/scrClrDdg/scrClrDdg.frag";
 	
 	/** The Constant TARGETMAP. */
 	public static final String TARGETMAP = "targetMap";

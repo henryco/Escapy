@@ -192,7 +192,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		int[] timeTab = new int[times.size()];
 		Iterator<Integer> iterator = times.iterator();
 		for (int i = 0; i < timeTab.length; i++) {
-			timeTab[i] = iterator.next().intValue();
+			timeTab[i] = iterator.next();
 		}	return timeTab;
 	}
 
@@ -207,7 +207,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	 */
 	protected Texture[] animation(Texture[] imgg, int[] times) {
 		long time1 = System.nanoTime() - time0;
-		if ((float) (time1 / 1000000.f) >= times[actualFrame]) {
+		if (time1 / 1000000.f >= times[actualFrame]) {
 			time0 = System.nanoTime();
 			actualFrame++;
 			if (actualFrame > imgg.length - 1)
@@ -226,7 +226,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	 */
 	protected Texture[] flyAnimation(Texture[] imgg, int[] times) {
 		long time1 = System.nanoTime() - time0;
-		if ((float) (time1 / 1000000.f) >= times[actualFrame]) {
+		if (time1 / 1000000.f >= times[actualFrame]) {
 			time0 = System.nanoTime();
 			actualFrame++;
 			if (actualFrame > imgg.length - 1)

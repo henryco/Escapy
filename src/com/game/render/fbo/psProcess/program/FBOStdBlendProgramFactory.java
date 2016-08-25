@@ -17,7 +17,7 @@ public class FBOStdBlendProgramFactory {
 	/** The Constant BLENDMAP. */
 	private static final String BLENDMAP = "blendMap";
 	
-	private final static String defaultShadersPath ="shaders\\blend\\";
+	private final static String defaultShadersPath ="data/shaders/blend/";
 	private static String shaderPath = defaultShadersPath;
 	
 	public static String getDefaultShadersPath() {
@@ -32,7 +32,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	
 	private static String vfpath(String path) {
-		return shaderPath+path+"\\"+path;
+		return shaderPath+path+"/"+path;
 	}
 	private static String frag(String fragment) {
 		return vfpath(fragment)+".frag";
@@ -168,7 +168,6 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * Color Dodge + Pinglight + Overlay blend program
-	 * @param target {@link EscapyMultiFBO}
 	 * @author Henry 
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> DPO() {
@@ -198,8 +197,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * Vivid + Saturation + ColorDodget blend program
-	 * @param target {@link EscapyMultiFBO}
-	 * @author Henry 
+	 * @author Henry
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> VSD() {
 		return new FBOStdBlendProgram(
@@ -218,8 +216,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * Vivid + Color + colorDodge blend program
-	 * @param target {@link EscapyMultiFBO}
-	 * @author Henry 
+	 * @author Henry
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> VCD() {
 		return new FBOStdBlendProgram(
@@ -238,8 +235,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * Vivid + Hue + colorDodge blend program
-	 * @param target {@link EscapyMultiFBO}
-	 * @author Henry 
+	 * @author Henry
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> VHD() {
 		return new FBOStdBlendProgram(
@@ -258,8 +254,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * Vivid + Overlay + colorDodge blend program
-	 * @param target {@link EscapyMultiFBO}
-	 * @author Henry 
+	 * @author Henry
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> VOD() {
 		return new FBOStdBlendProgram(
@@ -278,8 +273,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * cDodge + Vivid + Overlay + cDodge blend program
-	 * @param target {@link EscapyMultiFBO}
-	 * @author Henry 
+	 * @author Henry
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> VOD2() {
 		return new FBOStdBlendProgram(
@@ -298,8 +292,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * Color + Exlusion + colorBurn blend program
-	 * @param target {@link EscapyMultiFBO}
-	 * @author Henry 
+	 * @author Henry
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> CEB() {
 		return new FBOStdBlendProgram(
@@ -319,8 +312,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * Soft light blend program, but repeated, might be good for colorblind lights
-	 * @param target {@link EscapyMultiFBO}
-	 * @author Henry 
+	 * @author Henry
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> strongSoftLight() {
 		return new FBOStdBlendProgram(
@@ -339,8 +331,7 @@ public class FBOStdBlendProgramFactory {
 	}
 	/**
 	 * cDodge + Softlight + Softlight blend program
-	 * @param target {@link EscapyMultiFBO}
-	 * @author Henry 
+	 * @author Henry
 	 */
 	public static FBORenderProgram<EscapyMultiFBO> reverseSoftDodge() {
 		return new FBOStdBlendProgram(

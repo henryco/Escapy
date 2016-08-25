@@ -5,10 +5,10 @@ import com.game.render.shader.blend.EscapyBlendRenderer;
 public class EscapyStdHardDodgeRenderer extends EscapyBlendRenderer {
 
 	/** The Constant VERTEX. */
-	public static final String VERTEX = "shaders\\blend\\hardDodge\\hardDodge.vert";
+	public static final String VERTEX = "data/shaders/blend/hardDodge/hardDodge.vert";
 	
 	/** The Constant FRAGMENT. */
-	public static final String FRAGMENT = "shaders\\blend\\hardDodge\\hardDodge.frag";
+	public static final String FRAGMENT = "data/shaders/blend/hardDodge/hardDodge.frag";
 	
 	/** The Constant TARGETMAP. */
 	public static final String TARGETMAP = "targetMap";
@@ -33,9 +33,7 @@ public class EscapyStdHardDodgeRenderer extends EscapyBlendRenderer {
 		super(ID, VERTEX, FRAGMENT, TARGETMAP, BLENDMAP);	
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.game.render.shader.blend.EscapyBlendRenderer#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "EscapyStdHardDodgeRenderer_"+super.id;

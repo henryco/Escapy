@@ -31,8 +31,8 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	private EscapyMultiFBO lightFBO;
 	private EscapyFBO ortoFBO, blurFBO;
 	
-	private final static String VERTEX ="shaders\\blend\\colorMix\\colorMix.vert";
-	private final static String FRAGMENT ="shaders\\blend\\colorMix\\colorMix.frag";
+	private final static String VERTEX ="data/shaders/blend/colorMix/colorMix.vert";
+	private final static String FRAGMENT ="data/shaders/blend/colorMix/colorMix.frag";
 	
 	private EscapyBlendRenderer blender;
 	private EscapyStdBlurRenderer blurRednerer;

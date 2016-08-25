@@ -10,8 +10,8 @@ import com.game.utils.translationVec.TransVec;
 
 public class EscapyStdShadowMapRenderer extends EscapyShadowMapRenderer {
 
-	public static final String VERTEX = "shaders\\shadows\\creator\\shadows.vert";
-	public static final String FRAGMENT = "shaders\\shadows\\creator\\shadows.frag";
+	public static final String VERTEX = "data/shaders/shadows/creator/shadows.vert";
+	public static final String FRAGMENT = "data/shaders/shadows/creator/shadows.frag";
 	public static final String SOURCEMAP = "u_texture";
 	
 	public EscapyStdShadowMapRenderer() {

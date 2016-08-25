@@ -4,8 +4,8 @@ import com.game.render.shader.blend.EscapyBlendRenderer;
 
 public class EscapyStdSoftLightRenderer extends EscapyBlendRenderer {
 
-	public static final String VERTEX = "shaders\\blend\\softLight\\softLight.vert";
-	public static final String FRAGMENT = "shaders\\blend\\softLight\\softLight.frag";
+	public static final String VERTEX = "data/shaders/blend/softLight/softLight.vert";
+	public static final String FRAGMENT = "data/shaders/blend/softLight/softLight.frag";
 	public static final String TARGETMAP = "targetMap";
 	public static final String BLENDMAP = "blendMap";
 	

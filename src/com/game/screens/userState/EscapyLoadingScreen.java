@@ -1,6 +1,7 @@
 package com.game.screens.userState;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -29,16 +30,14 @@ public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 	 *            the game state
 	 */
 	public EscapyLoadingScreen(EscapyGdxCamera escapyCamera, GameEnter gameState) {
-		super(escapyCamera, gameState);
+
+	    super(escapyCamera, gameState);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#show()
-	 */
 	@Override
 	public void show() {
 		this.batcher = new SpriteBatch();
-		this.splashSprite = new Sprite(new Texture("img\\splash\\BgLogo.png"));
+		this.splashSprite = new Sprite(new Texture(new FileHandle("data/logo/splash/BgLogo.png")));
 		this.splashSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.splashSprite.flip(false, true);
 
@@ -48,9 +47,6 @@ public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 		loadThread.start();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#render(float)
-	 */
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -66,62 +62,38 @@ public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#resize(int, int)
-	 */
+
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#pause()
-	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#resume()
-	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#hide()
-	 */
+
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#dispose()
-	 */
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Runnable#run()
-	 */
+
 	@Override
 	public void run() {
 		EscapyLoadingScreen ldscr = this;
-		Gdx.app.postRunnable(new Runnable() {
+		Gdx.app.postRunnable(() -> {
 
-			@Override
-			public void run() {
-
-				ldscr.gameState.getStatesContainer()
-						.setNewLocation(UpdatableScreenFactory.GameScreen(ldscr.escapyCamera, ldscr.gameState), true);
-				ldscr.loaded = true;
-			}
-		});
+        ldscr.gameState.getStatesContainer()
+            .setNewLocation(UpdatableScreenFactory.GameScreen(ldscr.escapyCamera, ldscr.gameState), true);
+        ldscr.loaded = true;
+      });
 		Thread.currentThread().interrupt();
 	}
 

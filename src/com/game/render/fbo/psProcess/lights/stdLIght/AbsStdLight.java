@@ -280,9 +280,9 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 	public AbsStdLight setColor(int r255, int g255, int b255) {
-		this.color.r = ((float)(((float)r255)/255f));
-		this.color.g = ((float)(((float)g255)/255f));
-		this.color.b = ((float)(((float)b255)/255f));
+		this.color.r = ((float)r255)/255f;
+		this.color.g = ((float)g255)/255f;
+		this.color.b = ((float)b255)/255f;
 		return this;
 	}
 

@@ -41,9 +41,7 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalMapRe
 		super(x, y, id, ImgUrl, zoom, typo);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.map.objects.InGameObject#initializeGraphic()
-	 */
+
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();

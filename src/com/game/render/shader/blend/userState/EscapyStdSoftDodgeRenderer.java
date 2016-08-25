@@ -4,8 +4,8 @@ import com.game.render.shader.blend.EscapyBlendRenderer;
 
 public class EscapyStdSoftDodgeRenderer extends EscapyBlendRenderer{
 
-	public static final String VERTEX = "shaders\\blend\\softDodge\\softDodge.vert";
-	public static final String FRAGMENT = "shaders\\blend\\softDodge\\softDodge.frag";
+	public static final String VERTEX = "data/shaders/blend/softDodge/softDodge.vert";
+	public static final String FRAGMENT = "data/shaders/blend/softDodge/softDodge.frag";
 	public static final String TARGETMAP = "targetMap";
 	public static final String BLENDMAP = "blendMap";
 	

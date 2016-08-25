@@ -5,10 +5,10 @@ import com.game.render.shader.lightSrc.EscapyLightSrcRenderer;
 public class EscapyStdShadedLightSrcRenderer extends EscapyLightSrcRenderer {
 
 	/** The Constant VERTEX. */
-	public static final String VERTEX = "shaders\\lightSrc\\lightSrc.vert";
+	public static final String VERTEX = "data/shaders/lightSrc/lightSrc.vert";
 	
 	/** The Constant FRAGMENT. */
-	public static final String FRAGMENT = "shaders\\lightSrc\\lightSrc_S.frag";
+	public static final String FRAGMENT = "data/shaders/lightSrc/lightSrc_S.frag";
 	
 	public static final String LIGHTMAP = "u_lightMap";
 	

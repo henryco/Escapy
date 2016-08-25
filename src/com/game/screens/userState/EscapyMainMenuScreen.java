@@ -2,6 +2,7 @@ package com.game.screens.userState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -43,54 +44,34 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 	 */
 	public EscapyMainMenuScreen(EscapyGdxCamera escapyCamera, GameEnter game) 
 	{
-		super(escapyCamera, game);
-		
-		
-		this.privGdxCamera = new EscapyGdxCamera(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
-		
-		
-		this.testShaderSprite = new Sprite(new Texture("img\\splash\\BgLogo.png"));
+       super(escapyCamera, game);
+       this.privGdxCamera = new EscapyGdxCamera(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
+
+
+     //  this.testShaderSprite = new Sprite(new Texture("img/splash/BgLogo.png"));
+       this.testShaderSprite = new Sprite(new Texture(new FileHandle("data/logo/splash/BgLogo.png")));
+
 		this.testShaderSprite.setSize(super.settings.getFrameWIDHT(), super.settings.getFrameWIDHT());
 		this.testShaderSprite.flip(false, true);
-
-		this.nrmlMapTex = new Texture("img\\splash\\LogoMap.png");
+	//	this.nrmlMapTex = new Texture("img/splash/LogoMap.png");
+       this.nrmlMapTex = new Texture(new FileHandle("data/logo/splash/LogoMap.png"));
 		this.testNrmlSprite = new Sprite(nrmlMapTex);
 		this.testNrmlSprite.setSize(super.settings.getFrameWIDHT(), super.settings.getFrameWIDHT());
 		this.testNrmlSprite.flip(false, true);
-		
-		
-		
-
-//		for (int i = 0; i < lights.length; i++) {
-//			lights[i] = new SimpleVolLight(new float[] { 15, 15 }, new float[] { i * 200, i * 150 }, colors[i], 0.9f, 5f);
-//		}
 
 		this.mpos = new float[2];
 		this.screen = new float[] { 60, 60 };
 		this.intencity = 0.9f;
 		this.dist = 5f;
-	
-		/**FIXME TEST FIXME**/
+
 		this.stdFBO = new StandartFBO();
 
 		
 		this.batcher = new SpriteBatch();
 
-	//	this.lightsID = new int[lights.length];
-		
-		//for (int i = 0; i < lightsID.length; i++)
-		//	lightsID[i] = volumeLights.addSource(lights[i]);
-		
-		//this.mouseLight = volumeLights.addSource(new SimpleVolLight(new float[] { 60, 60 }, new float[] { 200, 150 },
-		//		new float[] { 0.1f, 1f, 0.1f }, 0.35f, 5f));
-		
-		//this.volumeLights.setPostRenderFBO(nrmlFBO);
-		/**FIXME TEST FIXME**/
 	}
 
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#show()
-	 */
+
 	@Override
 	public void show() {
 

@@ -4,8 +4,8 @@ import com.game.render.shader.shadow.EscapyShadowMapRenderer;
 
 public class EscapyStdShadowRenderer extends EscapyShadowMapRenderer {
 
-	public static final String VERTEX = "shaders\\shadows\\rend\\rend.vert";
-	public static final String FRAGMENT = "shaders\\shadows\\rend\\rend.frag";
+	public static final String VERTEX = "data/shaders/shadows/rend/rend.vert";
+	public static final String FRAGMENT = "data/shaders/shadows/rend/rend.frag";
 	public static final String SOURCEMAP = "u_texture";
 
 	public EscapyStdShadowRenderer() {

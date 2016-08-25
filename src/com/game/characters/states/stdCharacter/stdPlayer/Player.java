@@ -38,39 +38,29 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 	}
 	
 
-	/* (non-Javadoc)
-	 * @see com.game.physics_temp.EscapyPhysicsEvent#definePhysicalSystem(com.game.physics_temp.EscapyPhysicsObjectSuper)
-	 */
+
 	@Override
 	public void definePhysicalSystem(EscapyPhysicsObjectSuper physObject) {
-		physObject = EscapyPhysics.initDefaultGravityAcceleration(physObject);
-		physObject = EscapyPhysics.initDefaultMov(physObject, super.movSpeed, super.runSpeed, 120);
-		physObject = EscapyPhysics.initDefaultPhysicalMap(physObject, 0.52f, 0.875f);
+		EscapyPhysics.initDefaultGravityAcceleration(physObject);
+		EscapyPhysics.initDefaultMov(physObject, super.movSpeed, super.runSpeed, 120);
+		EscapyPhysics.initDefaultPhysicalMap(physObject, 0.52f, 0.875f);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.physics_temp.EscapyPhysicsEvent#physicalCalculations(com.game.physics_temp.EscapyPhysicsObjectSuper)
-	 */
+
 	@Override
 	public void physicalCalculations(EscapyPhysicsObjectSuper physObject) {
-		physObject = EscapyPhysics.defaultGravity(physObject);
-		physObject = EscapyPhysics.defaultMovement(physObject, this.downLeft, this.downRight, this.downLShift, false);
+		EscapyPhysics.defaultGravity(physObject);
+		EscapyPhysics.defaultMovement(physObject, this.downLeft, this.downRight, this.downLShift, false);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.physics_temp.EscapyPhysicsEvent#physicalEvent(float, float, float, float, com.game.physics_temp.EscapyPhysicsObjectSuper)
-	 */
+
 	@Override
 	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
 		super.setXPos(xpos);
 		super.setYPos(ypos);
 	}
 	
-	
 
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineStandAnimation()
-	 */
 	@Override
 	public void defineStandAnimation() {
 		if (!isMoving) {
@@ -86,9 +76,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineMovAnimation()
-	 */
+
 	@Override
 	public void defineMovAnimation() {
 		if (!lastFall && downRight & !downLShift) {
@@ -122,9 +110,6 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorCharacter#defineRunAnimation()
-	 */
 	@Override
 	public void defineRunAnimation() {
 		if (!lastFall && downRight && downLShift) {

@@ -115,17 +115,20 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		this.setLightBuffFBO(new StandartFBO());
 		return;
 	}
+
 	/**
 	 * Instantiates a new volume lights container.
 	 *
 	 * @param postRenderCamera
 	 *            the post render camera
-	 * @param mutliFBO
+	 * @param lightMapFBO
 	 *            the mutli FBO
+    * @param nrmlMapFBO
+    *            the mutli FBO
 	 */
 	public VolumeLightsExecutor(EscapyGdxCamera postRenderCamera, EscapyFBO nrmlMapFBO, 
 			EscapyFBO lightMapFBO) {
-		
+
 		this.setPostRenderCamera(postRenderCamera);
 		this.setNormalsFBO(nrmlMapFBO);
 		this.setLightMapFBO(lightMapFBO);

@@ -49,9 +49,7 @@ public class EscapyStdShaderRenderer extends EscapyShaderRender {
 		return stdProgram;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.shader.EscapyShaderRender#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "EscapyStdShader_"+super.id;

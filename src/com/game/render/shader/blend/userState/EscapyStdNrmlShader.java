@@ -17,8 +17,8 @@ import com.game.render.shader.EscapyShaderRender;
  */
 public class EscapyStdNrmlShader extends EscapyShaderRender {
 
-	private static final String VERTEX = "shaders\\nrml\\nrml.vert";
-	private static final String FRAGMENT = "shaders\\nrml\\nrml.frag";
+	private static final String VERTEX = "data/shaders/nrml/nrml.vert";
+	private static final String FRAGMENT = "data/shaders/nrml/nrml.frag";
 	private ShaderProgram nrmlShader;
 
 	
