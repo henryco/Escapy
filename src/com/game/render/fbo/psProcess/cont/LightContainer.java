@@ -153,12 +153,12 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
 					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
 					blurFBO.getRegHeight(), 1, 0);
-			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
-					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
-					blurFBO.getRegHeight(), -1, 0);
-			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
-					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
-					blurFBO.getRegHeight(), 0, -1);
+//			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
+//					postRenderCamera.getCamera(), blurFBO.getRegWidth(),
+//					blurFBO.getRegHeight(), -1, 0);
+//			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
+//					postRenderCamera.getCamera(), blurFBO.getRegWidth(),
+//					blurFBO.getRegHeight(), 0, -1);
 		return this.ortoFBO.end();
 	}
 	
