@@ -190,21 +190,12 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		System.out.println(lightAngles);
 		return this;
 	}
-	public TransVec getRotAngle(){
-		return new TransVec(this.lightAngles.getVecArray());
-	}
 	
 	public AbsStdLight setAngleCorrection(float corr) {
 		this.correct = corr;
 		return this;
 	}
-	
-	public float getMinRadius() {
-		return this.radius.x;
-	}
-	public float getMaxRadius() {
-		return this.radius.y;
-	}
+
 	
 	/** 
 	 * @param minRadius - minimal radius, value range from 0.0 to 1.0;
@@ -301,10 +292,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return visible;
 	}
 	public AbsStdLight setVisible(boolean visible) {
-		this.visible = visible;
-		return this;
-	}
-	
+       this.visible = visible;
+       return this;
+   }
 
+   public abstract  AbsStdLight get();
 }
 

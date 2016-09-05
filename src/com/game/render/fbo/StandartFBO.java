@@ -44,9 +44,7 @@ public class StandartFBO extends EscapyFBO {
 		super(ID, width, height);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.EscapyFBO#initRenderProgram()
-	 */
+
 	@Override
 	protected FBORenderProgram<?> initRenderProgram() {
 	
@@ -66,18 +64,13 @@ public class StandartFBO extends EscapyFBO {
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.EscapyFBO#begin()
-	 */
+
 	@Override
 	public EscapyFBO begin() {
 		super.MAINBUFFER.begin();
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.EscapyFBO#end()
-	 */
 	@Override
 	public EscapyFBO end() {
 		super.MAINBUFFER.end();

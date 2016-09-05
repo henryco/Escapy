@@ -23,6 +23,7 @@ import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightContainer;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
+import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyProxyShadowLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyStdLight;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightSrcFactory;
@@ -124,10 +125,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.shadedLights = new LightContainer(lightShadeFBO, LightContainer.light.screenDodge(), true);
 		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.strongSoftLight(), false);
 
-		this.mouseLight = this.shadedLights.addSource(new EscapyShadedLight(
-				lightMapFBO, 4, EscapyLightSrcFactory.RND_512()).setMaxRadius(1f).
-				setPosition(400, 450).setColor(0, 0, 0).
-				setAngle(0.125f).setVisible(true).setScale(3));
+//		this.mouseLight = this.shadedLights.addSource(new EscapyShadedLight(
+//				lightMapFBO, 4, EscapyLightSrcFactory.RND_256()).setMaxRadius(1.5f).
+//				setPosition(400, 450).setColor(0, 0, 0).
+//				setAngle(0.125f).setVisible(true).setScale(5.5f));
+
+       this.mouseLight = this.shadedLights.addSource(new EscapyProxyShadowLight(
+               lightMapFBO, 4, EscapyLightSrcFactory.RND_256()).setMaxRadius(1.5f).
+               setPosition(400, 450).setColor(0, 0, 0).
+               setAngle(0.125f).setVisible(true).setScale(5.5f));
 
 		this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO,
 				EscapyLightSrcFactory.RND_512()).setPosition(600, 420).

@@ -13,80 +13,82 @@ import com.game.utils.translationVec.TransVec;
 
 public class EscapyShadedLight extends EscapyStdLight {
 
-	private EscapyStdShadowMapRenderer shadowMapRenderer;
-	private EscapyStdShadowRenderer shadowRenderer;
+	 private EscapyStdShadowMapRenderer shadowMapRenderer;
+	 private EscapyStdShadowRenderer shadowRenderer;
 	
-	private EscapyFBO lightMapFBO, shadowMapFBO, shadowFBO;
-	private EscapyGdxCamera lightCam, shadowMapCam, shadowCam;
-	private TransVec transPos;
-	
-	public EscapyShadedLight(EscapyFBO lightMap, int accuracy) {
+	 private EscapyFBO lightMapFBO, shadowMapFBO, shadowFBO;
+	 private EscapyGdxCamera lightCam, shadowMapCam, shadowCam;
+	 private TransVec transPos;
+
+    protected float threshold;
+
+	 public EscapyShadedLight(EscapyFBO lightMap, int accuracy) {
 		super(lightMap);
 		initBlock((int)(64*Math.pow(2, accuracy)));
 	}
-	public EscapyShadedLight(EscapyFBO lightMap, int accuracy, EscapyLightType lightType) {
+	 public EscapyShadedLight(EscapyFBO lightMap, int accuracy, EscapyLightType lightType) {
 		super(lightMap, lightType);
 		initBlock((int)(64*Math.pow(2, accuracy)));
 	}
-	public EscapyShadedLight(EscapyFBO lightMap) {
+	 public EscapyShadedLight(EscapyFBO lightMap) {
 		super(lightMap);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(EscapyFBO lightMap, EscapyLightType lightType) {
+	 public EscapyShadedLight(EscapyFBO lightMap, EscapyLightType lightType) {
 		super(lightMap, lightType);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(int id, EscapyFBO lightMap, int accuracy) {
+	 public EscapyShadedLight(int id, EscapyFBO lightMap, int accuracy) {
 		super(id, lightMap);
 		initBlock((int)(64*Math.pow(2, accuracy)));
 	}
-	public EscapyShadedLight(int id, EscapyFBO lightMap, int accuracy, EscapyLightType lightType) {
+	 public EscapyShadedLight(int id, EscapyFBO lightMap, int accuracy, EscapyLightType lightType) {
 		super(id, lightMap, lightType);
 		initBlock((int)(64*Math.pow(2, accuracy)));
 	}
-	public EscapyShadedLight(int id, EscapyFBO lightMap) {
+	 public EscapyShadedLight(int id, EscapyFBO lightMap) {
 		super(id, lightMap);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(int id, EscapyFBO lightMap, EscapyLightType lightType) {
+	 public EscapyShadedLight(int id, EscapyFBO lightMap, EscapyLightType lightType) {
 		super(id, lightMap, lightType);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(int id, EscapyLightType lightType) {
+	 public EscapyShadedLight(int id, EscapyLightType lightType) {
 		super(id, lightType);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(int id) {
+	 public EscapyShadedLight(int id) {
 		super(id);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(EscapyLightType lightType, float scale, float x, float y) {
+	 public EscapyShadedLight(EscapyLightType lightType, float scale, float x, float y) {
 		super(lightType, scale, x, y);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(EscapyLightType lightType, float x, float y) {
+	 public EscapyShadedLight(EscapyLightType lightType, float x, float y) {
 		super(lightType, x, y);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(EscapyLightType lightType, TransVec pos) {
+	 public EscapyShadedLight(EscapyLightType lightType, TransVec pos) {
 		super(lightType, pos);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(EscapyLightType lightType) {
+	 public EscapyShadedLight(EscapyLightType lightType) {
 		super(lightType);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight(TransVec pos) {
+	 public EscapyShadedLight(TransVec pos) {
 		super(pos);
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
-	public EscapyShadedLight() {
+	 public EscapyShadedLight() {
 		super();
 		initBlock((int)(64*Math.pow(2, 1)));
 	}
 
-	
-	private void initBlock(int lacc) {
+
+	protected void initBlock(int lacc) {
 		
 		if (lacc > 2048) lacc = 2048;
 		else if (lacc < 64) lacc = 64;
@@ -116,8 +118,8 @@ public class EscapyShadedLight extends EscapyStdLight {
 		super.resolution = new TransVec(super.lightSource.getWidth() * scale,
 				super.lightSource.getHeight() * scale);
 		super.srcRenderer = new EscapyStdShadedLightSrcRenderer(super.getID());
-		super.umbra = new TransVec(0.32f, 8f);
-
+		super.umbra = new TransVec(0.2f, 5f);
+      this.threshold = 0.8f;
 	}
 	
 	/**
@@ -150,7 +152,8 @@ public class EscapyShadedLight extends EscapyStdLight {
 			shadowMapRenderer.renderShadowMap(
 				lightMapFBO.getTextureRegion(), shadowMapCam.getCamera(), 
 				lightMapFBO.getRegWidth(), lightMapFBO.getRegHeight(), 0, 0, 
-				shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
+				shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight(),
+            threshold);
 		shadowMapFBO.end();
 		
 		shadowFBO.begin().wipeFBO(); 
@@ -182,4 +185,15 @@ public class EscapyShadedLight extends EscapyStdLight {
 		super.stateUpdated(state);
 		transPos.setTransVec(super.getPosition());
 	}
+
+    public AbsStdLight setThreshold(float threshold) {
+        this.threshold = threshold;
+        return this;
+    }
+
+    @Override
+    public EscapyShadedLight get() {
+        return this;
+    }
+
 }

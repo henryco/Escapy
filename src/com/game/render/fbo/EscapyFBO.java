@@ -47,7 +47,7 @@ public abstract class EscapyFBO {
 	
 	/** 
 	 * Creates new FrameBufferObjects superclass, that contains Gdx {@link FrameBuffer} and other usefull stuff 
-	 * <b>See:</b> {@link NormalMapFBO}, {@link StandartFBO}.
+	 * <b>See:</b> {@link StandartFBO}.
 	 * */
 	public EscapyFBO() {
 		
@@ -131,7 +131,7 @@ public abstract class EscapyFBO {
 		this.renderProgram = initRenderProgram();
 		this.MAINBUFFER = new FrameBuffer(Format.RGBA8888, regWidth, regHeight, false);
 		
-		this.MAINREGION = new TextureRegion(this.MAINBUFFER.getColorBufferTexture(), 
+		this.MAINREGION = new TextureRegion(this.MAINBUFFER.getColorBufferTexture(),
 				regX, regY, regWidth, regHeight);
 		
 		this.MAINSPRITE = new Sprite(MAINREGION);
