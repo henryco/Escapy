@@ -310,7 +310,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec()); 
 		
 		this.MAINFBO.renderFBO();
-		this.shadedLights.mergeContainedFBO(escapyCamera, 5);
+		this.shadedLights.mergeContainedFBO(escapyCamera, 3);
 		this.stdLights.mergeContainedFBO(escapyCamera, 3);
 //	/*	
 		
@@ -324,7 +324,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO, 
 				stdLights.getLightIntensity(), stdLights.getAmbientIntensity());
 	
-//		this.MAINFBO.renderFBO();
+//
 		this.MAINFBO.renderFBO();
 //	*/
 

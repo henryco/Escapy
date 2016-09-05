@@ -133,11 +133,10 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		this.targetsList.forEach( light -> {
 		
 			if (light.isVisible()) {
-				this.blender.renderBlended(
-						blurFBO.getTextureRegion(), 
-						light.getFBO().getTextureRegion(),0,0, 
-						Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 
-						postRenderCamera.getCamera());
+
+			    this.blender.renderBlended(blurFBO.getSpriteRegion(),
+                     light.getFBO().getSpriteRegion(),
+                     postRenderCamera.getCamera());
 				flag[0] += 1;
 			}
 		});
@@ -147,12 +146,10 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 			return this.blurFBO;
 
 		this.ortoFBO.begin().wipeFBO();
-			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
-					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
-					blurFBO.getRegHeight(), 0, 1);
-			this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
-					postRenderCamera.getCamera(), blurFBO.getRegWidth(), 
-					blurFBO.getRegHeight(), 1, 0);
+        this.blurFBO.renderFBO();
+        this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
+                postRenderCamera.getCamera(), blurFBO.getRegWidth(),
+                blurFBO.getRegHeight(), 1, 1);
 		return this.ortoFBO.end();
 	}
 	
