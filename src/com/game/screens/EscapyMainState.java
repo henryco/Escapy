@@ -15,13 +15,6 @@ public interface EscapyMainState
 	 *
 	 * @return the screen
 	 */
-	public Screen initState();
-	
-	/**
-	 * Render game objects.
-	 *
-	 * @param escapyCamera
-	 *            the escapy camera
-	 */
-	public void renderGameObjects(EscapyGdxCamera escapyCamera);
+	Screen initState();
+
 }

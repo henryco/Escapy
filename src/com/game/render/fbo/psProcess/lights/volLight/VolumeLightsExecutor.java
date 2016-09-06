@@ -158,6 +158,12 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		targetFBO.end();
 		return targetFBO;
 	}
+
+    public EscapyFBO postRenderLights(EscapyFBO targetFBO, EscapyFBO nrmlMapFBO,
+                                      EscapyFBO lightMapFBO, EscapyFBO lightsFBO) {
+        return postRenderLights(targetFBO, nrmlMapFBO, lightMapFBO, lightsFBO,
+                this.lightIntensity, this.ambientIntesity);
+    }
 	
 	
 	/* (non-Javadoc)
