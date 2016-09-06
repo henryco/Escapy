@@ -29,7 +29,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
         EscapyFBOContainer, SimpleObserver<EscapyFBOContainer> {
 
 
-    public final static class light extends FBOStdBlendProgramFactory {};
+   public final static class light extends FBOStdBlendProgramFactory {};
 	
 	private EscapyGdxCamera postRenderCamera;
 	private EscapyMultiFBO lightFBO;

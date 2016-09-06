@@ -20,8 +20,6 @@ public class EscapyShadedLight extends EscapyStdLight {
 	 private EscapyGdxCamera lightCam, shadowMapCam, shadowCam;
 	 protected TransVec transPos;
 
-    protected float threshold;
-
 	 public EscapyShadedLight(EscapyFBO lightMap, int accuracy) {
 		super(lightMap);
 		initBlock((int)(64*Math.pow(2, accuracy)));
@@ -185,11 +183,6 @@ public class EscapyShadedLight extends EscapyStdLight {
 		super.stateUpdated(state);
 		transPos.setTransVec(super.getPosition());
 	}
-
-    public AbsStdLight setThreshold(float threshold) {
-        this.threshold = threshold;
-        return this;
-    }
 
     @Override
     public EscapyShadedLight get() {

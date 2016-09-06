@@ -237,7 +237,7 @@ public class InitMap {
 				int StY = raf.readShort();
 				int EdX = raf.readShort();
 				int EdY = raf.readShort();
-				crFigure(StX, StY, EdX, EdY, new Object[] { (byte) 1, (short) Short.MAX_VALUE, (byte) 0xFF },
+				crFigure(StX, StY, EdX, EdY, new Object[] { (byte) 1, Short.MAX_VALUE, (byte) 0xFF },
 						Figuretype);
 
 				wallPointList.add(new int[] { StX, StY, EdX, EdY, Figuretype });
@@ -289,10 +289,10 @@ public class InitMap {
 		for (int i = sx; i < ex; i++) {
 			for (int j = sy; j < ey; j++) {
 				try {
-					areaMap.set(i, j, 0, (byte) vals[0]);
-					areaMap.set(i, j, 1, (short) vals[1]);
-					areaMap.set(i, j, 2, (byte) vals[2]);
-				} catch (IndexOutOfBoundsException exdc) {
+					areaMap.set(i, j, 0, vals[0]);
+					areaMap.set(i, j, 1, vals[1]);
+					areaMap.set(i, j, 2, vals[2]);
+				} catch (IndexOutOfBoundsException ignored) {
 				}
 			}
 		}
@@ -304,56 +304,52 @@ public class InitMap {
 	
 	
 	private void figureTriagnle(int stx, int sty, int edx, int edy, Object[] vals) {
-		double sx = stx;
-		double sy = sty;
-		double ex = edx;
-		double ey = edy;
 
-		if (sx < ex) {
-			for (double i = sx; i < ex; i += 1) {
-				double tg = ((ey - sy) / (ex - sx));
-				double ki = ex - i;
-				if (sy > ey) {
-					for (double j = sy - ey; j > -ki * (tg); j -= 1) {
+       if ((double) stx < (double) edx) {
+			for (double i = (double) stx; i < (double) edx; i += 1) {
+				double tg = (((double) edy - (double) sty) / ((double) edx - (double) stx));
+				double ki = (double) edx - i;
+				if ((double) sty > (double) edy) {
+					for (double j = (double) sty - (double) edy; j > -ki * (tg); j -= 1) {
 						try {
-							areaMap.set((int) i, (int) (j + ey), 0, (byte) vals[0]);
-							areaMap.set((int) i, (int) (j + ey), 1, (short) vals[1]);
-							areaMap.set((int) i, (int) (j + ey), 2, (byte) vals[2]);
-						} catch (IndexOutOfBoundsException exdc) {
+							areaMap.set((int) i, (int) (j + (double) edy), 0, vals[0]);
+							areaMap.set((int) i, (int) (j + (double) edy), 1, vals[1]);
+							areaMap.set((int) i, (int) (j + (double) edy), 2, vals[2]);
+						} catch (IndexOutOfBoundsException ignored) {
 						}
 					}
-				} else if (sy < ey) {
-					for (double j = sy - ey; j < -ki * (tg); j += 1) {
+				} else if ((double) sty < (double) edy) {
+					for (double j = (double) sty - (double) edy; j < -ki * (tg); j += 1) {
 						try {
-							areaMap.set((int) i, (int) (j + ey), 0, (byte) vals[0]);
-							areaMap.set((int) i, (int) (j + ey), 1, (short) vals[1]);
-							areaMap.set((int) i, (int) (j + ey), 2, (byte) vals[2]);
-						} catch (IndexOutOfBoundsException exdc) {
+							areaMap.set((int) i, (int) (j + (double) edy), 0, vals[0]);
+							areaMap.set((int) i, (int) (j + (double) edy), 1, vals[1]);
+							areaMap.set((int) i, (int) (j + (double) edy), 2, vals[2]);
+						} catch (IndexOutOfBoundsException ignored) {
 						}
 					}
 				}
 			}
-		} else if (sx > ex) {
-			for (double i = sx; i > ex; i -= 1) {
-				double tg = (((ey - sy) / (ex - sx)));
-				double ki = sx - i;
-				if (sy > ey) {
+		} else if ((double) stx > (double) edx) {
+			for (double i = (double) stx; i > (double) edx; i -= 1) {
+				double tg = ((((double) edy - (double) sty) / ((double) edx - (double) stx)));
+				double ki = (double) stx - i;
+				if ((double) sty > (double) edy) {
 					for (double j = 0; j > -ki * (tg); j -= 1) {
 						try {
-							areaMap.set((int) i, (int) (j + sy), 0, (byte) vals[0]);
-							areaMap.set((int) i, (int) (j + sy), 1, (short) vals[1]);
-							areaMap.set((int) i, (int) (j + sy), 2, (byte) vals[2]);
-						} catch (IndexOutOfBoundsException exdc) {
+							areaMap.set((int) i, (int) (j + (double) sty), 0, vals[0]);
+							areaMap.set((int) i, (int) (j + (double) sty), 1, vals[1]);
+							areaMap.set((int) i, (int) (j + (double) sty), 2, vals[2]);
+						} catch (IndexOutOfBoundsException ignored) {
 						}
 
 					}
-				} else if (sy < ey) {
+				} else if ((double) sty < (double) edy) {
 					for (double j = 0; j < -ki * (tg); j += 1) {
 						try {
-							areaMap.set((int) i, (int) (j + sy), 0, (byte) vals[0]);
-							areaMap.set((int) i, (int) (j + sy), 1, (short) vals[1]);
-							areaMap.set((int) i, (int) (j + sy), 2, (byte) vals[2]);
-						} catch (IndexOutOfBoundsException exdc) {
+							areaMap.set((int) i, (int) (j + (double) sty), 0, vals[0]);
+							areaMap.set((int) i, (int) (j + (double) sty), 1, vals[1]);
+							areaMap.set((int) i, (int) (j + (double) sty), 2, vals[2]);
+						} catch (IndexOutOfBoundsException ignored) {
 						}
 					}
 				}

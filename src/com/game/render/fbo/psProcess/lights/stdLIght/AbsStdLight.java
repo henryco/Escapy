@@ -40,6 +40,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected float coeff;
 	protected float correct;
 	protected float scale;
+   protected float threshold;
 
     protected float[] optTranslation;
 
@@ -51,7 +52,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	private int id;
 
 
-    {
+   {
 		this.id = this.hashCode();
 		
 		this.position = new TransVec().setObservedObj(this);
@@ -344,5 +345,12 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
     protected void updState(){
         if (observer != null) this.observer.stateUpdated(null);
     }
+
+    public AbsStdLight setThreshold(float threshold) {
+        this.threshold = threshold;
+        return this;
+    }
+
 }
+
 
