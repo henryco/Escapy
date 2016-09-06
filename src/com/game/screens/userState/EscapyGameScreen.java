@@ -104,8 +104,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.addCameraProgram(CameraProgramFactory.stdCharacterProgram(this.charactersContainer.player()));
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
 		
-	
-		
+       
 		this.lightBuffFBO = new StandartFBO();
 		this.MAINFBO = new StandartFBO();
 		this.bgrFBO = new StandartFBO(); 
@@ -124,29 +123,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.shadedLights = new LightContainer(lightShadeFBO, LightContainer.light.screenDodge(), true);
 		this.stdLights = new LightContainer(lightStdFBO, LightContainer.light.strongSoftLight(), false);
 
-		this.mouseLight = this.shadedLights.addSource(new EscapyShadedLight(
-				lightMapFBO, 4, EscapyLightSrcFactory.RND_256()).setMaxRadius(1.5f).
-				setPosition(400, 450).setColor(0, 0, 0).
-				setAngle(0.125f).setVisible(true).setScale(5.5f)
-      );
-      ((EscapyShadedLight)shadedLights.getSourceByID(mouseLight)).setThreshold(0.7f);
-
-
-		this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO,
-				EscapyLightSrcFactory.RND_512()).setPosition(600, 420).
-				setColor(205, 107, 107).setVisible(true).setScale(3f)
-      );
-		
-		this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), 
-				Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer()
-      );
-
-		this.mask.setColor(new Color((40f/255f), (40f/255f), (40f/255f), 1f));
-		
-		this.bgrMask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		this.bgrMask.setMode(EscapyMask.MULTIPLY).addMaskTarget(bgrFBO.getFrameBuffer());
-		
-		
 
 		this.otherTranslationVec = new TransVec();
 
@@ -166,11 +142,35 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.normalsContainer.addSource(new NormalRenderer(charactersContainer.player()));
 		this.lightsMapContainer.addSource(new LightMapRenderer(charactersContainer.player()));
 		
-		for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /* FRONT PARALLAX */
+       for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /* FRONT PARALLAX */
 			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
-		
-		
-		super.initializationEnded = true;
+
+
+       this.mouseLight = this.shadedLights.addSource(new EscapyShadedLight(
+               lightMapFBO, 4, EscapyLightSrcFactory.RND_1024()).setMaxRadius(1.5f).
+               setPosition(400, 450).setColor(0, 0, 0).
+               setAngle(0.125f).setVisible(true).setScale(2f)
+       );
+       ((EscapyShadedLight)shadedLights.getSourceByID(mouseLight)).setThreshold(0.7f);
+
+
+       this.testLight = this.stdLights.addSource(new EscapyStdLight(lightMapFBO,
+               EscapyLightSrcFactory.RND_512()).setPosition(600, 420).
+               setColor(205, 107, 107).setVisible(true).setScale(3f)
+       );
+
+       this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(),
+               Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer()
+       );
+
+       this.mask.setColor(new Color((40f/255f), (40f/255f), (40f/255f), 1f));
+
+       this.bgrMask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+       this.bgrMask.setMode(EscapyMask.MULTIPLY).addMaskTarget(bgrFBO.getFrameBuffer());
+
+
+
+       super.initializationEnded = true;
 
 		System.gc();	
 		return this;
