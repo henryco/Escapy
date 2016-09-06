@@ -189,7 +189,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		}
 		if (Gdx.input.isTouched(0)) {
 			this.stdLights.getSourceByID(this.testLight).setPosition(
-					Gdx.input.getX() + escapyCamera.getShiftVec().x, 
+					Gdx.input.getX() + escapyCamera.getShiftVec().x,
 					Gdx.input.getY() + escapyCamera.getShiftVec().y);
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.F)) {

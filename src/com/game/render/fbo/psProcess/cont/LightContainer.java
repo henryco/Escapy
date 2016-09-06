@@ -16,6 +16,7 @@ import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
 import com.game.render.fbo.psRender.EscapyPostExec;
 import com.game.render.fbo.psRender.EscapyPostIterative;
 import com.game.render.fbo.psRender.EscapyPostRenderable;
+import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.blend.EscapyBlendRenderer;
 import com.game.render.shader.blur.userState.EscapyStdBlurRenderer;
 import com.game.render.shader.blur.userState.EscapyStdBlurRenderer.EscapyBlur;
@@ -39,6 +40,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	
 	private EscapyBlendRenderer blender;
 	private EscapyStdBlurRenderer blurRednerer;
+    private EscapyStdShaderRenderer stdRenderer;
 	
 	private boolean isBlured;
     private boolean stateUpdated;
@@ -92,15 +94,18 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	
 	@Override
 	protected void initContainer() {
-		super.initContainer();
-		this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
-		this.lightFBO = new StandartMultiFBO();
-		this.blender = new EscapyBlendRenderer(VERTEX, FRAGMENT, "targetMap", "blendMap");
-		this.blurRednerer = new EscapyStdBlurRenderer(EscapyBlur.GAUSSIAN_13, 1f, 1f);
-		this.ortoFBO = new StandartFBO();
-		this.blurFBO = new StandartFBO();
-		this.setBlur(false);
+       super.initContainer();
+       this.postRenderCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight()
+       );
+       this.lightFBO = new StandartMultiFBO();
+       this.blender = new EscapyBlendRenderer(VERTEX, FRAGMENT, "targetMap", "blendMap");
+       this.blurRednerer = new EscapyStdBlurRenderer(EscapyBlur.GAUSSIAN_13, 1f, 1f);
+       this.stdRenderer = new EscapyStdShaderRenderer();
+
+       this.ortoFBO = new StandartFBO();
+       this.blurFBO = new StandartFBO();
+       this.setBlur(false);
        this.stateUpdated = true;
        this.optTransVec = new float[2];
 	}
@@ -123,7 +128,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	public EscapyFBO mergeContainedFBO(int iterations) {	
 		return this.mergeContainedFBO(this.postRenderCamera, iterations);
 	}
-	
 	@Override
 	public EscapyFBO mergeContainedFBO(EscapyGdxCamera camera) {
 		
@@ -136,12 +140,15 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		EscapyFBO temp = renderContainedFBO(camera);
 		lightFBO.begin();
 		while (iterations > 0) {
-		    temp.renderFBO();
-			iterations -= 1;
-		}	return lightFBO.endMergedBuffer();
+		    stdRenderer.drawTexture(temp.getTextureRegion().getTexture(),
+                  postRenderCamera.getCamera(),
+                  -optTransVec[0], -optTransVec[1]
+          );
+		    iterations -= 1;
+		}	 return lightFBO.endMergedBuffer();
 	}
 
-	
+
 	public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 		
 		super.targetsList.forEach( light -> {
@@ -169,13 +176,13 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
            stateUpdated = false;
            Arrays.fill(optTransVec, 0);
        } else {
-           optTransVec[0] = camera.getShiftVecArr()[0];
-           optTransVec[1] = camera.getShiftVecArr()[1];
+           optTransVec[0] += camera.getTranslationVectorArray()[0];
+           optTransVec[1] += camera.getTranslationVectorArray()[1];
        }
-
        if (!isBlured || flag[0] == 0) return this.blurFBO;
 
        this.ortoFBO.begin().wipeFBO();
+       this.blurFBO.renderFBO();
        this.blurFBO.renderFBO();
        this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
                postRenderCamera.getCamera(), blurFBO.getRegWidth(),
