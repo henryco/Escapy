@@ -1,5 +1,6 @@
 package com.game.render.fbo.psProcess.cont;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 import com.badlogic.gdx.Gdx;
@@ -19,13 +20,15 @@ import com.game.render.shader.blend.EscapyBlendRenderer;
 import com.game.render.shader.blur.userState.EscapyStdBlurRenderer;
 import com.game.render.shader.blur.userState.EscapyStdBlurRenderer.EscapyBlur;
 import com.game.utils.absContainer.EscapyAbsContainer;
+import com.game.utils.observ.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
 
 public class LightContainer extends EscapyAbsContainer<AbsStdLight>
-	implements EscapyPostExec <EscapyMultiFBO>, EscapyPostIterative, EscapyFBOContainer {
+	implements EscapyPostExec <EscapyMultiFBO>, EscapyPostIterative,
+        EscapyFBOContainer, SimpleObserver<EscapyFBOContainer> {
 
-	
-	public final static class light extends FBOStdBlendProgramFactory {};
+
+    public final static class light extends FBOStdBlendProgramFactory {};
 	
 	private EscapyGdxCamera postRenderCamera;
 	private EscapyMultiFBO lightFBO;
@@ -38,6 +41,9 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	private EscapyStdBlurRenderer blurRednerer;
 	
 	private boolean isBlured;
+    private boolean stateUpdated;
+
+    private float[] optTransVec;
 	
 	public LightContainer() { 
 	}
@@ -95,12 +101,22 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		this.ortoFBO = new StandartFBO();
 		this.blurFBO = new StandartFBO();
 		this.setBlur(false);
+       this.stateUpdated = true;
+       this.optTransVec = new float[2];
 	}
-	
-	
-	
-	
-	@Override
+
+    @Override
+    public void stateUpdated(EscapyFBOContainer state) {
+        stateUpdated = true;
+    }
+
+    @Override
+    public int addSource(AbsStdLight source) {
+        source.addObserver(this);
+        return super.addSource(source);
+    }
+
+    @Override
 	public EscapyFBO mergeContainedFBO() {	
 		return this.mergeContainedFBO(this.postRenderCamera);
 	}
@@ -120,37 +136,52 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		EscapyFBO temp = renderContainedFBO(camera);
 		lightFBO.begin();
 		while (iterations > 0) {
-			lightFBO.renderToFBO(temp);
+		    temp.renderFBO();
 			iterations -= 1;
 		}	return lightFBO.endMergedBuffer();
 	}
+
 	
 	public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 		
-		super.targetsList.forEach( light -> {if (light.isVisible()) light.preRender(camera);});
+		super.targetsList.forEach( light -> {
+		    if (light.isVisible() && stateUpdated) light.preRender(camera);
+		});
 		int[] flag = new int[]{0};
-		this.blurFBO.begin().wipeFBO();	
+		this.blurFBO.begin().wipeFBO();
+
 		this.targetsList.forEach( light -> {
 		
 			if (light.isVisible()) {
 
-			    this.blender.renderBlended(blurFBO.getSpriteRegion(),
-                     light.getFBO().getSpriteRegion(),
+             this.blender.renderBlended(blurFBO.getTextureRegion(),
+                     light.getFBO().getTextureRegion(),
+                     light.getOptTranslation()[0],
+                     light.getOptTranslation()[1],
+                     blurFBO.getRegWidth(), blurFBO.getRegHeight(),
                      postRenderCamera.getCamera());
-				flag[0] += 1;
+             flag[0] += 1;
 			}
-		});
-		this.blurFBO.end();
-		
-		if (!isBlured || flag[0] == 0)
-			return this.blurFBO;
+      });
+      this.blurFBO.end();
 
-		this.ortoFBO.begin().wipeFBO();
-        this.blurFBO.renderFBO();
-        this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
-                postRenderCamera.getCamera(), blurFBO.getRegWidth(),
-                blurFBO.getRegHeight(), 1, 1);
-		return this.ortoFBO.end();
+       if (stateUpdated) {
+           stateUpdated = false;
+           Arrays.fill(optTransVec, 0);
+       } else {
+           optTransVec[0] = camera.getShiftVecArr()[0];
+           optTransVec[1] = camera.getShiftVecArr()[1];
+       }
+
+       if (!isBlured || flag[0] == 0) return this.blurFBO;
+
+       this.ortoFBO.begin().wipeFBO();
+       this.blurFBO.renderFBO();
+       this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
+               postRenderCamera.getCamera(), blurFBO.getRegWidth(),
+               blurFBO.getRegHeight(), 1, 1
+       );
+       return this.ortoFBO.end();
 	}
 	
 	
@@ -158,10 +189,9 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec, int times) {
 		fbo.begin();
 		while (times > 0) {
-			this.postRender(translationVec);
-			times -=1;
-		}	fbo.end().mergeBuffer();
-		return fbo;
+		    this.postRender(translationVec);
+          times -=1;
+		} return fbo.end().mergeBuffer();
 	}
 	
 	@Override

@@ -18,7 +18,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 	
 	 private EscapyFBO lightMapFBO, shadowMapFBO, shadowFBO;
 	 private EscapyGdxCamera lightCam, shadowMapCam, shadowCam;
-	 private TransVec transPos;
+	 protected TransVec transPos;
 
     protected float threshold;
 

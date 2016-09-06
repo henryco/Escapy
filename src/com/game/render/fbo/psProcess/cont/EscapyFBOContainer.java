@@ -4,7 +4,7 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 
 public interface EscapyFBOContainer {
-	
-	public EscapyFBO mergeContainedFBO();
-	public EscapyFBO mergeContainedFBO(EscapyGdxCamera camera);
+
+    EscapyFBO mergeContainedFBO();
+    EscapyFBO mergeContainedFBO(EscapyGdxCamera camera);
 }

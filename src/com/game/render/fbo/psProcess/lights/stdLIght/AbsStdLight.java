@@ -10,16 +10,18 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
+import com.game.render.fbo.psProcess.cont.EscapyFBOContainer;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
 import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.lightSrc.EscapyLightSrcRenderer;
 import com.game.render.shader.lightSrc.userState.EscapyStdLightSrcRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
+import com.game.utils.observ.SimpleObservated;
 import com.game.utils.observ.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
 
 public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProcessed, 
-	 SimpleObserver<TransVec> {
+	 SimpleObserver<TransVec>, SimpleObservated {
 		
 	protected Sprite lightSprite;
 	protected EscapyLightType lightSource;
@@ -38,13 +40,18 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	protected float coeff;
 	protected float correct;
 	protected float scale;
-	
+
+    protected float[] optTranslation;
+
 	protected boolean visible;
-	
+    protected boolean needUpdate;
+
+    protected SimpleObserver<EscapyFBOContainer> observer;
+
 	private int id;
-	
-	
-	{
+
+
+    {
 		this.id = this.hashCode();
 		
 		this.position = new TransVec().setObservedObj(this);
@@ -63,7 +70,9 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.scale = 1;
 		this.coeff = 1.f;
 		this.correct = 0.5f;
-		
+
+       this.optTranslation = new float[2];
+
 		this.visible = true;
 	}
 	
@@ -111,16 +120,22 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 
-	
+    public SimpleObservated addObserver(SimpleObserver observer) {
+        this.observer = observer;
+        return this;
+    }
+
 	@Override
 	public void stateUpdated(TransVec state) {
-		float tempX = state.x - (this.lightSource.getWidth() / 2.f);
+       this.updState();
+	    float tempX = state.x - (this.lightSource.getWidth() / 2.f);
 		float tempY = state.y - (this.lightSource.getHeight() / 2.f);
 		this.lightSource.setPosition(tempX, tempY);
 	}
 	
 	public AbsStdLight setLightSource(EscapyLightType light) {
-		this.lightSource = light;
+       this.updState();
+	    this.lightSource = light;
 		EscapyFBO lightFBO = new StandartFBO(this.getID(), (int)this.lightSource.getWidth(),
 				(int) this.lightSource.getHeight());
 		this.lightSprite = new Sprite(lightFBO.forceWipeFBO().getTextureRegion());
@@ -129,12 +144,14 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 	public AbsStdLight setScale(float scale){
-		this.scale = scale;
+       this.updState();
+	    this.scale = scale;
 		this.lightSprite.setScale(scale);
 		return this;
 	}
 	public AbsStdLight setPosition(float x, float y) {
-		this.position.setTransVec(x, y);
+       this.updState();
+	    this.position.setTransVec(x, y);
 		return this;
 	}
 	public AbsStdLight setPosition(float[] xy) {
@@ -151,13 +168,15 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 	
 	public AbsStdLight setCoeff(float cf) {
-		this.coeff = cf;
+       this.updState();
+	    this.coeff = cf;
 		if (coeff > 1 || coeff < 0) coeff = 0.5f;
 		return this;
 	}
 	
 	public AbsStdLight setAngle(float srcAngle, float shiftAngle, float corr) {
-		this.lightAngles.setTransVec(srcAngle, 0);
+       this.updState();
+	    this.lightAngles.setTransVec(srcAngle, 0);
 		this.setAngleCorrection(corr);
 		this.rotAngle(shiftAngle);
 		return this;
@@ -173,7 +192,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 	
 	public AbsStdLight rotAngle(float shiftAngle) {
-		this.lightAngles.add(shiftAngle, shiftAngle);
+       this.updState();
+	    this.lightAngles.add(shiftAngle, shiftAngle);
 		if (lightAngles.x > 0.5f + correct) lightAngles.sub(1, 0);
 		if (lightAngles.y > 0.5f + correct) lightAngles.sub(0, 1);
 		if (lightAngles.x < -0.5f + correct) lightAngles.add(1, 0);
@@ -182,7 +202,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 	public AbsStdLight addAngle(float shiftAngle) {
-		this.lightAngles.add(shiftAngle, 0);
+       this.updState();
+	    this.lightAngles.add(shiftAngle, 0);
 		if (lightAngles.x > 0.5f + correct) lightAngles.sub(1, 0);
 		if (lightAngles.y > 0.5f + correct) lightAngles.sub(0, 1);
 		if (lightAngles.x < -0.5f + correct) lightAngles.add(1, 0);
@@ -192,7 +213,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 	
 	public AbsStdLight setAngleCorrection(float corr) {
-		this.correct = corr;
+       this.updState();
+	    this.correct = corr;
 		return this;
 	}
 
@@ -202,7 +224,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	 * @return {@link AbsStdLight}
 	 */
 	public AbsStdLight setMinRadius(float minRadius) {
-		this.radius.setX((minRadius <= 0) ? 0 : minRadius);
+       this.updState();
+	    this.radius.setX((minRadius <= 0) ? 0 : minRadius);
 		return this;
 	}
 	public AbsStdLight setMinRadius(Function<Float, Float> funct) {
@@ -213,7 +236,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	 * @return {@link AbsStdLight}
 	 */
 	public AbsStdLight setMaxRadius(float maxRadius) {
-		this.radius.setY((maxRadius <= 0) ? 0 : maxRadius);
+       this.updState();
+	    this.radius.setY((maxRadius <= 0) ? 0 : maxRadius);
 		return this;
 	}
 	public AbsStdLight setMaxRadius(Function<Float, Float> funct) {
@@ -221,7 +245,8 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 	
 	public AbsStdLight setUmbraCoeff(float umbraCoeff) {
-		this.umbra.setX((umbraCoeff <= 0) ? 0 : umbraCoeff);
+       this.updState();
+	    this.umbra.setX((umbraCoeff <= 0) ? 0 : umbraCoeff);
 		System.out.println(umbra);
 		return this;
 	}
@@ -229,12 +254,13 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this.setUmbraCoeff(funct.apply(this.umbra.getX()));
 	}
 	public AbsStdLight setUmbraRecess(float umbraRecess) {
-		this.umbra.setY((umbraRecess <= 0) ? 0 : umbraRecess);
+       this.updState();
+	    this.umbra.setY((umbraRecess <= 0) ? 0 : umbraRecess);
 		System.out.println(umbra);
 		return this;
 	}
 	public AbsStdLight setUmbraRecess(Function<Float, Float> funct) {
-		return this.setUmbraRecess(funct.apply(this.umbra.getY()));
+	    return this.setUmbraRecess(funct.apply(this.umbra.getY()));
 	}
 	
 	public abstract EscapyLightType getDefaultLight();
@@ -261,17 +287,20 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 
 	public AbsStdLight setColor(Color color) {
-		this.color = color;
+       this.updState();
+	    this.color = color;
 		return this;
 	}
 	public AbsStdLight setColor(float r, float g, float b) {
-		this.color.r = r;
+       this.updState();
+	    this.color.r = r;
 		this.color.g = g;
 		this.color.b = b;
 		return this;
 	}
 	public AbsStdLight setColor(int r255, int g255, int b255) {
-		this.color.r = ((float)r255)/255f;
+       this.updState();
+	    this.color.r = ((float)r255)/255f;
 		this.color.g = ((float)g255)/255f;
 		this.color.b = ((float)b255)/255f;
 		return this;
@@ -297,5 +326,23 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
    }
 
    public abstract  AbsStdLight get();
+
+
+    public float[] getOptTranslation() {
+        return optTranslation;
+    }
+
+    public boolean isNeedUpdate() {
+        return needUpdate;
+    }
+
+    public AbsStdLight setUpdate(boolean needUpdate) {
+        this.needUpdate = needUpdate;
+        if (needUpdate) this.updState();
+        return this;
+    }
+    protected void updState(){
+        if (observer != null) this.observer.stateUpdated(null);
+    }
 }
 
