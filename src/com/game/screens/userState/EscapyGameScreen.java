@@ -67,90 +67,84 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	 */
 	public EscapyGameScreen(EscapyGdxCamera escapyCamera, GameEnter gameState) {
 		super(escapyCamera, gameState);
-		System.out.println("@constructor");
-
 	}
-	
 
 	@Override
 	public void show() {
-		System.out.println("@show");
 		if (!super.initializationEnded)
 			this.initState();
 	}
 
-	
-
 	@Override
 	public Screen initState() {
-		System.out.println("@init state");
 
-		
-		this.controlls = PlayerControl.playerController();
-		this.mapContainer = new InitMap(super.settings.Location(), super.settings.getFrameWIDHT(),
-				super.settings.getFrameHEIGHT(), super.settings.scaleRatio());
-		this.charactersContainer = new InitCharacters();
-		this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
-		this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
-		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder()
-				.addCameraProgram(CameraProgramFactory.stdCharacterProgram(this.charactersContainer.player()));
-		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
-
-		this.lightBuffFBO = new StandartFBO();
-		this.MAINFBO = new StandartFBO();
-		this.bgrFBO = new StandartFBO(); 
-		this.stdFBO = new StandartFBO();
-		this.nrmlFBO = new StandartFBO();
-		this.lightMapFBO = new StandartFBO();
-		
-		this.lightMask = new LightMaskContainer();
-		this.bgrContainer = new ExtraRenderContainer(); 
-		this.stdContainer = new ExtraRenderContainer();
-		this.normalsContainer = new ExtraRenderContainer();
-		this.lightsMapContainer = new ExtraRenderContainer();
-		this.volumeLights = new VolumeLightsExecutor();
-
-      this.lightContainer = new InitLights(stdFBO, lightMapFBO, super.settings.Location());
-
-		this.otherTranslationVec = new TransVec();
-
-		this.bgrContainer.addSource(new StdRenderer(mapContainer.backGround())); 
-		 for (int i = 0; i < 4; i++)
-			for (int j = 0; j < mapContainer.objectSize()[mapContainer.indexTab()[i]]; j++) {
-				this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
-				if (mapContainer.gameObjects()[mapContainer.indexTab()[i]][j] instanceof EscapyNormalMapRender)
-					this.normalsContainer.addSource(new NormalRenderer((EscapyNormalMapRender) mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
-				if (mapContainer.gameObjects()[mapContainer.indexTab()[i]][j] instanceof EscapyLightMapRenderer)
-					this.lightsMapContainer.addSource(new LightMapRenderer((EscapyLightMapRenderer) mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
-			}
-
-		 for (int i = 0; i < this.charactersContainer.npc().length; i++)
-			this.stdContainer.addSource(new StdRenderer(charactersContainer.npc()[i]));
-		
-		 this.stdContainer.addSource(new StdRenderer(charactersContainer.player()));
-		 this.normalsContainer.addSource(new NormalRenderer(charactersContainer.player()));
-		 this.lightsMapContainer.addSource(new LightMapRenderer(charactersContainer.player()));
-		
-       for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /* FRONT PARALLAX */
-			this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
-
-
-       this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(),
-               Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer()
-       );
-
-       this.mask.setColor(new Color((40f/255f), (40f/255f), (40f/255f), 1f));
-
-       this.bgrMask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-       this.bgrMask.setMode(EscapyMask.MULTIPLY).addMaskTarget(bgrFBO.getFrameBuffer());
-
-
+       this.init_base();
+       this.init_fbo();
+       this.init_containers();
+       this.init_mask();
 
        super.initializationEnded = true;
-
-		System.gc();	
-		return this;
+		 System.gc();
+		 return this;
 	}
+
+    public void init_base() {
+        this.controlls = PlayerControl.playerController();
+        this.mapContainer = new InitMap(super.settings.Location(), super.settings.getFrameWIDHT(),
+                super.settings.getFrameHEIGHT(), super.settings.scaleRatio());
+        this.charactersContainer = new InitCharacters();
+        this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
+        this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
+        this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder()
+                .addCameraProgram(CameraProgramFactory.stdCharacterProgram(this.charactersContainer.player()));
+        this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
+    }
+    public void init_fbo() {
+        this.lightBuffFBO = new StandartFBO();
+        this.MAINFBO = new StandartFBO();
+        this.bgrFBO = new StandartFBO();
+        this.stdFBO = new StandartFBO();
+        this.nrmlFBO = new StandartFBO();
+        this.lightMapFBO = new StandartFBO();
+    }
+    public void init_containers() {
+        this.lightMask = new LightMaskContainer();
+        this.bgrContainer = new ExtraRenderContainer();
+        this.stdContainer = new ExtraRenderContainer();
+        this.normalsContainer = new ExtraRenderContainer();
+        this.lightsMapContainer = new ExtraRenderContainer();
+        this.volumeLights = new VolumeLightsExecutor();
+        this.lightContainer = new InitLights(stdFBO, lightMapFBO, super.settings.Location());
+
+        this.bgrContainer.addSource(new StdRenderer(mapContainer.backGround()));
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < mapContainer.objectSize()[mapContainer.indexTab()[i]]; j++) {
+                this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
+                if (mapContainer.gameObjects()[mapContainer.indexTab()[i]][j] instanceof EscapyNormalMapRender)
+                    this.normalsContainer.addSource(new NormalRenderer((EscapyNormalMapRender) mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
+                if (mapContainer.gameObjects()[mapContainer.indexTab()[i]][j] instanceof EscapyLightMapRenderer)
+                    this.lightsMapContainer.addSource(new LightMapRenderer((EscapyLightMapRenderer) mapContainer.gameObjects()[mapContainer.indexTab()[i]][j]));
+            }
+
+        for (int i = 0; i < this.charactersContainer.npc().length; i++)
+            this.stdContainer.addSource(new StdRenderer(charactersContainer.npc()[i]));
+
+        this.stdContainer.addSource(new StdRenderer(charactersContainer.player()));
+        this.normalsContainer.addSource(new NormalRenderer(charactersContainer.player()));
+        this.lightsMapContainer.addSource(new LightMapRenderer(charactersContainer.player()));
+
+        this.otherTranslationVec = new TransVec();
+        for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /* FRONT PARALLAX */
+            this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
+    }
+    public void init_mask() {
+        this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
+        this.mask.setColor(new Color((40f/255f), (40f/255f), (40f/255f), 1f));
+
+        this.bgrMask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.bgrMask.setMode(EscapyMask.MULTIPLY).addMaskTarget(bgrFBO.getFrameBuffer());
+    }
 
 	
 	
@@ -220,18 +214,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 	}
 	
-	
-
+    
 	@Override
 	public void update() {
-		
 		this.controlls.baseKeyboard_upd();
-
 		this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
 				controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
 	}
-
-	
 
 	@Override
 	public void renderGameObjects(EscapyGdxCamera escapyCamera) {
@@ -263,10 +252,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.clear();
 		this.MAINFBO.forceWipeFBO();
 		this.lightBuffFBO.forceWipeFBO();
-
-       this.lightContainer.lights.wipeMultiBuffers();
+      this.lightContainer.lights.wipeMultiBuffers();
 		
-		super.escapyCamera.holdCamera();
+		super.escapyCamera.holdCamera(delta);
 		
 		this.renderGameObjects(escapyCamera);
 		
@@ -275,18 +263,22 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		
 		this.MAINFBO.renderFBO();
 
-       lightContainer.lights.lights[0].mergeContainedFBO(escapyCamera, 3);
-       lightContainer.lights.lights[1].mergeContainedFBO(escapyCamera, 3);
-       lightContainer.lights.lights[0].postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
-       lightContainer.lights.lights[1].postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
+///*
+      this.lightContainer.lights.apply(
+         l -> l.mergeContainedFBO(escapyCamera, 3));
+      this.lightContainer.lights.apply(
+         l -> l.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1));
+//*/
+//    for incrase performance use below
+//      this.lightContainer.lights.mergeAndRender(lightBuffFBO, escapyCamera, 3, 1);
 
-		this.MAINFBO.renderFBO();
+      this.MAINFBO.renderFBO();
 		this.MAINFBO.forceRenderToFBO(lightBuffFBO);
 			
 		this.MAINFBO.renderFBO();
 		this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO,
-              lightContainer.lights.lights[1].getLightIntensity(),
-              lightContainer.lights.lights[1].getAmbientIntensity());
+              volumeLights.getLightIntensity(),
+              volumeLights.getAmbientIntensity());
 	
 
 		this.MAINFBO.renderFBO();

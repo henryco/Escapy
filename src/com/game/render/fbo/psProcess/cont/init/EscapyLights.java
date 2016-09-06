@@ -1,11 +1,15 @@
 package com.game.render.fbo.psProcess.cont.init;
 
+import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightContainer;
+import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
+
+import java.util.function.Function;
 
 
 /**
@@ -44,6 +48,20 @@ public class EscapyLights {
         temp[size] = new LightContainer(multiFBO[size], program, blur);
         lights = temp;
         return this;
+    }
+
+    public EscapyLights apply(Function<LightContainer, Object> fucnt) {
+        for (LightContainer target : lights) {
+            fucnt.apply(target);
+        }   return this;
+    }
+
+    public void mergeAndRender(EscapyFBO lightBuff, EscapyGdxCamera cam,
+                               int mergeIter, int rendIter){
+        for (LightContainer target : lights)
+            target.mergeContainedFBO(cam, mergeIter);
+        for (LightContainer target : lights)
+            target.postRender(lightBuff, cam.getTranslationVec(), rendIter);
     }
 
     public EscapyLights wipeMultiBuffers() {

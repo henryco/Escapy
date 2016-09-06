@@ -36,8 +36,8 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 	private EscapyVolumeRenderer volRenderer;
 	
 	{
-		this.lightIntensity = 0.36f;
-		this.ambientIntesity = 0.39f;
+		this.lightIntensity = 0.2f;
+		this.ambientIntesity = 0.75f;
 		this.volRenderer = new EscapyStdVolumeRenderer();
 		this.canvasDim = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
