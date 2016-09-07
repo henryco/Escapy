@@ -31,9 +31,7 @@ public class EscapyGdxCamera {
 	/**
 	 * Instantiates a new escapy gdx camera.
 	 */
-	public EscapyGdxCamera() {
-		return;
-	}
+	public EscapyGdxCamera() {}
 	
 	/**
 	 * Instantiates a new escapy gdx camera.

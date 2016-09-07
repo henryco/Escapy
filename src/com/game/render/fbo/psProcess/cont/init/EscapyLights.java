@@ -5,7 +5,6 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.StandartMultiFBO;
 import com.game.render.fbo.psProcess.cont.LightContainer;
-import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
 

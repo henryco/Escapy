@@ -22,138 +22,150 @@ import com.game.utils.translationVec.TransVec;
 
 public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProcessed, 
 	 SimpleObserver<TransVec>, SimpleObservated {
-		
-	protected Sprite lightSprite;
-	protected EscapyLightType lightSource;
-	protected EscapyStdShaderRenderer stdRenderer;
-	protected EscapyLightSrcRenderer srcRenderer;
-	
-	protected Color color;
-	protected EscapyFBO fbo, lightMap;
-	
-	protected TransVec position;
-	protected TransVec resolution;
-	protected TransVec lightAngles;
-	protected TransVec radius;
-	protected TransVec umbra;
 
-	protected float coeff;
-	protected float correct;
-	protected float scale;
-   protected float threshold;
+    protected SimpleObserver<EscapyFBOContainer> observer;
+	 protected Sprite lightSprite;
+	 protected EscapyLightType lightSource;
+	 protected EscapyStdShaderRenderer stdRenderer;
+	 protected EscapyLightSrcRenderer srcRenderer;
+
+    public EscapyGdxCamera interCam;
+
+	 protected Color color;
+	 protected EscapyFBO fbo, lightMap;
+	
+	 protected TransVec position;
+	 protected TransVec resolution;
+	 protected TransVec lightAngles;
+	 protected TransVec radius;
+	 protected TransVec umbra;
+
+	 protected float coeff;
+	 protected float correct;
+	 protected float scale;
+    protected float threshold;
 
     protected float[] optTranslation;
 
-	protected boolean visible;
+	 protected boolean visible;
     protected boolean needUpdate;
 
-    protected SimpleObserver<EscapyFBOContainer> observer;
-
-	private int id;
+	 private int id;
 
 
-   {
-		this.id = this.hashCode();
+    {
+		  this.id = this.hashCode();
 		
-		this.position = new TransVec().setObservedObj(this);
-		this.resolution = new TransVec(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		this.lightAngles = new TransVec(1f, 0f); 
-		this.radius = new TransVec(0, 1f);
-		this.umbra = new TransVec();
+		  this.position = new TransVec().setObservedObj(this);
+		  this.resolution = new TransVec(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		  this.lightAngles = new TransVec(1f, 0f);
+		  this.radius = new TransVec(0, 1f);
+		  this.umbra = new TransVec();
 		
-		this.color = new Color(0, 0, 0, 1);
+		  this.color = new Color(0, 0, 0, 1);
 
-		this.stdRenderer = new EscapyStdShaderRenderer(id);
-		this.srcRenderer = new EscapyStdLightSrcRenderer(id);
-		
-		this.fbo = new StandartFBO(id); 
+		  this.stdRenderer = new EscapyStdShaderRenderer(id);
+		  this.srcRenderer = new EscapyStdLightSrcRenderer(id);
 
-		this.scale = 1;
-		this.coeff = 1.f;
-		this.correct = 0.5f;
+        this.interCam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-       this.optTranslation = new float[2];
+		  this.fbo = new StandartFBO(id);
 
-		this.visible = true;
-	}
+		  this.scale = 1;
+		  this.coeff = 1.f;
+        this.correct = 0.5f;
+
+        this.optTranslation = new float[2];
+
+		  this.visible = true;
+	 }
 	
-	public AbsStdLight() {
+	 public AbsStdLight() {
 		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}	
-	public AbsStdLight(EscapyFBO lightMap) {
+	 public AbsStdLight(EscapyFBO lightMap) {
 		this.setLightMapFBO(lightMap);
 	}
-	public AbsStdLight(int id, EscapyFBO lightMap) {
+	 public AbsStdLight(int id, EscapyFBO lightMap) {
 		this.setID(id);
 		this.setLightMapFBO(lightMap);
 	}
-	public AbsStdLight(int id) {
+	 public AbsStdLight(int id) {
 		this.setID(id);
 		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
-	public AbsStdLight(TransVec position) {
+	 public AbsStdLight(TransVec position) {
 		this.setPosition(position);
 		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
-	public AbsStdLight(TransVec position, EscapyFBO lightMap) {
+	 public AbsStdLight(TransVec position, EscapyFBO lightMap) {
 		this.setPosition(position);
 		this.setLightMapFBO(lightMap);
 	}
-	public AbsStdLight(int id, TransVec position, EscapyFBO lightMap) {
+	 public AbsStdLight(int id, TransVec position, EscapyFBO lightMap) {
 		this.setID(id);
 		this.setPosition(position);
 		this.setLightMapFBO(lightMap);
 	}
-	public AbsStdLight(int id, TransVec position) {
+	 public AbsStdLight(int id, TransVec position) {
 		this.setID(id);
 		this.setPosition(position);
 		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
-	
-	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 
-		lightSprite.setPosition(lightSource.getX(), lightSource.getY());
-		fbo.begin().wipeFBO();
-		this.srcRenderer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(), 
-			escapyCamera.getCamera(), color, lightAngles, resolution, 
-			coeff, correct, radius, umbra);
-		fbo.end();
-		return this;
-	}
+	 public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
+
+	     lightSprite.setPosition(lightSource.getX(), lightSource.getY());
+        System.out.println(escapyCamera.getCamera().position.x);
+        fbo.begin().wipeFBO();
+        this.srcRenderer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(),
+			       escapyCamera.getCamera(), color, lightAngles, resolution,
+                coeff, correct, radius, umbra);
+        fbo.end();
+        return this;
+	 }
+
+    public AbsStdLight earlyRender() {
+        interCam.setCameraPosition(lightSource.getX() + (lightSource.getWidth() / 2.f),
+                lightSource.getY() + (lightSource.getHeight() / 2f));
+        optTranslation[0] = -interCam.getCamera().position.x;
+        optTranslation[1] = -interCam.getCamera().position.y;
+        return preRender(interCam);
+    }
 
     public SimpleObservated addObserver(SimpleObserver observer) {
         this.observer = observer;
         return this;
     }
 
-	@Override
-	public void stateUpdated(TransVec state) {
-       this.updState();
-	    float tempX = state.x - (this.lightSource.getWidth() / 2.f);
-		float tempY = state.y - (this.lightSource.getHeight() / 2.f);
-		this.lightSource.setPosition(tempX, tempY);
-	}
+	 @Override
+	 public void stateUpdated(TransVec state) {
+        this.updState();
+	     float tempX = state.x - (this.lightSource.getWidth() / 2.f);
+        float tempY = state.y - (this.lightSource.getHeight() / 2.f);
+        this.lightSource.setPosition(tempX, tempY);
+	 }
 	
 	public AbsStdLight setLightSource(EscapyLightType light) {
        this.updState();
 	    this.lightSource = light;
-		EscapyFBO lightFBO = new StandartFBO(this.getID(), (int)this.lightSource.getWidth(),
+       EscapyFBO lightFBO = new StandartFBO(this.getID(), (int)this.lightSource.getWidth(),
 				(int) this.lightSource.getHeight());
-		this.lightSprite = new Sprite(lightFBO.forceWipeFBO().getTextureRegion());
-		this.lightSprite.setScale(scale);
-		System.out.println(lightSource);
-		return this;
+       this.lightSprite = new Sprite(lightFBO.forceWipeFBO().getTextureRegion());
+       this.lightSprite.setScale(scale);
+       System.out.println(lightSource);
+       return this;
 	}
 	public AbsStdLight setScale(float scale){
        this.updState();
 	    this.scale = scale;
-		this.lightSprite.setScale(scale);
-		return this;
+       this.lightSprite.setScale(scale);
+       return this;
 	}
 	public AbsStdLight setPosition(float x, float y) {
        this.updState();
 	    this.position.setTransVec(x, y);
-		return this;
+       return this;
 	}
 	public AbsStdLight setPosition(float[] xy) {
 		this.setPosition(xy[0], xy[1]);
@@ -171,16 +183,16 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public AbsStdLight setCoeff(float cf) {
        this.updState();
 	    this.coeff = cf;
-		if (coeff > 1 || coeff < 0) coeff = 0.5f;
-		return this;
+       if (coeff > 1 || coeff < 0) coeff = 0.5f;
+       return this;
 	}
 	
 	public AbsStdLight setAngle(float srcAngle, float shiftAngle, float corr) {
        this.updState();
 	    this.lightAngles.setTransVec(srcAngle, 0);
-		this.setAngleCorrection(corr);
-		this.rotAngle(shiftAngle);
-		return this;
+       this.setAngleCorrection(corr);
+       this.rotAngle(shiftAngle);
+       return this;
 	}
 	public AbsStdLight setAngle(float angle) {
 		return this.setAngle(angle, 0, 0.5f);
@@ -195,138 +207,138 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public AbsStdLight rotAngle(float shiftAngle) {
        this.updState();
 	    this.lightAngles.add(shiftAngle, shiftAngle);
-		if (lightAngles.x > 0.5f + correct) lightAngles.sub(1, 0);
-		if (lightAngles.y > 0.5f + correct) lightAngles.sub(0, 1);
-		if (lightAngles.x < -0.5f + correct) lightAngles.add(1, 0);
-		if (lightAngles.y < -0.5f + correct) lightAngles.add(0, 1);
-		System.out.println(lightAngles);
-		return this;
+       if (lightAngles.x > 0.5f + correct) lightAngles.sub(1, 0);
+       if (lightAngles.y > 0.5f + correct) lightAngles.sub(0, 1);
+       if (lightAngles.x < -0.5f + correct) lightAngles.add(1, 0);
+       if (lightAngles.y < -0.5f + correct) lightAngles.add(0, 1);
+       System.out.println(lightAngles);
+       return this;
 	}
-	public AbsStdLight addAngle(float shiftAngle) {
-       this.updState();
-	    this.lightAngles.add(shiftAngle, 0);
-		if (lightAngles.x > 0.5f + correct) lightAngles.sub(1, 0);
-		if (lightAngles.y > 0.5f + correct) lightAngles.sub(0, 1);
-		if (lightAngles.x < -0.5f + correct) lightAngles.add(1, 0);
-		if (lightAngles.y < -0.5f + correct) lightAngles.add(0, 1);
-		System.out.println(lightAngles);
-		return this;
-	}
+	 public AbsStdLight addAngle(float shiftAngle) {
+        this.updState();
+	     this.lightAngles.add(shiftAngle, 0);
+        if (lightAngles.x > 0.5f + correct) lightAngles.sub(1, 0);
+        if (lightAngles.y > 0.5f + correct) lightAngles.sub(0, 1);
+        if (lightAngles.x < -0.5f + correct) lightAngles.add(1, 0);
+        if (lightAngles.y < -0.5f + correct) lightAngles.add(0, 1);
+        System.out.println(lightAngles);
+        return this;
+	 }
 	
-	public AbsStdLight setAngleCorrection(float corr) {
-       this.updState();
-	    this.correct = corr;
-		return this;
-	}
+	 public AbsStdLight setAngleCorrection(float corr) {
+        this.updState();
+	     this.correct = corr;
+        return this;
+	 }
 
 	
-	/** 
+	 /**
 	 * @param minRadius - minimal radius, value range from 0.0 to 1.0;
 	 * @return {@link AbsStdLight}
 	 */
-	public AbsStdLight setMinRadius(float minRadius) {
-       this.updState();
-	    this.radius.setX((minRadius <= 0) ? 0 : minRadius);
-		return this;
-	}
-	public AbsStdLight setMinRadius(Function<Float, Float> funct) {
-		return this.setMinRadius(funct.apply(this.radius.getX()));
-	}
-	/** 
+	 public AbsStdLight setMinRadius(float minRadius) {
+        this.updState();
+	     this.radius.setX((minRadius <= 0) ? 0 : minRadius);
+        return this;
+	 }
+	 public AbsStdLight setMinRadius(Function<Float, Float> funct) {
+        return this.setMinRadius(funct.apply(this.radius.getX()));
+	 }
+	 /**
 	 * @param maxRadius - maximal radius, value range from 0.0 to 1.0;
 	 * @return {@link AbsStdLight}
 	 */
-	public AbsStdLight setMaxRadius(float maxRadius) {
-       this.updState();
-	    this.radius.setY((maxRadius <= 0) ? 0 : maxRadius);
-		return this;
-	}
-	public AbsStdLight setMaxRadius(Function<Float, Float> funct) {
-		return this.setMaxRadius(funct.apply(this.radius.getY()));
-	}
+	 public AbsStdLight setMaxRadius(float maxRadius) {
+        this.updState();
+	     this.radius.setY((maxRadius <= 0) ? 0 : maxRadius);
+        return this;
+	 }
+	 public AbsStdLight setMaxRadius(Function<Float, Float> funct) {
+        return this.setMaxRadius(funct.apply(this.radius.getY()));
+	 }
 	
-	public AbsStdLight setUmbraCoeff(float umbraCoeff) {
-       this.updState();
-	    this.umbra.setX((umbraCoeff <= 0) ? 0 : umbraCoeff);
-		System.out.println(umbra);
-		return this;
-	}
-	public AbsStdLight setUmbraCoeff(Function<Float, Float> funct) {
-		return this.setUmbraCoeff(funct.apply(this.umbra.getX()));
-	}
-	public AbsStdLight setUmbraRecess(float umbraRecess) {
-       this.updState();
-	    this.umbra.setY((umbraRecess <= 0) ? 0 : umbraRecess);
-		System.out.println(umbra);
-		return this;
-	}
-	public AbsStdLight setUmbraRecess(Function<Float, Float> funct) {
-	    return this.setUmbraRecess(funct.apply(this.umbra.getY()));
-	}
+	 public AbsStdLight setUmbraCoeff(float umbraCoeff) {
+        this.updState();
+	     this.umbra.setX((umbraCoeff <= 0) ? 0 : umbraCoeff);
+        System.out.println(umbra);
+        return this;
+	 }
+	 public AbsStdLight setUmbraCoeff(Function<Float, Float> funct) {
+		  return this.setUmbraCoeff(funct.apply(this.umbra.getX()));
+	 }
+	 public AbsStdLight setUmbraRecess(float umbraRecess) {
+        this.updState();
+	     this.umbra.setY((umbraRecess <= 0) ? 0 : umbraRecess);
+        System.out.println(umbra);
+        return this;
+	 }
+	 public AbsStdLight setUmbraRecess(Function<Float, Float> funct) {
+        return this.setUmbraRecess(funct.apply(this.umbra.getY()));
+	 }
 	
-	public abstract EscapyLightType getDefaultLight();
+	 public abstract EscapyLightType getDefaultLight();
 
-	@Override
-	public int getID() {
+	 @Override
+	 public int getID() {
 		return this.id;
 	}
 	
-	@Override
-	public void setID(int id) {
+	 @Override
+	 public void setID(int id) {
 		this.id = id;
 	}
 	
-	public TransVec getPosition() {
+	 public TransVec getPosition() {
 		return position;
 	}
-	public float[] getPositionArray() {
+	 public float[] getPositionArray() {
 		return position.getVecArray();
 	}
 
-	public Color getColor() {
+	 public Color getColor() {
 		return color;
 	}
 
-	public AbsStdLight setColor(Color color) {
-       this.updState();
-	    this.color = color;
-		return this;
-	}
-	public AbsStdLight setColor(float r, float g, float b) {
-       this.updState();
-	    this.color.r = r;
-		this.color.g = g;
-		this.color.b = b;
-		return this;
-	}
-	public AbsStdLight setColor(int r255, int g255, int b255) {
-       this.updState();
-	    this.color.r = ((float)r255)/255f;
-		this.color.g = ((float)g255)/255f;
-		this.color.b = ((float)b255)/255f;
-		return this;
-	}
+	 public AbsStdLight setColor(Color color) {
+        this.updState();
+	     this.color = color;
+        return this;
+	 }
+	 public AbsStdLight setColor(float r, float g, float b) {
+        this.updState();
+	     this.color.r = r;
+        this.color.g = g;
+        this.color.b = b;
+        return this;
+	 }
+    public AbsStdLight setColor(int r255, int g255, int b255) {
+        this.updState();
+	     this.color.r = ((float)r255)/255f;
+        this.color.g = ((float)g255)/255f;
+        this.color.b = ((float)b255)/255f;
+        return this;
+    }
 
-	public EscapyFBO getFBO() {
+    public EscapyFBO getFBO() {
 		return fbo;
 	}
 
-	public EscapyFBO getLightMapFBO() {
+    public EscapyFBO getLightMapFBO() {
 		return lightMap;
 	}
 
-	public void setLightMapFBO(EscapyFBO lightMap) {
+    public void setLightMapFBO(EscapyFBO lightMap) {
 		this.lightMap = lightMap;
 	}
-	public boolean isVisible() {
+    public boolean isVisible() {
 		return visible;
 	}
-	public AbsStdLight setVisible(boolean visible) {
-       this.visible = visible;
-       return this;
-   }
+    public AbsStdLight setVisible(boolean visible) {
+        this.visible = visible;
+        return this;
+    }
 
-   public abstract  AbsStdLight get();
+    public abstract  AbsStdLight get();
 
 
     public float[] getOptTranslation() {

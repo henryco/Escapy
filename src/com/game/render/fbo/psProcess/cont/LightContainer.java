@@ -126,7 +126,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		return this.mergeContainedFBO(this.postRenderCamera);
 	}
 	public EscapyFBO mergeContainedFBO(int iterations) {	
-		return this.mergeContainedFBO(this.postRenderCamera, iterations);
+       return this.mergeContainedFBO(this.postRenderCamera, iterations);
 	}
 	@Override
 	public EscapyFBO mergeContainedFBO(EscapyGdxCamera camera) {
@@ -135,6 +135,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		lightFBO.forceRenderToFBO(temp).endMergedBuffer();
 		return lightFBO;
 	}
+
 	public EscapyFBO mergeContainedFBO(EscapyGdxCamera camera, int iterations) {
 		
 		EscapyFBO temp = renderContainedFBO(camera);
@@ -148,29 +149,52 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 		}	 return lightFBO.endMergedBuffer();
 	}
 
+	public EscapyFBO prepareContainedFBO(EscapyGdxCamera camera, int iterations) {
+
+	    EscapyFBO temp = renderPreparedFBO(camera);
+       lightFBO.begin();
+       while (iterations > 0) {
+           stdRenderer.drawTexture(temp.getTextureRegion().getTexture(),
+                   postRenderCamera.getCamera(),
+                   -optTransVec[0], -optTransVec[1]
+           );
+           iterations -= 1;
+       }    return lightFBO.endMergedBuffer();
+   }
 
 	public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 		
-		super.targetsList.forEach( light -> {
-		    if (light.isVisible() && stateUpdated) light.preRender(camera);
-		});
-		int[] flag = new int[]{0};
-		this.blurFBO.begin().wipeFBO();
+       super.targetsList.forEach( light -> {
+           if (light.isVisible() && stateUpdated) light.preRender(camera);
+       });
+       return renderContainedTexture(camera);
+	}
+    public EscapyFBO renderPreparedFBO(EscapyGdxCamera camera) {
 
-		this.targetsList.forEach( light -> {
-		
-			if (light.isVisible()) {
+        super.targetsList.forEach( light -> {
+            if (light.isVisible() && stateUpdated) light.preRender(light.interCam);
+        });
+        return renderContainedTexture(camera);
+    }
 
-             this.blender.renderBlended(blurFBO.getTextureRegion(),
-                     light.getFBO().getTextureRegion(),
-                     light.getOptTranslation()[0],
-                     light.getOptTranslation()[1],
-                     blurFBO.getRegWidth(), blurFBO.getRegHeight(),
-                     postRenderCamera.getCamera());
-             flag[0] += 1;
-			}
-      });
-      this.blurFBO.end();
+	private EscapyFBO renderContainedTexture(EscapyGdxCamera camera){
+
+	    int[] flag = new int[]{0};
+       this.blurFBO.begin().wipeFBO();
+       this.targetsList.forEach( light -> {
+
+           if (light.isVisible()) {
+
+               this.blender.renderBlended(blurFBO.getTextureRegion(),
+                       light.getFBO().getTextureRegion(),
+                       light.getOptTranslation()[0],
+                       light.getOptTranslation()[1],
+                       blurFBO.getRegWidth(), blurFBO.getRegHeight(),
+                       postRenderCamera.getCamera());
+               flag[0] += 1;
+           }
+       });
+       this.blurFBO.end();
 
        if (stateUpdated) {
            stateUpdated = false;
@@ -189,8 +213,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
                blurFBO.getRegHeight(), 1, 1
        );
        return this.ortoFBO.end();
-	}
-	
+   }
 	
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec, int times) {
@@ -200,17 +223,15 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
           times -=1;
 		} return fbo.end().mergeBuffer();
 	}
-	
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
-
 		return this.postRender(fbo, translationVec, 1);
 	}
-
 	@Override
 	public void postRender(TransVec translationVec) {
-		this.lightFBO.renderFBO(postRenderCamera);
+	    this.lightFBO.renderFBO(postRenderCamera);
 	}
+
 
 	@Override
 	public <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException {

@@ -69,11 +69,16 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super(escapyCamera, gameState);
 	}
 
+
     @Override
     public void show() {
         if (!super.initializationEnded)
             this.initState();
     }
+
+
+
+
 
     @Override
     public Screen initState() {
@@ -83,11 +88,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.init_containers();
         this.init_mask();
 
+        this.lightContainer.lights.apply(l -> l.prepareContainedFBO(escapyCamera, 3));
         super.initializationEnded = true;
         System.gc();
         return this;
     }
-
     public void init_base() {
         this.controlls = PlayerControl.playerController();
         this.mapContainer = new InitMap(super.settings.Location(), super.settings.getFrameWIDHT(),
@@ -147,69 +152,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     }
 
 
-    private void updDist() {
-		
-		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-			this.lightContainer.getSourceByID(this.lightContainer.lightID[1]).setPosition(
-					this.charactersContainer.player().getPhysicalBody().getBodyPosition());
-		}
-		if (Gdx.input.isTouched(0)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[1]).setPosition(
-					Gdx.input.getX() + escapyCamera.getShiftVec().x,
-					Gdx.input.getY() + escapyCamera.getShiftVec().y);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setPosition(
-					Gdx.input.getX() + escapyCamera.getShiftVec().x, 
-					Gdx.input.getY() + escapyCamera.getShiftVec().y);
-		}
-		
-		if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).rotAngle(0.01f);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setMinRadius(r -> r - 0.01f);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).rotAngle(-0.01f);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.O)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).addAngle(0.01f);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.L)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).addAngle(-0.01f);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setMinRadius(r -> r + 0.01f);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.T)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setMaxRadius(r -> r + 0.01f);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.G)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setMaxRadius(r -> r - 0.01f);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.Y)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setUmbraCoeff(c -> c + 0.01f);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.H)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setUmbraCoeff(c -> c - 0.01f);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.U)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setUmbraRecess(rc -> rc + 1);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.J)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setUmbraRecess(rc -> rc - 1);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.I)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setVisible(true);
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.K)) {
-          this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setVisible(false);
-		}
-		
-		
-	}
-	
+
+
 
     @Override
     public void update() {
@@ -217,53 +161,71 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
                 controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
     }
+    private void updDist() {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[1]).setPosition(
+                    this.charactersContainer.player().getPhysicalBody().getBodyPosition());
+        }
+        if (Gdx.input.isTouched(0)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[1]).setPosition(
+                    Gdx.input.getX() + escapyCamera.getShiftVec().x,
+                    Gdx.input.getY() + escapyCamera.getShiftVec().y);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setPosition(
+                    Gdx.input.getX() + escapyCamera.getShiftVec().x,
+                    Gdx.input.getY() + escapyCamera.getShiftVec().y);
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).rotAngle(0.01f);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setMinRadius(r -> r - 0.01f);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).rotAngle(-0.01f);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).addAngle(0.01f);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.L)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).addAngle(-0.01f);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setMinRadius(r -> r + 0.01f);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.T)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setMaxRadius(r -> r + 0.01f);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.G)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setMaxRadius(r -> r - 0.01f);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.Y)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setUmbraCoeff(c -> c + 0.01f);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.H)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setUmbraCoeff(c -> c - 0.01f);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.U)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setUmbraRecess(rc -> rc + 1);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.J)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setUmbraRecess(rc -> rc - 1);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setVisible(true);
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.K)) {
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[0]).setVisible(false);
+        }
 
 
-    public void resetFBO(){
-        super.escapyCamera.clear();
-        this.MAINFBO.forceWipeFBO();
-        this.lightBuffFBO.forceWipeFBO();
-        this.lightContainer.lights.wipeMultiBuffers();
     }
 
-    public void renderContainers(EscapyGdxCamera escapyCamera) {
 
-        this.bgrFBO.begin().wipeFBO();
-            this.bgrContainer.renderGraphic(escapyCamera);
-        this.bgrFBO.end();
 
-        this.stdFBO.begin().wipeFBO();
-            this.stdContainer.renderGraphic(escapyCamera);
-		  this.stdFBO.end();
-		
-		  this.lightMapFBO.begin().wipeFBO().clearFBO(1, 1, 1, 1);
-			   this.lightsMapContainer.renderGraphic(escapyCamera);
-		  this.lightMapFBO.end();
-	
-		  this.nrmlFBO.begin().clearFBO(0.502f, 0.502f, 1f, 1f);
-			   this.normalsContainer.renderGraphic(escapyCamera);
-		  this.nrmlFBO.end().mergeBuffer();
-	 }
-
-    public void renderMasks() {
-        this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
-        this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec());
-    }
-
-    public void renderFBO(){
-
-        this.MAINFBO.renderFBO();
-        //for incrase performance use below
-        // this.lightContainer.lights.mergeAndRender(lightBuffFBO, escapyCamera, 3, 1);
-        this.lightContainer.lights.apply(l -> l.mergeContainedFBO(escapyCamera, 3));
-        this.lightContainer.lights.apply(l -> l.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1));
-        this.MAINFBO.renderFBO();
-        this.MAINFBO.forceRenderToFBO(lightBuffFBO);
-
-        this.MAINFBO.renderFBO();
-        this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO);
-        this.MAINFBO.renderFBO();
-    }
 
 
     @Override
@@ -282,8 +244,56 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
             super.gameState.setScreen(super.gameState.getStatesContainer().getMenuScreen());
         }
     }
+    public void resetFBO(){
+        super.escapyCamera.clear();
+        this.MAINFBO.forceWipeFBO();
+        this.lightBuffFBO.forceWipeFBO();
+        this.lightContainer.lights.wipeMultiBuffers();
+    }
+    public void renderContainers(EscapyGdxCamera escapyCamera) {
 
-	
+        this.bgrFBO.begin().wipeFBO();
+        this.bgrContainer.renderGraphic(escapyCamera);
+        this.bgrFBO.end();
+
+        this.stdFBO.begin().wipeFBO();
+        this.stdContainer.renderGraphic(escapyCamera);
+        this.stdFBO.end();
+
+        this.lightMapFBO.begin().wipeFBO().clearFBO(1, 1, 1, 1);
+        this.lightsMapContainer.renderGraphic(escapyCamera);
+        this.lightMapFBO.end();
+
+        this.nrmlFBO.begin().clearFBO(0.502f, 0.502f, 1f, 1f);
+        this.normalsContainer.renderGraphic(escapyCamera);
+        this.nrmlFBO.end().mergeBuffer();
+    }
+    public void renderMasks() {
+        this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
+        this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec());
+    }
+    public void renderFBO() {
+
+        this.MAINFBO.renderFBO();
+        //for incrase performance use below
+        //this.lightContainer.lights.mergeAndRender(lightBuffFBO, escapyCamera, 3, 1); prepareContainedFBO
+
+        this.lightContainer.lights.apply(l -> l.prepareContainedFBO(escapyCamera, 3));
+     //   this.lightContainer.lights.apply(l -> l.mergeContainedFBO(escapyCamera, 3));
+        this.lightContainer.lights.apply(l -> l.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1));
+        this.MAINFBO.renderFBO();
+        this.MAINFBO.forceRenderToFBO(lightBuffFBO);
+
+        this.MAINFBO.renderFBO();
+        this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO,
+                lightContainer.ligthInt, lightContainer.ambientInt);
+        this.MAINFBO.renderFBO();
+    }
+
+
+
+
+
     @Override
     public void pause() {
 		
@@ -294,7 +304,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         // super.escapyCamera.getCameraProgramHolder().removeCameraProgram(playerCameraProgramID);
         super.gameState.getStatesContainer().getUpdLoopedQueue().removeFromUpdQueueLast();
     }
-
     @Override
     public void resume() {
         this.animator.initAnimator().startAnimator();
@@ -302,17 +311,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         super.gameState.getStatesContainer().getUpdLoopedQueue().addToUpdQueue(this);
     }
-
     @Override
-    public void hide() {
-    }
-
+    public void hide() {}
     @Override
-    public void resize(int width, int height) {
-    }
-
+    public void resize(int width, int height) {}
     @Override
-    public void dispose() {
-    }
+    public void dispose() {}
 
 }

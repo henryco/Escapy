@@ -17,6 +17,7 @@ public class InitLights {
 
     public EscapyLights lights;
     public int[][] lightID;
+    public float ambientInt, ligthInt;
 
     public InitLights(EscapyFBO stdFBO) {
         this.lights = new EscapyLights(stdFBO);
@@ -30,11 +31,14 @@ public class InitLights {
 
     public InitLights create(String url, EscapyFBO lightMapFBO) {
 
-        lightID = loadLights(lightMapFBO, new ArrayList<>());
+        lightID = loadLights(lightMapFBO, new ArrayList<>(), url);
         return this;
     }
 
-    private int[][] loadLights(EscapyFBO lightMapFBO, ArrayList<int[]> IDList) {
+    private int[][] loadLights(EscapyFBO lightMapFBO, ArrayList<int[]> IDList, String url) {
+
+        ligthInt = 0.2f;
+        ambientInt = 0.75f;
 
         lights.addLightContainer(LightContainer.light.screenDodge(), true);
         lights.addLightContainer(LightContainer.light.strongSoftLight(), false);
@@ -46,8 +50,8 @@ public class InitLights {
         )});
 
         IDList.add(new int[]{1,this.lights.lights[1].addSource(new EscapyStdLight(lightMapFBO,
-                EscapyLightSrcFactory.RND_512()).setPosition(600, 420).
-                setColor(205, 107, 107).setVisible(true).setScale(3f)
+                EscapyLightSrcFactory.RND_512()).setPosition(256, 420).
+                setColor(205, 107, 107).setVisible(true).setScale(1f)
         )});
 
         int[][] forReturn = new int[IDList.size()][2];
