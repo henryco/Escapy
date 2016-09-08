@@ -251,7 +251,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
             tmpSprite = new Sprite(tempLight.getFBO().getTextureRegion());
             tmpSprite.setPosition(
                     tempLight.lightSource.getPosition().x,
-                    tempLight.lightSource.getPosition().y
+                    tempLight.lightSource.getPosition().y - 12
             );
             tmpSprite.setScale(tempLight.getScale());
             bufferFBO[i].begin().wipeFBO();

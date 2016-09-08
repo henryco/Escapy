@@ -226,8 +226,8 @@ public class EscapyShadedLight extends EscapyStdLight {
     public EscapyFBO renderLightMap() {
 
         lightCam.setCameraPosition(
-                lightSource.getPosition().x + lightMapFBO.getRegWidth() * 0.5f,
-                lightSource.getPosition().y + lightMapFBO.getRegHeight() * 0.5f
+                lightSource.getPosition().x + lightMapFBO.getRegWidth() / 2f,
+                lightSource.getPosition().y + lightMapFBO.getRegHeight() / 2f
         );
         lightMapFBO.begin().clearFBO(1f, 1f, 1f, 1f);
         lightMapContainer.renderGraphic(lightCam);
@@ -265,7 +265,6 @@ public class EscapyShadedLight extends EscapyStdLight {
                 resultCam.getCamera(), color, lightAngles,
                 resolution, coeff, correct, radius, umbra
         );
-
 
         return fbo.end();
     }

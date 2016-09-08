@@ -84,14 +84,19 @@ public class InitLights {
 
 
         IDList.add(new int[]{0,this.lights.lights[0].addSource(new EscapyShadedLight(
-                lightMapContainer, 4, EscapyLightSrcFactory.RND_1024()).setMaxRadius(1.5f).
+                lightMapContainer, 4, EscapyLightSrcFactory.RND_1024()).setMaxRadius(1.4f).
                 setPosition(400, 450).setColor(0, 0, 0).
-                setAngle(0.125f).setVisible(true).setScale(1f).setThreshold(0.7f)
+                setAngle(0.125f).setVisible(true).setScale(1.5f).setThreshold(0.7f)
         )});
 
         IDList.add(new int[]{1,this.lights.lights[1].addSource(new EscapyStdLight(transitFBO,
                 EscapyLightSrcFactory.RND_512()).setPosition(0, 420).
-                setColor(205, 107, 107).setVisible(true).setScale(4f)
+                setColor(205, 107, 107).setVisible(true).setScale(3f)
+        )});
+
+        IDList.add(new int[]{1,this.lights.lights[1].addSource(new EscapyStdLight(transitFBO,
+                EscapyLightSrcFactory.RND_512()).setPosition(350, 500).
+                setColor(45, 40, 250).setVisible(true).setScale(3)
         )});
 
 

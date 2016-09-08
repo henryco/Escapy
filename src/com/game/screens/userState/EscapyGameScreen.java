@@ -22,6 +22,7 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.cont.init.InitLights;
+import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight;
 import com.game.render.fbo.psProcess.lights.volLight.VolumeLightsExecutor;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
 import com.game.screens.EscapyMainState;
@@ -170,8 +171,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     private void updDist() {
 
         if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-            this.lightContainer.getSourceByID(this.lightContainer.lightID[1]).setPosition(
-                    this.charactersContainer.player().getPhysicalBody().getBodyPosition());
+            this.lightContainer.getSourceByID(this.lightContainer.lightID[2]).setPosition(
+                    Gdx.input.getX() + escapyCamera.getShiftVec().x,
+                    Gdx.input.getY() + escapyCamera.getShiftVec().y);
         }
         if (Gdx.input.isTouched(0)) {
             this.lightContainer.getSourceByID(this.lightContainer.lightID[1]).setPosition(
@@ -279,13 +281,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         this.MAINFBO.renderFBO();
 
-/*//    for incrase performance use below
+//*//    for incrase performance use below
         this.lightContainer.lights.mergeAndRender(lightBuffFBO, escapyCamera, 3, 1);
 //*/
-
-/*
-        this.lightContainer.lights.apply(l -> l.mergeContainedFBO(escapyCamera, 3));
-        this.lightContainer.lights.apply(l -> l.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1));
         this.MAINFBO.renderFBO();
         this.MAINFBO.forceRenderToFBO(lightBuffFBO);
 
@@ -295,13 +293,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.MAINFBO.renderFBO();
 //*/
 
-//      this.lightContainer.lights.apply(l -> l.prepareContainedFBO(escapyCamera, 3));
-//      this.lightContainer.lights.lights[1].renderPureFBO().renderFBO();
-        this.lightContainer.lights.lights[0].mergeContainedFBO(escapyCamera, 3);
-        this.lightContainer.lights.lights[0].postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
-
-
-        lightBuffFBO.renderFBO();
     }
 
 
