@@ -169,7 +169,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
 
     public EscapyFBO prepareContainedFBO(EscapyGdxCamera camera, int iterations) {
 
-        EscapyFBO temp = renderPreparedFBO(camera);
+        EscapyFBO temp = renderContainedFBO12(camera);
         lightFBO.begin();
         while (iterations > 0) {
             stdRenderer.drawTexture(temp.getTextureRegion().getTexture(),
@@ -180,21 +180,22 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
         }
         return lightFBO.endMergedBuffer();
     }
-
-    public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
+    public EscapyFBO renderContainedFBO12(EscapyGdxCamera camera) {
 
         super.targetsList.forEach(light -> {
             if (light.isVisible() && stateUpdated) light.preRender(camera);
         });
-        return renderContainedTexture(camera);
+        return renderContainedTexture12(camera);
     }
 
-    public EscapyFBO renderPreparedFBO(EscapyGdxCamera camera) {
+
+
+    public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 
         super.targetsList.forEach(light -> {
             if (light.isVisible() && stateUpdated) light.earlyRender();
         });
-        return renderContainedTexture2(camera);
+        return renderContainedTexture(camera);
     }
 
     public EscapyFBO renderPureFBO() {
@@ -207,7 +208,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
         return this.blurFBO.end();
     }
 
-    private EscapyFBO renderContainedTexture(EscapyGdxCamera camera) {
+    private EscapyFBO renderContainedTexture12(EscapyGdxCamera camera) {
 
         int[] flag = new int[]{0};
         this.blurFBO.begin().wipeFBO();
@@ -245,7 +246,7 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
         return this.ortoFBO.end();
     }
 
-    private EscapyFBO renderContainedTexture2(EscapyGdxCamera camera) {
+    private EscapyFBO renderContainedTexture(EscapyGdxCamera camera) {
 
         AbsStdLight tempLight = null;
         Sprite tmpSprite = null;
