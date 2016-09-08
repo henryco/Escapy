@@ -72,13 +72,16 @@ public class InitLights {
     }
     private int[][] loadLights(ExtraRenderContainer lightMapContainer, ArrayList<int[]> IDList, String url) {
 
+        EscapyFBO transitFBO = new StandartFBO().forceClearFBO();
+
         ligthInt = 0.2f;
         ambientInt = 0.75f;
+
+
 
         lights.addLightContainer(LightContainer.light.screenDodge(), true);
         lights.addLightContainer(LightContainer.light.strongSoftLight(), false);
 
-        EscapyFBO transitFBO = new StandartFBO().forceClearFBO();
 
         IDList.add(new int[]{0,this.lights.lights[0].addSource(new EscapyShadedLight(
                 transitFBO, 4, EscapyLightSrcFactory.RND_1024()).setMaxRadius(1.5f).
@@ -91,13 +94,15 @@ public class InitLights {
                 setColor(205, 107, 107).setVisible(true).setScale(3f)
         )});
 
+
+
         int[][] forReturn = new int[IDList.size()][2];
         for (int i = 0; i < IDList.size(); i++)
             forReturn[i] = IDList.get(i);
         return forReturn;
     }
 
-    
+
     public AbsStdLight getSourceByID(int[] id) {
         return lights.lights[id[0]].getSourceByID(id[1]);
     }

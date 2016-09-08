@@ -2,6 +2,7 @@ package com.game.render.fbo.psProcess.lights.stdLIght.userState;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.render.EscapyGdxCamera;
+import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
@@ -18,6 +19,9 @@ public class EscapyShadedLight extends EscapyStdLight {
 
     private EscapyFBO lightMapFBO, shadowMapFBO, shadowFBO;
     private EscapyGdxCamera lightCam, shadowMapCam, shadowCam;
+
+    private ExtraRenderContainer lightMapContainer;
+
     protected TransVec transPos;
 
     public EscapyShadedLight(EscapyFBO lightMap, int accuracy) {
@@ -36,6 +40,11 @@ public class EscapyShadedLight extends EscapyStdLight {
         super(lightMap, lightType);
         initBlock((int) (64 * Math.pow(2, 1)));
     }
+    public EscapyShadedLight(ExtraRenderContainer lmapContainer, EscapyLightType lightType) {
+        super(null, lightType);
+        this.initBlock((int) (64 * Math.pow(2, 1)));
+        this.setLightMapContainer(lmapContainer);
+    }
     public EscapyShadedLight(int id, EscapyFBO lightMap, int accuracy) {
         super(id, lightMap);
         initBlock((int) (64 * Math.pow(2, accuracy)));
@@ -51,6 +60,11 @@ public class EscapyShadedLight extends EscapyStdLight {
     public EscapyShadedLight(int id, EscapyFBO lightMap, EscapyLightType lightType) {
         super(id, lightMap, lightType);
         initBlock((int) (64 * Math.pow(2, 1)));
+    }
+    public EscapyShadedLight(int id, ExtraRenderContainer lmapContainer, EscapyLightType lightType) {
+        super(id, null, lightType);
+        this.initBlock((int) (64 * Math.pow(2, 1)));
+        this.setLightMapContainer(lmapContainer);
     }
     public EscapyShadedLight(int id, EscapyLightType lightType) {
         super(id, lightType);
@@ -128,6 +142,11 @@ public class EscapyShadedLight extends EscapyStdLight {
      */
     public AbsStdLight setAccuracy(int acc) {
         initBlock((int) (64 * Math.pow(2, acc)));
+        return this;
+    }
+
+    public AbsStdLight setLightMapContainer(ExtraRenderContainer lightMapContainer) {
+        this.lightMapContainer = lightMapContainer;
         return this;
     }
 

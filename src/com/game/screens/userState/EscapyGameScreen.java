@@ -93,6 +93,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         return this;
     }
     public void init_base() {
+
         this.controlls = PlayerControl.playerController();
         this.mapContainer = new InitMap(super.settings.Location(), super.settings.getFrameWIDHT(),
                 super.settings.getFrameHEIGHT(), super.settings.scaleRatio());
@@ -104,6 +105,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
     }
     public void init_fbo() {
+
         this.lightBuffFBO = new StandartFBO();
         this.MAINFBO = new StandartFBO();
         this.bgrFBO = new StandartFBO();
@@ -112,6 +114,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.lightMapFBO = new StandartFBO();
     }
     public void init_containers() {
+
         this.lightMask = new LightMaskContainer();
         this.bgrContainer = new ExtraRenderContainer();
         this.stdContainer = new ExtraRenderContainer();
@@ -145,6 +148,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.lightContainer = new InitLights(stdFBO, lightsMapContainer, super.settings.Location());
     }
     public void init_mask() {
+
         this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(),
                 Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
         this.mask.setColor(new Color((40f/255f), (40f/255f), (40f/255f), 1f));
@@ -293,8 +297,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 //      this.lightContainer.lights.apply(l -> l.prepareContainedFBO(escapyCamera, 3));
 //      this.lightContainer.lights.lights[1].renderPureFBO().renderFBO();
-//        this.lightContainer.lights.lights[1].mergeContainedFBO(escapyCamera, 3);
-//        this.lightContainer.lights.lights[1].postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
+        this.lightContainer.lights.lights[1].mergeContainedFBO(escapyCamera, 3);
+        this.lightContainer.lights.lights[1].postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
 
 //        this.lightContainer.lights.lights[0].renderPureFBO(escapyCamera).renderFBO();
 
