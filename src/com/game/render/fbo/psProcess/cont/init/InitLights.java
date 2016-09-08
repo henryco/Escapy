@@ -1,6 +1,8 @@
 package com.game.render.fbo.psProcess.cont.init;
 
+import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.LightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight;
@@ -22,10 +24,13 @@ public class InitLights {
     public InitLights(EscapyFBO stdFBO) {
         this.lights = new EscapyLights(stdFBO);
     }
-
     public InitLights(EscapyFBO stdFBO, EscapyFBO lightMapFBO, String url) {
         this.lights = new EscapyLights(stdFBO);
         this.create(url, lightMapFBO);
+    }
+    public InitLights(EscapyFBO stdFBO, ExtraRenderContainer lightMapContainer, String url) {
+        this.lights = new EscapyLights(stdFBO);
+        this.create(url, lightMapContainer);
     }
 
 
@@ -34,6 +39,12 @@ public class InitLights {
         lightID = loadLights(lightMapFBO, new ArrayList<>(), url);
         return this;
     }
+    public InitLights create(String url, ExtraRenderContainer lightMapContainer) {
+
+        lightID = loadLights(lightMapContainer, new ArrayList<>(), url);
+        return this;
+    }
+
 
     private int[][] loadLights(EscapyFBO lightMapFBO, ArrayList<int[]> IDList, String url) {
 
@@ -59,8 +70,36 @@ public class InitLights {
             forReturn[i] = IDList.get(i);
         return forReturn;
     }
+    private int[][] loadLights(ExtraRenderContainer lightMapContainer, ArrayList<int[]> IDList, String url) {
 
+        ligthInt = 0.2f;
+        ambientInt = 0.75f;
+
+        lights.addLightContainer(LightContainer.light.screenDodge(), true);
+        lights.addLightContainer(LightContainer.light.strongSoftLight(), false);
+
+        EscapyFBO transitFBO = new StandartFBO().forceClearFBO();
+
+        IDList.add(new int[]{0,this.lights.lights[0].addSource(new EscapyShadedLight(
+                transitFBO, 4, EscapyLightSrcFactory.RND_1024()).setMaxRadius(1.5f).
+                setPosition(400, 450).setColor(0, 0, 0).
+                setAngle(0.125f).setVisible(true).setScale(2f).setThreshold(0.7f)
+        )});
+
+        IDList.add(new int[]{1,this.lights.lights[1].addSource(new EscapyStdLight(transitFBO,
+                EscapyLightSrcFactory.RND_512()).setPosition(0, 420).
+                setColor(205, 107, 107).setVisible(true).setScale(3f)
+        )});
+
+        int[][] forReturn = new int[IDList.size()][2];
+        for (int i = 0; i < IDList.size(); i++)
+            forReturn[i] = IDList.get(i);
+        return forReturn;
+    }
+
+    
     public AbsStdLight getSourceByID(int[] id) {
         return lights.lights[id[0]].getSourceByID(id[1]);
     }
+
 }

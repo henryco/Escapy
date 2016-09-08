@@ -118,7 +118,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.normalsContainer = new ExtraRenderContainer();
         this.lightsMapContainer = new ExtraRenderContainer();
         this.volumeLights = new VolumeLightsExecutor();
-        this.lightContainer = new InitLights(stdFBO, lightMapFBO, super.settings.Location());
+//      this.lightContainer = new InitLights(stdFBO, lightMapFBO, super.settings.Location());
 
         this.bgrContainer.addSource(new StdRenderer(mapContainer.backGround()));
         for (int i = 0; i < 4; i++)
@@ -140,6 +140,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.otherTranslationVec = new TransVec();
         for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /* FRONT PARALLAX */
             this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
+
+        /* FIXME prototype version below */
+        this.lightContainer = new InitLights(stdFBO, lightsMapContainer, super.settings.Location());
     }
     public void init_mask() {
         this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(),
@@ -293,7 +296,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 //        this.lightContainer.lights.lights[1].mergeContainedFBO(escapyCamera, 3);
 //        this.lightContainer.lights.lights[1].postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
 
-        this.lightContainer.lights.lights[0].renderPureFBO(escapyCamera).renderFBO();
+//        this.lightContainer.lights.lights[0].renderPureFBO(escapyCamera).renderFBO();
 
         lightBuffFBO.renderFBO();
     }
