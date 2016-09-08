@@ -18,7 +18,7 @@ public class EscapyShadedLight extends EscapyStdLight {
     private EscapyStdShadowRenderer shadowRenderer;
 
     private EscapyFBO lightMapFBO, shadowMapFBO, shadowFBO;
-    private EscapyGdxCamera lightCam, shadowMapCam, shadowCam;
+    private EscapyGdxCamera lightCam, shadowMapCam, shadowCam, resultCam;
 
     private ExtraRenderContainer lightMapContainer;
 
@@ -49,6 +49,11 @@ public class EscapyShadedLight extends EscapyStdLight {
         super(id, lightMap);
         initBlock((int) (64 * Math.pow(2, accuracy)));
     }
+    public EscapyShadedLight(ExtraRenderContainer lmapContainer, int accuracy, EscapyLightType lightType) {
+        super(null, lightType);
+        initBlock((int) (64 * Math.pow(2, accuracy)));
+        this.setLightMapContainer(lmapContainer);
+    }
     public EscapyShadedLight(int id, EscapyFBO lightMap, int accuracy, EscapyLightType lightType) {
         super(id, lightMap, lightType);
         initBlock((int) (64 * Math.pow(2, accuracy)));
@@ -64,6 +69,11 @@ public class EscapyShadedLight extends EscapyStdLight {
     public EscapyShadedLight(int id, ExtraRenderContainer lmapContainer, EscapyLightType lightType) {
         super(id, null, lightType);
         this.initBlock((int) (64 * Math.pow(2, 1)));
+        this.setLightMapContainer(lmapContainer);
+    }
+    public EscapyShadedLight(int id, ExtraRenderContainer lmapContainer, int accuracy, EscapyLightType lightType) {
+        super(id, lightType);
+        initBlock((int) (64 * Math.pow(2, accuracy)));
         this.setLightMapContainer(lmapContainer);
     }
     public EscapyShadedLight(int id, EscapyLightType lightType) {
@@ -116,6 +126,8 @@ public class EscapyShadedLight extends EscapyStdLight {
         }
 
         {
+            this.resultCam = new EscapyGdxCamera((int) super.lightSource.getWidth(),
+                (int) super.lightSource.getHeight());
             this.lightCam = new EscapyGdxCamera(lightMapFBO.getRegWidth(), lightMapFBO.getRegHeight());
             this.shadowMapCam = new EscapyGdxCamera(shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
             this.shadowCam = new EscapyGdxCamera(false, shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight());
@@ -142,6 +154,13 @@ public class EscapyShadedLight extends EscapyStdLight {
      */
     public AbsStdLight setAccuracy(int acc) {
         initBlock((int) (64 * Math.pow(2, acc)));
+        return this;
+    }
+
+    @Override
+    public AbsStdLight setScale(float scale) {
+        super.setScale(scale);
+        this.lightCam = new EscapyGdxCamera((int)(lightMapFBO.getRegWidth() * scale), (int)(lightMapFBO.getRegHeight() * scale));
         return this;
     }
 
@@ -198,8 +217,57 @@ public class EscapyShadedLight extends EscapyStdLight {
 
     public AbsStdLight lazyRender(EscapyGdxCamera escapyCamera) {
 
-
+        renderLightMap();
+        renderShadowMap();
+        renderShadows();
+        renderLightSrc();
         return this;
+    }
+    public EscapyFBO renderLightMap() {
+
+        lightCam.setCameraPosition(
+                lightSource.getPosition().x + lightMapFBO.getRegWidth() * 0.5f,
+                lightSource.getPosition().y + lightMapFBO.getRegHeight() * 0.5f
+        );
+        lightMapFBO.begin().clearFBO(1f, 1f, 1f, 1f);
+        lightMapContainer.renderGraphic(lightCam);
+        return lightMapFBO.end();
+    }
+    public EscapyFBO renderShadowMap() {
+
+        shadowMapFBO.begin().wipeFBO();
+        shadowMapRenderer.renderShadowMap(
+                lightMapFBO.getTextureRegion(), shadowMapCam.getCamera(),
+                lightMapFBO.getRegWidth(), lightMapFBO.getRegHeight(), 0, 0,
+                shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight(),
+                threshold);
+        return shadowMapFBO.end();
+    }
+    public EscapyFBO renderShadows() {
+
+        shadowFBO.begin().wipeFBO();
+        shadowRenderer.renderShadow(
+                shadowMapFBO.getTextureRegion(), shadowCam.getCamera(),
+                resolution.x, resolution.y, 0, 0,
+                shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight(),
+                lightAngles, correct);
+        return shadowFBO.end();
+    }
+    public EscapyFBO renderLightSrc() {
+
+
+        System.out.println(shadowFBO.getRegWidth()+ " : "+fbo.getRegWidth());
+        Sprite shadowSprite = new Sprite(shadowFBO.getTextureRegion());
+        lightSprite = new Sprite(shadowFBO.getTextureRegion());
+        this.fbo.begin().wipeFBO();
+
+        super.srcRenderer.renderLightSrc(lightSprite, shadowSprite,
+                resultCam.getCamera(), color, lightAngles,
+                resolution, coeff, correct, radius, umbra
+        );
+
+
+        return fbo.end();
     }
 
 
