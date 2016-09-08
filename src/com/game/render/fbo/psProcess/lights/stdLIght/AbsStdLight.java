@@ -132,7 +132,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	 }
 
 
-    public AbsStdLight earlyRender() {
+    public AbsStdLight lazyRender(EscapyGdxCamera escapyCamera) {
         interCam.setCameraPosition(lightSource.getX() + (lightSource.getWidth() / 2.f),
                 lightSource.getY() + (lightSource.getHeight() / 2f));
         interCam.update();
