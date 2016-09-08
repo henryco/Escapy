@@ -25,8 +25,8 @@ public class FBOStdMultiProgram extends FBORenderProgram <EscapyMultiFBO>{
 		this.stdRenderer.drawTextureRegion(super.getFBOTarget().getTextureRegion(), camera.getCamera(),
 				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.stdRenderer.drawTextureRegion(super.getFBOTarget().getMultiTextureRegion(),camera.getCamera(),
-				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
+				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()
+      );
 	}
 
 }

@@ -49,7 +49,7 @@ public class EscapyLightSrcRenderer extends EscapyShaderRender {
 		
 		this.colorizeShader = initShader(lMap.getTexture(), 
 				this.colorizeShader, color, angles, fSize, coeff, correction, radius, umbra);
-		super.drawSprite(target, camera);
+		drawSprite(target, camera);
 	}
 	
 	public void renderLightSrc(Texture target, Texture lMap, OrthographicCamera camera, Color color,
@@ -58,7 +58,7 @@ public class EscapyLightSrcRenderer extends EscapyShaderRender {
 		
 		this.colorizeShader = initShader(lMap, this.colorizeShader, color, angles, 
 				fSize, coeff, correction, radius, umbra);
-		super.drawTexture(target, camera, x, y);
+		drawTexture(target, camera, x, y);
 	}
 	
 	public void renderLightSrc(TextureRegion target,TextureRegion lMap, OrthographicCamera camera, 
@@ -68,7 +68,7 @@ public class EscapyLightSrcRenderer extends EscapyShaderRender {
 		
 		this.colorizeShader = initShader(lMap.getTexture(), 
 				this.colorizeShader, color, angles, fSize, coeff, correction, radius, umbra);
-		super.drawTextureRegion(target, camera, x, y, width, height);
+		drawTextureRegion(target, camera, x, y, width, height);
 	}
 	
 	
@@ -92,7 +92,6 @@ public class EscapyLightSrcRenderer extends EscapyShaderRender {
 		shader.end();
 		return shader;
 	}
-	
 
 	@Override
 	public String toString() {

@@ -50,8 +50,8 @@ public class InitLights {
         )});
 
         IDList.add(new int[]{1,this.lights.lights[1].addSource(new EscapyStdLight(lightMapFBO,
-                EscapyLightSrcFactory.RND_512()).setPosition(256, 420).
-                setColor(205, 107, 107).setVisible(true).setScale(1f)
+                EscapyLightSrcFactory.RND_512()).setPosition(0, 420).
+                setColor(205, 107, 107).setVisible(true).setScale(3f)
         )});
 
         int[][] forReturn = new int[IDList.size()][2];

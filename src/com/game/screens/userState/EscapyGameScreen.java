@@ -88,7 +88,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.init_containers();
         this.init_mask();
 
-        this.lightContainer.lights.apply(l -> l.prepareContainedFBO(escapyCamera, 3));
         super.initializationEnded = true;
         System.gc();
         return this;
@@ -239,10 +238,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.renderMasks();
         this.renderFBO();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            this.pause();
-            super.gameState.setScreen(super.gameState.getStatesContainer().getMenuScreen());
-        }
+        this.ESCAPE();
     }
     public void resetFBO(){
         super.escapyCamera.clear();
@@ -275,11 +271,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void renderFBO() {
 
         this.MAINFBO.renderFBO();
-        //for incrase performance use below
-        //this.lightContainer.lights.mergeAndRender(lightBuffFBO, escapyCamera, 3, 1); prepareContainedFBO
 
-        this.lightContainer.lights.apply(l -> l.prepareContainedFBO(escapyCamera, 3));
-     //   this.lightContainer.lights.apply(l -> l.mergeContainedFBO(escapyCamera, 3));
+/*//    for incrase performance use below
+        this.lightContainer.lights.mergeAndRender(lightBuffFBO, escapyCamera, 3, 1);
+//*/
+
+/*
+        this.lightContainer.lights.apply(l -> l.mergeContainedFBO(escapyCamera, 3));
         this.lightContainer.lights.apply(l -> l.postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1));
         this.MAINFBO.renderFBO();
         this.MAINFBO.forceRenderToFBO(lightBuffFBO);
@@ -288,10 +286,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO,
                 lightContainer.ligthInt, lightContainer.ambientInt);
         this.MAINFBO.renderFBO();
+//*/
+//      this.lightContainer.lights.apply(l -> l.prepareContainedFBO(escapyCamera, 3));
+//      this.lightContainer.lights.lights[1].renderPureFBO().renderFBO();
+        this.lightContainer.lights.lights[1].prepareContainedFBO(escapyCamera, 3);
+        this.lightContainer.lights.lights[1].postRender(lightBuffFBO, escapyCamera.getTranslationVec(), 1);
+      lightBuffFBO.renderFBO();
     }
-
-
-
 
 
     @Override
@@ -318,4 +319,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     @Override
     public void dispose() {}
 
+    public void ESCAPE(){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            this.pause();
+            super.gameState.setScreen(super.gameState.getStatesContainer().getMenuScreen());
+        }
+    }
 }

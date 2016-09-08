@@ -25,14 +25,16 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
     protected SimpleObserver<EscapyFBOContainer> observer;
 	 protected Sprite lightSprite;
-	 protected EscapyLightType lightSource;
+
+    protected Sprite finLightSprite;
 	 protected EscapyStdShaderRenderer stdRenderer;
 	 protected EscapyLightSrcRenderer srcRenderer;
 
     public EscapyGdxCamera interCam;
+    public EscapyLightType lightSource;
 
 	 protected Color color;
-	 protected EscapyFBO fbo, lightMap;
+	 protected EscapyFBO fbo, lightMap, lightFBO;
 	
 	 protected TransVec position;
 	 protected TransVec resolution;
@@ -42,7 +44,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	 protected float coeff;
 	 protected float correct;
-	 protected float scale;
+
+
+
+    protected float scale;
     protected float threshold;
 
     protected float[] optTranslation;
@@ -68,8 +73,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		  this.srcRenderer = new EscapyStdLightSrcRenderer(id);
 
         this.interCam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-		  this.fbo = new StandartFBO(id);
 
 		  this.scale = 1;
 		  this.coeff = 1.f;
@@ -115,21 +118,24 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	 public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
 
-	     lightSprite.setPosition(lightSource.getX(), lightSource.getY());
-        System.out.println(escapyCamera.getCamera().position.x);
+        lightSprite.setPosition(lightSource.getX(), lightSource.getY());
+
         fbo.begin().wipeFBO();
         this.srcRenderer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(),
 			       escapyCamera.getCamera(), color, lightAngles, resolution,
+                coeff, correct, radius, umbra);
+        this.srcRenderer.renderLightSrc(lightSprite, lightMap.getSpriteRegion(),
+                escapyCamera.getCamera(), color, lightAngles, resolution,
                 coeff, correct, radius, umbra);
         fbo.end();
         return this;
 	 }
 
+
     public AbsStdLight earlyRender() {
         interCam.setCameraPosition(lightSource.getX() + (lightSource.getWidth() / 2.f),
                 lightSource.getY() + (lightSource.getHeight() / 2f));
-        optTranslation[0] = -interCam.getCamera().position.x;
-        optTranslation[1] = -interCam.getCamera().position.y;
+        interCam.update();
         return preRender(interCam);
     }
 
@@ -147,19 +153,33 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	 }
 	
 	public AbsStdLight setLightSource(EscapyLightType light) {
-       this.updState();
+
+	    this.updState();
 	    this.lightSource = light;
+
+       this.lightFBO = new StandartFBO(id, (int)this.lightSource.getWidth(),
+               (int)this.lightSource.getHeight());
+       this.fbo = new StandartFBO(id, (int)this.lightSource.getWidth(),
+               (int)this.lightSource.getHeight());
+       this.finLightSprite = new Sprite(fbo.forceWipeFBO().getTextureRegion());
+       this.finLightSprite.setScale(scale);
+
        EscapyFBO lightFBO = new StandartFBO(this.getID(), (int)this.lightSource.getWidth(),
 				(int) this.lightSource.getHeight());
        this.lightSprite = new Sprite(lightFBO.forceWipeFBO().getTextureRegion());
-       this.lightSprite.setScale(scale);
+
        System.out.println(lightSource);
        return this;
 	}
-	public AbsStdLight setScale(float scale){
+
+    public Sprite getLihgtSprite() {
+        return finLightSprite;
+    }
+
+    public AbsStdLight setScale(float scale){
        this.updState();
 	    this.scale = scale;
-       this.lightSprite.setScale(scale);
+       this.finLightSprite.setScale(scale);
        return this;
 	}
 	public AbsStdLight setPosition(float x, float y) {
@@ -361,6 +381,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
     public AbsStdLight setThreshold(float threshold) {
         this.threshold = threshold;
         return this;
+    }
+
+    public float getScale() {
+        return scale;
     }
 
 }
