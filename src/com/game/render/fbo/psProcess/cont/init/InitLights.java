@@ -89,16 +89,16 @@ public class InitLights {
                 setAngle(0.125f).setVisible(true).setScale(1.5f).setThreshold(0.7f)
         )});
 
-        IDList.add(new int[]{1,this.lights.lights[1].addSource(new EscapyStdLight(transitFBO,
-                EscapyLightSrcFactory.RND_512()).setPosition(0, 420).
-                setColor(205, 107, 107).setVisible(true).setScale(3f)
-        )});
 
         IDList.add(new int[]{1,this.lights.lights[1].addSource(new EscapyStdLight(transitFBO,
                 EscapyLightSrcFactory.RND_512()).setPosition(350, 500).
-                setColor(45, 40, 250).setVisible(true).setScale(3)
+                setColor(45, 40, 250).setVisible(true).setScale(2.5f)
         )});
 
+        IDList.add(new int[]{1,this.lights.lights[1].addSource(new EscapyStdLight(transitFBO,
+                EscapyLightSrcFactory.RND_512()).setPosition(0, 420).
+                setColor(205, 107, 107).setVisible(true).setScale(2.5f)
+        )});
 
 
         int[][] forReturn = new int[IDList.size()][2];
