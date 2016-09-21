@@ -8,6 +8,7 @@ import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyStdLight;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightSrcFactory;
+import net.henryco.struct.Struct;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,9 @@ import java.util.ArrayList;
  * @author Henry on 06/09/16.
  */
 public class InitLights {
+
+    public static final String cfgUrl = "data/config/lights";
+    public static final String flatLight = "/flat.struct";
 
     public EscapyLights lights;
     public int[][] lightID;
@@ -77,8 +81,8 @@ public class InitLights {
         ligthInt = 0.2f;
         ambientInt = 0.75f;
 
-
-
+       // Struct.in.readStructData(cfgUrl+flatLight);
+        Struct.printDataFile(Struct.in.readStructData(cfgUrl+flatLight));
         lights.addLightContainer(LightContainer.light.screenDodge(), true);
         lights.addLightContainer(LightContainer.light.strongSoftLight(), false);
 
