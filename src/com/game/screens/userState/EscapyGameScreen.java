@@ -22,7 +22,6 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.cont.init.InitLights;
-import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight;
 import com.game.render.fbo.psProcess.lights.volLight.VolumeLightsExecutor;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
 import com.game.screens.EscapyMainState;
@@ -146,7 +145,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
             this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
 
         /* FIXME prototype version below */
-        this.lightContainer = new InitLights(stdFBO, lightsMapContainer, super.settings.Location());
+        this.lightContainer = new InitLights(stdFBO, lightsMapContainer, super.settings.lightCfgUrl());
     }
     public void init_mask() {
 

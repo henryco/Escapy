@@ -18,11 +18,23 @@ public final class GameSettings {
 	private static boolean mapVisible = false;
 	private static boolean vSync = false;
 
+	public static String CFG_DIR_NAME ="/Config";
+	public static String LIGHT_CFG_NAME = "/LightCFG.struct";
+
 	/**
 	 * Instantiates a new game settings.
 	 */
 	public GameSettings() {
 
+	}
+
+	public String lightCfgUrl() {
+		return getMapDir() + CFG_DIR_NAME + LIGHT_CFG_NAME;
+	}
+
+	public String getMapDir() {
+		String tmp = location.substring(0, location.lastIndexOf("/"));
+		return tmp.substring(0, tmp.lastIndexOf("/"));
 	}
 
 	/**
