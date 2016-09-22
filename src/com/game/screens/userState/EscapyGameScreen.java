@@ -3,7 +3,6 @@ package com.game.screens.userState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.game.GameEnter;
 import com.game.animator.EscapyAnimatorBase;
 import com.game.characters.InitCharacters;
@@ -20,10 +19,8 @@ import com.game.render.extra.normalMap.NormalRenderer;
 import com.game.render.extra.std.StdRenderer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
-import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.cont.init.InitLights;
 import com.game.render.fbo.psProcess.lights.volLight.VolumeLightsExecutor;
-import com.game.render.fbo.psProcess.mask.EscapyMask;
 import com.game.render.mask.LightMask;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
@@ -146,6 +143,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.lightContainer = new InitLights(stdFBO, lightsMapContainer, super.settings.lightCfgUrl());
     }
     public void init_mask() {
+		
 		stdMask = new LightMask(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()).setColor(40,40,40,250);
 		bgrMask = new LightMask(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()).setColor(60,60,60,250);
     }
