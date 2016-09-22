@@ -24,6 +24,7 @@ import com.game.render.fbo.psProcess.cont.LightMaskContainer;
 import com.game.render.fbo.psProcess.cont.init.InitLights;
 import com.game.render.fbo.psProcess.lights.volLight.VolumeLightsExecutor;
 import com.game.render.fbo.psProcess.mask.EscapyMask;
+import com.game.render.mask.LightMask;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
@@ -36,7 +37,7 @@ import com.game.utils.translationVec.TransVec;
 public class EscapyGameScreen extends EscapyScreenState implements Updatable, EscapyMainState {
 
 	private InitMap mapContainer;
-   private InitLights lightContainer;
+    private InitLights lightContainer;
 	private InitCharacters charactersContainer;
 	private PlayerControl controlls;
 	private EscapyPhysicsBase physics;
@@ -47,15 +48,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	private EscapyFBO stdFBO, nrmlFBO, bgrFBO,
            lightBuffFBO, lightMapFBO, MAINFBO;
-	private EscapyMask mask, bgrMask;
-	
-	private LightMaskContainer lightMask;
+
 	private VolumeLightsExecutor volumeLights;
 	private ExtraRenderContainer stdContainer, normalsContainer,
            bgrContainer, lightsMapContainer;
 	
 	private TransVec otherTranslationVec;
-	
+	private LightMask stdMask, bgrMask;
 	
 	/**
 	 * Instantiates a new escapy game screen.
@@ -115,7 +114,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     }
     public void init_containers() {
 
-        this.lightMask = new LightMaskContainer();
         this.bgrContainer = new ExtraRenderContainer();
         this.stdContainer = new ExtraRenderContainer();
         this.normalsContainer = new ExtraRenderContainer();
@@ -148,13 +146,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.lightContainer = new InitLights(stdFBO, lightsMapContainer, super.settings.lightCfgUrl());
     }
     public void init_mask() {
-
-        this.mask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(),
-                Gdx.graphics.getHeight()).setMode(EscapyMask.MULTIPLY).addMaskTarget(stdFBO.getFrameBuffer());
-        this.mask.setColor(new Color((40f/255f), (40f/255f), (40f/255f), 1f));
-
-        this.bgrMask = lightMask.standartMask().setMaskPosition(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.bgrMask.setMode(EscapyMask.MULTIPLY).addMaskTarget(bgrFBO.getFrameBuffer());
+		stdMask = new LightMask(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()).setColor(40,40,40,250);
+		bgrMask = new LightMask(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight()).setColor(60,60,60,250);
     }
 
 
@@ -270,13 +263,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         this.nrmlFBO.begin().clearFBO(0.502f, 0.502f, 1f, 1f);
         this.normalsContainer.renderGraphic(escapyCamera);
-        this.nrmlFBO.end().mergeBuffer();
+        this.nrmlFBO.end();
     }
     public void renderMasks() {
-        this.bgrMask.postRender(MAINFBO, escapyCamera.getTranslationVec());
-        this.mask.postRender(MAINFBO, escapyCamera.getTranslationVec());
+		bgrMask.renderMask(bgrFBO.getTextureRegion().getTexture());
+		MAINFBO = stdMask.renderMaskBuffered(stdFBO.getTextureRegion().getTexture(), MAINFBO);
     }
-    public void renderFBO() {
+    public void renderFBO2() {
 
         this.MAINFBO.renderFBO();
 
@@ -293,7 +286,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 //*/
 
     }
+	public void renderFBO() {
 
+		this.MAINFBO.renderFBO();
+	}
 
     @Override
     public void pause() {

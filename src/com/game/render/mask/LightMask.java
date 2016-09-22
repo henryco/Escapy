@@ -16,7 +16,6 @@ import com.game.render.fbo.EscapyFBO;
  */
 public class LightMask {
 
-//	public static final int[] MULTIPLY = new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA};
 	public static final int[] MULTIPLY = new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA};
 	public static final int[] SEPIA = new int[]{GL20.GL_SRC_ALPHA, GL20.GL_DST_COLOR};
 	public static final int[] SCREEN = new int[]{GL20.GL_ONE_MINUS_DST_COLOR, GL20.GL_ONE};
