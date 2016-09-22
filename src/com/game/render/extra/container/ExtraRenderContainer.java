@@ -19,9 +19,6 @@ public class ExtraRenderContainer extends EscapyAbsContainer<EscapyExtraRenderer
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
-	 */
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		super.targetsList.forEach(
