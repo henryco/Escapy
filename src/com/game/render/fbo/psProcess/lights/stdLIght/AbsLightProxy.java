@@ -20,6 +20,5 @@ public class AbsLightProxy {
 	public boolean visible = true;
 
 	public AbsLightProxy(){
-
 	}
 }

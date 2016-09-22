@@ -372,6 +372,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 
 	public AbsStdLight setVisible(boolean visible) {
+		this.updState();
 		this.visible = visible;
 		return this;
 	}

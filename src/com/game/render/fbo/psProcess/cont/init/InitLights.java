@@ -101,13 +101,9 @@ public class InitLights {
 		try {
 			StructNode lightsNode = lightContainer.mainNode.getStruct(node.lights);
 			StructNode containersNode = lightsNode.getStruct(node.containers);
-
 			lights = loadContainer(lights, lightContainer, containersNode);
-
 			IDList = loadFromContainer(IDList, containersNode, lightMapContainer, lights);
-
-
-		} catch (StructContainerException ignored) {}
+		} catch (StructContainerException e) {e.printStackTrace();}
 
 
 		int[][] forReturn = new int[IDList.size()][2];
@@ -209,12 +205,12 @@ public class InitLights {
 								proxy.umbraRecess = Float.parseFloat(lightNode.getStruct(node.umbra).getPrimitive(node.umbraRecess));
 						}
 
-						if (lightNode.contains(node.accuracy)) proxy.accuracy = Integer.parseInt(lightNode.getPrimitive(node.accuracy));
-						if (lightNode.contains(node.minRadius)) proxy.minRadius = Float.parseFloat(lightNode.getPrimitive(node.minRadius));
-						if (lightNode.contains(node.maxRadius)) proxy.maxRadius = Float.parseFloat(lightNode.getPrimitive(node.maxRadius));
-						if (lightNode.contains(node.scale)) proxy.scale = Float.parseFloat(lightNode.getPrimitive(node.scale));
-						if (lightNode.contains(node.threshold)) proxy.threshold = Float.parseFloat(lightNode.getPrimitive(node.threshold));
-						if (lightNode.contains(node.visible)) proxy.visible = Boolean.parseBoolean(lightNode.getPrimitive(node.visible));
+						if (lightNode.contains(node.accuracy))	proxy.accuracy = Integer.parseInt(lightNode.getPrimitive(node.accuracy));
+						if (lightNode.contains(node.minRadius))	proxy.minRadius = Float.parseFloat(lightNode.getPrimitive(node.minRadius));
+						if (lightNode.contains(node.maxRadius))	proxy.maxRadius = Float.parseFloat(lightNode.getPrimitive(node.maxRadius));
+						if (lightNode.contains(node.scale))		proxy.scale = Float.parseFloat(lightNode.getPrimitive(node.scale));
+						if (lightNode.contains(node.threshold))	proxy.threshold = Float.parseFloat(lightNode.getPrimitive(node.threshold));
+						if (lightNode.contains(node.visible)) 	proxy.visible = Boolean.parseBoolean(lightNode.getPrimitive(node.visible));
 
 						if (lightType.equalsIgnoreCase("EscapyShadedLight")) {
 							if (proxy.accuracy != Integer.MAX_VALUE) absStdLight = new EscapyShadedLight(lightMapContainer, proxy.accuracy, escapyLightType);
@@ -222,18 +218,19 @@ public class InitLights {
 						}
 						else absStdLight = new EscapyStdLight(transitFBO, escapyLightType);
 
-						if (!Float.isNaN(proxy.maxRadius)) absStdLight.setMaxRadius(proxy.maxRadius);
-						if (!Float.isNaN(proxy.minRadius)) absStdLight.setMinRadius(proxy.minRadius);
-						if (!Float.isNaN(proxy.threshold)) absStdLight.setThreshold(proxy.threshold);
-						if (!Float.isNaN(proxy.scale)) absStdLight.setScale(proxy.scale);
-						if (!Float.isNaN(proxy.umbraRecess)) absStdLight.setUmbraCoeff(proxy.umbraRecess);
-						if (!Float.isNaN(proxy.umbraCoeff)) absStdLight.setUmbraCoeff(proxy.umbraCoeff);
-						if (proxy.color != null) absStdLight.setColor(proxy.color[0], proxy.color[1], proxy.color[2]);
-						if (proxy.position != null) absStdLight.setPosition(proxy.position);
+						if (!Float.isNaN(proxy.maxRadius)) 		absStdLight.setMaxRadius(proxy.maxRadius);
+						if (!Float.isNaN(proxy.minRadius)) 		absStdLight.setMinRadius(proxy.minRadius);
+						if (!Float.isNaN(proxy.threshold)) 		absStdLight.setThreshold(proxy.threshold);
+						if (!Float.isNaN(proxy.scale)) 			absStdLight.setScale(proxy.scale);
+						if (!Float.isNaN(proxy.umbraRecess)) 	absStdLight.setUmbraCoeff(proxy.umbraRecess);
+						if (!Float.isNaN(proxy.umbraCoeff)) 	absStdLight.setUmbraCoeff(proxy.umbraCoeff);
+						if (proxy.color != null) 				absStdLight.setColor(proxy.color[0], proxy.color[1], proxy.color[2]);
+						if (proxy.position != null) 			absStdLight.setPosition(proxy.position);
+
 						if (!Float.isNaN(proxy.angle)) {
 							if (!Float.isNaN(proxy.angleShift) && !Float.isNaN(proxy.angleCorr))
-								absStdLight.setAngle(proxy.angle, proxy.angleShift, proxy.angleCorr);
-							else absStdLight.setAngle(proxy.angle);
+									absStdLight.setAngle(proxy.angle, proxy.angleShift, proxy.angleCorr);
+							else 	absStdLight.setAngle(proxy.angle);
 						}
 						absStdLight.setVisible(proxy.visible);
 
