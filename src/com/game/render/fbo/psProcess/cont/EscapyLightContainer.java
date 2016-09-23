@@ -2,12 +2,16 @@ package com.game.render.fbo.psProcess.cont;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
+import com.game.render.program.gl.separate.GLBlendProgram;
+import com.game.render.program.shader.blend.EscapyBlendRenderer;
 import com.game.utils.absContainer.EscapyAbsContainer;
 
 /**
@@ -15,27 +19,33 @@ import com.game.utils.absContainer.EscapyAbsContainer;
  */
 public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 
-
-	public static final int[] ADD_RGB = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_ONE, GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_COLOR};
-	public static final int[] ADD_RGBA = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_ONE, GL30.GL_ONE, GL30.GL_ONE_MINUS_SRC_COLOR};
+	public static final GLBlendProgram glProgram = new GLBlendProgram();
 
 	private int[] blendMode;
 
+
 	private Batch batch;
+	private EscapyFBO colorizedFBO;
+	private EscapyBlendRenderer shaderBlendProgram;
 
-	public EscapyLightContainer() {
-		batch = new SpriteBatch();
-		setColorBlendMode(ADD_RGBA);
-	}
-	public EscapyLightContainer(int[] blendMode) {
-		batch = new SpriteBatch();
-		setColorBlendMode(blendMode);
+	private EscapyLightContainer() {
 	}
 
-
-	public EscapyLightContainer setColorBlendMode(int[] colorBlendMode) {
-		this.blendMode = colorBlendMode.clone();
-		return this;
+	public EscapyLightContainer(int[] additiveBlendMode) {
+		batch = new SpriteBatch();
+		setColorBlendMode(additiveBlendMode);
+		initFBO();
+	}
+	public EscapyLightContainer(EscapyBlendRenderer shaderBlendProgram) {
+		batch = new SpriteBatch();
+		setShaderBlendProgram(shaderBlendProgram);
+		initFBO();
+	}
+	public EscapyLightContainer(int[] additiveBlendMode, EscapyBlendRenderer shaderBlendProgram) {
+		batch = new SpriteBatch();
+		setColorBlendMode(additiveBlendMode);
+		setShaderBlendProgram(shaderBlendProgram);
+		initFBO();
 	}
 
 	private void setProgram(int p1, int p2, int p3, int p4) {
@@ -65,6 +75,8 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 		int srcFunc = batch.getBlendSrcFunc();
 		int dstFunc = batch.getBlendDstFunc();
 
+		colorizedFBO.begin().wipeFBO();
+
 		batch.begin();
 		batch.enableBlending();
 
@@ -87,57 +99,41 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 		batch.setBlendFunction(srcFunc, dstFunc);
 		batch.end();
 
-	}
-	public void renderLights(EscapyGdxCamera camera, Sprite target) {
-		Sprite tmpSprite;
-
-		int srcFunc = batch.getBlendSrcFunc();
-		int dstFunc = batch.getBlendDstFunc();
-
-		float x = camera.getCamera().position.x;
-		float y = camera.getCamera().position.y;
-
-		camera.setCameraPosition(target.getX() + (target.getWidth() / 2.f),
-				target.getY() + (target.getHeight() / 2f));
-		batch.setProjectionMatrix(camera.combined());
-		batch.begin();
-		batch.enableBlending();
-		setProgram(blendMode);
-		target.draw(batch);
-		batch.end();
-
-		camera.setCameraPosition(x, y);
-		batch.setProjectionMatrix(camera.combined());
-		batch.begin();
-
-		for (AbsStdLight tempLight : targetsList) {
-			tmpSprite = new Sprite(tempLight.getFBO().getTextureRegion());
-			tmpSprite.setPosition(
-					tempLight.lightSource.getPosition().x,
-					tempLight.lightSource.getPosition().y - 12
-			);
-			tmpSprite.setScale(tempLight.getScale());
-
-			tmpSprite.draw(batch);
-		}
-		batch.disableBlending();
-		batch.end();
-
-		batch.begin();
-		batch.setBlendFunction(srcFunc, dstFunc);
-		batch.end();
-
+		colorizedFBO.end();
 	}
 
-	public EscapyFBO renderLightsBuffered(EscapyGdxCamera camera, EscapyFBO fbo) {
+	public EscapyFBO renderBlendedLights(EscapyGdxCamera camera, Sprite target, EscapyFBO fbo) {
+
+		this.renderLights(camera);
 		fbo.begin();
-		renderLights(camera);
+		this.shaderBlendProgram.renderBlended(target, colorizedFBO.getSpriteRegion(), fbo.getFBOCamera().getCamera());
 		return fbo.end();
 	}
-	public EscapyFBO renderLightsBuffered(EscapyGdxCamera camera, EscapyFBO fbo, Sprite target) {
+
+	public EscapyFBO renderBlendedLights(EscapyGdxCamera camera, Texture target, EscapyFBO fbo) {
+
+		this.renderLights(camera);
 		fbo.begin();
-		renderLights(camera, target);
+		this.shaderBlendProgram.renderBlended(target, colorizedFBO.getTextureRegion().getTexture(), 0, 0, fbo.getFBOCamera().getCamera());
 		return fbo.end();
 	}
+
+
+
+	public EscapyLightContainer initFBO() {
+		colorizedFBO = new StandartFBO();
+		return this;
+	}
+
+	public EscapyLightContainer setColorBlendMode(int[] colorBlendMode) {
+		this.blendMode = colorBlendMode.clone();
+		return this;
+	}
+
+	public EscapyLightContainer setShaderBlendProgram(EscapyBlendRenderer shaderBlendProgram) {
+		this.shaderBlendProgram = shaderBlendProgram;
+		return this;
+	}
+
 
 }

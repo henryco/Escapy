@@ -9,7 +9,9 @@ import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyStdLight;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightSrcFactory;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
-import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
+import com.game.render.program.gl.separate.GLBlendProgram;
+import com.game.render.program.shader.blend.EscapyBlendRenderer;
+import com.game.render.program.shader.blend.ShaderBlendProgram;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
 import net.henryco.struct.container.exceptions.StructContainerException;
@@ -85,10 +87,18 @@ public class InitLights {
 			if (containersNode.contains(Integer.toString(iter))) {
 				try {
 					String fieldName = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("0");
-					boolean blur = Boolean.parseBoolean(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("1"));
-					Field blendProgram = EscapyLightContainer.class.getDeclaredField(fieldName);
-					blendProgram.setAccessible(true);
-					lights.addLightContainer(new EscapyLightContainer((int[])blendProgram.get(EscapyLightContainer.class.newInstance())));
+					String fieldName2 = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("1");
+					boolean blur = Boolean.parseBoolean(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("2"));
+					Field additiveBlendProgram = GLBlendProgram.class.getDeclaredField(fieldName);
+					Field blendProgramName = ShaderBlendProgram.program.class.getDeclaredField(fieldName2);
+					additiveBlendProgram.setAccessible(true);
+					blendProgramName.setAccessible(true);
+
+					lights.addLightContainer(new EscapyLightContainer(
+							(int[])additiveBlendProgram.get(GLBlendProgram.class.newInstance()),
+							ShaderBlendProgram.blendProgram((String) blendProgramName.get(ShaderBlendProgram.program.class.newInstance()))
+					));
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					stop = true;

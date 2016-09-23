@@ -352,15 +352,13 @@ public abstract class EscapyFBO {
 	public EscapyFBO forceRenderToFBO(EscapyFBO fbo) {	
 		this.begin();
 			fbo.renderFBO();
-		this.end();	
-		return this;
+		return this.end();
 	}
 	public EscapyFBO forceRenderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP, 
 			EscapyGdxCamera cam) {	
 		this.begin();
 			fbo.renderFBO(cam, ePP);
-		this.end();	
-		return this;
+		return this.end();
 	}
 	public EscapyFBO forceRenderToFBO(EscapyFBO fbo, EscapyPostProcessed ePP) {	
 		return this.forceRenderToFBO(fbo, ePP, this.fboCamera);

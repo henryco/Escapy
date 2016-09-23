@@ -1,4 +1,4 @@
-package com.game.render.shader.blend;
+package com.game.render.program.shader.blend;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.game.render.shader.EscapyShaderRender;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class EscapyBlendRenderer.
  */
@@ -191,10 +192,7 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 	}
 
 
-	
-	/* (non-Javadoc)
-	 * @see com.game.render.shader.EscapyShaderRender#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "EscapyBlendShader"+"_"+this.FRAGMENT_NAME+"_"+super.id;

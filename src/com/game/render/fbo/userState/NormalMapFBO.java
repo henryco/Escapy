@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
-import com.game.render.fbo.psProcess.program.userState.FBOVolumeLightProgram;
 
 // TODO: Auto-generated Javadoc
 /**@deprecated
@@ -51,7 +50,9 @@ public class NormalMapFBO extends EscapyMultiFBO {
 
 	@Override
 	protected FBORenderProgram<?> initRenderProgram() {
-		return new FBOVolumeLightProgram(this);
+
+		return null;
+		//		new FBOVolumeLightProgram(this);
 	}
 
 	

@@ -20,7 +20,6 @@ import com.game.render.extra.std.StdRenderer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.init.InitLights;
-import com.game.render.fbo.psProcess.lights.volLight.VolumeLightsExecutor;
 import com.game.render.mask.LightMask;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
@@ -285,7 +284,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	public void renderFBO() {
 
 		this.MAINFBO.renderFBO();
-		lightContainer.lights.forEach(l -> l.makeLights().renderLightsBuffered(escapyCamera, lightBuffFBO));
+		lightContainer.lights.forEach(l -> l.makeLights().renderBlendedLights(escapyCamera, stdFBO.getSpriteRegion(), lightBuffFBO));
 		lightBuffFBO.renderFBO();
 	}
 

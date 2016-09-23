@@ -5,17 +5,13 @@ import com.game.render.EscapyGdxCamera;
 import com.game.render.fbo.EscapyMultiFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
-import com.game.render.shader.blend.EscapyBlendRenderer;
-import com.game.render.shader.blend.userState.EscapyStdMultiplyRenderer;
+import com.game.render.program.shader.blend.EscapyBlendRenderer;
+
 
 public class FBOStdBlendProgram extends FBORenderProgram<EscapyMultiFBO>{
 
 	private EscapyBlendRenderer settedBlender;
-	
-	public FBOStdBlendProgram(EscapyMultiFBO fboProgramTarget) {
-		super(fboProgramTarget);
-		this.setBlendRenderer(new EscapyStdMultiplyRenderer(super.getFBOTarget().getId()));
-	}
+
 	public FBOStdBlendProgram(EscapyMultiFBO fboProgramTarget, EscapyBlendRenderer blender) {
 		super(fboProgramTarget);
 		this.setBlendRenderer(blender);

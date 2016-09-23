@@ -12,5 +12,5 @@ public interface EscapyPostIterative extends EscapyPostRenderer {
 	 * @param times - 3 is default for void frameBuffer
 	 * @return fbo - same but filled fbo
 	 */
-	public abstract EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec, int times);
+	EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec, int times);
 }
