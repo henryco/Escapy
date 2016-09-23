@@ -16,6 +16,7 @@ import net.henryco.struct.container.exceptions.StructContainerException;
 import net.henryco.struct.container.tree.StructNode;
 import net.henryco.struct.container.tree.StructTree;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +84,11 @@ public class InitLights {
 		while (!stop) {
 			if (containersNode.contains(Integer.toString(iter))) {
 				try {
-					String methodName = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("0");
+					String fieldName = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("0");
 					boolean blur = Boolean.parseBoolean(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("1"));
-					Method blendProgram = FBOStdBlendProgramFactory.class.getDeclaredMethod(methodName);
-				//	lights.addLightContainer((FBORenderProgram) blendProgram.invoke(FBOStdBlendProgramFactory.class.newInstance()), blur);
-					lights.addLightContainer(new EscapyLightContainer());
+					Field blendProgram = EscapyLightContainer.class.getDeclaredField(fieldName);
+					blendProgram.setAccessible(true);
+					lights.addLightContainer(new EscapyLightContainer((int[])blendProgram.get(EscapyLightContainer.class.newInstance())));
 				} catch (Exception e) {
 					e.printStackTrace();
 					stop = true;

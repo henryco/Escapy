@@ -1,7 +1,6 @@
 package com.game.render.fbo.psProcess.cont;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,43 +15,44 @@ import com.game.utils.absContainer.EscapyAbsContainer;
  */
 public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 
-	private static final int[] ADD_FULL = new int[]{GL30.GL_ONE, GL30.GL_ONE_MINUS_SRC_COLOR};
-	private static final int[] ADD_ALPHA = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_ONE};
-	private static final int[] ADD_AWESOME = new int[]{GL30.GL_SRC_COLOR, GL30.GL_ONE_MINUS_SRC_COLOR};
-	private static final int[] ALPHA = new int[]{GL30.GL_ONE, GL30.GL_ONE_MINUS_SRC_ALPHA};
 
-	private static final int[] SEP_ALPHA = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA, GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA};
-	private static final int[] SEP_ADD_ALPHA = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_ONE, GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_COLOR};
-	private static final int[] SEP_OTHER = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_SRC_COLOR, GL30.GL_ONE_MINUS_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_COLOR};
-	private static final int[] SEP_ALPHA_ZERO = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_SRC_ALPHA, GL30.GL_DST_ALPHA, GL30.GL_DST_ALPHA};
+	public static final int[] ADD_RGB = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_ONE, GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_COLOR};
+	public static final int[] ADD_RGBA = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_ONE, GL30.GL_ONE, GL30.GL_ONE_MINUS_SRC_COLOR};
+
+	private int[] blendMode;
 
 	private Batch batch;
 
 	public EscapyLightContainer() {
 		batch = new SpriteBatch();
+		setColorBlendMode(ADD_RGBA);
 	}
+	public EscapyLightContainer(int[] blendMode) {
+		batch = new SpriteBatch();
+		setColorBlendMode(blendMode);
+	}
+
+
+	public EscapyLightContainer setColorBlendMode(int[] colorBlendMode) {
+		this.blendMode = colorBlendMode.clone();
+		return this;
+	}
+
+	private void setProgram(int p1, int p2, int p3, int p4) {
+		batch.setBlendFunction(-1, -1);
+		Gdx.gl30.glBlendFuncSeparate(p1,p2, p3, p4);
+		Gdx.gl30.glBlendEquationSeparate(GL30.GL_FUNC_ADD, GL30.GL_FUNC_ADD);
+	}
+	private void setProgram(int[] program) {
+		this.setProgram(program[0], program[1], program[2], program[3]);
+	}
+
 
 	public EscapyLightContainer makeLights() {
 		super.targetsList.forEach(light -> {
 			if (light.isVisible() && light.isNeedUpdate()) light.lazyRender(null);
 		});
 		return this;
-	}
-
-	private void setProgram(int[] program) {
-		batch.setBlendFunction(program[0], program[1]);
-	}
-	private void setProgram(int program1, int program2) {
-		batch.setBlendFunction(program1, program2);
-	}
-
-	private void setProgramSeparate(int p1, int p2, int p3, int p4) {
-		batch.setBlendFunction(-1, -1);
-		Gdx.gl30.glBlendFuncSeparate(p1,p2, p3, p4);
-		Gdx.gl30.glBlendEquationSeparate(GL30.GL_FUNC_ADD, GL30.GL_FUNC_ADD);
-	}
-	private void setProgramSeparate(int[] program) {
-		this.setProgramSeparate(program[0], program[1], program[2], program[3]);
 	}
 
 
@@ -68,7 +68,7 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 		batch.begin();
 		batch.enableBlending();
 
-		setProgramSeparate(SEP_ADD_ALPHA);
+		setProgram(blendMode);
 
 		for (AbsStdLight tempLight : targetsList) {
 			tmpSprite = new Sprite(tempLight.getFBO().getTextureRegion());
@@ -102,7 +102,7 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 		batch.setProjectionMatrix(camera.combined());
 		batch.begin();
 		batch.enableBlending();
-		setProgram(SEP_ALPHA_ZERO);
+		setProgram(blendMode);
 		target.draw(batch);
 		batch.end();
 
@@ -139,4 +139,5 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 		renderLights(camera, target);
 		return fbo.end();
 	}
+
 }

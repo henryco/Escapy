@@ -285,7 +285,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	public void renderFBO() {
 
 		this.MAINFBO.renderFBO();
-		//lightContainer.lights.forEach(l -> l.makeLights().renderLightsBuffered(escapyCamera, lightBuffFBO, stdFBO.getSpriteRegion()));
 		lightContainer.lights.forEach(l -> l.makeLights().renderLightsBuffered(escapyCamera, lightBuffFBO));
 		lightBuffFBO.renderFBO();
 	}
