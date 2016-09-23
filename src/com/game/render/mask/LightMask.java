@@ -1,10 +1,7 @@
 package com.game.render.mask;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -16,10 +13,10 @@ import com.game.render.fbo.EscapyFBO;
  */
 public class LightMask {
 
-	public static final int[] MULTIPLY = new int[]{GL20.GL_DST_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA};
-	public static final int[] SEPIA = new int[]{GL20.GL_SRC_ALPHA, GL20.GL_DST_COLOR};
-	public static final int[] SCREEN = new int[]{GL20.GL_ONE_MINUS_DST_COLOR, GL20.GL_ONE};
-	public static final int[] LINEAR_DODGE = new int[]{GL20.GL_ONE, GL20.GL_ONE};
+	public static final int[] MULTIPLY = new int[]{GL30.GL_DST_COLOR, GL30.GL_ONE_MINUS_SRC_ALPHA};
+	public static final int[] SEPIA = new int[]{GL30.GL_SRC_ALPHA, GL30.GL_DST_COLOR};
+	public static final int[] SCREEN = new int[]{GL30.GL_ONE_MINUS_DST_COLOR, GL30.GL_ONE};
+	public static final int[] LINEAR_DODGE = new int[]{GL30.GL_ONE, GL30.GL_ONE};
 
 
 	private Color color = new Color((60f/255f), (60f/255f), (60f/255f), 1f);
@@ -28,14 +25,12 @@ public class LightMask {
 	private Texture maskTexture;
 	private int[] blendFunc;
 	private EscapyGdxCamera camera;
-	private FrameBuffer tmp;
 
 	public LightMask(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		tmp = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
 		camera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		setMaskFunc(MULTIPLY);
 		setColor((60f/255f), (60f/255f), (60f/255f), 1f);
@@ -43,6 +38,7 @@ public class LightMask {
 
 	public LightMask initMaskTexture() {
 
+		FrameBuffer tmp = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
 		tmp.begin();
 		Gdx.gl.glClearColor(this.color.r, this.color.g, this.color.b, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -1,6 +1,5 @@
 package com.game.render.fbo.psProcess.cont;
 
-import java.util.Arrays;
 import java.util.function.Function;
 
 import com.badlogic.gdx.Gdx;
@@ -24,8 +23,8 @@ import com.game.render.shader.blur.userState.EscapyStdBlurRenderer.EscapyBlur;
 import com.game.utils.absContainer.EscapyAbsContainer;
 import com.game.utils.observ.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
-
-public class LightContainer extends EscapyAbsContainer<AbsStdLight>
+@Deprecated
+public class LightContainerBCKP extends EscapyAbsContainer<AbsStdLight>
         implements EscapyPostExec<EscapyMultiFBO>, EscapyPostIterative,
         EscapyFBOContainer, SimpleObserver<EscapyFBOContainer> {
 
@@ -52,45 +51,45 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
     private float[] optTransVec;
 
 
-    public LightContainer() {
+    public LightContainerBCKP() {
     }
-    public LightContainer(EscapyFBO mutliFBO) {
+    public LightContainerBCKP(EscapyFBO mutliFBO) {
         this.setPostRenderFBO(mutliFBO);
         this.setRenderProgram(FBOStdBlendProgramFactory.softLight(lightFBO));
     }
-    public LightContainer(EscapyFBO mutliFBO, boolean blur) {
+    public LightContainerBCKP(EscapyFBO mutliFBO, boolean blur) {
         this.setPostRenderFBO(mutliFBO);
         this.setRenderProgram(FBOStdBlendProgramFactory.softLight(lightFBO));
         this.setBlur(blur);
     }
-    public LightContainer(EscapyFBO mutliFBO, FBORenderProgram<EscapyMultiFBO> program) {
+    public LightContainerBCKP(EscapyFBO mutliFBO, FBORenderProgram<EscapyMultiFBO> program) {
         this.setPostRenderFBO(mutliFBO);
         this.setRenderProgram(program);
     }
-    public LightContainer(EscapyFBO mutliFBO, FBORenderProgram<EscapyMultiFBO> program, boolean blur) {
+    public LightContainerBCKP(EscapyFBO mutliFBO, FBORenderProgram<EscapyMultiFBO> program, boolean blur) {
         this.setPostRenderFBO(mutliFBO);
         this.setRenderProgram(program);
         this.setBlur(blur);
     }
-    public LightContainer(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera) {
+    public LightContainerBCKP(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera) {
         this.setPostRenderFBO(mutliFBO);
         this.setPostRenderCamera(postRenderCamera);
         this.setRenderProgram(FBOStdBlendProgramFactory.softLight(lightFBO));
     }
-    public LightContainer(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera, boolean blur) {
+    public LightContainerBCKP(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera, boolean blur) {
         this.setPostRenderFBO(mutliFBO);
         this.setPostRenderCamera(postRenderCamera);
         this.setRenderProgram(FBOStdBlendProgramFactory.softLight(lightFBO));
         this.setBlur(blur);
     }
-    public LightContainer(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera,
-                          FBORenderProgram<EscapyMultiFBO> program) {
+    public LightContainerBCKP(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera,
+							  FBORenderProgram<EscapyMultiFBO> program) {
         this.setPostRenderFBO(mutliFBO);
         this.setPostRenderCamera(postRenderCamera);
         this.setRenderProgram(program);
     }
-    public LightContainer(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera,
-                          FBORenderProgram<EscapyMultiFBO> program, boolean blur) {
+    public LightContainerBCKP(EscapyFBO mutliFBO, EscapyGdxCamera postRenderCamera,
+							  FBORenderProgram<EscapyMultiFBO> program, boolean blur) {
         this.setPostRenderFBO(mutliFBO);
         this.setPostRenderCamera(postRenderCamera);
         this.setRenderProgram(program);
@@ -161,28 +160,6 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
         return lightFBO.endMergedBuffer();
     }
 
-    public EscapyFBO prepareContainedFBO(EscapyGdxCamera camera, int iterations) {
-
-        EscapyFBO temp = renderContainedFBO12(camera);
-        lightFBO.begin();
-        while (iterations > 0) {
-            stdRenderer.drawTexture(temp.getTextureRegion().getTexture(),
-                    postRenderCamera.getCamera(),
-                    -optTransVec[0], -optTransVec[1]
-            );
-            iterations -= 1;
-        }
-        return lightFBO.endMergedBuffer();
-    }
-    public EscapyFBO renderContainedFBO12(EscapyGdxCamera camera) {
-
-        super.targetsList.forEach(light -> {
-            if (light.isVisible() && stateUpdated) light.preRender(camera);
-        });
-        return renderContainedTexture12(camera);
-    }
-
-
 
     public EscapyFBO renderContainedFBO(EscapyGdxCamera camera) {
 
@@ -202,48 +179,11 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
         return this.blurFBO.end();
     }
 
-    private EscapyFBO renderContainedTexture12(EscapyGdxCamera camera) {
-
-        int[] flag = new int[]{0};
-        this.blurFBO.begin().wipeFBO();
-        this.targetsList.forEach(light -> {
-
-            if (light.isVisible()) {
-
-                this.blender.renderBlended(blurFBO.getTextureRegion(),
-                        light.getFBO().getTextureRegion(),
-                        light.getOptTranslation()[0],
-                        light.getOptTranslation()[1],
-                        blurFBO.getRegWidth(), blurFBO.getRegHeight(),
-                        postRenderCamera.getCamera());
-                flag[0] += 1;
-            }
-        });
-        this.blurFBO.end();
-
-        if (stateUpdated) {
-            stateUpdated = false;
-            Arrays.fill(optTransVec, 0);
-        } else {
-            optTransVec[0] += camera.getTranslationVectorArray()[0];
-            optTransVec[1] += camera.getTranslationVectorArray()[1];
-        }
-        if (!isBlured || flag[0] == 0) return this.blurFBO;
-
-        this.ortoFBO.begin().wipeFBO();
-        this.blurFBO.renderFBO();
-        this.blurFBO.renderFBO();
-        this.blurRednerer.renderBlured(blurFBO.getSpriteRegion(),
-                postRenderCamera.getCamera(), blurFBO.getRegWidth(),
-                blurFBO.getRegHeight(), 1, 1
-        );
-        return this.ortoFBO.end();
-    }
 
     private EscapyFBO renderContainedTexture(EscapyGdxCamera camera) {
 
-        AbsStdLight tempLight = null;
-        Sprite tmpSprite = null;
+        AbsStdLight tempLight;
+        Sprite tmpSprite;
         int[] flag = new int[]{0};
         int[] flag2 = new int[]{0};
         for (int i = 0; i < targetsList.size(); i++) {
@@ -359,29 +299,29 @@ public class LightContainer extends EscapyAbsContainer<AbsStdLight>
         return this.lightFBO.getRenderProgram().getLightIntensity();
     }
 
-    public LightContainer setAmbientIntesity(float amb) {
+    public LightContainerBCKP setAmbientIntesity(float amb) {
         this.lightFBO.getRenderProgram().setAmbientIntensity(amb);
         System.out.println("amb: " + this.lightFBO.getRenderProgram().getAmbientIntensity() + " "
                 + "::: " + " inten: " + this.lightFBO.getRenderProgram().getLightIntensity());
         return this;
     }
 
-    public LightContainer setLightIntensity(float lgt) {
+    public LightContainerBCKP setLightIntensity(float lgt) {
         this.lightFBO.getRenderProgram().setLightIntensity(lgt);
         System.out.println("amb: " + this.lightFBO.getRenderProgram().getAmbientIntensity() + " "
                 + "::: " + " inten: " + this.lightFBO.getRenderProgram().getLightIntensity());
         return this;
     }
 
-    public LightContainer setAmbientIntesity(Function<Float, Float> f) {
+    public LightContainerBCKP setAmbientIntesity(Function<Float, Float> f) {
         return this.setAmbientIntesity(f.apply(this.lightFBO.getRenderProgram().getAmbientIntensity()));
     }
 
-    public LightContainer setLightIntensity(Function<Float, Float> f) {
+    public LightContainerBCKP setLightIntensity(Function<Float, Float> f) {
         return this.setLightIntensity(f.apply(this.lightFBO.getRenderProgram().getLightIntensity()));
     }
 
-    public LightContainer setBlur(boolean blur) {
+    public LightContainerBCKP setBlur(boolean blur) {
         this.isBlured = blur;
         return this;
     }

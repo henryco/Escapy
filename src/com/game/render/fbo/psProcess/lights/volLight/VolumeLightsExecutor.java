@@ -166,9 +166,7 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
     }
 	
 	
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#postRender(com.game.render.fbo.EscapyFBO, com.game.utils.translationVec.TransVec)
-	 */
+
 	@Override
 	public EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec) {
 		this.nrmlFBO.mergeBuffer();
@@ -178,9 +176,7 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 		return fbo;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.psRender.EscapyPostRenderer#postRender(com.game.utils.translationVec.TransVec)
-	 */
+
 	@Override
 	public void postRender(TransVec translationVec) {
 		
@@ -190,10 +186,7 @@ public class VolumeLightsExecutor implements EscapyPostRenderer,
 			this.lightIntensity, this.postRenderCamera.getCamera());
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see com.game.render.fbo.psRender.EscapyPostRenderable#setPostRenderCamera(com.game.render.EscapyGdxCamera)
-	 */
+
 	@Override
 	public EscapyPostRenderer setPostRenderCamera(EscapyGdxCamera camera) {
 		this.postRenderCamera = camera;

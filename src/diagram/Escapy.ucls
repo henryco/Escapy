@@ -197,7 +197,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="com.game.render.fbo.psProcess.cont.LightContainer" 
+  <class id="20" language="java" name="com.game.render.fbo.psProcess.cont.LightContainerBCKP"
     project="EscapyProject_gdx-core" 
     file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/cont/LightContainer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -1173,7 +1173,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="115" language="java" name="com.game.render.fbo.psProcess.cont.LightContainer.light" 
+  <class id="115" language="java" name="com.game.render.fbo.psProcess.cont.LightContainerBCKP.light"
     project="EscapyProject_gdx-core" 
     file="/EscapyProject_gdx-core/src/com/game/render/fbo/psProcess/cont/LightContainer.java" binary="false" 
     corner="BOTTOM_RIGHT">    

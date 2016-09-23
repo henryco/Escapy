@@ -35,10 +35,6 @@ public class PostProcessedProxy <T extends EscapyPostProcessed, U extends Escapy
 		super.holder = holder;
 		super.id = id;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.game.utils.proxyContainer.EscapyProxy#hold()
-	 */
 	@Override
 	public PostProcessedProxy<T, U> hold()
 	{
@@ -49,10 +45,7 @@ public class PostProcessedProxy <T extends EscapyPostProcessed, U extends Escapy
 		} 
 		return this;
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.game.utils.proxyContainer.EscapyProxy#apply()
-	 */
+
 	@Override
 	public EscapyProxy<T, U> apply() 
 	{

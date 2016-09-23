@@ -2,15 +2,13 @@ package com.game.render.fbo.psProcess.cont.init;
 
 import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.StandartFBO;
-import com.game.render.fbo.psProcess.cont.LightContainer;
+import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsLightProxy;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight;
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyStdLight;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightSrcFactory;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
-import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.fbo.psProcess.program.FBOStdBlendProgramFactory;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
@@ -29,30 +27,22 @@ import java.util.List;
 public class InitLights {
 
 
+//	public EscapyLightsBCKP lights;
 	public EscapyLights lights;
+
 	public int[][] lightID;
 	public float ambientInt, ligthInt;
 
 	public InitLights(EscapyFBO stdFBO) {
-		this.lights = new EscapyLights(stdFBO);
+	//	this.lights = new EscapyLightsBCKP(stdFBO);
+		this.lights = new EscapyLights();
 	}
-
-	public InitLights(EscapyFBO stdFBO, EscapyFBO lightMapFBO, String url) {
-		this.lights = new EscapyLights(stdFBO);
-		this.create(url, lightMapFBO);
-	}
-
 	public InitLights(EscapyFBO stdFBO, ExtraRenderContainer lightMapContainer, String url) {
-		this.lights = new EscapyLights(stdFBO);
+	//	this.lights = new EscapyLightsBCKP(stdFBO);
+		this.lights = new EscapyLights();
 		this.create(url, lightMapContainer);
 	}
 
-
-	public InitLights create(String url, EscapyFBO lightMapFBO) {
-
-		lightID = loadLights(lightMapFBO, new ArrayList<>(), url);
-		return this;
-	}
 
 	public InitLights create(String url, ExtraRenderContainer lightMapContainer) {
 
@@ -61,35 +51,7 @@ public class InitLights {
 	}
 
 
-	private int[][] loadLights(EscapyFBO lightMapFBO, ArrayList<int[]> IDList, String url) {
-
-		ligthInt = 0.2f;
-		ambientInt = 0.75f;
-
-		lights.addLightContainer(LightContainer.light.screenDodge(), true);
-		lights.addLightContainer(LightContainer.light.strongSoftLight(), false);
-
-		IDList.add(new int[]{0, this.lights.lights[0].addSource(new EscapyShadedLight(
-				lightMapFBO, 4, EscapyLightSrcFactory.RND_1024()).setMaxRadius(1.5f).
-				setPosition(400, 450).setColor(0, 0, 0).
-				setAngle(0.125f).setVisible(true).setScale(2f).setThreshold(0.7f)
-		)});
-
-		IDList.add(new int[]{1, this.lights.lights[1].addSource(new EscapyStdLight(lightMapFBO,
-				EscapyLightSrcFactory.RND_512()).setPosition(0, 420).
-				setColor(205, 107, 107).setVisible(true).setScale(3f)
-		)});
-
-		int[][] forReturn = new int[IDList.size()][2];
-		for (int i = 0; i < IDList.size(); i++)
-			forReturn[i] = IDList.get(i);
-		return forReturn;
-	}
-
-
 	private int[][] loadLights(ExtraRenderContainer lightMapContainer, ArrayList<int[]> IDList, String url) {
-
-		EscapyFBO transitFBO = new StandartFBO().forceClearFBO();
 
 		ligthInt = 0.2f;
 		ambientInt = 0.75f;
@@ -124,7 +86,8 @@ public class InitLights {
 					String methodName = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("0");
 					boolean blur = Boolean.parseBoolean(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("1"));
 					Method blendProgram = FBOStdBlendProgramFactory.class.getDeclaredMethod(methodName);
-					lights.addLightContainer((FBORenderProgram) blendProgram.invoke(FBOStdBlendProgramFactory.class.newInstance()), blur);
+				//	lights.addLightContainer((FBORenderProgram) blendProgram.invoke(FBOStdBlendProgramFactory.class.newInstance()), blur);
+					lights.addLightContainer(new EscapyLightContainer());
 				} catch (Exception e) {
 					e.printStackTrace();
 					stop = true;
@@ -136,8 +99,6 @@ public class InitLights {
 
 	private static ArrayList<int[]> loadFromContainer(ArrayList<int[]> IDList, StructNode containersNode,
 													  ExtraRenderContainer lightMapContainer, EscapyLights lights) throws StructContainerException {
-		EscapyFBO transitFBO = new StandartFBO().forceClearFBO();
-
 		boolean stop = false;
 		int iter = 0;
 		while (!stop) {
@@ -216,7 +177,7 @@ public class InitLights {
 							if (proxy.accuracy != Integer.MAX_VALUE) absStdLight = new EscapyShadedLight(lightMapContainer, proxy.accuracy, escapyLightType);
 							else absStdLight = new EscapyShadedLight(lightMapContainer, escapyLightType);
 						}
-						else absStdLight = new EscapyStdLight(transitFBO, escapyLightType);
+						else absStdLight = new EscapyStdLight(null, escapyLightType);
 
 						if (!Float.isNaN(proxy.maxRadius)) 		absStdLight.setMaxRadius(proxy.maxRadius);
 						if (!Float.isNaN(proxy.minRadius)) 		absStdLight.setMinRadius(proxy.minRadius);
@@ -234,7 +195,7 @@ public class InitLights {
 						}
 						absStdLight.setVisible(proxy.visible);
 
-						IDList.add(new int[]{iter, lights.lights[iter].addSource(absStdLight)});
+						IDList.add(new int[]{iter, lights.lightContainers[iter].addSource(absStdLight)});
 
 					} else stop2 = true;
 					iter2 += 1;
@@ -246,7 +207,7 @@ public class InitLights {
 	}
 
 	public AbsStdLight getSourceByID(int[] id) {
-		return lights.lights[id[0]].getSourceByID(id[1]);
+		return lights.lightContainers[id[0]].getSourceByID(id[1]);
 	}
 
 	private static final class node {

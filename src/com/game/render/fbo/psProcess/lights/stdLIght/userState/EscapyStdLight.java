@@ -69,8 +69,4 @@ public class EscapyStdLight extends AbsStdLight {
 		return EscapyLightSrcFactory.RND_512();
 	}
 
-    @Override
-    public EscapyStdLight get() {
-        return this;
-    }
 }

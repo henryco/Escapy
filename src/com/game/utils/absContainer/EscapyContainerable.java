@@ -12,12 +12,12 @@ public interface EscapyContainerable {
 	 * @param id
 	 *            the new id
 	 */
-	public void setID(int id);
+	void setID(int id);
 	
 	/**
 	 * Gets the id.
 	 *
 	 * @return the id
 	 */
-	public int getID();
+	int getID();
 }

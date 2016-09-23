@@ -20,7 +20,6 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 	private Sprite testShaderSprite;
 
-	private EscapyFBO stdFBO;
 	private SpriteBatch batcher;
 	private EscapyGdxCamera privGdxCamera;
 
@@ -42,8 +41,6 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
        this.testShaderSprite.setSize(super.settings.getFrameWIDHT(), super.settings.getFrameWIDHT());
        this.testShaderSprite.flip(false, true);
 
-       this.stdFBO = new StandartFBO();
-
        this.batcher = new SpriteBatch();
 
 	}
@@ -60,17 +57,13 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 		this.privGdxCamera.clear();
 	
-		this.stdFBO.begin().wipeFBO();
-		{
-			this.privGdxCamera.getCamera().update();
-			this.batcher.setProjectionMatrix(privGdxCamera.getCamera().combined);
-			this.batcher.begin();
-				this.testShaderSprite.draw(batcher);
-			this.batcher.end();
-		}
-		this.stdFBO.end();
 
-		this.stdFBO.renderFBO();
+		this.privGdxCamera.getCamera().update();
+		this.batcher.setProjectionMatrix(privGdxCamera.getCamera().combined);
+		this.batcher.begin();
+		this.testShaderSprite.draw(batcher);
+		this.batcher.end();
+
 		
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) /* Back to game */
 		{

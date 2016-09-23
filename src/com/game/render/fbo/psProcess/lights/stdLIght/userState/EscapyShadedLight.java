@@ -172,7 +172,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 
     @Override
     public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
-
+		/*
         lightCam.setCameraPosition(transPos.
                 vecfuncv(v -> v.sub(escapyCamera.getShiftVec())).arrfuncf(n -> n / scale));
 
@@ -212,15 +212,18 @@ public class EscapyShadedLight extends EscapyStdLight {
                     resolution, coeff, correct, radius, umbra);
         }
         this.fbo.end();
+        */
         return this;
     }
 
+    @Override
     public AbsStdLight lazyRender(EscapyGdxCamera escapyCamera) {
 
         renderLightMap();
         renderShadowMap();
         renderShadows();
         renderLightSrc();
+		setUpdate(false);
         return this;
     }
     public EscapyFBO renderLightMap() {
@@ -276,9 +279,5 @@ public class EscapyShadedLight extends EscapyStdLight {
         transPos.setTransVec(super.getPosition());
     }
 
-    @Override
-    public EscapyShadedLight get() {
-        return this;
-    }
 
 }
