@@ -4,7 +4,7 @@ lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
 <br>
 lights - <b>containers holder</b><br>
 containers - <b>light containers</b><br>
-  [(type[ADD_RGBA, SOFT_LIGHT, false])] - <b>constructor</b> <br>
+  [(<b>type[</b>ADD_RGBA, SOFT_LIGHT, false<b>]</b>)] - <b>constructor</b> <br><br>
   
   <b><i>Type constructor: </i></b><br>
 
