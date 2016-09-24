@@ -139,6 +139,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         /* FIXME prototype version below */
         this.lightContainer = new InitLights(stdFBO, lightsMapContainer, super.settings.lightCfgUrl());
+
+		this.bgrFBO.begin().wipeFBO();
+		this.bgrContainer.renderGraphic(escapyCamera);
+		this.bgrFBO.end();
     }
     public void init_mask() {
 		
@@ -243,10 +247,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.lightBuffFBO.forceWipeFBO();
     }
     public void renderContainers(EscapyGdxCamera escapyCamera) {
-
-        this.bgrFBO.begin().wipeFBO();
-        this.bgrContainer.renderGraphic(escapyCamera);
-        this.bgrFBO.end();
 
         this.stdFBO.begin().wipeFBO();
         this.stdContainer.renderGraphic(escapyCamera);

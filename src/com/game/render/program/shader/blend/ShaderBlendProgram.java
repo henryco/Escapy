@@ -42,11 +42,6 @@ public class ShaderBlendProgram implements RenderProgram {
 		 */
 		public static final String DPO = "DPO";
 		/**
-		 * Vivid + Hue + colorDodge blend program
-		 * @author Henry
-		 */
-		public static final String VHD = "VHD";
-		/**
 		 * Vivid + Color + colorDodge blend program
 		 * @author Henry
 		 */
@@ -74,7 +69,6 @@ public class ShaderBlendProgram implements RenderProgram {
 		public static final String SOFT_COLOR_DODGE_REVERSED = "reverseSoftDodge";
 		public static final String SOFT_COLOR_DODGE = "softDodge";
 		public static final String SOFT_LIGHT = "softLight";
-		public static final String SOFT_OVERLAY = "softOverlay";
 		public static final String SOFT_LIGHT_STRONG = "strongSoftLight";
 
 		public static final String VIVID_DODGE = "vividDodge";
@@ -85,7 +79,9 @@ public class ShaderBlendProgram implements RenderProgram {
 
 		public static final String MULTIPLY = "multiply";
 
+		public static final String OVERLAY = "overlay";
 
+		public static final String SCREEN = "screen";
 
 	}
 
