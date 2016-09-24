@@ -1,0 +1,71 @@
+// Escapy light system config
+#type struct
+
+# CEB 
+# DPO
+# VHD 
+# VCD 
+# VOD2 
+# VSD
+
+# COLOR_DODGE 
+# COLOR_DODGE_MULTI 
+# COLOR_DODGE_HARD 
+	
+# SOFT_LIGHT
+# SOFT_COLOR_DODGE_REVERSED
+# SOFT_COLOR_DODGE
+# SOFT_LIGHT_STRONG
+
+# VIVID_DODGE 
+# VIVID_HUE
+# VIVID_SOFT 
+
+# SCREEN
+# SCREEN_COLOR_DODGE
+
+# MULTIPLY
+# OVERLAY
+
+// (1) and (2) are same
+// (1)
+lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
+
+lights: {
+	containers[0]: {
+
+// (2)
+//		type: {
+//			glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
+//			shader: OVERLAY
+//			shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
+//			shader.fileDir("data/shaders/blend/screen/", "screen");
+//			shader.uniforms("targetMap", "blendMap")
+//			blur: false;
+//		}		
+
+		source[0]: {
+			EscapyStdLight : {
+				srcType: RND_512
+				position: (350, 500)
+				color (250, 0, 0)
+				scale: 2.5
+				visible true
+			}
+		}
+		source[1]: {
+			EscapyStdLight {
+				srcType RND_512
+				position[0] = 0;
+				position[1] = 420;
+				color: {
+					0: 0
+					1: 0
+					2: 250
+				}
+				scale = 2.5
+				visible true
+			}
+		}
+	}
+}
