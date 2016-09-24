@@ -4,10 +4,10 @@ lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
 <br>
 lights - <b>containers holder</b><br>
 containers - <b>light containers</b><br>
-  [(<b>type[</b>ADD_RGBA, SOFT_LIGHT, false<b>]</b>)] - <b>constructor</b> <br><br>
   
-  <b><i>Type constructor: </i></b><br>
-
+  
+  <b><i>Type constructor: </i></b><br><br>
+  [(<b>type[</b>ADD_RGBA, SOFT_LIGHT, false<b>]</b>)] - <b>constructor</b> <br><br>
   type[0] = <b>GL blend program </b> <br>
   type[1] = <b>shader program </b> <br>
   type[2] = <b>blur </b> <br>
