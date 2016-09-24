@@ -1,5 +1,6 @@
 package com.game.render.fbo.psProcess.cont.init;
 
+import com.badlogic.gdx.graphics.GL20;
 import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
@@ -30,18 +31,15 @@ import java.util.List;
 public class InitLights {
 
 
-//	public EscapyLightsBCKP lights;
 	public EscapyLights lights;
 
 	public int[][] lightID;
 	public float ambientInt, ligthInt;
 
 	public InitLights(EscapyFBO stdFBO) {
-	//	this.lights = new EscapyLightsBCKP(stdFBO);
 		this.lights = new EscapyLights();
 	}
 	public InitLights(EscapyFBO stdFBO, ExtraRenderContainer lightMapContainer, String url) {
-	//	this.lights = new EscapyLightsBCKP(stdFBO);
 		this.lights = new EscapyLights();
 		this.create(url, lightMapContainer);
 	}
@@ -86,18 +84,83 @@ public class InitLights {
 		while (!stop) {
 			if (containersNode.contains(Integer.toString(iter))) {
 				try {
-					String fieldName = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("0");
-					String fieldName2 = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("1");
-					boolean blur = Boolean.parseBoolean(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("2"));
-					Field additiveBlendProgram = GLBlendProgram.class.getDeclaredField(fieldName);
-					Field blendProgramName = ShaderBlendProgram.program.class.getDeclaredField(fieldName2);
-					additiveBlendProgram.setAccessible(true);
-					blendProgramName.setAccessible(true);
+					int[] additiveProgram = new int[4];
+					boolean blur;
+					String shaderName = "";
+					EscapyBlendRenderer blendProgram = null;
 
-					lights.addLightContainer(new EscapyLightContainer(
-							(int[])additiveBlendProgram.get(GLBlendProgram.class.newInstance()),
-							ShaderBlendProgram.blendProgram((String) blendProgramName.get(ShaderBlendProgram.program.class.newInstance()))
-					));
+					if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).contains("0")) {
+						String fieldName = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("0");
+						Field additiveBlendProgram = GLBlendProgram.class.getDeclaredField(fieldName);
+						additiveBlendProgram.setAccessible(true);
+						additiveProgram = (int[])additiveBlendProgram.get(GLBlendProgram.class.newInstance());
+					} else {
+						StructNode addBlendNode = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.addFunc);
+						for (int i = 0; i < 4; i++) {
+							String name = addBlendNode.getPrimitive(Integer.toString(i));
+							Field addProgram = GL20.class.getDeclaredField(name);
+							addProgram.setAccessible(true);
+							additiveProgram[i] = (int) addProgram.get(GL20.class);
+						}
+					}
+
+					if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).contains("2"))
+						blur = Boolean.parseBoolean(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("2"));
+					else if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).contains(node.blur))
+						blur = Boolean.parseBoolean(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive(node.blur));
+
+
+					if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).contains("1")) {
+						blendProgram = ShaderBlendProgram.blendProgram(getStringField(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type), "1"));
+					} else {
+						if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).containsPrimitive(node.shader))
+							blendProgram = ShaderBlendProgram.blendProgram(getStringField(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type), node.shader));
+						else if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).containsStruct(node.shader)) {
+							if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).contains(node.file) ||
+									containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).contains(node.fileDir)) {
+								String vertex = "";
+								String fragment = "";
+								StructNode fileNode;
+
+								if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).contains(node.file)) {
+									fileNode = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).getStruct(node.file);
+									if (fileNode.contains("0")) vertex = fileNode.getPrimitive("0");
+									else if (fileNode.contains(node.shaderVertex)) vertex = fileNode.getPrimitive(node.shaderVertex);
+									if (fileNode.contains("1")) fragment = fileNode.getPrimitive("1");
+									else if (fileNode.contains(node.shaderFragment)) fragment = fileNode.getPrimitive(node.shaderFragment);
+								}
+								if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).contains(node.fileDir)) {
+									fileNode = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).getStruct(node.fileDir);
+									String dirname = "";
+									String fileName = "";
+
+									if (fileNode.contains("0")) dirname = fileNode.getPrimitive("0");
+									else if (fileNode.contains(node.dir)) dirname = fileNode.getPrimitive(node.dir);
+									if (fileNode.contains("1")) fileName = fileNode.getPrimitive("1");
+									else if (fileNode.contains(node.shaderName)) fileName = fileNode.getPrimitive(node.shaderName);
+
+									if (!dirname.endsWith("/")) dirname = dirname + "/";
+
+									vertex = dirname + fileName + ".vert";
+									fragment = dirname + fileName + ".frag";
+								}
+
+								if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).contains(node.shaderUniforms)) {
+									StructNode uniformNode = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).getStruct(node.shaderUniforms);
+									String target = "";
+									String blend = "";
+									if (uniformNode.contains("0")) target = uniformNode.getPrimitive("0");
+									else if (uniformNode.contains(node.shaderTarget)) target = uniformNode.getPrimitive(node.shaderTarget);
+									if (uniformNode.contains("1")) blend = uniformNode.getPrimitive("1");
+									else if (uniformNode.contains(node.shaderBlend)) blend = uniformNode.getPrimitive(node.shaderBlend);
+
+									blendProgram = ShaderBlendProgram.blendProgram(vertex, fragment, target, blend);
+
+								} else blendProgram = ShaderBlendProgram.blendProgram(vertex, fragment);
+							}
+						}
+					}
+					lights.addLightContainer(new EscapyLightContainer(additiveProgram, blendProgram));
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -217,6 +280,14 @@ public class InitLights {
 		return IDList;
 	}
 
+	private static String getStringField(StructNode containersNode, String val) throws NoSuchFieldException, IllegalAccessException, InstantiationException {
+
+		String fieldName2 = containersNode.getPrimitive(val);
+		Field blendProgramName = ShaderBlendProgram.program.class.getDeclaredField(fieldName2);
+		blendProgramName.setAccessible(true);
+		return (String) blendProgramName.get(ShaderBlendProgram.program.class.newInstance());
+	}
+
 	public AbsStdLight getSourceByID(int[] id) {
 		return lights.lightContainers[id[0]].getSourceByID(id[1]);
 	}
@@ -239,6 +310,18 @@ public class InitLights {
 		private static final String umbra = "umbra";
 		private static final String umbraCoeff = "coeff";
 		private static final String umbraRecess = "recess";
+		private static final String blur = "blur";
+		private static final String shader = "shader";
+		private static final String shaderVertex = "vertex";
+		private static final String shaderFragment = "fragment";
+		private static final String shaderUniforms = "uniforms";
+		private static final String shaderTarget = "target";
+		private static final String shaderBlend = "blend";
+		private static final String file = "file";
+		private static final String fileDir = "fileDir";
+		private static final String dir = "dir";
+		private static final String shaderName = "name";
+		private static final String addFunc = "glBlendFuncSeparate";
 	}
 
 }

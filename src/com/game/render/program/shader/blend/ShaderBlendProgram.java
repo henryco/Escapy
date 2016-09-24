@@ -27,7 +27,12 @@ public class ShaderBlendProgram implements RenderProgram {
 	public static EscapyBlendRenderer blendProgram(String program) {
 		return new EscapyBlendRenderer(vert(program), frag(program), TARGETMAP, BLENDMAP);
 	}
-
+	public static EscapyBlendRenderer blendProgram(String vertex, String fragment) {
+		return new EscapyBlendRenderer(vertex, fragment, TARGETMAP, BLENDMAP);
+	}
+	public static EscapyBlendRenderer blendProgram(String vertex, String fragment, String target, String blend) {
+		return new EscapyBlendRenderer(vertex, fragment, target, blend);
+	}
 
 	public static final class program {
 

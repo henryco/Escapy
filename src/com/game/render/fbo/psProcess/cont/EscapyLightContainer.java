@@ -12,6 +12,7 @@ import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.program.gl.separate.GLBlendProgram;
 import com.game.render.program.shader.blend.EscapyBlendRenderer;
+import com.game.render.program.shader.blend.ShaderBlendProgram;
 import com.game.utils.absContainer.EscapyAbsContainer;
 
 /**
@@ -131,7 +132,8 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 	}
 
 	public EscapyLightContainer setShaderBlendProgram(EscapyBlendRenderer shaderBlendProgram) {
-		this.shaderBlendProgram = shaderBlendProgram;
+		if (shaderBlendProgram != null) this.shaderBlendProgram = shaderBlendProgram;
+		else this.shaderBlendProgram = ShaderBlendProgram.blendProgram(ShaderBlendProgram.program.SCREEN);
 		return this;
 	}
 
