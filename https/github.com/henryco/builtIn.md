@@ -45,10 +45,11 @@
 <b>#</b>ADD</br>
 <b>#</b>ADD_AVERAGE</br>
 <b>#</b>ADD_DODGE</br>
+<b>#</b>ADD_DODGE_STRONG</br>
 <b>#</b>ADD_OVERLAY</br>
 <b>#</b>ADD_OVERLAY_STRONG</br>
 <b>#</b>ADD_SOFT</br>
-<b>#</b>ADD_SCREEN</br></br>
+<b>#</b>ADD_SCREEN</br>
 <b>#</b>ADD_VIVID</br>
 <b>#</b>ADD_MULTIPLY</br>
 <b>#</b>ADD_MULTIPLY_STRONG</br>
