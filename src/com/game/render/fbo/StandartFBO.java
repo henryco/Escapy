@@ -43,6 +43,19 @@ public class StandartFBO extends EscapyFBO {
 	public StandartFBO(int ID, int width, int height) {
 		super(ID, width, height);
 	}
+	/**
+	 * @param ID id
+	 * @param dim diemnsion int[4] (x, y, widht, height)
+	 */
+	public StandartFBO(int ID, int[] dim) {
+		super(ID, dim[0], dim[1], dim[2], dim[3]);
+	}
+	/**
+	 * @param dim diemnsion int[4] (x, y, widht, height)
+	 */
+	public StandartFBO(int[] dim) {
+		super(dim[0], dim[1], dim[2], dim[3]);
+	}
 	
 
 	@Override

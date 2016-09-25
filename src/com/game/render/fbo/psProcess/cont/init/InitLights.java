@@ -2,7 +2,6 @@ package com.game.render.fbo.psProcess.cont.init;
 
 import com.badlogic.gdx.graphics.GL20;
 import com.game.render.extra.container.ExtraRenderContainer;
-import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsLightProxy;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
@@ -36,10 +35,10 @@ public class InitLights {
 	public int[][] lightID;
 	public float ambientInt, ligthInt;
 
-	public InitLights(EscapyFBO stdFBO) {
+	public InitLights() {
 		this.lights = new EscapyLights();
 	}
-	public InitLights(EscapyFBO stdFBO, ExtraRenderContainer lightMapContainer, String url) {
+	public InitLights(ExtraRenderContainer lightMapContainer, String url) {
 		this.lights = new EscapyLights();
 		this.create(url, lightMapContainer);
 	}
@@ -206,17 +205,18 @@ public class InitLights {
 						}
 
 						if (lightNode.contains(node.angle)) {
-							proxy.angle = Float.parseFloat(lightNode.getStruct(node.angle).getPrimitive("0"));
+							proxy.angle = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.angle), "0", "angle"));
 							try {
-								proxy.angleShift = Float.parseFloat(lightNode.getStruct(node.angle).getPrimitive("1"));
-								proxy.angleCorr = Float.parseFloat(lightNode.getStruct(node.angle).getPrimitive("2"));
+								proxy.angleShift = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.angle), "1", "shift"));
+								proxy.angleCorr = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.angle), "2", "corr"));
 							} catch (StructContainerException ignored){}
 						}
 						if (lightNode.contains(node.position)) {
 							try {
 								proxy.position = new float[] {
-										Float.parseFloat(lightNode.getStruct(node.position).getPrimitive("0")),
-										Float.parseFloat(lightNode.getStruct(node.position).getPrimitive("1"))
+
+										Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.position), "0", "x")),
+										Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.position), "1", "y"))
 								};
 							} catch (StructContainerException e){
 								proxy.position = null;
@@ -225,19 +225,17 @@ public class InitLights {
 						if (lightNode.contains(node.color)) {
 							try {
 								proxy.color = new int[] {
-										Integer.parseInt(lightNode.getStruct(node.color).getPrimitive("0")),
-										Integer.parseInt(lightNode.getStruct(node.color).getPrimitive("1")),
-										Integer.parseInt(lightNode.getStruct(node.color).getPrimitive("2"))
+										Integer.parseInt(getVaguePrimitive(lightNode.getStruct(node.color), "0", "r")),
+										Integer.parseInt(getVaguePrimitive(lightNode.getStruct(node.color), "1", "g")),
+										Integer.parseInt(getVaguePrimitive(lightNode.getStruct(node.color), "2", "b"))
 								};
 							} catch (StructContainerException e){
 								proxy.color = null;
 							}
 						}
 						if (lightNode.contains(node.umbra)) {
-							if (lightNode.getStruct(node.umbra).contains(node.umbraCoeff))
-								proxy.umbraCoeff = Float.parseFloat(lightNode.getStruct(node.umbra).getPrimitive(node.umbraCoeff));
-							if (lightNode.getStruct(node.umbra).contains(node.umbraRecess))
-								proxy.umbraRecess = Float.parseFloat(lightNode.getStruct(node.umbra).getPrimitive(node.umbraRecess));
+							proxy.umbraCoeff = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.umbra), "0", node.umbraCoeff));
+							proxy.umbraRecess = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.umbra), "1", node.umbraRecess));
 						}
 
 						if (lightNode.contains(node.accuracy))	proxy.accuracy = Integer.parseInt(lightNode.getPrimitive(node.accuracy));
@@ -251,7 +249,7 @@ public class InitLights {
 							if (proxy.accuracy != Integer.MAX_VALUE) absStdLight = new EscapyShadedLight(lightMapContainer, proxy.accuracy, escapyLightType);
 							else absStdLight = new EscapyShadedLight(lightMapContainer, escapyLightType);
 						}
-						else absStdLight = new EscapyStdLight(null, escapyLightType);
+						else absStdLight = new EscapyStdLight(escapyLightType);
 
 						if (!Float.isNaN(proxy.maxRadius)) 		absStdLight.setMaxRadius(proxy.maxRadius);
 						if (!Float.isNaN(proxy.minRadius)) 		absStdLight.setMinRadius(proxy.minRadius);
@@ -268,7 +266,6 @@ public class InitLights {
 							else 	absStdLight.setAngle(proxy.angle);
 						}
 						absStdLight.setVisible(proxy.visible);
-
 						IDList.add(new int[]{iter, lights.lightContainers[iter].addSource(absStdLight)});
 
 					} else stop2 = true;
@@ -287,6 +284,12 @@ public class InitLights {
 		blendProgramName.setAccessible(true);
 		return (String) blendProgramName.get(ShaderBlendProgram.program.class.newInstance());
 	}
+
+	private static String getVaguePrimitive(StructNode node, String ... st) throws StructContainerException {
+		for (String s : st) if (node.containsPrimitive(s)) return node.getPrimitive(s);
+		throw new StructContainerException("any fields");
+	}
+
 
 	public AbsStdLight getSourceByID(int[] id) {
 		return lights.lightContainers[id[0]].getSourceByID(id[1]);

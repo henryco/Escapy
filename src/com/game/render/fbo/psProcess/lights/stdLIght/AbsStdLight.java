@@ -63,7 +63,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.id = this.hashCode();
 
 		this.position = new TransVec().setObservedObj(this);
-		this.resolution = new TransVec(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this.resolution = new TransVec();
 		this.lightAngles = new TransVec(1f, 0f);
 		this.radius = new TransVec(0, 1f);
 		this.umbra = new TransVec();
@@ -72,8 +72,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 		this.stdRenderer = new EscapyStdShaderRenderer(id);
 		this.srcRenderer = new EscapyStdLightSrcRenderer(id);
-
-		this.interCam = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		this.scale = 1;
 		this.coeff = 1.f;
@@ -84,16 +82,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.visible = true;
 	}
 
-	public AbsStdLight() {
-		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
-	}
-	public AbsStdLight(EscapyFBO lightMap) {
-		this.setLightMapFBO(lightMap);
-	}
-	public AbsStdLight(int id, EscapyFBO lightMap) {
-		this.setID(id);
-		this.setLightMapFBO(lightMap);
-	}
+	public AbsStdLight() {}
 	public AbsStdLight(int id) {
 		this.setID(id);
 		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
@@ -101,15 +90,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public AbsStdLight(TransVec position) {
 		this.setPosition(position);
 		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
-	}
-	public AbsStdLight(TransVec position, EscapyFBO lightMap) {
-		this.setPosition(position);
-		this.setLightMapFBO(lightMap);
-	}
-	public AbsStdLight(int id, TransVec position, EscapyFBO lightMap) {
-		this.setID(id);
-		this.setPosition(position);
-		this.setLightMapFBO(lightMap);
 	}
 	public AbsStdLight(int id, TransVec position) {
 		this.setID(id);
@@ -159,7 +139,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 		this.updState();
 		this.lightSource = light;
-
+		this.interCam = new EscapyGdxCamera((int) this.lightSource.getWidth(), (int) this.lightSource.getHeight());
 		this.fbo = new StandartFBO(id, (int) this.lightSource.getWidth(), (int) this.lightSource.getHeight());
 		FrameBuffer tmpBuff = new FrameBuffer(Pixmap.Format.RGBA8888, (int) this.lightSource.getWidth(),(int) this.lightSource.getHeight(), false);
 		tmpBuff.begin();
@@ -312,7 +292,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 	public AbsStdLight setVisible(boolean visible) {
-		this.updState();
 		this.visible = visible;
 		return this;
 	}
@@ -346,15 +325,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 	@Deprecated
 	public EscapyFBO getLightMapFBO() {
-		//TODO REMOVE IT LATER
 		return null;
-		//return lightMap;
 	}
 	@Deprecated
-	public void setLightMapFBO(EscapyFBO lightMap) {
-		//TODO REMOVE IT LATER
-	//	this.lightMap = lightMap;
-	}
+	public void setLightMapFBO(EscapyFBO lightMap) {}
 	public boolean isVisible() {
 		return visible;
 	}

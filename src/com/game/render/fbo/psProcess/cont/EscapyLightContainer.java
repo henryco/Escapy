@@ -84,14 +84,15 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 		setProgram(blendMode);
 
 		for (AbsStdLight tempLight : targetsList) {
-			tmpSprite = new Sprite(tempLight.getFBO().getTextureRegion());
-			tmpSprite.setPosition(
-					tempLight.lightSource.getPosition().x,
-					tempLight.lightSource.getPosition().y - 12
-			);
-			tmpSprite.setScale(tempLight.getScale());
-
-			tmpSprite.draw(batch);
+			if (tempLight.isVisible()) {
+				tmpSprite = new Sprite(tempLight.getFBO().getTextureRegion());
+				tmpSprite.setPosition(
+						tempLight.lightSource.getPosition().x,
+						tempLight.lightSource.getPosition().y
+				);
+				tmpSprite.setScale(tempLight.getScale());
+				tmpSprite.draw(batch);
+			}
 		}
 		batch.disableBlending();
 		batch.end();

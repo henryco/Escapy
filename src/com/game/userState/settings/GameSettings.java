@@ -9,7 +9,7 @@ import java.io.RandomAccessFile;
  * The Class GameSettings.
  */
 public final class GameSettings {
-	private int gameXsize, gameYsize;
+	private static int gameXsize, gameYsize;
 
 	private static String location = "";
 	private static int SCREEN_WIDTH, SCREEN_HEIGHT;
@@ -71,7 +71,7 @@ public final class GameSettings {
 	 *
 	 * @return the float
 	 */
-	public float scaleRatio() {
+	public static float scaleRatio() {
 		return (float) (scaleRatio * defaultScale);
 	}
 
@@ -80,7 +80,7 @@ public final class GameSettings {
 	 *
 	 * @return the frame WIDHT
 	 */
-	public int getFrameWIDHT() {
+	public static int getFrameWIDHT() {
 		if ((gameXsize * scaleRatio()) < SCREEN_WIDTH)
 			return (int) (gameXsize * scaleRatio());
 		else
@@ -92,7 +92,7 @@ public final class GameSettings {
 	 *
 	 * @return the frame HEIGHT
 	 */
-	public int getFrameHEIGHT() {
+	public static int getFrameHEIGHT() {
 		if ((gameYsize * scaleRatio()) < SCREEN_HEIGHT)
 			return (int) (gameYsize * scaleRatio());
 		else

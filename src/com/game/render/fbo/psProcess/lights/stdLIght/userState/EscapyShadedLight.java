@@ -24,50 +24,19 @@ public class EscapyShadedLight extends EscapyStdLight {
 
     protected TransVec transPos;
 
-    public EscapyShadedLight(EscapyFBO lightMap, int accuracy) {
-        super(lightMap);
-        initBlock((int) (64 * Math.pow(2, accuracy)));
-    }
-    public EscapyShadedLight(EscapyFBO lightMap, int accuracy, EscapyLightType lightType) {
-        super(lightMap, lightType);
-        initBlock((int) (64 * Math.pow(2, accuracy)));
-    }
-    public EscapyShadedLight(EscapyFBO lightMap) {
-        super(lightMap);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
-    public EscapyShadedLight(EscapyFBO lightMap, EscapyLightType lightType) {
-        super(lightMap, lightType);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
+
     public EscapyShadedLight(ExtraRenderContainer lmapContainer, EscapyLightType lightType) {
-        super(null, lightType);
+        super(lightType);
         this.initBlock((int) (64 * Math.pow(2, 1)));
         this.setLightMapContainer(lmapContainer);
     }
-    public EscapyShadedLight(int id, EscapyFBO lightMap, int accuracy) {
-        super(id, lightMap);
-        initBlock((int) (64 * Math.pow(2, accuracy)));
-    }
     public EscapyShadedLight(ExtraRenderContainer lmapContainer, int accuracy, EscapyLightType lightType) {
-        super(null, lightType);
+        super(lightType);
         initBlock((int) (64 * Math.pow(2, accuracy)));
         this.setLightMapContainer(lmapContainer);
     }
-    public EscapyShadedLight(int id, EscapyFBO lightMap, int accuracy, EscapyLightType lightType) {
-        super(id, lightMap, lightType);
-        initBlock((int) (64 * Math.pow(2, accuracy)));
-    }
-    public EscapyShadedLight(int id, EscapyFBO lightMap) {
-        super(id, lightMap);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
-    public EscapyShadedLight(int id, EscapyFBO lightMap, EscapyLightType lightType) {
-        super(id, lightMap, lightType);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
     public EscapyShadedLight(int id, ExtraRenderContainer lmapContainer, EscapyLightType lightType) {
-        super(id, null, lightType);
+        super(id, lightType);
         this.initBlock((int) (64 * Math.pow(2, 1)));
         this.setLightMapContainer(lmapContainer);
     }
@@ -169,56 +138,9 @@ public class EscapyShadedLight extends EscapyStdLight {
         return this;
     }
 
-
-    @Override
-    public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
-		/*
-        lightCam.setCameraPosition(transPos.
-                vecfuncv(v -> v.sub(escapyCamera.getShiftVec())).arrfuncf(n -> n / scale));
-
-        Sprite tempSprite = new Sprite(lightMap.getTextureRegion());
-        tempSprite.setSize(lightMap.getTextureRegion().getRegionWidth() / scale,
-                lightMap.getTextureRegion().getRegionHeight() / scale);
-
-        lightMapFBO.begin().clearFBO(1f, 1f, 1f, 1f);
-        stdRenderer.drawSprite(tempSprite, lightCam.getCamera());
-        lightMapFBO.end();
-
-        shadowMapFBO.begin().wipeFBO();
-        shadowMapRenderer.renderShadowMap(
-                lightMapFBO.getTextureRegion(), shadowMapCam.getCamera(),
-                lightMapFBO.getRegWidth(), lightMapFBO.getRegHeight(), 0, 0,
-                shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight(),
-                threshold);
-        shadowMapFBO.end();
-
-        shadowFBO.begin().wipeFBO();
-        shadowRenderer.renderShadow(
-                shadowMapFBO.getTextureRegion(), shadowCam.getCamera(),
-                resolution.x, resolution.y, 0, 0,
-                shadowMapFBO.getRegWidth(), shadowMapFBO.getRegHeight(),
-                lightAngles, correct);
-        shadowFBO.end();
-
-        Sprite shadowSprite = new Sprite(shadowFBO.getTextureRegion());
-        shadowSprite.setPosition(lightSource.getX(), lightSource.getY());
-        lightSprite = new Sprite(shadowFBO.getTextureRegion());
-        lightSprite.setPosition(lightSource.getX(), lightSource.getY());
-        lightSprite.setScale(scale);
-        this.fbo.begin().wipeFBO();
-        {
-            super.srcRenderer.renderLightSrc(lightSprite, shadowSprite,
-                    escapyCamera.getCamera(), color, lightAngles,
-                    resolution, coeff, correct, radius, umbra);
-        }
-        this.fbo.end();
-        */
-        return this;
-    }
-
     @Override
     public AbsStdLight lazyRender(EscapyGdxCamera escapyCamera) {
-
+		System.out.println("render");
         renderLightMap();
         renderShadowMap();
         renderShadows();
@@ -257,9 +179,6 @@ public class EscapyShadedLight extends EscapyStdLight {
         return shadowFBO.end();
     }
     public EscapyFBO renderLightSrc() {
-
-
-        System.out.println(shadowFBO.getRegWidth()+ " : "+fbo.getRegWidth());
         Sprite shadowSprite = new Sprite(shadowFBO.getTextureRegion());
         lightSprite = new Sprite(shadowFBO.getTextureRegion());
         this.fbo.begin().wipeFBO();
@@ -268,7 +187,10 @@ public class EscapyShadedLight extends EscapyStdLight {
                 resultCam.getCamera(), color, lightAngles,
                 resolution, coeff, correct, radius, umbra
         );
-
+		super.srcRenderer.renderLightSrc(lightSprite, shadowSprite,
+				resultCam.getCamera(), color, lightAngles,
+				resolution, coeff, correct, radius, umbra
+		);
         return fbo.end();
     }
 

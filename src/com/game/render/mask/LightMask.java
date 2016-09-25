@@ -19,7 +19,7 @@ public class LightMask {
 	public static final int[] LINEAR_DODGE = new int[]{GL30.GL_ONE, GL30.GL_ONE};
 
 
-	private Color color = new Color((60f/255f), (60f/255f), (60f/255f), 1f);
+	private Color color;
 	private Batch batch;
 	private int width, height, x, y;
 	private Texture maskTexture;
@@ -31,7 +31,16 @@ public class LightMask {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		camera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera = new EscapyGdxCamera(width, height);
+		setMaskFunc(MULTIPLY);
+		setColor((60f/255f), (60f/255f), (60f/255f), 1f);
+	}
+	public LightMask(int[] dim) {
+		this.x = dim[0];
+		this.y = dim[1];
+		this.width = dim[2];
+		this.height = dim[3];
+		camera = new EscapyGdxCamera(dim[2], dim[3]);
 		setMaskFunc(MULTIPLY);
 		setColor((60f/255f), (60f/255f), (60f/255f), 1f);
 	}
