@@ -73,6 +73,7 @@ public class ShaderBlendProgram implements RenderProgram {
 		public static final String ADD_SOFT = "ADD_SOFT";
 		public static final String ADD_SCREEN = "ADD_SCREEN";
 		public static final String ADD_DODGE = "ADD_DODGE";
+		public static final String ADD_DODGE_STRONG = "ADD_DODGE_STRONG";
 		public static final String ADD_VIVID = "ADD_VIVID";
 		public static final String ADD_MULTIPLY = "ADD_MULTIPLY";
 		public static final String ADD_MULTIPLY_STRONG = "ADD_MULTIPLY_STRONG";
