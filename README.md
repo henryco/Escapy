@@ -1,4 +1,4 @@
-# Escapy
+#![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
 libGDX based 2D game engine
 
 <b>24.09.16:</b> Has been reworked light system (again), now game engine use <a href = "https://github.com/henryco/Struct">Struct</a> for initialization. 
@@ -6,5 +6,5 @@ libGDX based 2D game engine
 <b><a href="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/LightStruct.md"> -> in 5 sec </a></b></br>
 <b><a href="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/builtIn.md">-> built in fields </a></b><br>
 
-![Logo](https://github.com/henryco/Escapy/tree/master/promo/ESCAPY.png)
+
 
