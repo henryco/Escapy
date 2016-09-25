@@ -66,6 +66,19 @@ public class ShaderBlendProgram implements RenderProgram {
 		 * @author Henry
 		 */
 		public static final String VSD = "VSD";
+		public static final String VHD = "VHD";
+
+		public static final String ADD = "ADD";
+		public static final String ADD_AVERAGE = "ADD_AVERAGE";
+		public static final String ADD_SOFT = "ADD_SOFT";
+		public static final String ADD_SCREEN = "ADD_SCREEN";
+		public static final String ADD_DODGE = "ADD_DODGE";
+		public static final String ADD_VIVID = "ADD_VIVID";
+		public static final String ADD_MULTIPLY = "ADD_MULTIPLY";
+		public static final String ADD_MULTIPLY_STRONG = "ADD_MULTIPLY_STRONG";
+
+		public static final String ADD_OVERLAY = "ADD_OVERLAY";
+		public static final String ADD_OVERLAY_STRONG = "ADD_OVERLAY_STRONG";
 
 		public static final String COLOR_DODGE = "colorDodge";
 		public static final String COLOR_DODGE_MULTI = "dodgeMulti";
@@ -74,20 +87,24 @@ public class ShaderBlendProgram implements RenderProgram {
 		public static final String SOFT_COLOR_DODGE_REVERSED = "reverseSoftDodge";
 		public static final String SOFT_COLOR_DODGE = "softDodge";
 		public static final String SOFT_LIGHT = "softLight";
+		public static final String SOFT_OVERLAY = "softOverlay";
+		public static final String SOFT_SCREEN = "softScreen";
+		public static final String SOFT_AVERAGE = "softAverage";
 		public static final String SOFT_LIGHT_STRONG = "strongSoftLight";
 
 		public static final String VIVID_DODGE = "vividDodge";
 		public static final String VIVID_HUE = "vividHue";
 		public static final String VIVID_SOFT = "vividSoft";
 
+		public static final String SCREEN = "screen";
 		public static final String SCREEN_COLOR_DODGE = "scrClrDdg";
 
-		public static final String MULTIPLY = "multiply";
-
 		public static final String OVERLAY = "overlay";
+		public static final String OVERLAY_AVERAGE = "overlayAverage";
+		public static final String OVERLAY_LIGHT = "overlayLight";
 
-		public static final String SCREEN = "screen";
 
+		public static final String MULTIPLY = "multiply";
 	}
 
 }
