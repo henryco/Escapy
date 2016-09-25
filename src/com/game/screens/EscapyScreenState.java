@@ -14,25 +14,19 @@ public abstract class EscapyScreenState implements Screen {
 
 	/** The game state. */
 	protected GameEnter gameState;
-	
 	/** The settings. */
 	protected GameSettings settings;
-	
 	/** The game. */
 	protected Game game;
-	
 	/** The initialization ended. */
 	protected boolean initializationEnded;
-	
 	/** The screen width. */
 	protected final int SCREEN_WIDTH;
-	
 	/** The screen height. */
 	protected final int SCREEN_HEIGHT;
-	
 	/** The escapy camera. */
 	protected EscapyGdxCamera escapyCamera;
-	
+
 	/**
 	 * Instantiates a new escapy screen state.
 	 *
@@ -48,9 +42,11 @@ public abstract class EscapyScreenState implements Screen {
 		this.settings = gameState.getSettings();
 		this.game = gameState.getGame();
 		
-		this.SCREEN_WIDTH = settings.getFrameWIDHT();
-		this.SCREEN_HEIGHT = settings.getFrameHEIGHT();
-		
+		this.SCREEN_WIDTH = GameSettings.getFrameWIDHT();
+		this.SCREEN_HEIGHT = GameSettings.getFrameHEIGHT();
+
+		System.out.println(SCREEN_WIDTH+ ":: W:H ::" +SCREEN_HEIGHT);
+
 		this.initializationEnded = false;
 	}
 

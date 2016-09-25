@@ -1,6 +1,5 @@
 package com.game.render.fbo.psProcess.lights.stdLIght.userState;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.render.EscapyGdxCamera;
 import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.fbo.EscapyFBO;
@@ -179,18 +178,13 @@ public class EscapyShadedLight extends EscapyStdLight {
         return shadowFBO.end();
     }
     public EscapyFBO renderLightSrc() {
-        Sprite shadowSprite = new Sprite(shadowFBO.getTextureRegion());
-        lightSprite = new Sprite(shadowFBO.getTextureRegion());
+		super.lightSprite.setPosition(lightSource.getX(), lightSource.getY());
         this.fbo.begin().wipeFBO();
 
-        super.srcRenderer.renderLightSrc(lightSprite, shadowSprite,
+		this.srcRenderer.renderLightSrc(shadowFBO.getSpriteRegion(), lightSprite,
                 resultCam.getCamera(), color, lightAngles,
                 resolution, coeff, correct, radius, umbra
         );
-		super.srcRenderer.renderLightSrc(lightSprite, shadowSprite,
-				resultCam.getCamera(), color, lightAngles,
-				resolution, coeff, correct, radius, umbra
-		);
         return fbo.end();
     }
 

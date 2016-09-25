@@ -74,7 +74,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 
     @Override
-    public Screen initState() {
+    public Screen initState(Object ... vars) {
 
 		int[] dim = new int[]{0, 0, super.settings.getFrameWIDHT(), super.settings.getFrameHEIGHT()};
 

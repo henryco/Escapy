@@ -1,8 +1,6 @@
 package com.game.screens;
 
 import com.badlogic.gdx.Screen;
-import com.game.render.EscapyGdxCamera;
-
 // TODO: Auto-generated Javadoc
 /**
  * The Interface EscapyMainState.
@@ -15,6 +13,6 @@ public interface EscapyMainState
 	 *
 	 * @return the screen
 	 */
-	Screen initState();
+	Screen initState(Object ... objects);
 
 }
