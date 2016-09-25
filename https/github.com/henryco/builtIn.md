@@ -19,7 +19,7 @@
 	position <b>-   float[2] </b></br>
 	color<b>-   float[3], (r,g,b)</b></br>
 	angle <b>-   float[3], (Angle, Shift, Correction)</b></br>
-	umbra: { coeef, recess } <b>-   struct(2)</b></br>
+	umbra: { coeef, recess } <b>-   struct(float, float)</b></br>
   visible <b>-   boolean</b></br>
 	 </br>
   </br>
@@ -27,7 +27,7 @@
   <b> <i>Type constructor fields:</i> </b></br>
   
   glBlendFuncSeparate: (srcRGB, dstRGB, srcA, dstA); <br>
-  shader: <b>#BUILT IN SHADER PROGRAM </b> <br>
+  shader: <b>#BUILT IN SHADER PROGRAM </b> <i>see below</i> <br>
   shader.file(vertex, fragment); - <b>(path, path)</b><i> manual alternative for built in shaders</i><br>
   shader.fileDir("data/shaders/blend/screen/", "screen"); - <b>(path, name)</b> <br>
   shader.uniforms("targetMap", "blendMap") - <b> (String, String)</b> <i>uniform texture names</i> </br>
