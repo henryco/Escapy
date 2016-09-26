@@ -19,7 +19,7 @@ public interface EscapyPostRenderer {
 	 *            the translation vec
 	 * @return the escapy FBO
 	 */
-	public abstract EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec);
+	EscapyFBO postRender(EscapyFBO fbo, TransVec translationVec);
 	
 	/**
 	 * Post render.
@@ -27,8 +27,8 @@ public interface EscapyPostRenderer {
 	 * @param translationVec
 	 *            the translation vec
 	 */
-	public abstract void postRender(TransVec translationVec);
+	void postRender(TransVec translationVec);
 	
-	public abstract EscapyPostRenderer setPostRenderCamera(EscapyGdxCamera camera);
+	EscapyPostRenderer setPostRenderCamera(EscapyGdxCamera camera);
 
 }

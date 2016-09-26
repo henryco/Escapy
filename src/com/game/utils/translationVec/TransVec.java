@@ -24,7 +24,6 @@ public class TransVec {
 	 */
 	public TransVec() {
 		this.initVec();
-		return;
 	}
 	
 	/**
@@ -36,8 +35,6 @@ public class TransVec {
 	public TransVec(float[] vec2) {
 		this.initVec();
 		this.setTransVec(vec2[0], vec2[1]);
-	
-		return;
 	}
 	
 	/**
@@ -51,21 +48,16 @@ public class TransVec {
 	public TransVec(float x, float y) {
 		this.initVec();
 		this.setTransVec(x, y);
-	
-		return;
 	}
 	
 	public TransVec(TransVec Vec) {
 		this.initVec();
 		this.setTransVec(Vec.getVecArray()[0], Vec.getVecArray()[1]);
-	
-		return;
 	}
 	
 	private void initVec() {
 		this.translationVectorArray = new float[2];
 		this.accuracy = (-1);
-		
 	}
 	
 	public TransVec setObservedObj(SimpleObserver<TransVec> observed) {
@@ -94,24 +86,24 @@ public class TransVec {
 	}
 	
 	public TransVec funcf(Function<Float, Float> funct) {
-		return this.setTransVec(funct.apply(this.translationVectorArray[0]).floatValue(),
-				funct.apply(this.translationVectorArray[1]).floatValue());
+		return this.setTransVec(funct.apply(this.translationVectorArray[0]),
+				funct.apply(this.translationVectorArray[1]));
 	}
 	public TransVec funcv(Function<TransVec, TransVec> funct) {
 		return this.setTransVec(funct.apply(this));
 	}
 	public float[] arrfuncf(Function<Float, Float> funct) {
 		return new float[]{
-				funct.apply(this.translationVectorArray[0]).floatValue(),
-				funct.apply(this.translationVectorArray[1]).floatValue()};
+				funct.apply(this.translationVectorArray[0]),
+				funct.apply(this.translationVectorArray[1])};
 	}
 	public TransVec vecfuncf(Function<Float, Float> funct) {
 		return new TransVec(
-				funct.apply(this.translationVectorArray[0]).floatValue(),
-				funct.apply(this.translationVectorArray[1]).floatValue());
+				funct.apply(this.translationVectorArray[0]),
+				funct.apply(this.translationVectorArray[1]));
 	}
 	public float ffuncv(Function<TransVec, Float> funct) {
-		return funct.apply(this).floatValue();
+		return funct.apply(this);
 	}
 	public float[] arrfuncv(Function<TransVec, float[]> funct) {
 		float[] tmp = funct.apply(this);

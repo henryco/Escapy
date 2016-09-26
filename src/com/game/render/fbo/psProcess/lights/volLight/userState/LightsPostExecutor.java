@@ -10,11 +10,11 @@ import com.game.utils.translationVec.TransVec;
 /**
  * @author Henry on 26/09/16.
  */
-public class LightPostExecutor {
+public class LightsPostExecutor {
 
 	private TransVec frameDim;
-	private EscapyVolumeRenderer volRenderer;
 	private EscapyGdxCamera camera;
+	private EscapyVolumeRenderer volRenderer;
 
 	private float lightIntensity, ambientIntesity;
 
@@ -24,22 +24,26 @@ public class LightPostExecutor {
 		this.volRenderer = new EscapyStdVolumeRenderer();
 	}
 
-	public LightPostExecutor(float frameWidth, float frameHeight) {
+	public LightsPostExecutor(float frameWidth, float frameHeight) {
 		frameDim = new TransVec(frameWidth, frameHeight);
 		camera = new EscapyGdxCamera((int) frameWidth, (int) frameHeight);
 	}
-	public LightPostExecutor(float[] dim) {
+	public LightsPostExecutor(float[] dim) {
 		frameDim = new TransVec(dim);
 		camera = new EscapyGdxCamera((int) dim[0], (int) dim[1]);
 	}
-	public LightPostExecutor(TransVec dim) {
+	public LightsPostExecutor(TransVec dim) {
 		frameDim = new TransVec(dim);
 		camera = new EscapyGdxCamera((int) dim.x, (int) dim.y);
+	}
+	public LightsPostExecutor initShaderProgram(String VERTEX, String FRAGMENT) {
+
+		return this;
 	}
 
 
 	public void processLightBuffer(EscapyGdxCamera camera, Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
-		this.volRenderer.renderVolumeLights(0, 0, colorMap, normalsMap, lightMap, frameDim, ambientIntesity, lightIntensity, camera.getCamera());
+		volRenderer.renderVolumeLights(colorMap, normalsMap, lightMap, frameDim, ambientIntesity, lightIntensity, camera.getCamera());
 
 	}
 	public void processLightBuffer(Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
@@ -61,23 +65,23 @@ public class LightPostExecutor {
 
 
 
-	public LightPostExecutor setFrameDim(TransVec frameDim) {
+	public LightsPostExecutor setFrameDim(TransVec frameDim) {
 		this.frameDim = new TransVec(frameDim);
 		return this;
 	}
-	public LightPostExecutor setFrameDim(float[] frameDim) {
+	public LightsPostExecutor setFrameDim(float[] frameDim) {
 		this.frameDim = new TransVec(frameDim);
 		return this;
 	}
-	public LightPostExecutor setFrameDim(float width, float height) {
+	public LightsPostExecutor setFrameDim(float width, float height) {
 		this.frameDim = new TransVec(width, height);
 		return this;
 	}
-	public LightPostExecutor setLightIntensity(float lightIntensity) {
+	public LightsPostExecutor setLightIntensity(float lightIntensity) {
 		this.lightIntensity = lightIntensity;
 		return this;
 	}
-	public LightPostExecutor setAmbientIntesity(float ambientIntesity) {
+	public LightsPostExecutor setAmbientIntesity(float ambientIntesity) {
 		this.ambientIntesity = ambientIntesity;
 		return this;
 	}
@@ -86,5 +90,10 @@ public class LightPostExecutor {
 	}
 	public float getAmbientIntesity() {
 		return ambientIntesity;
+	}
+
+	@Override
+	public String toString(){
+		return "LightPostExecutor_"+Integer.toString(this.hashCode());
 	}
 }

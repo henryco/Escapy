@@ -20,6 +20,7 @@ import com.game.render.extra.std.StdRenderer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.init.InitLights;
+import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
 import com.game.render.mask.LightMask;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
@@ -43,9 +44,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	protected int playerCameraProgramID;
 
 	private EscapyFBO stdFBO, nrmlFBO, bgrFBO,
-           lightBuffFBO, lightMapFBO, MAINFBO;
+           lightBuffFBO, lightMapFBO, MAIN_STD_FBO;
 	private ExtraRenderContainer stdContainer, normalsContainer,
            bgrContainer, lightsMapContainer;
+	private LightsPostExecutor lightExecutor;
 
 	private TransVec otherTranslationVec;
 	private LightMask stdMask, bgrMask;
@@ -78,10 +80,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		int[] dim = new int[]{0, 0, super.settings.getFrameWIDHT(), super.settings.getFrameHEIGHT()};
 
-        this.init_base();
+        this.init_base(dim);
         this.init_fbo(dim);
 		this.init_mask(dim);
-        this.init_containers();
+        this.init_containers(dim);
 
 
         super.initializationEnded = true;
@@ -101,7 +103,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void init_fbo(Object ... vars) {
 
         this.lightBuffFBO = new StandartFBO((int[])vars[0]);
-        this.MAINFBO = new StandartFBO((int[])vars[0]);
+        this.MAIN_STD_FBO = new StandartFBO((int[])vars[0]);
         this.bgrFBO = new StandartFBO((int[])vars[0]);
         this.stdFBO = new StandartFBO((int[])vars[0]);
         this.nrmlFBO = new StandartFBO((int[])vars[0]);
@@ -141,8 +143,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /* FRONT PARALLAX */
             this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
 
-        /* FIXME prototype version below */
         this.lightContainer = new InitLights(lightsMapContainer, super.settings.lightCfgUrl());
+		this.lightExecutor = new LightsPostExecutor(((int[])vars[0])[2], ((int[])vars[0])[3]);
 
 		this.bgrFBO.begin().wipeFBO();
 		this.bgrContainer.renderGraphic(escapyCamera);
@@ -235,7 +237,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         super.escapyCamera.holdCamera(delta);
         this.updDist();
-
         this.resetFBO();
         this.renderContainers(escapyCamera);
         this.renderMasks();
@@ -245,7 +246,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     }
     public void resetFBO(){
         super.escapyCamera.clear();
-        this.MAINFBO.forceWipeFBO();
+        this.MAIN_STD_FBO.forceWipeFBO();
         this.lightBuffFBO.forceWipeFBO();
     }
     public void renderContainers(EscapyGdxCamera escapyCamera) {
@@ -265,30 +266,14 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void renderMasks() {
 
 		bgrMask.renderMask(bgrFBO.getTextureRegion().getTexture());
-		MAINFBO = stdMask.renderMaskBuffered(stdFBO.getTextureRegion().getTexture(), MAINFBO);
-    }
-    public void renderFBO2() {
-/*
-        this.MAINFBO.renderFBO();
-
-		for incrase performance use below
-        this.lightContainer.lights.mergeAndRender(lightBuffFBO, escapyCamera, 3, 1);
-
-        this.MAINFBO.renderFBO();
-        this.MAINFBO.forceRenderToFBO(lightBuffFBO);
-
-        this.MAINFBO.renderFBO();
-        this.volumeLights.postRenderLights(MAINFBO, nrmlFBO, lightMapFBO, lightBuffFBO,
-                lightContainer.ligthInt, lightContainer.ambientInt);
-        this.MAINFBO.renderFBO();
-*/
-
+		MAIN_STD_FBO = stdMask.renderMaskBuffered(stdFBO.getTextureRegion().getTexture(), MAIN_STD_FBO);
     }
 	public void renderFBO() {
 
-		this.MAINFBO.renderFBO();
+		this.MAIN_STD_FBO.renderFBO();
 		lightContainer.lights.forEach(l -> l.makeLights().renderBlendedLights(escapyCamera, stdFBO.getSpriteRegion(), lightBuffFBO));
-		lightBuffFBO.renderFBO();
+		lightExecutor.processLightBuffer(lightBuffFBO.getSpriteRegion(), lightMapFBO.getSpriteRegion(), nrmlFBO.getSpriteRegion());
+
 	}
 
     @Override

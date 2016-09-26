@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.Vector2;
 import com.game.render.shader.EscapyShaderRender;
+import com.game.utils.translationVec.TransVec;
 
 public class EscapyVolumeRenderer extends EscapyShaderRender {
 
@@ -40,24 +40,24 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 	}
 	
 	
-	public void renderVolumeLights(float x, float y, Texture cMap, Texture nMap, Texture lMap, Vector2 dim, 
+	public void renderVolumeLights(float x, float y, Texture cMap, Texture nMap, Texture lMap, TransVec dim,
 			float amIntensity, float ligIntensity, OrthographicCamera camera) {
 		this.renderVolumeLights(cMap, x, y, cMap, nMap, lMap, dim, amIntensity, ligIntensity, camera);
 	}
 	
 	
-	public void renderVolumeLights(Sprite cMap, Sprite nMap, Sprite lMap, Vector2 dim, 
+	public void renderVolumeLights(Sprite cMap, Sprite nMap, Sprite lMap, TransVec dim,
 			float amIntensity, float ligIntensity, OrthographicCamera camera) {
 		this.renderVolumeLights(cMap, cMap, nMap, lMap, dim, amIntensity, ligIntensity, camera);
 	}
 	
-	public void renderVolumeLights(float x, float y, TextureRegion cMap, TextureRegion nMap, TextureRegion lMap, 
-			Vector2 dim, float amIntensity, float ligIntensity, OrthographicCamera camera) {
+	public void renderVolumeLights(float x, float y, TextureRegion cMap, TextureRegion nMap, TextureRegion lMap,
+								   TransVec dim, float amIntensity, float ligIntensity, OrthographicCamera camera) {
 		this.renderVolumeLights(cMap, x, y, cMap, nMap, lMap, dim, amIntensity, ligIntensity, camera);
 	}
 	
 	
-	public void renderVolumeLights(Texture target, float x, float y, Texture cMap, Texture nMap, Texture lMap, Vector2 dim, 
+	public void renderVolumeLights(Texture target, float x, float y, Texture cMap, Texture nMap, Texture lMap, TransVec dim,
 			float amIntensity, float ligIntensity, OrthographicCamera camera) {
 		
 		this.volShader = initShader(
@@ -66,7 +66,7 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 	}
 	
 	
-	public void renderVolumeLights(Sprite target, Sprite cMap, Sprite nMap, Sprite lMap, Vector2 dim, 
+	public void renderVolumeLights(Sprite target, Sprite cMap, Sprite nMap, Sprite lMap, TransVec dim,
 			float amIntensity, float ligIntensity, OrthographicCamera camera) {
 		this.volShader = initShader(
 				target.getTexture(), cMap.getTexture(), nMap.getTexture(), lMap.getTexture(), 
@@ -74,8 +74,8 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 		super.drawSprite(target, camera);
 	}
 	
-	public void renderVolumeLights(TextureRegion target, float x, float y, TextureRegion cMap, TextureRegion nMap, TextureRegion lMap, 
-			Vector2 dim, float amIntensity, float ligIntensity, OrthographicCamera camera) {
+	public void renderVolumeLights(TextureRegion target, float x, float y, TextureRegion cMap, TextureRegion nMap, TextureRegion lMap,
+								   TransVec dim, float amIntensity, float ligIntensity, OrthographicCamera camera) {
 		
 		this.volShader = initShader(
 				target.getTexture(), cMap.getTexture(), nMap.getTexture(), lMap.getTexture(), 
@@ -84,20 +84,18 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 	}
 	
 	
-	private ShaderProgram initShader(Texture tMap, Texture cMap, Texture nMap, Texture lMap, Vector2 dim, 
+	private ShaderProgram initShader(Texture tMap, Texture cMap, Texture nMap, Texture lMap, TransVec dim,
 			float amIntensity, float ligIntensity, ShaderProgram shader) {
 		shader.begin();
 		{
-			lMap.bind(3);
-			nMap.bind(2);
-			cMap.bind(1);
-			tMap.bind(0);
+			lMap.bind(2);
+			nMap.bind(1);
+			cMap.bind(0);
 			super.batcher.setShader(shader);
-			shader.setUniformi(lightMap, 3);
-			shader.setUniformi(normalMap, 2);
-			shader.setUniformi(colorMap, 1);
-			shader.setUniformi(targetMap, 0);
-			shader.setUniformf(fieldSize, dim);
+			shader.setUniformi(lightMap, 2);
+			shader.setUniformi(normalMap, 1);
+			shader.setUniformi(colorMap, 0);
+			shader.setUniformf(fieldSize, dim.x, dim.y);
 			shader.setUniformf(ambientIntensity, amIntensity);
 			shader.setUniformf(lightIntensity, ligIntensity);	
 		}
