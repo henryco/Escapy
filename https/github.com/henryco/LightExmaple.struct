@@ -45,18 +45,35 @@
 
 # MULTIPLY
 
-// (1) and (2) are same, its just another constructor
 
-// (1)
-// lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
+//lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
 
-// (2)
 lights: {
+
+	executor : {
+		blur: false;
+		normalMapping: {
+			enable: true;
+			shader.builtIn: DEFAULT; //In future there will be custom normalmap shaders passes via reflection
+			shader.fields: {
+				spriteSize = 1;	
+				intensity: {
+					direct: 0.2
+					ambient: 0.75
+					shadow: 8
+				}
+				//alternate form: intensity(0.2, 0.75, 8)
+			}
+		}		
+	}
+
 	containers[0]: {
 
 		type: {
 			glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
-			shader: ADD_OVERLAY_STRONG
+			shader.builtIn: ADD_OVERLAY_STRONG
+
+//			custom shaders
 //			shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
 //			shader.fileDir("data/shaders/blend/overlayLight/", "overlayLight");
 //			shader.uniforms("targetMap", "blendMap")
@@ -68,18 +85,18 @@ lights: {
 				srcType: RND_512
 				position: (350, 500)
 				color (250, 0, 0)
-				scale: 1.7;
+				scale: 1.7
 				visible true
 			}
 		}
 		source[1]: {
 			EscapyStdLight {
 				srcType RND_512
-				position[0] = 0; // (x == 0 == r)
-				position[y] = 420; // (y == 1 == g)
+				position[0] = 0;
+				position[y] = 420;
 				color: {
-					r: 0 
-					g: 0 
+					r: 0
+					g: 0
 					b: 250
 				}
 				scale = 1.7
@@ -95,9 +112,9 @@ lights: {
 				position = [400, 450]
 				color = (0, 0, 0)
 				angle: {
-					angle: 0.125 	//0
-					shift: 0 	//1
-					corr: 0.5 	//2
+					angle: 0.125 	//angle
+					shift: 0 		//shift
+					corr: 0.5 		//corr
 				}
 				scale = 1.5
 				threshold = 0.7
