@@ -22,7 +22,7 @@ public class LightsPostExecutor {
 	private EscapyVolumeRenderer volRenderer;
 	private EscapyStdShaderRenderer stdRenderer;
 
-	private boolean normalMappingOn = false;
+	private boolean normalMappingOn = true;
 
 	private float lightIntensity, ambientIntesity;
 

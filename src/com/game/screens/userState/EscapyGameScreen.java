@@ -246,7 +246,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.MAIN_STD_FBO.forceWipeFBO();
         this.lightBuffFBO.forceWipeFBO();
     }
-    
+
 	public void renderBgr(EscapyGdxCamera escapyCamera){
 
 		this.bgrFBO.begin().wipeFBO();
