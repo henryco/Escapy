@@ -13,7 +13,7 @@
 <br><br>
 ![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ims.png)
 <br>
-![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/cob2.png)
+![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ims3.png)
 <br>
 ![pipeline](https://raw.githubusercontent.com/henryco/Escapy/master/promo/EscapyFBOPipleLineSM.png)
 <br>
