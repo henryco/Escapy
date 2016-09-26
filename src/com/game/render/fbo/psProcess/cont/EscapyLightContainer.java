@@ -23,7 +23,7 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 	public static final GLBlendProgram glProgram = new GLBlendProgram();
 
 	private int[] blendMode;
-
+	public final int ID = this.hashCode();
 
 	private Batch batch;
 	private EscapyFBO colorizedFBO;
@@ -32,21 +32,21 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 	private EscapyLightContainer() {
 	}
 
-	public EscapyLightContainer(int[] additiveBlendMode) {
+	public EscapyLightContainer(int[] additiveBlendMode, int ... dimension) {
 		batch = new SpriteBatch();
 		setColorBlendMode(additiveBlendMode);
-		initFBO();
+		initFBO(dimension);
 	}
-	public EscapyLightContainer(EscapyBlendRenderer shaderBlendProgram) {
+	public EscapyLightContainer(EscapyBlendRenderer shaderBlendProgram, int ... dimension) {
 		batch = new SpriteBatch();
 		setShaderBlendProgram(shaderBlendProgram);
-		initFBO();
+		initFBO(dimension);
 	}
-	public EscapyLightContainer(int[] additiveBlendMode, EscapyBlendRenderer shaderBlendProgram) {
+	public EscapyLightContainer(int[] additiveBlendMode, EscapyBlendRenderer shaderBlendProgram, int ... dimension) {
 		batch = new SpriteBatch();
 		setColorBlendMode(additiveBlendMode);
 		setShaderBlendProgram(shaderBlendProgram);
-		initFBO();
+		initFBO(dimension);
 	}
 
 	private void setProgram(int p1, int p2, int p3, int p4) {
@@ -122,8 +122,12 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 
 
 
-	public EscapyLightContainer initFBO() {
-		colorizedFBO = new StandartFBO();
+	public EscapyLightContainer initFBO(int[] dimension) {
+		int[] dim = new int[4];
+		if (dimension.length == 2) dim = new int[]{0,0,dimension[0], dimension[1]};
+		else if (dimension.length == 4) dim = dimension;
+		colorizedFBO = new StandartFBO(dim, "<EscapyLightContainer_"+Integer.toString(this.ID)+"_BLEND_FBUFFER>");
+		System.out.println("BLEND_FBUFFER_DIM:\t"+dim[2]+" : "+dim[3]);
 		return this;
 	}
 

@@ -22,39 +22,39 @@ public class StandartFBO extends EscapyFBO {
 	 * Create standart frame buffer object <br>
 	 * that extends {@link EscapyFBO}.
 	 */
-	public StandartFBO() {
-		super();
+	public StandartFBO(String ... name) {
+		super(name);
 	}
-	public StandartFBO(int ID) {
-		super(ID);
+	public StandartFBO(int ID, String ... name) {
+		super(ID, name);
 	}
-	public StandartFBO(int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public StandartFBO(int x, int y, int width, int height, String ... name) {
+		super(x, y, width, height, name);
 	}
-	public StandartFBO(int ID, int x, int y, int width, int height) {
-		super(ID, x, y, width, height);
+	public StandartFBO(int ID, int x, int y, int width, int height, String ... name) {
+		super(ID, x, y, width, height, name);
 	}
-	public StandartFBO(float x, float y, float width, float height) {
-		super((int)x, (int)y, (int)width, (int)height);
+	public StandartFBO(float x, float y, float width, float height, String ... name) {
+		super((int)x, (int)y, (int)width, (int)height, name);
 	}
-	public StandartFBO(int ID, float x, float y, float width, float height) {
-		super(ID, (int)x, (int)y, (int)width, (int)height);
+	public StandartFBO(int ID, float x, float y, float width, float height, String ... name) {
+		super(ID, (int)x, (int)y, (int)width, (int)height, name);
 	}
-	public StandartFBO(int ID, int width, int height) {
-		super(ID, width, height);
+	public StandartFBO(int ID, int width, int height, String ... name) {
+		super(ID, width, height, name);
 	}
 	/**
 	 * @param ID id
 	 * @param dim diemnsion int[4] (x, y, widht, height)
 	 */
-	public StandartFBO(int ID, int[] dim) {
-		super(ID, dim[0], dim[1], dim[2], dim[3]);
+	public StandartFBO(int ID, int[] dim, String ... name) {
+		super(ID, dim[0], dim[1], dim[2], dim[3], name);
 	}
 	/**
 	 * @param dim diemnsion int[4] (x, y, widht, height)
 	 */
-	public StandartFBO(int[] dim) {
-		super(dim[0], dim[1], dim[2], dim[3]);
+	public StandartFBO(int[] dim, String ... name) {
+		super(dim[0], dim[1], dim[2], dim[3], name);
 	}
 	
 

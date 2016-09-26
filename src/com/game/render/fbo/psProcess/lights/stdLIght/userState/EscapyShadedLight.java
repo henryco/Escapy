@@ -87,10 +87,10 @@ public class EscapyShadedLight extends EscapyStdLight {
 
         {
             this.lightMapFBO = new StandartFBO(super.getID(), (int) super.lightSource.getWidth(),
-                    (int) super.lightSource.getHeight());
-            this.shadowMapFBO = new StandartFBO(super.getID(), lacc, 1);
+                    (int) super.lightSource.getHeight(), "<AbsLightMap_FBUFFER>");
+            this.shadowMapFBO = new StandartFBO(super.getID(), lacc, 1, "<AbsShadowMap_FBUFFER>");
             this.shadowFBO = new StandartFBO(super.getID(), (int) super.lightSource.getWidth(),
-                    (int) super.lightSource.getHeight());
+                    (int) super.lightSource.getHeight(), "<AbsShadow_FBUFFER>");
         }
 
         {
@@ -125,7 +125,13 @@ public class EscapyShadedLight extends EscapyStdLight {
         return this;
     }
 
-    @Override
+	@Override
+	public AbsStdLight setPosition(float x, float y) {
+		setUpdate(true);
+		return super.setPosition(x, y);
+	}
+
+	@Override
     public AbsStdLight setScale(float scale) {
         super.setScale(scale);
         this.lightCam = new EscapyGdxCamera((int)(lightMapFBO.getRegWidth() * scale), (int)(lightMapFBO.getRegHeight() * scale));
@@ -139,7 +145,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 
     @Override
     public AbsStdLight lazyRender(EscapyGdxCamera escapyCamera) {
-		System.out.println("render");
+		System.out.println("render: "+getID());
         renderLightMap();
         renderShadowMap();
         renderShadows();
@@ -191,7 +197,8 @@ public class EscapyShadedLight extends EscapyStdLight {
 
     @Override
     public void stateUpdated(TransVec state) {
-        super.stateUpdated(state);
+        super.updState();
+		super.stateUpdated(state);
         transPos.setTransVec(super.getPosition());
     }
 

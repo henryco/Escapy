@@ -58,7 +58,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	private int id;
 
-
 	{
 		this.id = this.hashCode();
 
@@ -110,7 +109,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 				escapyCamera.getCamera(), color, lightAngles, resolution,
 				coeff, correct, radius, umbra);
 		fbo.end();
-		System.out.println("render");
+		System.out.println("render: "+getID());
 		return this;
 	}
 
@@ -129,7 +128,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	@Override
 	public void stateUpdated(TransVec state) {
-		this.updState();
 		float tempX = state.x - (this.lightSource.getWidth() / 2.f);
 		float tempY = state.y - (this.lightSource.getHeight() / 2.f);
 		this.lightSource.setPosition(tempX, tempY);
@@ -140,7 +138,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.updState();
 		this.lightSource = light;
 		this.interCam = new EscapyGdxCamera((int) this.lightSource.getWidth(), (int) this.lightSource.getHeight());
-		this.fbo = new StandartFBO(id, (int) this.lightSource.getWidth(), (int) this.lightSource.getHeight());
+		this.fbo = new StandartFBO(id, (int) this.lightSource.getWidth(), (int) this.lightSource.getHeight(), "<AbsLightTexture_FBUFFER>");
 		FrameBuffer tmpBuff = new FrameBuffer(Pixmap.Format.RGBA8888, (int) this.lightSource.getWidth(),(int) this.lightSource.getHeight(), false);
 		tmpBuff.begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
@@ -155,7 +153,7 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		this.lightSprite = new Sprite(tmpBuff.getColorBufferTexture());
 		this.bgSprite = new Sprite(bgBuff.getColorBufferTexture());
 
-		System.out.println(lightSource);
+		System.out.println(lightSource.setName(Integer.toString(getID())));
 		return this;
 	}
 
@@ -166,7 +164,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		return this;
 	}
 	public AbsStdLight setPosition(float x, float y) {
-		this.updState();
 		this.position.setTransVec(x, y);
 		return this;
 	}

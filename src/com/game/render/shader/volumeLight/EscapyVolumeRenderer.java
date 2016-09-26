@@ -14,7 +14,7 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 	private ShaderProgram volShader;
 	private static final String colorMap = "colorMap", lightMap = "lightMap", normalMap = "normalMap",
 								fieldSize = "fieldSize", ambientIntensity = "ambientIntensity",
-								lightIntensity = "lightIntensity", targetMap = "targetMap";
+								directIntensity = "directIntensity", shadowIntensity = "shadowIntensity", spriteSize = "spriteSize";
 	
 	private String FRAGMENT_NAME = "_";
 	
@@ -41,51 +41,51 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 	
 	
 	public void renderVolumeLights(float x, float y, Texture cMap, Texture nMap, Texture lMap, TransVec dim,
-			float amIntensity, float ligIntensity, OrthographicCamera camera) {
-		this.renderVolumeLights(cMap, x, y, cMap, nMap, lMap, dim, amIntensity, ligIntensity, camera);
+			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, OrthographicCamera camera) {
+		this.renderVolumeLights(cMap, x, y, cMap, nMap, lMap, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, camera);
 	}
 	
 	
 	public void renderVolumeLights(Sprite cMap, Sprite nMap, Sprite lMap, TransVec dim,
-			float amIntensity, float ligIntensity, OrthographicCamera camera) {
-		this.renderVolumeLights(cMap, cMap, nMap, lMap, dim, amIntensity, ligIntensity, camera);
+			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, OrthographicCamera camera) {
+		this.renderVolumeLights(cMap, cMap, nMap, lMap, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, camera);
 	}
 	
 	public void renderVolumeLights(float x, float y, TextureRegion cMap, TextureRegion nMap, TextureRegion lMap,
-								   TransVec dim, float amIntensity, float ligIntensity, OrthographicCamera camera) {
-		this.renderVolumeLights(cMap, x, y, cMap, nMap, lMap, dim, amIntensity, ligIntensity, camera);
+								   TransVec dim, float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, OrthographicCamera camera) {
+		this.renderVolumeLights(cMap, x, y, cMap, nMap, lMap, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, camera);
 	}
 	
 	
 	public void renderVolumeLights(Texture target, float x, float y, Texture cMap, Texture nMap, Texture lMap, TransVec dim,
-			float amIntensity, float ligIntensity, OrthographicCamera camera) {
+			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, OrthographicCamera camera) {
 		
 		this.volShader = initShader(
-				target, cMap, nMap, lMap, dim, amIntensity, ligIntensity, volShader);
+				target, cMap, nMap, lMap, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, volShader);
 		super.drawTexture(target, camera, x, y);
 	}
 	
 	
 	public void renderVolumeLights(Sprite target, Sprite cMap, Sprite nMap, Sprite lMap, TransVec dim,
-			float amIntensity, float ligIntensity, OrthographicCamera camera) {
+			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, OrthographicCamera camera) {
 		this.volShader = initShader(
 				target.getTexture(), cMap.getTexture(), nMap.getTexture(), lMap.getTexture(), 
-				dim, amIntensity, ligIntensity, volShader);
+				dim, amIntensity, dirIntensity, shdIntensity, sprtSize, volShader);
 		super.drawSprite(target, camera);
 	}
 	
 	public void renderVolumeLights(TextureRegion target, float x, float y, TextureRegion cMap, TextureRegion nMap, TextureRegion lMap,
-								   TransVec dim, float amIntensity, float ligIntensity, OrthographicCamera camera) {
+								   TransVec dim, float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, OrthographicCamera camera) {
 		
 		this.volShader = initShader(
 				target.getTexture(), cMap.getTexture(), nMap.getTexture(), lMap.getTexture(), 
-				dim, amIntensity, ligIntensity, volShader);
+				dim, amIntensity, dirIntensity, shdIntensity, sprtSize, volShader);
 		super.drawTextureRegion(target, camera, x, y, dim.x, dim.y);
 	}
 	
 	
 	private ShaderProgram initShader(Texture tMap, Texture cMap, Texture nMap, Texture lMap, TransVec dim,
-			float amIntensity, float ligIntensity, ShaderProgram shader) {
+			float amIntensity, float dirIntensity, float shadIntensity, float sprtSize, ShaderProgram shader) {
 		shader.begin();
 		{
 			lMap.bind(2);
@@ -97,7 +97,9 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 			shader.setUniformi(colorMap, 0);
 			shader.setUniformf(fieldSize, dim.x, dim.y);
 			shader.setUniformf(ambientIntensity, amIntensity);
-			shader.setUniformf(lightIntensity, ligIntensity);	
+			shader.setUniformf(directIntensity, dirIntensity);
+			shader.setUniformf(shadowIntensity, shadIntensity);
+			shader.setUniformf(spriteSize, sprtSize);
 		}
 		shader.end();
 		return shader;

@@ -15,7 +15,7 @@ public class EscapyLightType {
 		this.width = 0;
 		this.height = 0;
 	}
-	
+	private String name = "";
 
 	public EscapyLightType(int id, float height, float width) {
 		this.ID = id;
@@ -87,9 +87,14 @@ public class EscapyLightType {
 		this.scrRenderer = renderer;
 		return this;
 	}
+	public EscapyLightType setName(String name) {
+		this.name = name;
+		return this;
+	}
+
 	@Override
 	public String toString() {
-		return ID+"| "+getX()+" : "+getY()+" | "+getWidth()+" : "+getHeight()+" <EscapyLightType>";
+		return ID+"| "+getX()+" : "+getY()+" | "+getWidth()+" : "+getHeight()+" <EscapyLightType_"+name+">";
 	}
 	
 

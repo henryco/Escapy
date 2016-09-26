@@ -43,13 +43,13 @@ public abstract class EscapyFBO {
 	protected final int regX, regY, regWidth, regHeight;
 				
 	private final int id;
-	
+	private String name = "";
 	
 	/** 
 	 * Creates new FrameBufferObjects superclass, that contains Gdx {@link FrameBuffer} and other usefull stuff 
 	 * <b>See:</b> {@link StandartFBO}.
 	 * */
-	public EscapyFBO() {
+	public EscapyFBO(String ... name) {
 		
 		this.regX = 0;
 		this.regY = 0;
@@ -57,10 +57,11 @@ public abstract class EscapyFBO {
 		this.regHeight = Gdx.graphics.getHeight();
 		
 		this.id = this.hashCode();
+		this.setName(name);
 		this.initFBO();
 	}
 	
-	public EscapyFBO(int ID) {
+	public EscapyFBO(int ID, String ... name) {
 		
 		this.regX = 0;
 		this.regY = 0;
@@ -68,10 +69,11 @@ public abstract class EscapyFBO {
 		this.regHeight = Gdx.graphics.getHeight();
 		
 		this.id = ID;
+		this.setName(name);
 		this.initFBO();
 	}
 	
-	public EscapyFBO(int x, int y, int width, int height) {
+	public EscapyFBO(int x, int y, int width, int height, String ... name) {
 		
 		this.regX = x;
 		this.regY = y;
@@ -79,10 +81,11 @@ public abstract class EscapyFBO {
 		this.regHeight = height;
 		
 		this.id = this.hashCode();
+		this.setName(name);
 		this.initFBO();
 	}
 	
-	public EscapyFBO(int ID, int x, int y, int width, int height) {
+	public EscapyFBO(int ID, int x, int y, int width, int height, String ... name) {
 		
 		this.regX = x;
 		this.regY = y;
@@ -90,10 +93,11 @@ public abstract class EscapyFBO {
 		this.regHeight = height;
 		
 		this.id = ID;
+		this.setName(name);
 		this.initFBO();
 	}
 	
-	public EscapyFBO(int ID, int width, int height) {
+	public EscapyFBO(int ID, int width, int height, String ... name) {
 		
 		this.regX = 0;
 		this.regY = 0;
@@ -101,13 +105,14 @@ public abstract class EscapyFBO {
 		this.regHeight = height;
 		
 		this.id = ID;
+		this.setName(name);
 		this.initFBO();
 		
 		this.MAINREGION = new TextureRegion(MAINBUFFER.getColorBufferTexture());
 		this.MAINSPRITE = new Sprite(MAINREGION);
 	}
 	
-	public EscapyFBO(int width, int height) {
+	public EscapyFBO(int width, int height, String ... name) {
 		
 		this.regX = 0;
 		this.regY = 0;
@@ -115,6 +120,7 @@ public abstract class EscapyFBO {
 		this.regHeight = height;
 		
 		this.id = this.hashCode();
+		this.setName(name);
 		this.initFBO();
 		
 		this.MAINREGION = new TextureRegion(MAINBUFFER.getColorBufferTexture());
@@ -432,7 +438,7 @@ public abstract class EscapyFBO {
 	
 	@Override
 	public String toString() {
-		return "EscapyFBO_"+this.getId();
+		return "EscapyFBO_"+this.getId()+name;
 	}
 
 	public int getId() {
@@ -467,4 +473,8 @@ public abstract class EscapyFBO {
 		return fboCamera;
 	}
 
+	public EscapyFBO setName(String ... name) {
+		for (String n : name) this.name += " "+n;
+		return this;
+	}
 }
