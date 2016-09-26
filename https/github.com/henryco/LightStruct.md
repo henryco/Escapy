@@ -1,4 +1,5 @@
-<b><i>Light container constructor: </i></b><br>
+#![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
+<h3><i>Light container: </i></h3><br>
 
 lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
 <br>
