@@ -1,9 +1,9 @@
 #![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
 <h4>libGDX based 2D game engine</h4><br>
-<b>27.09.16:</b> Support normal mapping via LightExecutor (uses Struct for initialization)<br>
+<b>27.09.16:</b><br> Support normal mapping via LightExecutor (uses Struct for initialization)<br>
 <b><a href ="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/LightExecutor.md"> -> About light executor</a></b><br><br>
 
-<b>24.09.16:</b> Has been reworked light system (again), now game engine use <a href = "https://github.com/henryco/Struct">.Struct</a> for initialization. 
+<b>24.09.16:</b><br> Has been reworked light system (again), now game engine use <a href = "https://github.com/henryco/Struct">.Struct</a> for initialization. 
 <br><b><a href ="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/LightExmaple.struct"> -> .Struct lights file example </a></b><br>
 <b><a href="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/LightStruct.md"> -> About .Struct lights in 5 sec </a></b></br>
 <b><a href="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/builtIn.md">-> .Struct lights "built in" fields </a></b><br>
