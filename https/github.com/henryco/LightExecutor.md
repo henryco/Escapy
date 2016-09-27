@@ -43,7 +43,7 @@ lgihts.executor.normalMapping.shader:
 }
 ```
 <br>
-In future will be possible(via reflection) to use custom shaders, actualy its possible only for bland shaders:
+In future will be possible(via reflection) to use custom shaders for normal mapping, actualy its possible only for bland shaders:
 ```
 {
   shader.file("*.vert", "*.frag");
