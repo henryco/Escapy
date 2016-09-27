@@ -43,7 +43,7 @@ lgihts.executor.normalMapping.shader:
 }
 ```
 <br>
-In future will be possible(via reflection) to use custom shaders, actualy its possible only for bland shaders:
+In future will be possible(via reflection) to use custom shaders for normal mapping, actualy its possible only for bland shaders:
 ```
 {
   shader.file("*.vert", "*.frag");
@@ -61,7 +61,7 @@ In future will be possible(via reflection) to use custom shaders, actualy its po
 <br>
 <b><i>spriteSize:</i></b> - size of distance between calculated points of normal map, <b>(float)</b><br>
 <br>
-<b><i>shader.builtIn:</i></b> - executor's built-in shader program, necessary files<b>(#BUILT_IN, DEFAULT)</b><br>
+<b><i>shader.builtIn:</i></b> - executor's built-in shader program, necessary field! <b> (#BUILT_IN, DEFAULT)</b><br>
 <br><br><br><br><br>
 #
 <b><i>See also:</i></b><br><i><br>
