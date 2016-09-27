@@ -60,9 +60,9 @@ public class LightsPostExecutor {
 
 	public void processLightBuffer(EscapyGdxCamera camera, Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
 
+		stdRenderer.drawSprite(colorMap, camera.getCamera());
 		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalsMap, lightMap, frameDim,
 				ambientIntesity, directIntensity, shadowIntensity, spriteSize, camera.getCamera());
-		else stdRenderer.drawSprite(colorMap, camera.getCamera());
 	}
 	public void processLightBuffer(Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
 		processLightBuffer(camera, colorMap, lightMap, normalsMap);
@@ -70,9 +70,9 @@ public class LightsPostExecutor {
 	public EscapyFBO processLightBuffer(EscapyFBO fbo, EscapyGdxCamera camera, Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
 
 		fbo.begin();
+		stdRenderer.drawSprite(colorMap, camera.getCamera());
 		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalsMap, lightMap, frameDim,
 				ambientIntesity, directIntensity, shadowIntensity, spriteSize, camera.getCamera());
-		else stdRenderer.drawSprite(colorMap, camera.getCamera());
 		return fbo.end();
 	}
 	public EscapyFBO processLightBuffer(EscapyFBO fbo, Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
