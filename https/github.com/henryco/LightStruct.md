@@ -3,7 +3,7 @@
 
 lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
 <br>
-lights - <b>containers holder</b><br>
+lights - <b>containers holder (superclass)</b><br>
 containers - <b>light containers</b><br><br>
   
   
