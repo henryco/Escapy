@@ -1,7 +1,7 @@
 #![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
 <h3><i>Light container: </i></h3><br>
 
-lights.containers: [(type[shader(ADD_RGBA), SOFT_LIGHT, false])]
+lights.containers: [(type[ADD_RGBA, shader(SOFT_LIGHT), false])]
 <br>
 lights - <b>containers holder (superclass)</b><br>
 containers - <b>light containers</b><br><br>
