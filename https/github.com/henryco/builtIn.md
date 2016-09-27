@@ -1,4 +1,5 @@
-# BUILT IN<br><br><br>
+#![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
+<h2>BUILT IN: </h2><br><br>
 
 <b><i> GL blend: </i></b></br></br>
   ADD_RGB -<b>   String, (additive blend)</b></br>
