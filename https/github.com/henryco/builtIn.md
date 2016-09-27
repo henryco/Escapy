@@ -1,6 +1,5 @@
 #![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
 <h3><i>BUILT-IN FIELDS:</i></h3><br><br>
-
 <b><i> GL blend: </i></b></br></br>
   ADD_RGB -<b>   String, (additive blend)</b></br>
   ADD_RGBA -<b>   String, (additive alpha blend)</b></br>
