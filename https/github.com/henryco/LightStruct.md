@@ -1,7 +1,7 @@
 #![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
 <h3><i>Light container: </i></h3><br>
 
-lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
+lights.containers: [(type[shader(ADD_RGBA), SOFT_LIGHT, false])]
 <br>
 lights - <b>containers holder (superclass)</b><br>
 containers - <b>light containers</b><br><br>
@@ -15,7 +15,7 @@ containers - <b>light containers</b><br><br>
 
 	type: { - alternative 
       glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
-      shader: OVERLAY
+      shader.builtIn: OVERLAY
       shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
       shader.fileDir("data/shaders/blend/screen/", "screen");
       shader.uniforms("targetMap", "blendMap")
@@ -23,9 +23,7 @@ containers - <b>light containers</b><br><br>
     }	
   
   glBlendFuncSeparate - <b>manual alternative for built in GL blend programs</b><br>
-  
-  shader == type[1] - <b>syntax sugar</b><br>
-  
+
   shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");<br>
   <b>^ manual alternative for built in shaders</b><br>
   
