@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.GameEnter;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.userState.UpdatableScreenFactory;
 

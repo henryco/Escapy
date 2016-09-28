@@ -1352,7 +1352,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="132" language="java" name="com.game.render.EscapyGdxCamera" project="EscapyProject_gdx-core" 
+  <class id="132" language="java" name="com.game.render.camera.EscapyGdxCamera" project="EscapyProject_gdx-core"
     file="/EscapyProject_gdx-core/src/com/game/render/EscapyGdxCamera.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="859" width="321" x="4095" y="9546"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

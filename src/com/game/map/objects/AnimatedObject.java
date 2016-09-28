@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.animator.EscapyAnimatorObject;
 import com.game.executable.EscapyExecutableObjects;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.extra.lightMap.EscapyLightMapRenderer;
 import com.game.render.extra.normalMap.EscapyNormalMapRender;
 

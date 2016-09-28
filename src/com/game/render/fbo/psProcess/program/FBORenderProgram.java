@@ -2,7 +2,7 @@ package com.game.render.fbo.psProcess.program;
 
 import java.lang.reflect.Array;
 
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.excp.EscapyFBOtypeException;
@@ -53,12 +53,9 @@ public abstract class FBORenderProgram<T extends EscapyFBO> {
 		setFBOTarget(fboProgramTarget);
 	}
 	@SuppressWarnings("unchecked")
-	public FBORenderProgram() {	
-		
-		fbo = (T) new StandartFBO();
-		final T[] tempFBO = (T[]) Array.newInstance(fbo.getClass(), 0);
+	public FBORenderProgram() {
+		final T[] tempFBO = (T[]) Array.newInstance(StandartFBO.class, 0);
 		this.fboArray = tempFBO;
-		this.fbo = null;
 	}
 	
 	/**

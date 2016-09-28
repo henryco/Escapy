@@ -1,7 +1,7 @@
 package com.game.render.fbo.psProcess.lights.volLight.userState;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.volumeLight.EscapyVolumeRenderer;
@@ -23,13 +23,14 @@ public class LightsPostExecutor {
 
 	private boolean normalMappingOn, blur;
 
-	private float directIntensity, ambientIntesity, shadowIntensity, spriteSize;
+	private float directIntensity, ambientIntesity, shadowIntensity, spriteSize, lumimance;
 
 	{
 		this.directIntensity = 0.2f;
 		this.ambientIntesity = 0.75f;
 		this.shadowIntensity = 8;
 		this.spriteSize = 1;
+		this.lumimance = 0;
 
 		this.normalMappingOn = true;
 		this.blur = false;
@@ -58,26 +59,25 @@ public class LightsPostExecutor {
 		if (normalMappingOn) for (Consumer<EscapyGameScreen> f : func) f.accept(instance);
 	}
 
-	public void processLightBuffer(EscapyGdxCamera camera, Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
+	public void processLightBuffer(EscapyGdxCamera camera, Sprite colorMap, Sprite normalsMap) {
 
 		stdRenderer.drawSprite(colorMap, camera.getCamera());
-		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalsMap, lightMap, frameDim,
-				ambientIntesity, directIntensity, shadowIntensity, spriteSize, camera.getCamera());
+		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalsMap, frameDim,
+				ambientIntesity, directIntensity, shadowIntensity, spriteSize, lumimance, camera.getCamera());
 	}
-	public void processLightBuffer(Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
-		processLightBuffer(camera, colorMap, lightMap, normalsMap);
+	public void processLightBuffer(Sprite colorMap, Sprite normalsMap) {
+		processLightBuffer(camera, colorMap, normalsMap);
 	}
-	public EscapyFBO processLightBuffer(EscapyFBO fbo, EscapyGdxCamera camera, Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
+	public EscapyFBO processLightBuffer(EscapyFBO fbo, EscapyGdxCamera camera, Sprite colorMap, Sprite normalsMap) {
 
 		fbo.begin();
 		stdRenderer.drawSprite(colorMap, camera.getCamera());
-		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalsMap, lightMap, frameDim,
-				ambientIntesity, directIntensity, shadowIntensity, spriteSize, camera.getCamera());
+		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalsMap, frameDim,
+				ambientIntesity, directIntensity, shadowIntensity, spriteSize, lumimance, camera.getCamera());
 		return fbo.end();
 	}
-	public EscapyFBO processLightBuffer(EscapyFBO fbo, Sprite colorMap, Sprite lightMap, Sprite normalsMap) {
-		processLightBuffer(fbo, this.camera, colorMap, lightMap, normalsMap);
-		return fbo;
+	public EscapyFBO processLightBuffer(EscapyFBO fbo, Sprite colorMap, Sprite normalsMap) {
+		return processLightBuffer(fbo, this.camera, colorMap, normalsMap);
 	}
 
 
@@ -122,6 +122,11 @@ public class LightsPostExecutor {
 	public LightsPostExecutor setSpriteSize(float spriteSize) {
 		this.spriteSize = spriteSize;
 		System.out.println("nrmlSpiteSize:\t\t"+spriteSize);
+		return this;
+	}
+	public LightsPostExecutor setLumimance(float lumimance) {
+		System.out.println("luminance:\t\t\t"+lumimance);
+		this.lumimance = lumimance;
 		return this;
 	}
 

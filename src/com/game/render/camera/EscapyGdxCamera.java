@@ -1,4 +1,4 @@
-package com.game.render;
+package com.game.render.camera;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -27,12 +27,7 @@ public class EscapyGdxCamera {
 	{	this.shiftVec = new TransVec(0f, 0f);
 	
 	}
-	
-	/**
-	 * Instantiates a new escapy gdx camera.
-	 */
-	public EscapyGdxCamera() {}
-	
+
 	/**
 	 * Instantiates a new escapy gdx camera.
 	 *

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
@@ -84,16 +84,13 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public AbsStdLight() {}
 	public AbsStdLight(int id) {
 		this.setID(id);
-		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
 	public AbsStdLight(TransVec position) {
 		this.setPosition(position);
-		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
 	public AbsStdLight(int id, TransVec position) {
 		this.setID(id);
 		this.setPosition(position);
-		this.setLightMapFBO(new StandartFBO(this.getID()).forceClearFBO(1f, 1f, 1f, 1f));
 	}
 
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
@@ -320,12 +317,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	public EscapyFBO getFBO() {
 		return fbo;
 	}
-	@Deprecated
-	public EscapyFBO getLightMapFBO() {
-		return null;
-	}
-	@Deprecated
-	public void setLightMapFBO(EscapyFBO lightMap) {}
 	public boolean isVisible() {
 		return visible;
 	}

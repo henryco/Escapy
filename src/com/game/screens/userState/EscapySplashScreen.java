@@ -1,7 +1,7 @@
 package com.game.screens.userState;
 
 import com.game.GameEnter;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.screens.EscapyScreenState;
 
 // TODO: Auto-generated Javadoc

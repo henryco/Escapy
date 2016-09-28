@@ -2,7 +2,7 @@ package com.game.render.fbo;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 import com.game.render.shader.EscapyStdShaderRenderer;
@@ -18,16 +18,6 @@ import com.game.render.shader.EscapyStdShaderRenderer;
 public class StandartFBO extends EscapyFBO {
 
 
-	/**
-	 * Create standart frame buffer object <br>
-	 * that extends {@link EscapyFBO}.
-	 */
-	public StandartFBO(String ... name) {
-		super(name);
-	}
-	public StandartFBO(int ID, String ... name) {
-		super(ID, name);
-	}
 	public StandartFBO(int x, int y, int width, int height, String ... name) {
 		super(x, y, width, height, name);
 	}

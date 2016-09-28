@@ -2,7 +2,7 @@ package com.game.screens.userState;
 
 import com.badlogic.gdx.Screen;
 import com.game.GameEnter;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.update_loop.UpdatableScreen;
 import com.game.update_loop.UpdateLoopQueue;
 import com.game.update_loop.userState.UpdatableScreenFactory;

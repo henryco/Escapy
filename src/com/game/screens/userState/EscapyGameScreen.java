@@ -9,7 +9,7 @@ import com.game.characters.InitCharacters;
 import com.game.controlls.PlayerControl;
 import com.game.map.InitMap;
 import com.game.physics_temp.EscapyPhysicsBase;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.CameraProgramFactory;
 import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.extra.lightMap.EscapyLightMapRenderer;
@@ -76,13 +76,14 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     @Override
     public Screen initState(Object ... vars) {
 
-		int[] dim = new int[]{0, 0, super.settings.getFrameWIDHT(), super.settings.getFrameHEIGHT()};
+		//int[] dim = new int[]{0, 0, super.settings.getFrameWIDHT(), super.settings.getFrameHEIGHT()};
+		int[] dim = new int[]{0, 0, super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT};
 
         this.init_base(dim);
         this.init_fbo(dim);
 		this.init_mask(dim);
         this.init_containers(dim);
-
+		System.out.println(super.settings.getFrameWIDHT()+"::"+super.settings.getFrameHEIGHT());
 
         super.initializationEnded = true;
         System.gc();
@@ -91,7 +92,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void init_base(Object ... vars) {
 
         this.controlls = PlayerControl.playerController();
-        this.mapContainer = new InitMap(super.settings.Location(), super.settings.getFrameWIDHT(), super.settings.getFrameHEIGHT(), super.settings.scaleRatio());
+        this.mapContainer = new InitMap(super.settings.Location(), super.SCREEN_WIDTH, super.SCREEN_HEIGHT, super.settings.scaleRatio());
         this.charactersContainer = new InitCharacters();
         this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
@@ -276,10 +277,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     }
 	public void renderFBO() {
 
-		this.MAIN_STD_FBO.renderFBO();
+		MAIN_STD_FBO.renderFBO();
 		lightContainer.lights.forEach(l -> l.makeLights().renderBlendedLights(escapyCamera, stdFBO.getSpriteRegion(), lightBuffFBO));
-		lightContainer.postExecutor.containerFunc(this, g -> g.renderLightMap(escapyCamera), g -> g.renderNormalsMap(escapyCamera));
-		lightContainer.postExecutor.processLightBuffer(lightBuffFBO.getSpriteRegion(), lightMapFBO.getSpriteRegion(), nrmlFBO.getSpriteRegion());
+		lightContainer.postExecutor.containerFunc(this, g -> g.renderNormalsMap(escapyCamera));
+		lightContainer.postExecutor.processLightBuffer(lightBuffFBO.getSpriteRegion(), nrmlFBO.getSpriteRegion());
 
 	}
 

@@ -10,7 +10,7 @@ import com.game.characters.states.AbstractCharacters;
 import com.game.physics_temp.EscapyPhysicsEvent;
 import com.game.physics_temp.EscapyPhysicsObjectDefault;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 
 // TODO: Auto-generated Javadoc
 /**

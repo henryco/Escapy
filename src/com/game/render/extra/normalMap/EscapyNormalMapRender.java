@@ -1,6 +1,6 @@
 package com.game.render.extra.normalMap;
 
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 
 // TODO: Auto-generated Javadoc

@@ -1,6 +1,6 @@
 package com.game.render.camera.program.owner;
 
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.CameraProgram;
 
 // TODO: Auto-generated Javadoc
@@ -63,7 +63,7 @@ public class CameraProgramOwner implements EscapyCameraProgramOwner {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.game.render.camera.program.EscapyCameraProgramOwner#executeCameraProgram(int, int, float, com.game.render.EscapyGdxCamera)
+	 * @see com.game.render.camera.program.EscapyCameraProgramOwner#executeCameraProgram(int, int, float, com.game.render.camera.EscapyGdxCamera)
 	 */
 	@Override
 	public float[] executeCameraProgram(int sWidth, int sHeight, float scale_optional, EscapyGdxCamera escapyCamera) {

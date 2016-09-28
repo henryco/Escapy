@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -19,7 +19,10 @@ public class BackGround extends InGameObject{
 	private Texture background;
 	private Sprite backgroundSprite;
 	
-	
+	private int F_WIDTH;
+	private int F_HEIGHT;
+	private float corr = 0;
+
 	/**
 	 * Instantiates a new back ground.
 	 *
@@ -33,31 +36,29 @@ public class BackGround extends InGameObject{
 	 *            the scale ratio
 	 */
 	public BackGround(String ImgUrl, int frameW, int frameH, double scaleRatio) {
-		super(X, Y, DefinitelyNotID, ImgUrl, calcBgrZoom(frameW, frameH, scaleRatio), BACKGROUND);
+		super(X, Y, DefinitelyNotID, ImgUrl, scaleRatio, BACKGROUND);
+		F_WIDTH = frameW;
+		F_HEIGHT = frameH;
+		initializeGraphic();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.EscapyGdxCamera)
-	 */
+
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		
 		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-		/** Static position on (0, 0) **/
 		
 		float p0x = (escapyCamera.getCamera().position.x - (escapyCamera.getCamera().viewportWidth / 2.f));
 		float p0y = (escapyCamera.getCamera().position.y - (escapyCamera.getCamera().viewportHeight / 2.f));
-		
+
 		spriteBatcher.begin();
-		backgroundSprite.setPosition(p0x, p0y);
+		backgroundSprite.setPosition(p0x, p0y + corr);
 		backgroundSprite.draw(spriteBatcher);
 		spriteBatcher.end();
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.map.objects.InGameObject#initializeGraphic()
-	 */
+
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
@@ -65,10 +66,17 @@ public class BackGround extends InGameObject{
 		this.background = new Texture(new FileHandle(getImgUrl()[0]));
 		this.background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
+		double zm = calcBgrZoom(F_WIDTH, F_HEIGHT, background.getWidth(), background.getHeight(), zoom());
+
 		this.backgroundSprite = new Sprite(background);
 		this.backgroundSprite.flip(false, true);
-		this.backgroundSprite.setSize(backgroundSprite.getWidth() * (float) zoom(),
-				backgroundSprite.getHeight() * (float) zoom());
+		this.backgroundSprite.setSize(backgroundSprite.getWidth() * (float) zm,
+				backgroundSprite.getHeight() * (float) zm);
+		float on1 = 0 - (backgroundSprite.getHeight() - F_HEIGHT);
+		float on2 = (backgroundSprite.getHeight() - F_HEIGHT);
+		corr = on1;
+		//System.out.println(on2);
+
 	}
 
 	/**
@@ -82,13 +90,13 @@ public class BackGround extends InGameObject{
 	 *            the scale ratio
 	 */
 	public void reInitializeGraphic(int frameW, int frameH, double scaleRatio) {
-		setDefZoom(calcBgrZoom(frameW, frameH, scaleRatio));
 		initializeGraphic();
 	}
 
-	private static double calcBgrZoom(int frameW, int frameH, double scaleRatio) {
-		double xScale = frameW / (640. * scaleRatio);
-		double yScale = frameH / (510. * scaleRatio);
+	private static double calcBgrZoom(int frameW, int frameH, int w, int h, double scaleRatio) {
+		double xScale = frameW / (w * scaleRatio);
+		double yScale = frameH / (h * scaleRatio);
+		//System.out.println(frameW);
 		return Math.max(xScale, yScale);
 	}
 

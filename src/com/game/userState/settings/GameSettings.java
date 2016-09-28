@@ -11,8 +11,13 @@ import java.io.RandomAccessFile;
 public final class GameSettings {
 	private static int gameXsize, gameYsize;
 
+
+	public static final int DEFAULT_WIDTH = 1280;
+	public static final int DEFAULT_HEIGHT = 720;
+
+
 	private static String location = "";
-	private static int SCREEN_WIDTH, SCREEN_HEIGHT;
+	public static int SCREEN_WIDTH, SCREEN_HEIGHT;
 	private static double scaleRatio = 1;
 	private static double defaultScale = 1;// 1;
 	private static boolean mapVisible = false;
@@ -80,11 +85,8 @@ public final class GameSettings {
 	 *
 	 * @return the frame WIDHT
 	 */
-	public static int getFrameWIDHT() {
-		if ((gameXsize * scaleRatio()) < SCREEN_WIDTH)
-			return (int) (gameXsize * scaleRatio());
-		else
-			return SCREEN_WIDTH;
+	public int getFrameWIDHT() {
+		return (int)(DEFAULT_WIDTH * scaleRatio());
 	}
 
 	/**
@@ -92,11 +94,8 @@ public final class GameSettings {
 	 *
 	 * @return the frame HEIGHT
 	 */
-	public static int getFrameHEIGHT() {
-		if ((gameYsize * scaleRatio()) < SCREEN_HEIGHT)
-			return (int) (gameYsize * scaleRatio());
-		else
-			return SCREEN_HEIGHT;
+	public int getFrameHEIGHT() {
+		return (int)(DEFAULT_HEIGHT * scaleRatio());
 	}
 
 	/**

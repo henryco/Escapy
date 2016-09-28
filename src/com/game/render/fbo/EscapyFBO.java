@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
 
@@ -44,34 +44,7 @@ public abstract class EscapyFBO {
 				
 	private final int id;
 	private String name = "";
-	
-	/** 
-	 * Creates new FrameBufferObjects superclass, that contains Gdx {@link FrameBuffer} and other usefull stuff 
-	 * <b>See:</b> {@link StandartFBO}.
-	 * */
-	public EscapyFBO(String ... name) {
-		
-		this.regX = 0;
-		this.regY = 0;
-		this.regWidth = Gdx.graphics.getWidth();
-		this.regHeight = Gdx.graphics.getHeight();
-		
-		this.id = this.hashCode();
-		this.setName(name);
-		this.initFBO();
-	}
-	
-	public EscapyFBO(int ID, String ... name) {
-		
-		this.regX = 0;
-		this.regY = 0;
-		this.regWidth = Gdx.graphics.getWidth();
-		this.regHeight = Gdx.graphics.getHeight();
-		
-		this.id = ID;
-		this.setName(name);
-		this.initFBO();
-	}
+
 	
 	public EscapyFBO(int x, int y, int width, int height, String ... name) {
 		
@@ -142,7 +115,7 @@ public abstract class EscapyFBO {
 		
 		this.MAINSPRITE = new Sprite(MAINREGION);
 		
-		this.fboCamera = new EscapyGdxCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		this.fboCamera = new EscapyGdxCamera(regWidth, regHeight);
 		this.fboBatch = new SpriteBatch();
 		System.out.println("COMPILED: "+this.toString());
 		
@@ -267,39 +240,6 @@ public abstract class EscapyFBO {
 	public EscapyFBO clearFBO() {
 		return this.clearFBO(0f,0f,0f,1f);
 	}
-	
-	/**
-	 * <p>Creates new {@link TextureRegion} from contained fbo. </p>
-	 * <p>Dont use it in loop, it has trand to memory leak</p>
-	 *
-	 * @param ePP the {@link EscapyPostProcessed}, optional data for render.
-	 * @return the new rendered region
-	 */
-	@Deprecated
-	public TextureRegion getNewRenderedRegion(EscapyPostProcessed ePP) {
-		
-		FrameBuffer fBuffer = getNewRenderedBuffer(ePP);
-	
-		return new TextureRegion(fBuffer.getColorBufferTexture(), 
-				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-	}
-	
-	/**
-	 * <p>Creates new {@link FrameBuffer} from contained other fbo. </p>
-	 * <p>Dont use it in loop, it has trand to memory leak</p>
-	 *
-	 * @param ePP the {@link EscapyPostProcessed}, optional data for render.
-	 * @return the new rendered buffer
-	 */
-	@Deprecated 
-	public FrameBuffer getNewRenderedBuffer(EscapyPostProcessed ePP) {
-		
-		FrameBuffer fBuffer = new FrameBuffer(Format.RGBA8888, Gdx.graphics.getWidth(), 
-				Gdx.graphics.getHeight(), false);
-		fBuffer = this.renderOutBuffer(fBuffer, ePP, this.fboCamera);
-		return fBuffer;
-	}
-	
 	
 	
 	/**Render data from contained {@link FrameBuffer} into target buffer,

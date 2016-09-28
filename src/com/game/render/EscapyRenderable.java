@@ -1,6 +1,9 @@
 package com.game.render;
 
 // TODO: Auto-generated Javadoc
+
+import com.game.render.camera.EscapyGdxCamera;
+
 /**
  * The Interface EscapyRenderable.*/
 public interface EscapyRenderable {

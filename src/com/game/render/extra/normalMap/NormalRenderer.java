@@ -1,6 +1,6 @@
 package com.game.render.extra.normalMap;
 
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.extra.ExtraRendererSuper;
 
 // TODO: Auto-generated Javadoc
@@ -21,7 +21,7 @@ public class NormalRenderer extends ExtraRendererSuper<EscapyNormalMapRender> {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.game.render.extra.EscapyExtraRenderer#extraRender(float[], com.game.render.EscapyGdxCamera)
+	 * @see com.game.render.extra.EscapyExtraRenderer#extraRender(float[], com.game.render.camera.EscapyGdxCamera)
 	 */
 	@Override
 	public void extraRender(float[] translationMatrix, EscapyGdxCamera escapyCamera) {

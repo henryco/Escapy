@@ -1,7 +1,7 @@
 package com.game.update_loop.userState;
 
 import com.game.GameEnter;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.screens.userState.EscapyGameScreen;
 import com.game.screens.userState.EscapySplashScreen;
 import com.game.update_loop.UpdatableScreen;

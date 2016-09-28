@@ -1,6 +1,6 @@
 package com.game.render.extra.lightMap;
 
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.extra.ExtraRendererSuper;
 
 public class LightMapRenderer extends ExtraRendererSuper<EscapyLightMapRenderer>{

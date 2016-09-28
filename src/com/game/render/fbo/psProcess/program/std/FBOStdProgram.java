@@ -1,7 +1,6 @@
 package com.game.render.fbo.psProcess.program.std;
 
-import com.badlogic.gdx.Gdx;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.program.FBORenderProgram;
@@ -24,7 +23,7 @@ public class FBOStdProgram extends FBORenderProgram<EscapyFBO>{
 	@Override
 	public void renderProgram(EscapyGdxCamera camera, EscapyPostProcessed ePP) {
 		this.stdShaderRender.drawTextureRegion(super.getFBOTarget().getTextureRegion(), camera.getCamera(),
-				0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				0, 0, super.getFBOTarget().getRegWidth(), super.getFBOTarget().getRegHeight());
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.game.render.extra;
 
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.EscapyRenderable;
 import com.game.utils.absContainer.EscapyContainerable;
 

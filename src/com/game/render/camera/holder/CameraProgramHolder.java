@@ -3,7 +3,7 @@ package com.game.render.camera.holder;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.CameraProgram;
 import com.game.render.camera.program.owner.CameraProgramOwner;
 

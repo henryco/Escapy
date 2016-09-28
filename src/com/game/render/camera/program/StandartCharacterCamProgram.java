@@ -1,7 +1,7 @@
 package com.game.render.camera.program;
 
 import com.game.characters.states.AbstractCharacters;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 
 // TODO: Auto-generated Javadoc
 
@@ -56,7 +56,7 @@ public class StandartCharacterCamProgram
     }
 
     /* (non-Javadoc)
-     * @see com.game.render.camera.program.CameraProgram#programTranslate(int, int, float, com.game.render.EscapyGdxCamera)
+     * @see com.game.render.camera.program.CameraProgram#programTranslate(int, int, float, com.game.render.camera.EscapyGdxCamera)
      */
     @Override
     public float[] programTranslate(int sWidth, int sHeight, float scale_optional, EscapyGdxCamera escapyCamera) {

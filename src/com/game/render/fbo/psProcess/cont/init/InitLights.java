@@ -102,6 +102,8 @@ public class InitLights {
 									lightExecutor.setAmbientIntesity(Float.parseFloat(getVaguePrimitive(intensityNode, node.ambient, "1")));
 								if (intensityNode.containsPrimitive(node.shadow) || intensityNode.containsPrimitive("2"))
 									lightExecutor.setShadowIntensity(Float.parseFloat(getVaguePrimitive(intensityNode, node.shadow, "2")));
+								if (intensityNode.containsPrimitive(node.luminance) || intensityNode.containsPrimitive("3"))
+									lightExecutor.setLumimance(Float.parseFloat(getVaguePrimitive(intensityNode, node.luminance, "3")));
 							}
 						}
 					}
@@ -374,6 +376,7 @@ public class InitLights {
 		private static final String defaults = "DEFAULT";
 		private static final String lightExecutor = "executor";
 		private static final String intensity = "intensity";
+		private static final String luminance = "luminance";
 
 	}
 

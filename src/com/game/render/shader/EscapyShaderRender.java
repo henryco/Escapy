@@ -65,6 +65,7 @@ public abstract class EscapyShaderRender {
 	 *            the camera
 	 */
 	public void drawSprite(Sprite sprite, OrthographicCamera camera) {	
+		batcher.flush();
 		camera.update(); //FIXME
 		this.batcher.setProjectionMatrix(camera.combined);
 		this.batcher.begin();
@@ -86,6 +87,7 @@ public abstract class EscapyShaderRender {
 	 *            the y
 	 */
 	public void drawTexture(Texture texture, OrthographicCamera camera, float x, float y) {
+		batcher.flush();
 		this.batcher.setProjectionMatrix(camera.combined);
 		camera.update();
 		this.batcher.begin();
@@ -111,6 +113,7 @@ public abstract class EscapyShaderRender {
 	 */
 	public void drawTextureRegion(TextureRegion region, OrthographicCamera camera, float x, float y, float widht,
 			float height) {
+		batcher.flush();
 		this.batcher.setProjectionMatrix(camera.combined);
 		camera.update();
 		this.batcher.begin();

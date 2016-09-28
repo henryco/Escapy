@@ -1,7 +1,7 @@
 package com.game;
 
 import com.badlogic.gdx.Game;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.screens.userState.EscapyStateContainer;
 import com.game.userState.settings.GameSettings;
 
@@ -33,13 +33,14 @@ public class GameEnter extends Game {
 	@Override
 	public void create() {
 
-		this.escapyCamera = new EscapyGdxCamera(GameSettings.getFrameWIDHT(), GameSettings.getFrameHEIGHT());
+		this.escapyCamera = new EscapyGdxCamera(GameSettings.DEFAULT_WIDTH, GameSettings.DEFAULT_HEIGHT);
+
 		this.escapyCamera.setXInterval(0.35f, 0.35f);
 		this.statesContainer = new EscapyStateContainer(this, escapyCamera);
 		this.statesContainer.getUpdLoopedQueue().setSleepTime(8);
 
 		super.setScreen(statesContainer.getLoadingScreen());
-
+		resize((int)(GameSettings.DEFAULT_WIDTH * 1.3f), (int)(GameSettings.DEFAULT_HEIGHT*1.3f));
 		System.gc();
 	}
 

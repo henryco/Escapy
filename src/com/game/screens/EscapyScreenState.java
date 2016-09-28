@@ -3,7 +3,7 @@ package com.game.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.game.GameEnter;
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.userState.settings.GameSettings;
 
 // TODO: Auto-generated Javadoc
@@ -24,6 +24,9 @@ public abstract class EscapyScreenState implements Screen {
 	protected final int SCREEN_WIDTH;
 	/** The screen height. */
 	protected final int SCREEN_HEIGHT;
+	protected final int SCREEN_DEFAULT_WIDTH;
+	protected final int SCREEN_DEFAULT_HEIGHT;
+
 	/** The escapy camera. */
 	protected EscapyGdxCamera escapyCamera;
 
@@ -42,8 +45,10 @@ public abstract class EscapyScreenState implements Screen {
 		this.settings = gameState.getSettings();
 		this.game = gameState.getGame();
 		
-		this.SCREEN_WIDTH = GameSettings.getFrameWIDHT();
-		this.SCREEN_HEIGHT = GameSettings.getFrameHEIGHT();
+		this.SCREEN_WIDTH = settings.getFrameWIDHT();
+		this.SCREEN_HEIGHT = settings.getFrameHEIGHT();
+		this.SCREEN_DEFAULT_WIDTH = GameSettings.DEFAULT_WIDTH;
+		this.SCREEN_DEFAULT_HEIGHT = GameSettings.DEFAULT_HEIGHT;
 
 		System.out.println(SCREEN_WIDTH+ ":: W:H ::" +SCREEN_HEIGHT);
 

@@ -1,6 +1,6 @@
 package com.game.render.fbo.psProcess.lights.stdLIght.userState;
 
-import com.game.render.EscapyGdxCamera;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
