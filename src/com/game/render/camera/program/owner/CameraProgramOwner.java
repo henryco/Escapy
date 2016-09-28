@@ -46,25 +46,16 @@ public class CameraProgramOwner implements EscapyCameraProgramOwner {
 		this.camOwnerID = ownerID;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.camera.program.EscapyCameraProgramOwner#getCameraProgram()
-	 */
 	@Override
 	public CameraProgram<?> getCameraProgram() {
 		return camProgram;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.camera.program.EscapyCameraProgramOwner#getID()
-	 */
 	@Override
 	public int getID() {
 		return camOwnerID;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.camera.program.EscapyCameraProgramOwner#executeCameraProgram(int, int, float, com.game.render.camera.EscapyGdxCamera)
-	 */
 	@Override
 	public float[] executeCameraProgram(int sWidth, int sHeight, float scale_optional, EscapyGdxCamera escapyCamera) {
 		return this.camProgram.programTranslate(sWidth, sHeight, scale_optional, escapyCamera);

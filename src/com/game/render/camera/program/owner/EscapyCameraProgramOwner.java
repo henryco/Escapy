@@ -14,14 +14,14 @@ public interface EscapyCameraProgramOwner {
 	 *
 	 * @return the camera program
 	 */
-	public abstract CameraProgram<?> getCameraProgram();
+	CameraProgram<?> getCameraProgram();
 
 	/**
 	 * Gets the id.
 	 *
 	 * @return the id
 	 */
-	public abstract int getID();
+	int getID();
 
 	/**
 	 * Execute camera program.
@@ -36,6 +36,6 @@ public interface EscapyCameraProgramOwner {
 	 *            the escapy camera
 	 * @return the float[]
 	 */
-	public abstract float[] executeCameraProgram(int sWidth, int sHeight, float scale_optional,
+	float[] executeCameraProgram(int sWidth, int sHeight, float scale_optional,
 			EscapyGdxCamera escapyCamera);
 }

@@ -7,15 +7,18 @@ import com.game.controlls.EscapyPlayerControlls;
 import com.game.physics_temp.EscapyPhysics;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;
 import com.game.physics_temp.TEMP_EscapyPhysicsPlayerControls;
+import com.game.render.camera.program2_0.CameraProgramOwner;
 
-public class Player extends StdCharacter implements EscapyPlayerControlls {
+public class Player extends StdCharacter implements EscapyPlayerControlls, CameraProgramOwner {
 	
 	@SuppressWarnings("unused")
 	private boolean downLeft = false, downRight = false, 
 			pressedJump = false, downLShift = false, 
 			pressedF = false, isMoving = false;
 	
-	
+
+	private int[] mvNVector = new int[2];
+
 	public Player(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		super(urls, times, zoom, new int[]{100, 100});
 	}
@@ -56,6 +59,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 
 	@Override
 	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
+		setMoveNVector(defNVector(xpos, xPos()), defNVector(ypos, yPos()));
 		super.setXPos(xpos);
 		super.setYPos(ypos);
 	}
@@ -144,4 +148,31 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 	}
 
 
+	private static int defNVector(float _pos, float _last_pos) {
+		if (_pos - _last_pos > 0) return 1;
+		if (_pos - _last_pos < 0) return -1;
+		return 0;
+	}
+
+	@Override
+	public CameraProgramOwner setOwnerPosition(float... xy) {
+		return this;
+	}
+
+	@Override
+	public CameraProgramOwner setMoveNVector(int... xy) {
+		mvNVector[0] = xy[0];
+		mvNVector[1] = xy[1];
+		return this;
+	}
+
+	@Override
+	public int[] getMoveNVector() {
+		return mvNVector;
+	}
+
+	@Override
+	public float[] getOwnerPosition() {
+		return getPhysicalBody().getBodyPosition();
+	}
 }

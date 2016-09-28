@@ -21,7 +21,7 @@ public interface EscapyCameraProgramHolder {
 	 *            the escapy camera
 	 * @return the float[]
 	 */
-	public abstract float[] executeCameraProgram(int sWidth, int sHeight, float scale_optional,
+	float[] executeCameraProgram(int sWidth, int sHeight, float scale_optional,
 			EscapyGdxCamera escapyCamera);
 
 	/**
@@ -29,5 +29,5 @@ public interface EscapyCameraProgramHolder {
 	 *
 	 * @return the id
 	 */
-	public abstract int getID();
+	int getID();
 }
