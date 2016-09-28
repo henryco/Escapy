@@ -16,7 +16,6 @@ public class BackGround extends InGameObject{
 	private static final int DefinitelyNotID = Integer.MIN_VALUE;
 	private static final int BACKGROUND = 6;
 	private static final int X = 0, Y = 0;
-	private Texture background;
 	private Sprite backgroundSprite;
 	
 	private int F_WIDTH;
@@ -50,9 +49,8 @@ public class BackGround extends InGameObject{
 		
 		float p0x = (escapyCamera.getCamera().position.x - (escapyCamera.getCamera().viewportWidth / 2.f));
 		float p0y = (escapyCamera.getCamera().position.y - (escapyCamera.getCamera().viewportHeight / 2.f));
-
-		spriteBatcher.begin();
 		backgroundSprite.setPosition(p0x, p0y + corr);
+		spriteBatcher.begin();
 		backgroundSprite.draw(spriteBatcher);
 		spriteBatcher.end();
 		
@@ -63,8 +61,8 @@ public class BackGround extends InGameObject{
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
 
-		this.background = new Texture(new FileHandle(getImgUrl()[0]));
-		this.background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		Texture background = new Texture(new FileHandle(getImgUrl()[0]));
+		background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
 		double zm = calcBgrZoom(F_WIDTH, F_HEIGHT, background.getWidth(), background.getHeight(), zoom());
 
@@ -72,31 +70,13 @@ public class BackGround extends InGameObject{
 		this.backgroundSprite.flip(false, true);
 		this.backgroundSprite.setSize(backgroundSprite.getWidth() * (float) zm,
 				backgroundSprite.getHeight() * (float) zm);
-		float on1 = 0 - (backgroundSprite.getHeight() - F_HEIGHT);
-		float on2 = (backgroundSprite.getHeight() - F_HEIGHT);
-		corr = on1;
-		//System.out.println(on2);
-
+		corr = 0 - (backgroundSprite.getHeight() - F_HEIGHT);
 	}
 
-	/**
-	 * Re initialize graphic.
-	 *
-	 * @param frameW
-	 *            the frame W
-	 * @param frameH
-	 *            the frame H
-	 * @param scaleRatio
-	 *            the scale ratio
-	 */
-	public void reInitializeGraphic(int frameW, int frameH, double scaleRatio) {
-		initializeGraphic();
-	}
 
 	private static double calcBgrZoom(int frameW, int frameH, int w, int h, double scaleRatio) {
-		double xScale = frameW / (w * scaleRatio);
-		double yScale = frameH / (h * scaleRatio);
-		//System.out.println(frameW);
+		double xScale = frameW / w;
+		double yScale = frameH / h;
 		return Math.max(xScale, yScale);
 	}
 

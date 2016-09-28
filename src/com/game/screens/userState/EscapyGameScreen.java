@@ -76,7 +76,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     @Override
     public Screen initState(Object ... vars) {
 
-		//int[] dim = new int[]{0, 0, super.settings.getFrameWIDHT(), super.settings.getFrameHEIGHT()};
 		int[] dim = new int[]{0, 0, super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT};
 
         this.init_base(dim);
@@ -92,7 +91,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void init_base(Object ... vars) {
 
         this.controlls = PlayerControl.playerController();
-        this.mapContainer = new InitMap(super.settings.Location(), super.SCREEN_WIDTH, super.SCREEN_HEIGHT, super.settings.scaleRatio());
+        this.mapContainer = new InitMap(super.settings.Location(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.settings.scaleRatio());
         this.charactersContainer = new InitCharacters();
         this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
