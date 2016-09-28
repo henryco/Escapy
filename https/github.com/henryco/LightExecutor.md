@@ -21,6 +21,7 @@ lights: {
 					direct: 0.2
 					ambient: 0.75
 					shadow: 8
+					luminance: 0.15;
 				}	
 			}
 		}		
@@ -58,6 +59,7 @@ In future will be possible(via reflection) to use custom shaders for normal mapp
 <b><i>intensity.direct:</i></b> - intensity of direct light, <b>(float)</b><br>
 <b><i>intensity.ambient:</i></b> - intensity of ambient light, <b>(float)</b><br>
 <b><i>intensity.shadow:</i></b> - intensity of shadow, <b>(float)</b><br>
+<b><i>intensity.luminance:</i></b> - luminance, <b>(float)</b><br>
 <br>
 <b><i>spriteSize:</i></b> - size of distance between calculated points of normal map, <b>(float)</b><br>
 <br>
