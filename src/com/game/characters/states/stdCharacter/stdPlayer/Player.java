@@ -59,9 +59,8 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 
 	@Override
 	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
-		setMoveNVector(defNVector(xpos, xPos()), defNVector(ypos, yPos()));
-		super.setXPos(xpos);
-		super.setYPos(ypos);
+		setXPos(xpos);
+		setYPos(ypos);
 	}
 	
 
@@ -75,6 +74,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 			super.actualTexture = super.animation(standImg, stand);
 			super.actualNRMLTexture = super.animation(standImgNRML, stand);
 			super.actualLTMPTexture = super.animation(standImgLTMP, stand);
+			setMoveNVector(0,0);
 		} else {
 			super.setLastStand(false);
 		}
@@ -93,6 +93,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 				super.actualNRMLTexture = super.animation(walkImgNRML, walk);
 				super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
 				super.setRightlast();
+				setMoveNVector(1,0);
 			}
 		} else if (!downRight && downLShift) {
 			super.setLastMov(false);
@@ -108,6 +109,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 				super.actualNRMLTexture = super.animation(walkImgNRML, walk);
 				super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
 				super.setLeftlast();
+				setMoveNVector(-1,0);
 			}
 		} else if (!downLeft && downLShift) {
 			super.setLastMov(false);
@@ -126,6 +128,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 				super.actualNRMLTexture = super.animation(runImgNRML, run);
 				super.actualLTMPTexture = super.animation(runImgLTMP, run);
 				super.setRightlast();
+				setMoveNVector(1,0);
 			}
 		} else if (!downRight && !downLShift) {
 			super.setLastRun(false);
@@ -141,17 +144,11 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 				super.actualNRMLTexture = super.animation(runImgNRML, run);
 				super.actualLTMPTexture = super.animation(runImgLTMP, run);
 				super.setLeftlast();
+				setMoveNVector(-1,0);
 			}
 		} else if (!downLeft && !downLShift) {
 			super.setLastRun(false);
 		}
-	}
-
-
-	private static int defNVector(float _pos, float _last_pos) {
-		if (_pos - _last_pos > 0) return 1;
-		if (_pos - _last_pos < 0) return -1;
-		return 0; //FIXME TODO NOT SYNCHRONIZED WITH CAMERA PROGRAM IN RENDER LOOP!
 	}
 
 	@Override

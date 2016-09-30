@@ -49,9 +49,20 @@ public abstract class AbsCharacterProgram implements CameraProgram<float[]> {
 		tmp[tmp.length - 1][1] = right;
 		return tmp;
 	}
+
 	private static int interval(float interval, float relative) {
 		return (int) ((relative / 2) * interval);
 	}
+
+
+	protected static float getMax_dl(float ownPos, float camPos, int[][] borders, int fac){
+		return (ownPos - camPos) > 0 ? borders[0][1]*fac : borders[0][0]*fac;
+	}
+
+	protected static int getSign(float a) {
+		return (a > 0) ? 1 : -1;
+	}
+
 
 	@Override
 	public int getID(){
