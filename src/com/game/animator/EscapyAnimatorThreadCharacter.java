@@ -7,7 +7,7 @@ package com.game.animator;
 public class EscapyAnimatorThreadCharacter extends EscapyAnimatorSuper implements Runnable {
 
 	/**
-	 * Instantiates a new escapy animator thread character.
+	 * Instantiates a new escapy animator thread program.
 	 */
 	public EscapyAnimatorThreadCharacter() {
 		/** VOID **/

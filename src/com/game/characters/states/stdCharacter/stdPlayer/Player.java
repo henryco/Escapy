@@ -7,7 +7,7 @@ import com.game.controlls.EscapyPlayerControlls;
 import com.game.physics_temp.EscapyPhysics;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;
 import com.game.physics_temp.TEMP_EscapyPhysicsPlayerControls;
-import com.game.render.camera.program2_0.CameraProgramOwner;
+import com.game.render.camera.program.CameraProgramOwner;
 
 public class Player extends StdCharacter implements EscapyPlayerControlls, CameraProgramOwner {
 	

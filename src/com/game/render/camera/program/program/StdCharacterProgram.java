@@ -1,6 +1,6 @@
-package com.game.render.camera.program2_0.character;
+package com.game.render.camera.program.program;
 
-import com.game.render.camera.program2_0.CameraProgramOwner;
+import com.game.render.camera.program.CameraProgramOwner;
 
 /**
  * @author Henry on 28/09/16.
@@ -14,7 +14,14 @@ public class StdCharacterProgram extends AbsCharacterProgram {
 	public StdCharacterProgram(CameraProgramOwner owner, int scrW, int scrH, float il1, float ir1) {
 		super(owner, scrW, scrH);
 		addBorderIntervalsOX(il1, ir1);
-		addBorderIntervalsOY(0,0);
+		translateOX(true);
+	}
+	public StdCharacterProgram(CameraProgramOwner owner, int scrW, int scrH, float il1, float ir1, float id1, float iu1) {
+		super(owner, scrW, scrH);
+		addBorderIntervalsOX(il1, ir1);
+		addBorderIntervalsOY(id1, iu1);
+		translateOX(true);
+		translateOY(true);
 	}
 
 	@Override
@@ -24,8 +31,8 @@ public class StdCharacterProgram extends AbsCharacterProgram {
 		int[] moveNVec = super.owner.getMoveNVector();
 		float[] ownPos = super.owner.getOwnerPosition();
 
-		transBuff[0] = calcVector(camx, ownPos[0], moveNVec[0], borderIntervalsOX, 1, super.cameraSpeed);
-		//transBuff[1] = calcVector(camy, ownPos[1], moveNVec[1], borderIntervalsOY, -1, super.cameraSpeed);
+		if (translateOX) transBuff[0] = calcVector(camx, ownPos[0], moveNVec[0], borderIntervalsOX, 1, super.cameraSpeed);
+		if (translateOY) transBuff[1] = calcVector(camy, ownPos[1], moveNVec[1], borderIntervalsOY, 1, super.cameraSpeed);
 		return transBuff;
 	}
 

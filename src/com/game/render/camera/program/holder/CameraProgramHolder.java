@@ -1,4 +1,4 @@
-package com.game.render.camera.holder;
+package com.game.render.camera.program.holder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import com.game.render.camera.EscapyGdxCamera;
 //import com.game.render.camera.program.CameraProgram;
 //import com.game.render.camera.program.owner.CameraProgramOwner;
-import com.game.render.camera.program2_0.CameraProgram;
+import com.game.render.camera.program.CameraProgram;
 
 
 // TODO: Auto-generated Javadoc

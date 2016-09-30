@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.game.render.camera.holder.CameraProgramHolder;
+import com.game.render.camera.program.holder.CameraProgramHolder;
 import com.game.utils.translationVec.TransVec;
 
 // TODO: Auto-generated Javadoc

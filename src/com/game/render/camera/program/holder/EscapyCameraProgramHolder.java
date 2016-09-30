@@ -1,27 +1,12 @@
-package com.game.render.camera.program.owner;
+package com.game.render.camera.program.holder;
 
 import com.game.render.camera.EscapyGdxCamera;
-import com.game.render.camera.program.CameraProgram;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Interface EscapyCameraProgramOwner.
+ * The Interface EscapyCameraProgramHolder.
  */
-public interface EscapyCameraProgramOwner {
-
-	/**
-	 * Gets the camera program.
-	 *
-	 * @return the camera program
-	 */
-	CameraProgram<?> getCameraProgram();
-
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	int getID();
+public interface EscapyCameraProgramHolder {
 
 	/**
 	 * Execute camera program.
@@ -38,4 +23,11 @@ public interface EscapyCameraProgramOwner {
 	 */
 	float[] executeCameraProgram(int sWidth, int sHeight, float scale_optional,
 			EscapyGdxCamera escapyCamera);
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	int getID();
 }

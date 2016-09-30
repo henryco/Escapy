@@ -1,4 +1,4 @@
-package com.game.render.camera.program2_0;
+package com.game.render.camera.program;
 
 /**
  * @author Henry on 28/09/16.

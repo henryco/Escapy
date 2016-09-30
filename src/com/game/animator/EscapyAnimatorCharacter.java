@@ -40,7 +40,7 @@ public interface EscapyAnimatorCharacter extends EscapyAnimator {
 	/**
 	 * Interrupt animator.
 	 *
-	 * @param character the character
+	 * @param character the program
 	 */
 	public void InterruptAnimator(EscapyAnimatorCharacter character);
 

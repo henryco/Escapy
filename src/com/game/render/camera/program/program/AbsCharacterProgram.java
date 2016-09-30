@@ -1,7 +1,7 @@
-package com.game.render.camera.program2_0.character;
+package com.game.render.camera.program.program;
 
-import com.game.render.camera.program2_0.CameraProgram;
-import com.game.render.camera.program2_0.CameraProgramOwner;
+import com.game.render.camera.program.CameraProgram;
+import com.game.render.camera.program.CameraProgramOwner;
 
 /**
  * @author Henry on 28/09/16.
@@ -16,6 +16,8 @@ public abstract class AbsCharacterProgram implements CameraProgram<float[]> {
 
 	protected int[][] borderIntervalsOX, borderIntervalsOY;
 
+	protected boolean translateOX, translateOY;
+
 	public AbsCharacterProgram(CameraProgramOwner owner, int scrW, int scrH) {
 		this.owner = owner;
 		this.SCR_W = scrW;
@@ -27,6 +29,16 @@ public abstract class AbsCharacterProgram implements CameraProgram<float[]> {
 	@Override
 	public CameraProgram setCameraSpeed(float cameraSpeed) {
 		this.cameraSpeed = cameraSpeed;
+		return this;
+	}
+
+	public CameraProgram translateOX(boolean translateOX) {
+		this.translateOX = translateOX;
+		return this;
+	}
+
+	public CameraProgram translateOY(boolean translateOY) {
+		this.translateOY = translateOY;
 		return this;
 	}
 

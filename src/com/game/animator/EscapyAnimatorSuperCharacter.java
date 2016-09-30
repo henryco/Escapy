@@ -7,52 +7,52 @@ package com.game.animator;
 public abstract class EscapyAnimatorSuperCharacter extends EscapyAnimatorSuper {
 
 	/**
-	 * Instantiates a new escapy animator super character.
+	 * Instantiates a new escapy animator super program.
 	 */
 	public EscapyAnimatorSuperCharacter() {
 
 	}
 
 	/**
-	 * Adds the animated character.
+	 * Adds the animated program.
 	 *
-	 * @param character the character
+	 * @param character the program
 	 */
 	public void addAnimatedCharacter(EscapyAnimatorCharacter character) {
 		addAnimated(character);
 	}
 
 	/**
-	 * Removes the escapy character animator.
+	 * Removes the escapy program animator.
 	 *
-	 * @param character the character
+	 * @param character the program
 	 */
 	public void removeEscapyCharacterAnimator(EscapyAnimatorCharacter character) {
 		removeAnimated(character);
 	}
 
 	/**
-	 * Inits the character animator.
+	 * Inits the program animator.
 	 *
-	 * @param character the character
+	 * @param character the program
 	 */
 	public void initCharacterAnimator(EscapyAnimatorCharacter character) {
 		launchAnimated(character);
 	}
 
 	/**
-	 * Interrupt character animation.
+	 * Interrupt program animation.
 	 *
-	 * @param character the character
+	 * @param character the program
 	 */
 	public void interruptCharacterAnimation(EscapyAnimatorCharacter character) {
 		interruptAnimated(character);
 	}
 
 	/**
-	 * Start character animation.
+	 * Start program animation.
 	 *
-	 * @param character the character
+	 * @param character the program
 	 */
 	public void startCharacterAnimation(EscapyAnimatorCharacter character) {
 		interruptAnimated(character);

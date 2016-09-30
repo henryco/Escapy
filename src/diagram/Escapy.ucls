@@ -689,7 +689,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="68" language="java" name="com.game.render.camera.holder.CameraProgramHolder" 
+  <class id="68" language="java" name="CameraProgramHolder"
     project="EscapyProject_gdx-core" 
     file="/EscapyProject_gdx-core/src/com/game/render/camera/holder/CameraProgramHolder.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -976,7 +976,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="96" language="java" name="com.game.render.camera.holder.EscapyCameraProgramHolder" 
+  <interface id="96" language="java" name="EscapyCameraProgramHolder"
     project="EscapyProject_gdx-core" 
     file="/EscapyProject_gdx-core/src/com/game/render/camera/holder/EscapyCameraProgramHolder.java" binary="false" 
     corner="BOTTOM_RIGHT">    
