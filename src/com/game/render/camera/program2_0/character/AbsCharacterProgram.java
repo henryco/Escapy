@@ -31,11 +31,11 @@ public abstract class AbsCharacterProgram implements CameraProgram<float[]> {
 	}
 
 	public AbsCharacterProgram addBorderIntervalsOX(float leftInterval, float rightInterval) {
-		this.borderIntervalsOX = copyBorderArrays(borderIntervalsOX, interval((int)leftInterval, SCR_W), interval((int)rightInterval, SCR_W));
+		this.borderIntervalsOX = copyBorderArrays(borderIntervalsOX, interval(leftInterval, SCR_W), interval(rightInterval, SCR_W));
 		return this;
 	}
 	public AbsCharacterProgram addBorderIntervalsOY(float leftInterval, float rightInterval) {
-		this.borderIntervalsOY = copyBorderArrays(borderIntervalsOX, interval((int)leftInterval, SCR_H), interval((int)rightInterval, SCR_H));
+		this.borderIntervalsOY = copyBorderArrays(borderIntervalsOY, interval(leftInterval, SCR_H), interval(rightInterval, SCR_H));
 		return this;
 	}
 
@@ -49,8 +49,8 @@ public abstract class AbsCharacterProgram implements CameraProgram<float[]> {
 		tmp[tmp.length - 1][1] = right;
 		return tmp;
 	}
-	private static int interval(int interval, int relative) {
-		return (relative / 2) * interval;
+	private static int interval(float interval, float relative) {
+		return (int) ((relative / 2) * interval);
 	}
 
 	@Override

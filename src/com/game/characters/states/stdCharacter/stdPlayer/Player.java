@@ -151,7 +151,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 	private static int defNVector(float _pos, float _last_pos) {
 		if (_pos - _last_pos > 0) return 1;
 		if (_pos - _last_pos < 0) return -1;
-		return 0;
+		return 0; //FIXME TODO NOT SYNCHRONIZED WITH CAMERA PROGRAM IN RENDER LOOP!
 	}
 
 	@Override
