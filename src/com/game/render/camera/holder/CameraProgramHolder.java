@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.game.render.camera.EscapyGdxCamera;
-import com.game.render.camera.program.CameraProgram;
-import com.game.render.camera.program.owner.CameraProgramOwner;
+//import com.game.render.camera.program.CameraProgram;
+//import com.game.render.camera.program.owner.CameraProgramOwner;
+import com.game.render.camera.program2_0.CameraProgram;
 
 
 // TODO: Auto-generated Javadoc
@@ -14,8 +15,12 @@ import com.game.render.camera.program.owner.CameraProgramOwner;
  */
 public class CameraProgramHolder {
 
-	private List<CameraProgramOwner> camProgramHolders;
-	private CameraProgramOwner actualProgramHolder = null;
+	//private List<CameraProgramOwner> camProgramHolders;
+	//private CameraProgramOwner actualProgramHolder = null;
+
+	private List<CameraProgram<float[]>> camProgramHolders;
+	private CameraProgram<float[]> actualProgramHolder;
+
 	private float[] voidArray = new float[]{0, 0};
 	
 	/**
@@ -27,66 +32,48 @@ public class CameraProgramHolder {
 		return;
 	}
 	
-	/**
-	 * Instantiates a new camera program holder.
-	 *
-	 * @param camProgram
-	 *            the cam program
-	 */
-	public CameraProgramHolder(CameraProgram<?> camProgram)
+
+	public CameraProgramHolder(CameraProgram<float[]> camProgram)
 	{
+		/*
 		this.camProgramHolders = new ArrayList<>();
 		this.camProgramHolders.add(new CameraProgramOwner(camProgram));
 		this.actualProgramHolder = camProgramHolders.get(camProgramHolders.size()-1);
+		*/
+		this.camProgramHolders = new ArrayList<>();
+		this.camProgramHolders.add(camProgram);
+		this.actualProgramHolder = camProgramHolders.get(camProgramHolders.size() - 1);
 		return;
 	}
 
-	/**
-	 * Hold camera.
-	 *
-	 * @param sWidth
-	 *            the s width
-	 * @param sHeight
-	 *            the s height
-	 * @param scale_optional
-	 *            the scale optional
-	 * @param escapyCamera
-	 *            the escapy camera
-	 * @return the float[]
-	 */
 	synchronized public float[] holdCamera(int sWidth, int sHeight, float scale_optional,
 			EscapyGdxCamera escapyCamera)
 	{
 		if (this.actualProgramHolder == null)
 			return voidArray;
-		return this.actualProgramHolder.executeCameraProgram(sWidth, sHeight, scale_optional, escapyCamera);
+		//return this.actualProgramHolder.executeCameraProgram(sWidth, sHeight, scale_optional, escapyCamera);
+		return actualProgramHolder.executeCameraProgram(escapyCamera.getCamera().position.x, escapyCamera.getCamera().position.y);
 	}
 
-	/**
-	 * Adds the camera program.
-	 *
-	 * @param camProgram
-	 *            the cam program
-	 * @return the int
-	 */
-	synchronized public int addCameraProgram(CameraProgram<?> camProgram)
+
+	synchronized public int addCameraProgram(CameraProgram<float[]> camProgram)
 	{
+		/*
 		this.camProgramHolders.add(new CameraProgramOwner(camProgram));
 		this.actualProgramHolder = camProgramHolders.get(camProgramHolders.size()-1);
+		return actualProgramHolder.getID();
+		*/
+		this.camProgramHolders.add(camProgram);
+		this.actualProgramHolder = camProgramHolders.get(camProgramHolders.size() - 1);
 		return actualProgramHolder.getID();
 	}
 	
 	
-	/**
-	 * Removes the camera program.
-	 *
-	 * @param programID
-	 *            the program ID
-	 * @return the camera program holder
-	 */
+
 	synchronized public CameraProgramHolder removeCameraProgram(int programID)
 	{
-		CameraProgramOwner programHolder = this.getCameraProgramOwnerByID(programID);
+		//CameraProgramOwner programHolder = this.getCameraProgramOwnerByID(programID);
+		CameraProgram programHolder = this.getCameraProgramOwnerByID(programID);
 		if (programHolder != null)
 		{
 			this.camProgramHolders.remove(programHolder);
@@ -96,52 +83,38 @@ public class CameraProgramHolder {
 		return this;
 	}
 	
-	/**
-	 * Sets the actual camera program.
-	 *
-	 * @param programID
-	 *            the program ID
-	 * @return the camera program holder
-	 */
+
 	synchronized public CameraProgramHolder setActualCameraProgram(int programID)
 	{
-		CameraProgramOwner programHolder = this.getCameraProgramOwnerByID(programID);
+		//CameraProgramOwner programHolder = this.getCameraProgramOwnerByID(programID);
+		CameraProgram programHolder = this.getCameraProgramOwnerByID(programID);
 		if (programHolder != null)
 			this.actualProgramHolder = programHolder;
 		return this;
 	}
 	
-	/**
-	 * Sets the actual camera program.
-	 *
-	 * @param camProgram
-	 *            the cam program
-	 * @return the camera program holder
-	 */
-	public CameraProgramHolder setActualCameraProgram(CameraProgram<?> camProgram) {
-		
-		return setActualCameraProgram(new CameraProgramOwner(camProgram).getID());
+
+	public CameraProgramHolder setActualCameraProgram(CameraProgram<float[]> camProgram) {
+
+		return setActualCameraProgram(camProgram.getID());
+		//return setActualCameraProgram(new CameraProgramOwner(camProgram).getID());
 	}
-	
-	/**
-	 * Removes the camera program.
-	 *
-	 * @param camProgram
-	 *            the cam program
-	 * @return the camera program holder
-	 */
-	public CameraProgramHolder removeCameraProgram(CameraProgram<?> camProgram) {
+
+	public CameraProgramHolder removeCameraProgram(CameraProgram<float[]> camProgram) {
 		
-		return removeCameraProgram(new CameraProgramOwner(camProgram).getID());
+	//	return removeCameraProgram(new CameraProgramOwner(camProgram).getID());
+		return removeCameraProgram(camProgram.getID());
 	}
-	
-	/**
-	 * Gets the camera program owner by ID.
-	 *
-	 * @param programID
-	 *            the program ID
-	 * @return the camera program owner by ID
-	 */
+
+	synchronized public CameraProgram getCameraProgramOwnerByID(int programID)
+	{
+		for (CameraProgram programHolder : camProgramHolders)
+			if (programHolder.getID() == programID)
+				return programHolder;
+		return null;
+	}
+
+	/*
 	synchronized public CameraProgramOwner getCameraProgramOwnerByID(int programID)
 	{
 		for (CameraProgramOwner programHolder : camProgramHolders)
@@ -149,5 +122,5 @@ public class CameraProgramHolder {
 				return programHolder;
 		return null;
 	}
-	
+	*/
 }

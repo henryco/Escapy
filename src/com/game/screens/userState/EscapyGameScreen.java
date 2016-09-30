@@ -11,6 +11,8 @@ import com.game.map.InitMap;
 import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.CameraProgramFactory;
+import com.game.render.camera.program2_0.character.FollowCharacterProgram;
+import com.game.render.camera.program2_0.character.StdCharacterProgram;
 import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.extra.lightMap.EscapyLightMapRenderer;
 import com.game.render.extra.lightMap.LightMapRenderer;
@@ -95,8 +97,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.charactersContainer = new InitCharacters();
         this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
-        this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder().addCameraProgram(CameraProgramFactory.stdCharacterProgram(this.charactersContainer.player()));
-        this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
+
+		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder().
+				addCameraProgram(new FollowCharacterProgram(this.charactersContainer.player(), super.SCREEN_WIDTH, super.SCREEN_HEIGHT, 0.5f, 0.5f));
+
+		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
     }
     public void init_fbo(Object ... vars) {
 

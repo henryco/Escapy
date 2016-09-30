@@ -55,9 +55,7 @@ public class StandartCharacterCamProgram
         this.setMapSize(x, y);
     }
 
-    /* (non-Javadoc)
-     * @see com.game.render.camera.program.CameraProgram#programTranslate(int, int, float, com.game.render.camera.EscapyGdxCamera)
-     */
+
     @Override
     public float[] programTranslate(int sWidth, int sHeight, float scale_optional, EscapyGdxCamera escapyCamera) {
         float[] translationMatrix = new float[2];
@@ -89,17 +87,10 @@ public class StandartCharacterCamProgram
             dlx = Math.abs(super.programTarget.getPhysicalBody().getBodyPosition()[0] - camMoveTargetX);
         }
 
-        if (super.programTarget.isLastStand())// ||
-        // super.programTarget.getBodyPosition()[0] <
-        // escapyCamera.getxIntervalLenght()[0])// (sWidth / 2.f))
+        if (super.programTarget.isLastStand())
         {
             if (super.programTarget.isLastStand())
                 camMoveTargetX = (int) super.programTarget.getPhysicalBody().getBodyPosition()[0];
-
-            // if (super.programTarget.getBodyPosition()[0] <
-            // escapyCamera.getxIntervalLenght()[0])// (sWidth / 2.f))
-            // camMoveTargetX = (int) (sWidth / 2.f);
-
             /** TODO __RIGHT_EDGE_END__ TODO **/
 
             if (escapyCamera.getCamera().position.x == camMoveTargetX)

@@ -7,15 +7,18 @@ import com.game.controlls.EscapyPlayerControlls;
 import com.game.physics_temp.EscapyPhysics;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;
 import com.game.physics_temp.TEMP_EscapyPhysicsPlayerControls;
+import com.game.render.camera.program2_0.CameraProgramOwner;
 
-public class Player extends StdCharacter implements EscapyPlayerControlls {
+public class Player extends StdCharacter implements EscapyPlayerControlls, CameraProgramOwner {
 	
 	@SuppressWarnings("unused")
 	private boolean downLeft = false, downRight = false, 
 			pressedJump = false, downLShift = false, 
 			pressedF = false, isMoving = false;
 	
-	
+
+	private int[] mvNVector = new int[2];
+
 	public Player(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		super(urls, times, zoom, new int[]{100, 100});
 	}
@@ -56,8 +59,8 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 
 	@Override
 	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
-		super.setXPos(xpos);
-		super.setYPos(ypos);
+		setXPos(xpos);
+		setYPos(ypos);
 	}
 	
 
@@ -71,6 +74,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 			super.actualTexture = super.animation(standImg, stand);
 			super.actualNRMLTexture = super.animation(standImgNRML, stand);
 			super.actualLTMPTexture = super.animation(standImgLTMP, stand);
+			setMoveNVector(0,0);
 		} else {
 			super.setLastStand(false);
 		}
@@ -89,6 +93,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 				super.actualNRMLTexture = super.animation(walkImgNRML, walk);
 				super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
 				super.setRightlast();
+				setMoveNVector(1,0);
 			}
 		} else if (!downRight && downLShift) {
 			super.setLastMov(false);
@@ -104,6 +109,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 				super.actualNRMLTexture = super.animation(walkImgNRML, walk);
 				super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
 				super.setLeftlast();
+				setMoveNVector(-1,0);
 			}
 		} else if (!downLeft && downLShift) {
 			super.setLastMov(false);
@@ -122,6 +128,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 				super.actualNRMLTexture = super.animation(runImgNRML, run);
 				super.actualLTMPTexture = super.animation(runImgLTMP, run);
 				super.setRightlast();
+				setMoveNVector(1,0);
 			}
 		} else if (!downRight && !downLShift) {
 			super.setLastRun(false);
@@ -137,11 +144,32 @@ public class Player extends StdCharacter implements EscapyPlayerControlls {
 				super.actualNRMLTexture = super.animation(runImgNRML, run);
 				super.actualLTMPTexture = super.animation(runImgLTMP, run);
 				super.setLeftlast();
+				setMoveNVector(-1,0);
 			}
 		} else if (!downLeft && !downLShift) {
 			super.setLastRun(false);
 		}
 	}
 
+	@Override
+	public CameraProgramOwner setOwnerPosition(float... xy) {
+		return this;
+	}
 
+	@Override
+	public CameraProgramOwner setMoveNVector(int... xy) {
+		mvNVector[0] = xy[0];
+		mvNVector[1] = xy[1];
+		return this;
+	}
+
+	@Override
+	public int[] getMoveNVector() {
+		return mvNVector;
+	}
+
+	@Override
+	public float[] getOwnerPosition() {
+		return getPhysicalBody().getBodyPosition();
+	}
 }
