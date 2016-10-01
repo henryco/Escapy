@@ -14,16 +14,14 @@ import com.game.utils.translationVec.TransVec;
  */
 public class EscapyGdxCamera {
 
-	private OrthographicCamera camera;
-	private float[] xInterval, yInterval;
-	private int screenWidth, screenHeight;
-	private float[] xIntervalLenght, yIntervalLenght;
 
-	private CameraProgramHolder cameraProgramHolders;
-
-	private TransVec translationVec;
-	private TransVec shiftVec;
+	private float[] xInterval, yInterval, xIntervalLenght, yIntervalLenght;
 	private float cam_dt, cam_t;
+	private int screenWidth, screenHeight;
+	private CameraProgramHolder cameraProgramHolders;
+	private OrthographicCamera camera;
+	private TransVec translationVec, shiftVec;
+
 	
 	{
 		this.shiftVec = new TransVec(0f, 0f);
@@ -97,15 +95,12 @@ public class EscapyGdxCamera {
 		this.setTranslationVector(cameraProgramHolders.holdCamera(camera.position.x, camera.position.y));
 		this.translateCamera(this.translationVec.getVecArray());
 		this.camera.update();
+		this.cam_dt = 0;
 		return this;
 	}
 	
 	public EscapyGdxCamera holdCamera(float delta) {
-		if ((cam_dt += delta) >= cam_t) {
-			cam_dt = 0;
-			return holdCamera();
-		}
-		return this;
+		return ((cam_dt += delta) >= cam_t) ? holdCamera() : this;
 	}
 	
 
