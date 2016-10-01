@@ -9,6 +9,6 @@ public interface Updatable {
 	/**
 	 * Update.
 	 */
-	public abstract void update();
+	void update();
 
 }

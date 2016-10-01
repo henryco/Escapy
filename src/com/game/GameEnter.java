@@ -27,15 +27,12 @@ public class GameEnter extends Game {
 	 */
 	public GameEnter(GameSettings settings) {
 		this.settings = settings;
-		return;
 	}
 
 	@Override
 	public void create() {
 
 		this.escapyCamera = new EscapyGdxCamera(GameSettings.DEFAULT_WIDTH, GameSettings.DEFAULT_HEIGHT);
-
-		this.escapyCamera.setXInterval(0.35f, 0.35f);
 		this.statesContainer = new EscapyStateContainer(this, escapyCamera);
 		this.statesContainer.getUpdLoopedQueue().setSleepTime(8);
 

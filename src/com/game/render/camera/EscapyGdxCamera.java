@@ -15,7 +15,6 @@ import com.game.utils.translationVec.TransVec;
 public class EscapyGdxCamera {
 
 
-	private float[] xInterval, yInterval, xIntervalLenght, yIntervalLenght;
 	private float cam_dt, cam_t;
 	private int screenWidth, screenHeight;
 	private CameraProgramHolder cameraProgramHolders;
@@ -74,14 +73,10 @@ public class EscapyGdxCamera {
 	
 	private void initGdxCamera(int screenWidth, int screenHeight)
 	{
-		this.xInterval = new float[2];
-		this.yInterval = new float[2];
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		this.cameraProgramHolders = new CameraProgramHolder();
 		this.translationVec = new TransVec().setAccuracy(-1);
-		this.updXYintervalLenghts();
-		
 	}
 	
 	
@@ -102,13 +97,7 @@ public class EscapyGdxCamera {
 	public EscapyGdxCamera holdCamera(float delta) {
 		return ((cam_dt += delta) >= cam_t) ? holdCamera() : this;
 	}
-	
 
-	private void updXYintervalLenghts() 
-	{
-		this.xIntervalLenght = new float[] { (xInterval[0] * screenWidth), (xInterval[1] * screenWidth) };
-		this.yIntervalLenght = new float[] { (yInterval[0] * screenHeight), (yInterval[1] * screenHeight) };
-	}
 
 	/**
 	 * Translate camera.
@@ -178,33 +167,6 @@ public class EscapyGdxCamera {
 		this.cam_t = cam_t;
 	}
 
-	/**
-	 * Sets the X interval.
-	 *
-	 * @param left_prc
-	 *            the left prc
-	 * @param right_prc
-	 *            the right prc
-	 * @return the escapy gdx camera
-	 */
-	public EscapyGdxCamera setXInterval(float left_prc, float right_prc) {
-		this.xInterval = fillTab(xInterval, left_prc, right_prc);
-		return this;
-	}
-
-	/**
-	 * Sets the Y interval.
-	 *
-	 * @param bot_prc
-	 *            the bot prc
-	 * @param top_prc
-	 *            the top prc
-	 * @return the escapy gdx camera
-	 */
-	public EscapyGdxCamera setYInterval(float bot_prc, float top_prc) {
-		this.yInterval = fillTab(yInterval, bot_prc, top_prc);
-		return this;
-	}
 
 	/**
 	 * Sets the camera position.
@@ -242,43 +204,8 @@ public class EscapyGdxCamera {
 		return this.setCameraPosition(position.x, position.y);
 	}
 
-	/**
-	 * Gets the horizontal borders.
-	 *
-	 * @return the horizontal borders
-	 */
-	public int[] getHorizontalBorders() {
-		return new int[] { (int) (camera.position.x - xIntervalLenght[0]),
-				(int) (camera.position.x + xIntervalLenght[1]) };
-	}
 
-	/**
-	 * Gets the vertical borders.
-	 *
-	 * @return the vertical borders
-	 */
-	public int[] getVerticalBorders() {
-		return new int[] { (int) (camera.position.y - yIntervalLenght[0]),
-				(int) (camera.position.y + yIntervalLenght[1]) };
-	}
 
-	/**
-	 * Gets the x interval lenght.
-	 *
-	 * @return the x interval lenght
-	 */
-	public float[] getxIntervalLenght() {
-		return xIntervalLenght;
-	}
-
-	/**
-	 * Gets the y interval lenght.
-	 *
-	 * @return the y interval lenght
-	 */
-	public float[] getyIntervalLenght() {
-		return yIntervalLenght;
-	}
 
 	/**
 	 * Gets the camera.
@@ -318,12 +245,6 @@ public class EscapyGdxCamera {
 		this.cameraProgramHolders = cameraHolders;
 	}
 
-	private float[] fillTab(float[] tab, float a, float b) {
-		tab[0] = a;
-		tab[1] = b;
-		this.updXYintervalLenghts();
-		return tab;
-	}
 
 	/**
 	 * Gets the translation vector array.

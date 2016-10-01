@@ -12,6 +12,7 @@ import com.game.screens.EscapyScreenState;
 import com.game.update_loop.userState.UpdatableScreenFactory;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class EscapyLoadingScreen.
  */
@@ -24,14 +25,12 @@ public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 	/**
 	 * Instantiates a new escapy loading screen.
 	 *
-	 * @param escapyCamera
-	 *            the escapy camera
-	 * @param gameState
-	 *            the game state
+	 * @param escapyCamera the escapy camera
+	 * @param gameState    the game state
 	 */
 	public EscapyLoadingScreen(EscapyGdxCamera escapyCamera, GameEnter gameState) {
 
-	    super(escapyCamera, gameState);
+		super(escapyCamera, gameState);
 	}
 
 	@Override
@@ -90,11 +89,15 @@ public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 		EscapyLoadingScreen ldscr = this;
 		Gdx.app.postRunnable(() -> {
 
-        ldscr.gameState.getStatesContainer()
-            .setNewLocation(UpdatableScreenFactory.GameScreen(ldscr.escapyCamera, ldscr.gameState), true);
-        ldscr.loaded = true;
-      });
+			ldscr.gameState.getStatesContainer()
+					.setNewLocation(UpdatableScreenFactory.GameScreen(ldscr.escapyCamera, ldscr.gameState), true);
+			ldscr.loaded = true;
+		});
 		Thread.currentThread().interrupt();
 	}
 
+	@Override
+	public void update() {
+
+	}
 }

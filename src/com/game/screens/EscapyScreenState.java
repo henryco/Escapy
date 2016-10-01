@@ -4,13 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.game.GameEnter;
 import com.game.render.camera.EscapyGdxCamera;
+import com.game.update_loop.Updatable;
 import com.game.userState.settings.GameSettings;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class EscapyScreenState.
  */
-public abstract class EscapyScreenState implements Screen {
+public abstract class EscapyScreenState implements Screen, Updatable {
 
 	/** The game state. */
 	protected GameEnter gameState;

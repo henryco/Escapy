@@ -20,7 +20,6 @@ public class UpdateLoopQueue implements Runnable {
 		this.updList = new ArrayList<>();
 		this.inLoop = false;
 		this.sleep = 1;
-		return;
 	}
 
 	/**
@@ -94,7 +93,7 @@ public class UpdateLoopQueue implements Runnable {
 			inLoop = false;
 			loopThread.interrupt();
 			while (loopThread.isAlive()) {
-				;
+				loopThread.interrupt();
 			}
 		}
 		return this;
@@ -112,14 +111,11 @@ public class UpdateLoopQueue implements Runnable {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Runnable#run()
-	 */
+
 	@Override
 	public void run() {
 		while (inLoop) {
-			for (int i = 0; i < updList.size(); i++)
-				updList.get(i).update();
+			updList.forEach(Updatable::update);
 			if (inLoop) {
 				try {
 					Thread.sleep(sleep);

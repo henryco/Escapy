@@ -93,4 +93,8 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 	public void dispose() {
 	}
 
+	@Override
+	public void update() {
+
+	}
 }

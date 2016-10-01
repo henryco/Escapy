@@ -10,44 +10,42 @@ import com.game.utils.simpleMemento.SImpleCaretaker;
 import com.game.utils.simpleMemento.SimpleStateHolder;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class EscapyStateContainer.
  */
 public class EscapyStateContainer {
 
-	
+
 	private UpdatableScreen splashScreen;
 	private UpdatableScreen gameScreen;
 	private Screen loadingScreen;
 	private Screen menuScreen;
-	
+
 	private SimpleStateHolder<UpdatableScreen> gameStateHolder;
 	private SImpleCaretaker<UpdatableScreen> gameSavedState;
-	
+
 	private UpdateLoopQueue updLoopedQueue;
-	
+
 	/**
 	 * Instantiates a new escapy state container.
 	 *
-	 * @param gameState
-	 *            the game state
-	 * @param escapyCamera
-	 *            the escapy camera
+	 * @param gameState    the game state
+	 * @param escapyCamera the escapy camera
 	 */
-	public EscapyStateContainer(GameEnter gameState, EscapyGdxCamera escapyCamera) 
-	{
+	public EscapyStateContainer(GameEnter gameState, EscapyGdxCamera escapyCamera) {
 		this.updLoopedQueue = new UpdateLoopQueue();
-		
+
 		this.splashScreen = UpdatableScreenFactory.SplashScreen(escapyCamera, gameState);
 		this.loadingScreen = new EscapyLoadingScreen(escapyCamera, gameState);
 		this.menuScreen = new EscapyMainMenuScreen(escapyCamera, gameState);
-		
+
 		this.gameStateHolder = new SimpleStateHolder<>();
 		this.gameSavedState = new SImpleCaretaker<>();
-		
+
 		this.updLoopedQueue.startUpdateLoop();
 	}
-	
+
 	/**
 	 * Gets the upd looped queue.
 	 *
@@ -61,17 +59,12 @@ public class EscapyStateContainer {
 	/**
 	 * Sets the new location.
 	 *
-	 * @param newLocScreen
-	 *            the new loc screen
-	 * @param bufferLastLoc
-	 *            the buffer last loc
+	 * @param newLocScreen  the new loc screen
+	 * @param bufferLastLoc the buffer last loc
 	 */
-	public void setNewLocation(UpdatableScreen newLocScreen, boolean bufferLastLoc)
-	{
-		if (newLocScreen != null)
-		{
-			if (gameScreen != null && bufferLastLoc)
-			{
+	public void setNewLocation(UpdatableScreen newLocScreen, boolean bufferLastLoc) {
+		if (newLocScreen != null) {
+			if (gameScreen != null && bufferLastLoc) {
 				gameStateHolder.setObjectState(gameScreen);
 				gameSavedState.setMemento(gameStateHolder.saveObjectState());
 				updLoopedQueue.removeFromUpdQueueLast();
@@ -80,27 +73,21 @@ public class EscapyStateContainer {
 			updLoopedQueue.addToUpdQueue(gameScreen);
 		}
 	}
-	
+
 	/**
 	 * Gets the last location.
 	 *
 	 * @return the last location
 	 */
-	public UpdatableScreen getLastLocation()
-	{
-		if (gameSavedState.getMemento() != null)
-		{
+	public UpdatableScreen getLastLocation() {
+		if (gameSavedState.getMemento() != null) {
 			gameStateHolder.restoreObjectState(gameSavedState.getMemento());
 			return gameStateHolder.getObjectState();
 		}
 		return null;
 	}
-	
-	
-	
-	
-	
-	
+
+
 	/**
 	 * Gets the splash screen.
 	 *
@@ -113,8 +100,7 @@ public class EscapyStateContainer {
 	/**
 	 * Sets the splash screen.
 	 *
-	 * @param splashScreen
-	 *            the new splash screen
+	 * @param splashScreen the new splash screen
 	 */
 	public void setSplashScreen(UpdatableScreen splashScreen) {
 		this.splashScreen = splashScreen;
@@ -132,8 +118,7 @@ public class EscapyStateContainer {
 	/**
 	 * Sets the menu screen.
 	 *
-	 * @param menuScreen
-	 *            the new menu screen
+	 * @param menuScreen the new menu screen
 	 */
 	public void setMenuScreen(Screen menuScreen) {
 		this.menuScreen = menuScreen;
@@ -160,13 +145,11 @@ public class EscapyStateContainer {
 	/**
 	 * Sets the loading screen.
 	 *
-	 * @param loadingScreen
-	 *            the new loading screen
+	 * @param loadingScreen the new loading screen
 	 */
 	public void setLoadingScreen(Screen loadingScreen) {
 		this.loadingScreen = loadingScreen;
 	}
 
-	
 
 }
