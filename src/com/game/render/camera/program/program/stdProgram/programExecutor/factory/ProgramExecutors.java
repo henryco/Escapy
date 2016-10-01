@@ -7,7 +7,7 @@ import com.game.render.camera.program.program.stdProgram.programExecutor.executo
 /**
  * @author Henry on 01/10/16.
  */
-public final class ProgramInstances {
+public final class ProgramExecutors {
 
 	public static final ProgramExecutor fastVectorCam = new FastVectorCam();
 	public static final ProgramExecutor followCam = new FollowCam();

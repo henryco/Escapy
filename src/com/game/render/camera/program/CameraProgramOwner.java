@@ -5,8 +5,6 @@ package com.game.render.camera.program;
  */
 public interface CameraProgramOwner {
 
-	CameraProgramOwner setOwnerPosition(float ... xy);
-	CameraProgramOwner setMoveNVector(int ... xy);
-	int[] getMoveNVector();
+	CameraVector getCameraVector();
 	float[] getOwnerPosition();
 }

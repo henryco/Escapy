@@ -8,7 +8,7 @@ import com.game.render.camera.program.program.stdProgram.programExecutor.Program
 public class FastVectorCam implements ProgramExecutor {
 
 	@Override
-	public float calcVector(float camPos, float ownPos, int mvNVec, int[][] borders, float camSpeed) {
+	public float calcVector(float camPos, float ownPos, float mvNVec, int[][] borders, float camSpeed) {
 		float diff = ownPos - camPos;
 		float vec_ = mvNVec * camSpeed;
 		float dl_max = ProgramExecutor.getMax_dl(ownPos, camPos, borders);

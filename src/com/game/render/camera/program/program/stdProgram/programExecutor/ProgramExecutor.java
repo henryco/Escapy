@@ -5,7 +5,7 @@ package com.game.render.camera.program.program.stdProgram.programExecutor;
  */
 public interface ProgramExecutor {
 
-	float calcVector(float camPos, float ownPos, int mvNVec, int[][] borders, float camSpeed);
+	float calcVector(float camPos, float ownPos, float mvNVec, int[][] borders, float camSpeed);
 
 
 	static float getMax_dl(float ownPos, float camPos, int[][] borders){

@@ -3,7 +3,7 @@ package com.game.render.camera.program.program.stdProgram;
 import com.game.render.camera.program.CameraProgramOwner;
 import com.game.render.camera.program.program.AbsCharacterProgram;
 import com.game.render.camera.program.program.stdProgram.programExecutor.ProgramExecutor;
-import com.game.render.camera.program.program.stdProgram.programExecutor.factory.ProgramInstances;
+import com.game.render.camera.program.program.stdProgram.programExecutor.factory.ProgramExecutors;
 
 /**
  * @author Henry on 28/09/16.
@@ -11,7 +11,7 @@ import com.game.render.camera.program.program.stdProgram.programExecutor.factory
 public class StdCameraProgram extends AbsCharacterProgram {
 
 	private ProgramExecutor axisXprogram, axisYprogram;
-	public static final ProgramInstances program = new ProgramInstances();
+	public static final ProgramExecutors program = new ProgramExecutors();
 
 	public StdCameraProgram(CameraProgramOwner owner, int scrW, int scrH) {
 		super(owner, scrW, scrH);
@@ -31,7 +31,7 @@ public class StdCameraProgram extends AbsCharacterProgram {
 	public float[] executeCameraProgram(float camx, float camy) {
 
 		float[] transBuff = new float[2];
-		int[] moveNVec = super.owner.getMoveNVector();
+		float[] moveNVec = super.owner.getCameraVector().getMoveNVector();
 		float[] ownPos = super.owner.getOwnerPosition();
 
 		if (translateOX) transBuff[0] = axisXprogram.calcVector(camx, ownPos[0], moveNVec[0], borderIntervalsOX, super.cameraSpeed);
