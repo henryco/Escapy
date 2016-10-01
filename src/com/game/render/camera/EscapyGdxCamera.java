@@ -23,9 +23,12 @@ public class EscapyGdxCamera {
 
 	private TransVec translationVec;
 	private TransVec shiftVec;
+	private float cam_dt, cam_t;
 	
-	{	this.shiftVec = new TransVec(0f, 0f);
-	
+	{
+		this.shiftVec = new TransVec(0f, 0f);
+		this.cam_dt = 0;
+		this.cam_t = 0.025f;
 	}
 
 	/**
@@ -90,21 +93,18 @@ public class EscapyGdxCamera {
 	 *
 	 * @return the escapy gdx camera
 	 */
-	public EscapyGdxCamera holdCamera() 
-	{
-		this.setTranslationVector(cameraProgramHolders.holdCamera(screenWidth, screenHeight, 1, this));
-		
+	public EscapyGdxCamera holdCamera() {
+		this.setTranslationVector(cameraProgramHolders.holdCamera(camera.position.x, camera.position.y));
 		this.translateCamera(this.translationVec.getVecArray());
 		this.camera.update();
 		return this;
 	}
 	
-	public EscapyGdxCamera holdCamera(float delta) 
-	{
-		this.setTranslationVector(cameraProgramHolders.holdCamera(screenWidth, screenHeight, 1, this));
-	
-		this.translateCamera(this.translationVec.getVecArray());
-		this.camera.update();
+	public EscapyGdxCamera holdCamera(float delta) {
+		if ((cam_dt += delta) >= cam_t) {
+			cam_dt = 0;
+			return holdCamera();
+		}
 		return this;
 	}
 	
@@ -177,12 +177,12 @@ public class EscapyGdxCamera {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
-	
-	
-	
-	
-	
-	
+
+
+	public void setCam_t(float cam_t) {
+		this.cam_t = cam_t;
+	}
+
 	/**
 	 * Sets the X interval.
 	 *

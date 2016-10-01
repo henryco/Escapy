@@ -16,7 +16,6 @@ public class StdCameraProgram extends AbsCharacterProgram {
 	public StdCameraProgram(CameraProgramOwner owner, int scrW, int scrH) {
 		super(owner, scrW, scrH);
 	}
-
 	public StdCameraProgram(CameraProgramOwner owner, int scrW, int scrH, float il1, float ir1) {
 		super(owner, scrW, scrH);
 		addBorderIntervalsOX(il1, ir1);
