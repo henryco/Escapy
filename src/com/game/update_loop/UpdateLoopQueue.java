@@ -14,6 +14,10 @@ public class UpdateLoopQueue implements Runnable {
 	private long sleep;
 
 	private volatile float delta, syncTime;
+	{
+		this.syncTime = 0;
+		this.delta = 0;
+	}
 
 	/**
 	 * Instantiates a new update loop queue.
@@ -133,8 +137,7 @@ public class UpdateLoopQueue implements Runnable {
 	public void run() {
 		float upd_dt = 0;
 		while (inLoop) {
-			//upd_dt = updSynced(upd_dt, delta, syncTime);
-			updList.forEach(Updatable::update);
+			upd_dt = updSynced(upd_dt, delta, syncTime);
 			if (inLoop) {
 				try {
 					Thread.sleep(sleep);
