@@ -1,7 +1,10 @@
 package com.game.map.objectsAlt;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.animator.EscapyAnimatorObject;
 import com.game.animator.EscapyAnimatorSuperObject;
 import com.game.render.EscapyRenderable;
@@ -18,6 +21,8 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		public static final int ANIMATED = 1;
 		public static final int INTERACTIVE = 2;
 	}
+
+	public static boolean errPrint = false;
 
 	protected Batch spriteBatch = new SpriteBatch();
 
@@ -46,12 +51,37 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		if (objectType != type.INTERACTIVE) launchAnimated(object);
 	}
 
-	public static String removePNG(String url) {
-		//.png
-		StringBuffer strb = new StringBuffer(url);
+	protected static String removePNG(String url) {
+
+		StringBuffer strb = new StringBuffer(url); //.png
 		if (strb.charAt(strb.length() - 4) == '.')
 			strb.delete(strb.length() - 4, strb.length());
 		return strb.toString();
 	}
+
+	protected static Sprite makeSpriteFromTexture(TextureRegion texture, float xpos, float ypos, float zoom) {
+
+		Sprite sprite = new Sprite(texture);
+		sprite.flip(false, true);
+		sprite.setPosition(xpos, ypos);
+		sprite.setSize(sprite.getWidth() * zoom, sprite.getHeight() * zoom);
+
+		return sprite;
+	}
+
+	protected static Sprite[] makeSpriteArray(Texture texture, float xpos, float ypos, float zoom) {
+
+		Sprite[] arr = new Sprite[10];
+		TextureRegion texReg = new TextureRegion(texture, 0, 0,
+				(int) ((float) texture.getWidth() / 10.), texture.getHeight());
+
+		for (int i = 0; i < 10; i++) {
+			texReg.setRegion((int) ((texture.getWidth() / 10.) * i), 0,
+					(int) ((float) texture.getWidth() / 10.), texture.getHeight());
+			arr[i] = makeSpriteFromTexture(texReg, xpos, ypos, zoom);
+		}	return arr;
+	}
+
+
 }
 
