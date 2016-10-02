@@ -53,9 +53,6 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	 */
 	protected abstract void initializeGraphic();
 
-	/* (non-Javadoc)
-	 * @see com.game.animator.EscapyAnimatorSuperObject#initObjectAnimator(com.game.animator.EscapyAnimatorObject)
-	 */
 	@Override   
 	public void initObjectAnimator(EscapyAnimatorObject object)
 	{

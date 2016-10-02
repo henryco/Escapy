@@ -69,10 +69,7 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalMapRe
 				});
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see com.game.render.EscapyRenderable#renderGraphic(float[], com.game.render.camera.EscapyGdxCamera)
-	 */
+
 	@Override
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
@@ -82,9 +79,7 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalMapRe
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.game.render.extra.normalMap.EscapyNormalMapRender#renderNormals(float[], com.game.render.camera.EscapyGdxCamera)
-	 */
+
 	@Override
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 		spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
