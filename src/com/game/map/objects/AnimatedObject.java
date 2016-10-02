@@ -91,7 +91,7 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	@Override
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
-		Texture[] obTempTexs = null;
+		Texture[] obTempTexs;
 		
 		try {
 			

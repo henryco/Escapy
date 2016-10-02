@@ -25,7 +25,7 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	protected float[] position;
 	protected float defZoom;
 	protected String[] textureUrl;
-	
+
 
 	public GameObject(float x, float y, int iD, String texUrl, float zoom, int type) {
 

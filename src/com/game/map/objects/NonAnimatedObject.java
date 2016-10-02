@@ -18,7 +18,6 @@ import com.game.render.extra.normalMap.EscapyNormalMapRender;
 public class NonAnimatedObject extends InGameObject implements EscapyNormalMapRender, 
 	EscapyLightMapRenderer{
 
-	private Texture[] ObTextures;
 	private Sprite[] ObSprites;
 
 	/**
@@ -46,18 +45,18 @@ public class NonAnimatedObject extends InGameObject implements EscapyNormalMapRe
 	protected void initializeGraphic() {
 		super.spriteBatcher = new SpriteBatch();
 
-		this.ObTextures = new Texture[]{
+		Texture[] obTextures = new Texture[]{
 				new Texture(new FileHandle(super.getImgUrl()[0])),
-				new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0])+"NRML.png")),
-				new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0])+"LTM.png"))
+				new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0]) + "NRML.png")),
+				new Texture(new FileHandle(super.removePNG(super.getImgUrl()[0]) + "LTM.png"))
 		}; 
-		Arrays.stream(ObTextures).forEach(
+		Arrays.stream(obTextures).forEach(
 				texture -> texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest));
 		
 		this.ObSprites = new Sprite[] {
-				new Sprite(ObTextures[0]), 
-				new Sprite(ObTextures[1]), 
-				new Sprite(ObTextures[2])
+				new Sprite(obTextures[0]),
+				new Sprite(obTextures[1]),
+				new Sprite(obTextures[2])
 		};
 		Arrays.stream(ObSprites).forEach(
 				sprite -> { 
