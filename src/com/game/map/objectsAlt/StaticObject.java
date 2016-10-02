@@ -2,18 +2,17 @@ package com.game.map.objectsAlt;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.render.camera.EscapyGdxCamera;
-import com.game.render.extra.lightMap.EscapyLightMapRenderer;
-import com.game.render.extra.normalMap.EscapyNormalMapRender;
+
 
 import java.util.Arrays;
 
 /**
  * @author Henry on 02/10/16.
  */
-public class StaticObject extends GameObject implements EscapyNormalMapRender,
-		EscapyLightMapRenderer {
+public class StaticObject extends GameObject {
 
 	private Sprite[] ObSprites;
 
@@ -70,5 +69,19 @@ public class StaticObject extends GameObject implements EscapyNormalMapRender,
 		spriteBatch.end();
 	}
 
+	@Override
+	public void renderLightMap(Batch batch) {
+		ObSprites[2].draw(batch);
+	}
+
+	@Override
+	public void renderGraphic(Batch batch) {
+		ObSprites[0].draw(batch);
+	}
+
+	@Override
+	public void renderNormals(Batch batch) {
+		ObSprites[1].draw(batch);
+	}
 
 }

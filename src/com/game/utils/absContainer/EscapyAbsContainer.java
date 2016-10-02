@@ -2,6 +2,7 @@ package com.game.utils.absContainer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -27,7 +28,12 @@ public abstract class EscapyAbsContainer<T extends EscapyContainerable>
 		this.targetsList = new ArrayList<>();
 		this.buffer = new ArrayList<>();
 	}
-	
+
+
+	public EscapyContainer<T> forEach(Consumer<T> consumer) {
+		targetsList.forEach(consumer);
+		return this;
+	}
 
 	@Override
 	public int addSource(T source) {

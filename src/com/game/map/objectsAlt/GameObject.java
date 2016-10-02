@@ -8,12 +8,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.animator.EscapyAnimatorObject;
 import com.game.animator.EscapyAnimatorSuperObject;
 import com.game.render.EscapyRenderable;
+import com.game.render.extra.lightMap.EscapyLightMapRenderer;
+import com.game.render.extra.normalMap.EscapyNormalMapRender;
+import com.game.utils.absContainer.EscapyContainerable;
 
 /**
  * @author Henry on 02/10/16.
  */
 public abstract class GameObject extends EscapyAnimatorSuperObject
-		implements EscapyRenderable {
+		implements EscapyRenderable, EscapyNormalMapRender, EscapyLightMapRenderer, EscapyContainerable {
 
 	public static final class type {
 
@@ -31,6 +34,7 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	protected float defZoom;
 	protected String[] textureUrl;
 
+	private int trueID;
 
 	public GameObject(float x, float y, int iD, String texUrl, float zoom, int type) {
 
@@ -39,17 +43,31 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		this.objectType = type;
 		this.textureUrl = new String[]{texUrl};
 		this.defZoom = zoom;
+		this.setID(iD);
 		initializeGraphic();
 	}
 
-	public float[] getPosition() {return position;}
-
 	protected abstract void initializeGraphic();
+
+	public abstract void renderLightMap(Batch batch);
+	public abstract void renderGraphic(Batch batch);
+	public abstract void renderNormals(Batch batch);
 
 	@Override
 	public void initObjectAnimator(EscapyAnimatorObject object) {
 		if (objectType != type.INTERACTIVE) launchAnimated(object);
 	}
+
+	@Override
+	public void setID(int id) {
+		trueID = Integer.hashCode(this.hashCode() + (Integer.hashCode(ID + Integer.hashCode(id))));
+	}
+
+	@Override
+	public int getID() {
+		return trueID;
+	}
+
 
 	protected static String removePNG(String url) {
 
@@ -82,6 +100,7 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		}	return arr;
 	}
 
+	public float[] getPosition() {return position;}
 
 }
 
