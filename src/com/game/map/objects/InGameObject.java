@@ -6,39 +6,33 @@ import com.game.animator.EscapyAnimatorSuperObject;
 import com.game.render.EscapyRenderable;
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class InGameObject.
  */
-public abstract class InGameObject extends EscapyAnimatorSuperObject 
-	implements EscapyRenderable{
+public abstract class InGameObject extends EscapyAnimatorSuperObject
+		implements EscapyRenderable {
 
 	private float xPos, yPos;
 	private String[] imgUrl;
 	private int ID;
 	private double defZoom;
 	private objectType type;
-	
+
 	/** The sprite batcher. */
 	protected SpriteBatch spriteBatcher;
-	
+
 	/**
 	 * Instantiates a new in game object.
 	 *
-	 * @param x
-	 *            the x
-	 * @param y
-	 *            the y
-	 * @param iD
-	 *            the i D
-	 * @param imgurl
-	 *            the imgurl
-	 * @param defzoom
-	 *            the defzoom
-	 * @param typo
-	 *            the typo
+	 * @param x       the x
+	 * @param y       the y
+	 * @param iD      the i D
+	 * @param imgurl  the imgurl
+	 * @param defzoom the defzoom
+	 * @param typo    the typo
 	 */
-	public InGameObject(float x, float y, int iD, String imgurl, double defzoom, int typo) 
-	{
+	public InGameObject(float x, float y, int iD, String imgurl, double defzoom, int typo) {
 		xPos = x;
 		yPos = y;
 		ID = iD;
@@ -47,15 +41,14 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 		type = IntegerToObjectType(typo);
 		initializeGraphic();
 	}
-	
+
 	/**
 	 * Initialize graphic.
 	 */
 	protected abstract void initializeGraphic();
 
-	@Override   
-	public void initObjectAnimator(EscapyAnimatorObject object)
-	{
+	@Override
+	public void initObjectAnimator(EscapyAnimatorObject object) {
 		if (this.getType() != objectType.Interactive)
 			launchAnimated(object);
 	}
@@ -63,68 +56,61 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	/**
 	 * The Enum objectType.
 	 */
-	public enum objectType
-	{
-		
+	public enum objectType {
+
 		/** The Interactive. */
-		Interactive(0), 
- /** The Passive animated. */
- PassiveAnimated(1), 
- /** The Passive static. */
- PassiveStatic(2), 
- /** The Front parallaxed. */
- FrontParallaxed(3),
-		
+		Interactive(0),
+		/** The Passive animated. */
+		PassiveAnimated(1),
+		/** The Passive static. */
+		PassiveStatic(2),
+		/** The Front parallaxed. */
+		FrontParallaxed(3),
+
 		/** The Back parallaxed. */
-		BackParallaxed(4), 
- /** The Background. */
- Background(5);
-		
+		BackParallaxed(4),
+		/** The Background. */
+		Background(5);
+
 		private int type;
-		
-		private objectType(int typo)
-		{
+
+		private objectType(int typo) {
 			type = typo;
 		}
-		
+
 		/**
 		 * Gets the object type.
 		 *
 		 * @return the object type
 		 */
-		public int getObjectType()
-		{
+		public int getObjectType() {
 			return type;
 		}
-		
+
 		/**
 		 * Object type name.
 		 *
 		 * @return the string
 		 */
-		public String ObjectTypeName()
-		{
+		public String ObjectTypeName() {
 			return toString();
 		}
-		
+
 		/**
 		 * Sets the type.
 		 *
-		 * @param typo
-		 *            the new type
+		 * @param typo the new type
 		 */
-		public void setType(int typo)
-		{
+		public void setType(int typo) {
 			type = typo;
 		}
-		
+
 		/**
 		 * Gets the type.
 		 *
 		 * @return the type
 		 */
-		public objectType getType()
-		{
+		public objectType getType() {
 			return this;
 		}
 	}
@@ -132,75 +118,69 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	/**
 	 * Integer to object type.
 	 *
-	 * @param typo
-	 *            the typo
+	 * @param typo the typo
 	 * @return the object type
 	 */
-	public static objectType IntegerToObjectType(int typo)
-	{
-		switch(typo)
-		{
-		case 0:
-			return objectType.Interactive;
-		case 1:
-			return objectType.PassiveAnimated;
-		case 2:
-			return objectType.PassiveStatic;
-		case 3:
-			return objectType.FrontParallaxed;
-		case 4:
-			return objectType.BackParallaxed;
-		case 5: 
-			return objectType.Background;
-		}return null;
+	public static objectType IntegerToObjectType(int typo) {
+		switch (typo) {
+			case 0:
+				return objectType.Interactive;
+			case 1:
+				return objectType.PassiveAnimated;
+			case 2:
+				return objectType.PassiveStatic;
+			case 3:
+				return objectType.FrontParallaxed;
+			case 4:
+				return objectType.BackParallaxed;
+			case 5:
+				return objectType.Background;
+		}
+		return null;
 	}
-	
+
 	/**
 	 * Removes the PNG.
 	 *
-	 * @param url
-	 *            the url
+	 * @param url the url
 	 * @return the string
 	 */
 	public String removePNG(String url) {
 		//.png
 		StringBuffer strb = new StringBuffer(url);
-		if (strb.charAt(strb.length()-4) == '.')
-			strb.delete(strb.length()-4, strb.length());
+		if (strb.charAt(strb.length() - 4) == '.')
+			strb.delete(strb.length() - 4, strb.length());
 		return strb.toString();
 	}
-	
-	
+
+
 	/**
 	 * X pos.
 	 *
 	 * @return the float
 	 */
-	public float XPos()
-	{
+	public float XPos() {
 		return xPos;//*2;//*scaleRatio;
 	}
-	
+
 	/**
 	 * Y pos.
 	 *
 	 * @return the float
 	 */
-	public float YPos()
-	{
+	public float YPos() {
 		return yPos;//*2;//*scaleRatio;
 	}
-	
+
 	/**
 	 * XY pos.
 	 *
 	 * @return the float[]
 	 */
-	public float[] XYPos()
-	{
-		return new float[]{XPos(),YPos()};
+	public float[] XYPos() {
+		return new float[]{XPos(), YPos()};
 	}
-	
+
 	/**
 	 * Gets the xpos.
 	 *
@@ -213,8 +193,7 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	/**
 	 * Sets the def xpos.
 	 *
-	 * @param xPos
-	 *            the new def xpos
+	 * @param xPos the new def xpos
 	 */
 	public void setDefXpos(float xPos) {
 		this.xPos = xPos;
@@ -232,8 +211,7 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	/**
 	 * Sets the def ypos.
 	 *
-	 * @param yPos
-	 *            the new def ypos
+	 * @param yPos the new def ypos
 	 */
 	public void setDefYpos(float yPos) {
 		this.yPos = yPos;
@@ -251,8 +229,7 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	/**
 	 * Sets the img url.
 	 *
-	 * @param imgUrl
-	 *            the new img url
+	 * @param imgUrl the new img url
 	 */
 	public void setImgUrl(String[] imgUrl) {
 		this.imgUrl = imgUrl;
@@ -270,8 +247,7 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	/**
 	 * Sets the id.
 	 *
-	 * @param iD
-	 *            the new id
+	 * @param iD the new id
 	 */
 	public void setID(int iD) {
 		ID = iD;
@@ -285,22 +261,20 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	public double getDefZoom() {
 		return defZoom;
 	}
-	
+
 	/**
 	 * Zoom.
 	 *
 	 * @return the double
 	 */
-	public double zoom()
-	{
+	public double zoom() {
 		return defZoom;//*scaleRatio;
 	}
 
 	/**
 	 * Sets the def zoom.
 	 *
-	 * @param defZoom
-	 *            the new def zoom
+	 * @param defZoom the new def zoom
 	 */
 	public void setDefZoom(double defZoom) {
 		this.defZoom = defZoom;
@@ -318,8 +292,7 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	/**
 	 * Sets the type.
 	 *
-	 * @param type
-	 *            the new type
+	 * @param type the new type
 	 */
 	public void setType(objectType type) {
 		this.type = type;
