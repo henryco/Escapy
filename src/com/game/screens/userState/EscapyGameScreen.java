@@ -98,7 +98,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder().
 				addCameraProgram(new StdCameraProgram(this.charactersContainer.player(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, 0.5f, 0.5f).
-				setXProgram(StdCameraProgram.program.followCam));
+				setXProgram(StdCameraProgram.program.followCam).setMinTranslations(0.3f, 0.3f));
 
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
     }
@@ -231,7 +231,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
     @Override
     public void render(float delta) {
-        super.escapyCamera.holdCamera(delta);
+		super.escapyCamera.holdCamera(delta);
         this.updDist();
         this.resetFBO();
         this.renderStd(escapyCamera);

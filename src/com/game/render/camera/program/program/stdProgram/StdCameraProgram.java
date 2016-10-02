@@ -12,6 +12,7 @@ public class StdCameraProgram extends AbsCharacterProgram {
 
 	private ProgramExecutor axisXprogram, axisYprogram;
 	public static final ProgramExecutors program = new ProgramExecutors();
+	private float[] minTranslation = new float[2];
 
 	public StdCameraProgram(CameraProgramOwner owner, int scrW, int scrH) {
 		super(owner, scrW, scrH);
@@ -33,28 +34,41 @@ public class StdCameraProgram extends AbsCharacterProgram {
 		float[] moveNVec = super.owner.getCameraVector().getMoveNVector();
 		float[] ownPos = super.owner.getOwnerPosition();
 
-		if (translateOX) transBuff[0] = axisXprogram.calcVector(camx, ownPos[0], moveNVec[0], borderIntervalsOX, super.cameraSpeed);
-		if (translateOY) transBuff[1] = axisYprogram.calcVector(camy, ownPos[1], moveNVec[1], borderIntervalsOY, super.cameraSpeed);
+		float xt = 0;
+		float yt = 0;
+
+		if (translateOX) xt = axisXprogram.calcVector(camx, ownPos[0], moveNVec[0], borderIntervalsOX, super.cameraSpeed);
+		if (translateOY) yt = axisYprogram.calcVector(camy, ownPos[1], moveNVec[1], borderIntervalsOY, super.cameraSpeed);
+
+		if (Math.abs(xt) >= minTranslation[0]) transBuff[0] = xt;
+		if (Math.abs(yt) >= minTranslation[1]) transBuff[1] = yt;
+
 		return transBuff;
 	}
 
-	public AbsCharacterProgram setXProgram(ProgramExecutor program) {
+	public StdCameraProgram setXProgram(ProgramExecutor program) {
 		this.axisXprogram = program;
 		translateOX(true);
 		return this;
 	}
 
-	public AbsCharacterProgram setYProgram(ProgramExecutor program) {
+	public StdCameraProgram setYProgram(ProgramExecutor program) {
 		this.axisYprogram = program;
 		translateOY(true);
 		return this;
 	}
 
-	public AbsCharacterProgram setXYProgram(ProgramExecutor programX, ProgramExecutor programY) {
+	public StdCameraProgram setXYProgram(ProgramExecutor programX, ProgramExecutor programY) {
 		this.axisXprogram = programX;
 		this.axisYprogram = programY;
 		translateOX(true);
 		translateOY(true);
+		return this;
+	}
+
+	public StdCameraProgram setMinTranslations(float ... x_y) {
+		if (x_y.length == 2) minTranslation = new float[]{x_y[0], x_y[1]};
+		else minTranslation = new float[]{x_y[0], 0};
 		return this;
 	}
 

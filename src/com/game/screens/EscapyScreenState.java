@@ -56,4 +56,7 @@ public abstract class EscapyScreenState implements Screen, Updatable {
 		this.initializationEnded = false;
 	}
 
+	public void syncUpDelta(float delta) {
+		gameState.getStatesContainer().getUpdLoopedQueue().syncDelta(delta);
+	}
 }

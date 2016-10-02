@@ -13,6 +13,8 @@ public class UpdateLoopQueue implements Runnable {
 	private volatile boolean inLoop; 
 	private long sleep;
 
+	private volatile float delta, syncTime;
+
 	/**
 	 * Instantiates a new update loop queue.
 	 */
@@ -92,9 +94,8 @@ public class UpdateLoopQueue implements Runnable {
 		if (loopThread != null) {
 			inLoop = false;
 			loopThread.interrupt();
-			while (loopThread.isAlive()) {
+			while (loopThread.isAlive())
 				loopThread.interrupt();
-			}
 		}
 		return this;
 	}
@@ -111,10 +112,28 @@ public class UpdateLoopQueue implements Runnable {
 		return this;
 	}
 
+	public UpdateLoopQueue setSyncTime(float syncTime) {
+		this.syncTime = syncTime;
+		return this;
+	}
+
+	public synchronized UpdateLoopQueue syncDelta(float delta) {
+		this.delta = delta;
+		return this;
+	}
+
+	private float updSynced(float ud, float dt, float eq) {
+		if ((ud += dt) >= eq) {
+			updList.forEach(Updatable::update);
+			ud = 0;
+		}	return ud;
+	}
 
 	@Override
 	public void run() {
+		float upd_dt = 0;
 		while (inLoop) {
+			//upd_dt = updSynced(upd_dt, delta, syncTime);
 			updList.forEach(Updatable::update);
 			if (inLoop) {
 				try {

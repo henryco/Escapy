@@ -34,10 +34,10 @@ public class GameEnter extends Game {
 
 		this.escapyCamera = new EscapyGdxCamera(GameSettings.DEFAULT_WIDTH, GameSettings.DEFAULT_HEIGHT);
 		this.statesContainer = new EscapyStateContainer(this, escapyCamera);
-		this.statesContainer.getUpdLoopedQueue().setSleepTime(8);
+		this.statesContainer.getUpdLoopedQueue().setSleepTime(10).setSyncTime(0.35f);
 
 		super.setScreen(statesContainer.getLoadingScreen());
-		resize((int)(GameSettings.DEFAULT_WIDTH * 1.3f), (int)(GameSettings.DEFAULT_HEIGHT*1.3f));
+		resize(GameSettings.DEFAULT_WIDTH, GameSettings.DEFAULT_HEIGHT);
 		System.gc();
 	}
 
