@@ -16,7 +16,7 @@ public interface EscapyContainer <T> {
 	 *            the source
 	 * @return the int
 	 */
-	public abstract int addSource(T source);
+	int addSource(T source);
 	
 	/**
 	 * Gets the source by ID.
@@ -25,7 +25,7 @@ public interface EscapyContainer <T> {
 	 *            the id
 	 * @return the source by ID
 	 */
-	public abstract T getSourceByID(int ID);
+	T getSourceByID(int ID);
 	
 	/**
 	 * Removes the source by ID.
@@ -34,7 +34,7 @@ public interface EscapyContainer <T> {
 	 *            the id
 	 * @return true, if successful
 	 */
-	public abstract boolean removeSourceByID(int ID);
+	boolean removeSourceByID(int ID);
 	
 	/**
 	 * Removes the source.
@@ -43,5 +43,5 @@ public interface EscapyContainer <T> {
 	 *            the source
 	 * @return true, if successful
 	 */
-	public abstract boolean removeSource(T source);
+	boolean removeSource(T source);
 }
