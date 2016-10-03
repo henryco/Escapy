@@ -1,6 +1,7 @@
 package com.game.map.objectsAlt;
 
 import com.game.map.objectsAlt.layers.LayerContainer;
+import com.game.map.objectsAlt.layers.ObjectLayer;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
 import net.henryco.struct.container.tree.StructNode;
@@ -49,17 +50,26 @@ public class MapGameObjects {
 			StructNode actualCont = container.getStruct(Integer.toString(i));
 			String fboName = "";
 			if (actualCont.containsPrimitive("fboName")) fboName = actualCont.getPrimitive("fboName");
-			containers.add(fillContainer(new LayerContainer(dim, fboName)));
+			containers.add(fillContainer(new LayerContainer(dim, fboName), actualCont));
 		}
 		return containers.toArray(new LayerContainer[containers.size()]);
 	}
 
 
-	private static LayerContainer fillContainer(LayerContainer container) {
+	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode) {
 
+		if (containerNode.containsStruct("layer")) {
+			StructNode layerNode = containerNode.getStruct("layer");
+			int[] iter = getIntArray(layerNode.getStructChild());
+			for (int i : iter) container.addSource(loadLayer(layerNode.getStruct(Integer.toString(i))));
+		}
 		return container;
 	}
 
+	private static ObjectLayer loadLayer(StructNode actLayerNode){
+
+		return null;
+	}
 
 	private static String getFileName(String ... name) {
 		String forReturn = "";
