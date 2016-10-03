@@ -16,16 +16,12 @@ import java.util.function.Consumer;
 public class ObjectLayer extends EscapyAbsContainer<GameObject> {
 
 	private Batch batch = new SpriteBatch();
-	public EscapyFBO layerFBO;
 
-	public ObjectLayer(int[] dimension, String ... name) {
+
+	public ObjectLayer() {
 		super();
 	}
 
-	public ObjectLayer initFBO(int[] dim, String ... name) {
-		this.layerFBO = new StandartFBO(dim, name);
-		return this;
-	}
 
 	public void renderGraphic(EscapyGdxCamera escapyCamera) {
 
