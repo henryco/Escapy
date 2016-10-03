@@ -49,6 +49,8 @@ public class AnimatedObject extends InGameObject implements EscapyExecutableObje
 	 */
 	public AnimatedObject(float x, float y, int id, String ImgUrl, int[] AnimPeriod, double zoom, int typo) {
 		super(x, y, id, ImgUrl, zoom, typo);
+		for (int a : AnimPeriod) System.out.print(+a+":");
+		System.out.println();
 		animPeriod = AnimPeriod;
 		animob = this;
 		actualFrame = 0;

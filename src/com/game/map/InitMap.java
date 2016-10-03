@@ -9,6 +9,7 @@ import com.game.map.objects.AnimatedObject;
 import com.game.map.objects.BackGround;
 import com.game.map.objects.InGameObject;
 import com.game.map.objects.NonAnimatedObject;
+import com.game.map.objectsAlt.MapGameObjects;
 import com.game.utils.primitives.walls.Walls;
 
 import cern.colt.matrix.ObjectMatrix3D;
@@ -29,7 +30,7 @@ public class InitMap {
 	private Walls walls;
 	private long actualPointerPos;
 
-	
+	public MapGameObjects mapObjects;
 	
 	
 	/**
@@ -44,9 +45,9 @@ public class InitMap {
 	 * @param scaleRatio
 	 *            the scale ratio
 	 */
-	public InitMap(String Location, int frameW, int frameH, double scaleRatio) {
-		double[] mapsize = readMapSize(Location);
+	public InitMap(String Location, String mapCfg, int frameW, int frameH, double scaleRatio) {
 
+		double[] mapsize = readMapSize(Location);
 		this.areaMap = new SparseObjectMatrix3D((int) mapsize[0], (int) mapsize[1], 4);
 		this.size = getObjectsNumb(Location);
 		this.inGameObject = loadObjects(size);
@@ -54,11 +55,11 @@ public class InitMap {
 		this.bckgr = loadBackGround(Location, frameW, frameH, scaleRatio);
 
 		ArrayList<int[]> wallPointList = new ArrayList<>();
-		fillMapFF(new int[] { size[5], size[6] }, Location, wallPointList); // wallPointList
-																			// &
-																			// areaMap
+		fillMapFF(new int[] { size[5], size[6] }, Location, wallPointList); // wallPointList & areaMap
 
 		this.walls = new Walls(wallPointList);
+
+		this.mapObjects = new MapGameObjects(new int[]{frameW, frameH}, Location, mapCfg);
 
 		System.gc();
 	}

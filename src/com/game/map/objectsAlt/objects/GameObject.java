@@ -1,4 +1,4 @@
-package com.game.map.objectsAlt;
+package com.game.map.objectsAlt.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;

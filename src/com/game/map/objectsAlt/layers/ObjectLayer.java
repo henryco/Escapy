@@ -1,11 +1,9 @@
-package com.game.map.objectsAlt.layer;
+package com.game.map.objectsAlt.layers;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.map.objectsAlt.GameObject;
+import com.game.map.objectsAlt.objects.GameObject;
 import com.game.render.camera.EscapyGdxCamera;
-import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.StandartFBO;
 import com.game.utils.absContainer.EscapyAbsContainer;
 
 import java.util.function.Consumer;

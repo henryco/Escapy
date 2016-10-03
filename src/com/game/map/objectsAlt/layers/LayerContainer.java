@@ -1,4 +1,4 @@
-package com.game.map.objectsAlt.layer;
+package com.game.map.objectsAlt.layers;
 
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
