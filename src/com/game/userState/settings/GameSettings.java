@@ -25,6 +25,7 @@ public final class GameSettings {
 
 	public static String CFG_DIR_NAME ="/Config";
 	public static String LIGHT_CFG_NAME = "/LightCFG.struct";
+	public static String OBJECTS_CFG_NAME = "/ObjectsCFG.struct";
 
 	/**
 	 * Instantiates a new game settings.
@@ -33,12 +34,20 @@ public final class GameSettings {
 
 	}
 
-	public String lightCfgUrl() {
+	public String getSourceDir() {
+		return location.substring(0, location.lastIndexOf("/"));
+	}
+
+	public String getObjectsCfgName() {
+		return getMapDir() + CFG_DIR_NAME + OBJECTS_CFG_NAME;
+	}
+
+	public String getLightCfgUrl() {
 		return getMapDir() + CFG_DIR_NAME + LIGHT_CFG_NAME;
 	}
 
 	public String getMapDir() {
-		String tmp = location.substring(0, location.lastIndexOf("/"));
+		String tmp = getSourceDir();
 		return tmp.substring(0, tmp.lastIndexOf("/"));
 	}
 

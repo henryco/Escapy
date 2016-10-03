@@ -20,9 +20,9 @@ public class AnimatedObject extends GameObject {
 	private boolean animationEnded = false;
 	private Sprite[] obSpriteSTD, obSpriteNRML, obSpriteLTM;
 
-	public AnimatedObject(float x, float y, int iD, String texUrl, float zoom, int type, int[] animPeriod) {
+	public AnimatedObject(float x, float y, int iD, String texUrl, float zoom, int type, int[] animPeriod, int w, int h) {
 
-		super(x, y, iD, texUrl, zoom, type);
+		super(x, y, iD, texUrl, zoom, type, w, h);
 		this.animPeriod = animPeriod;
 		this.animob = this;
 		this.actualFrame = 0;
@@ -57,19 +57,18 @@ public class AnimatedObject extends GameObject {
 	}
 
 	@Override
-	protected void initializeGraphic() {
+	public void initializeGraphic() {
+
 		Texture[] obTempTexs;
-
 		try {
-
 			obTempTexs = new Texture[]{
 					new Texture(new FileHandle(super.textureUrl[0])),
 					new Texture(new FileHandle(removePNG(super.textureUrl[0])+"NRML.png")),
 					new Texture(new FileHandle(removePNG(super.textureUrl[0])+"LTM.png"))
 			};
-
 			Arrays.stream(obTempTexs).forEach(
 					texture -> texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest));
+			super.defZoom = calcZoom(zoomCalculator, super.F_WIDTH, super.F_HEIGHT, obTempTexs[0], defZoom);
 
 			this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.position[0], super.position[1], super.defZoom);
 			this.obSpriteNRML = makeSpriteArray(obTempTexs[1], super.position[0], super.position[1], super.defZoom);
@@ -78,9 +77,9 @@ public class AnimatedObject extends GameObject {
 		} catch (com.badlogic.gdx.utils.GdxRuntimeException excp) {
 			if (errPrint) excp.printStackTrace();
 			try {
-
 				obTempTexs = new Texture[]{new Texture(new FileHandle(super.textureUrl[0]))};
 				obTempTexs[0].setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+				super.defZoom = calcZoom(zoomCalculator, super.F_WIDTH, super.F_HEIGHT, obTempTexs[0], defZoom);
 				this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.position[0], super.position[1], super.defZoom);
 
 			} catch (com.badlogic.gdx.utils.GdxRuntimeException exc) {

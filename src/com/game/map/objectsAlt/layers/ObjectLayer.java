@@ -14,10 +14,18 @@ import java.util.function.Consumer;
 public class ObjectLayer extends EscapyAbsContainer<GameObject> {
 
 	private Batch batch = new SpriteBatch();
+	public final String name;
 
-
-	public ObjectLayer() {
+	public ObjectLayer(float xShift, float yShift, String ... name) {
 		super();
+
+		this.name = setName(name);
+		System.out.println(this);
+	}
+	public ObjectLayer(String ... name) {
+		super();
+		this.name = setName(name);
+		System.out.println(this);
 	}
 
 
@@ -45,5 +53,16 @@ public class ObjectLayer extends EscapyAbsContainer<GameObject> {
 		batch.begin();
 		forEach(consumer);
 		batch.end();
+	}
+
+	private static String setName(String ... name) {
+		String tmp = "";
+		for (String n : name) tmp += n;
+		return tmp;
+	}
+
+	@Override
+	public String toString() {
+		return "COMPILED: "+this.name+ " layer";
 	}
 }

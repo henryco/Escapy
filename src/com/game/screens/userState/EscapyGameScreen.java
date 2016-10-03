@@ -8,6 +8,7 @@ import com.game.animator.EscapyAnimatorBase;
 import com.game.characters.InitCharacters;
 import com.game.controlls.PlayerControl;
 import com.game.map.InitMap;
+import com.game.map.objectsAlt.MapGameObjects;
 import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
@@ -38,7 +39,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private PlayerControl controlls;
 	private EscapyPhysicsBase physics;
 	private EscapyAnimatorBase animator;
-	
+	private MapGameObjects mapObjects;
+
 	/** The player camera program ID. */
 	protected int playerCameraProgramID;
 
@@ -91,8 +93,12 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void init_base(Object ... vars) {
 
         this.controlls = PlayerControl.playerController();
-        this.mapContainer = new InitMap(super.settings.Location(), "Objects.struct", super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.settings.scaleRatio());
-        this.charactersContainer = new InitCharacters();
+        this.mapContainer = new InitMap(super.settings.Location(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.settings.scaleRatio());
+
+		this.mapObjects = new MapGameObjects(new int[]{super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT},
+				super.settings.getSourceDir(), super.settings.getObjectsCfgName());
+
+		this.charactersContainer = new InitCharacters();
         this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
 
@@ -145,7 +151,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         for (int i = 0; i < mapContainer.objectSize()[mapContainer.indexTab()[4]]; i++) /* FRONT PARALLAX */
             this.stdContainer.addSource(new StdRenderer(mapContainer.gameObjects()[mapContainer.indexTab()[4]][i]).setTranslationVec(otherTranslationVec.getVecArray()));
 
-        this.lightContainer = new InitLights(lightsMapContainer, super.settings.lightCfgUrl(), (int[])vars[0]);
+        this.lightContainer = new InitLights(lightsMapContainer, super.settings.getLightCfgUrl(), (int[])vars[0]);
 		this.renderBgr(escapyCamera);
 		this.render(0);
     }

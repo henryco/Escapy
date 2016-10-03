@@ -20,7 +20,8 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 	}
 
 	public LayerContainer initFBO(int[] dim, String ... name) {
-		this.layerFBO = new StandartFBO(dim, name);
+		if (dim.length == 2) this.layerFBO = new StandartFBO(new int[]{0, 0, dim[0], dim[1]}, name);
+		else if (dim.length == 4) this.layerFBO = new StandartFBO(dim, name);
 		return this;
 	}
 

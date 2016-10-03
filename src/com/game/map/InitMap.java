@@ -45,7 +45,7 @@ public class InitMap {
 	 * @param scaleRatio
 	 *            the scale ratio
 	 */
-	public InitMap(String Location, String mapCfg, int frameW, int frameH, double scaleRatio) {
+	public InitMap(String Location, int frameW, int frameH, double scaleRatio) {
 
 		double[] mapsize = readMapSize(Location);
 		this.areaMap = new SparseObjectMatrix3D((int) mapsize[0], (int) mapsize[1], 4);
@@ -58,8 +58,6 @@ public class InitMap {
 		fillMapFF(new int[] { size[5], size[6] }, Location, wallPointList); // wallPointList & areaMap
 
 		this.walls = new Walls(wallPointList);
-
-		this.mapObjects = new MapGameObjects(new int[]{frameW, frameH}, Location, mapCfg);
 
 		System.gc();
 	}

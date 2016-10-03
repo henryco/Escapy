@@ -16,15 +16,16 @@ public class StaticObject extends GameObject {
 
 	private Sprite[] obSprites;
 
-	public StaticObject(float x, float y, int iD, String texUrl, float zoom, int type) {
-		super(x, y, iD, texUrl, zoom, type);
+	public StaticObject(float x, float y, int iD, String texUrl, float zoom, int type, int w, int h) {
+		super(x, y, iD, texUrl, zoom, type, w, h);
 	}
 
 	@Override
-	protected void initializeGraphic() {
+	public void initializeGraphic() {
 
 		Texture[] obTextures = new Texture[3];
 		obTextures[0] = new Texture(new FileHandle(super.textureUrl[0]));
+		super.defZoom = calcZoom(zoomCalculator, super.F_WIDTH, super.F_HEIGHT, obTextures[0], defZoom);
 
 		try {
 			obTextures[1] = new Texture(new FileHandle(removePNG(super.textureUrl[0]) + "NRML.png"));

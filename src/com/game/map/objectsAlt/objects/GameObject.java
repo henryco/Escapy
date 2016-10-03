@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.animator.EscapyAnimatorObject;
 import com.game.animator.EscapyAnimatorSuperObject;
+import com.game.map.objectsAlt.objects.utils.PositionCorrector;
+import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
 import com.game.render.EscapyRenderable;
 import com.game.render.extra.lightMap.EscapyLightMapRenderer;
 import com.game.render.extra.normalMap.EscapyNormalMapRender;
@@ -28,16 +30,21 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	public static boolean errPrint = false;
 
 	protected Batch spriteBatch = new SpriteBatch();
+	protected ZoomCalculator zoomCalculator = (frameW, frameH, w, h, zoom) -> zoom;
+	protected PositionCorrector positionCorrector = (frameW, frameH, w, h) -> new float[2];
 
 	public final int ID, objectType;
 	protected float[] position;
 	protected float defZoom;
 	protected String[] textureUrl;
+	protected int F_WIDTH, F_HEIGHT;
 
 	private int trueID;
 
-	public GameObject(float x, float y, int iD, String texUrl, float zoom, int type) {
+	public GameObject(float x, float y, int iD, String texUrl, float zoom, int type, int width, int height) {
 
+		this.F_WIDTH = width;
+		this.F_HEIGHT = height;
 		this.position = new float[]{x, y};
 		this.ID = iD;
 		this.objectType = type;
@@ -47,8 +54,7 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		initializeGraphic();
 	}
 
-	protected abstract void initializeGraphic();
-
+	public abstract void initializeGraphic();
 	public abstract void renderLightMap(Batch batch);
 	public abstract void renderGraphic(Batch batch);
 	public abstract void renderNormals(Batch batch);
@@ -68,6 +74,9 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		return trueID;
 	}
 
+	protected static float calcZoom(ZoomCalculator zoomCalc, int FW, int FH, Texture texture, float zoom) {
+		return zoomCalc.calculateZoom(FW, FH, texture.getWidth(), texture.getHeight(), zoom);
+	}
 
 	protected static String removePNG(String url) {
 
@@ -101,6 +110,16 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	}
 
 	public float[] getPosition() {return position;}
+
+	public GameObject setZoomFunc(ZoomCalculator zoomFunc) {
+		this.zoomCalculator = zoomFunc;
+		return this;
+	}
+
+	public GameObject setPositionFunc(PositionCorrector positionFunc) {
+		this.positionCorrector = positionFunc;
+		return this;
+	}
 
 }
 

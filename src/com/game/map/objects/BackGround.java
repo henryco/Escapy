@@ -64,7 +64,7 @@ public class BackGround extends InGameObject{
 		Texture background = new Texture(new FileHandle(getImgUrl()[0]));
 		background.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
-		double zm = calcBgrZoom(F_WIDTH, F_HEIGHT, background.getWidth(), background.getHeight(), zoom());
+		double zm = calcBgrZoom(F_WIDTH, F_HEIGHT, background.getWidth(), background.getHeight());
 
 		this.backgroundSprite = new Sprite(background);
 		this.backgroundSprite.flip(false, true);
@@ -74,7 +74,7 @@ public class BackGround extends InGameObject{
 	}
 
 
-	private static double calcBgrZoom(int frameW, int frameH, int w, int h, double scaleRatio) {
+	private static double calcBgrZoom(int frameW, int frameH, int w, int h) {
 		double xScale = frameW / w;
 		double yScale = frameH / h;
 		return Math.max(xScale, yScale);
