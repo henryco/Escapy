@@ -2,7 +2,7 @@ package com.game.map.objectsAlt.layers;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.map.objectsAlt.objects.GameObject;
+import com.game.render.EscapyUniRender;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.absContainer.EscapyAbsContainer;
 
@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 /**
  * @author Henry on 02/10/16.
  */
-public class ObjectLayer extends EscapyAbsContainer<GameObject> {
+public class ObjectLayer extends EscapyAbsContainer<EscapyUniRender> {
 
 	private Batch batch = new SpriteBatch();
 	public final String name;
@@ -47,7 +47,7 @@ public class ObjectLayer extends EscapyAbsContainer<GameObject> {
 		render(escapyCamera, t -> t.renderLightMap(batch));
 	}
 
-	private void render(EscapyGdxCamera camera, Consumer<GameObject> consumer) {
+	private void render(EscapyGdxCamera camera, Consumer<EscapyUniRender> consumer) {
 
 		batch.setProjectionMatrix(camera.combined());
 		batch.begin();

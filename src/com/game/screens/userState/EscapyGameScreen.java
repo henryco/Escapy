@@ -269,13 +269,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	public void renderLightMap(EscapyGdxCamera escapyCamera){
 
 		this.lightMapFBO.begin().clearFBO(1, 1, 1, 1);
-		this.lightsMapContainer.renderGraphic(escapyCamera);
+		this.mapObjects.renderLightMap(escapyCamera);
 		this.lightMapFBO.end();
 	}
 	public void renderNormalsMap(EscapyGdxCamera escapyCamera){
 
 		this.nrmlFBO.begin().clearFBO(0.502f, 0.502f, 1f, 1f);
-		this.normalsContainer.renderGraphic(escapyCamera);
+		this.mapObjects.renderNormals(escapyCamera);
 		this.nrmlFBO.end();
 	}
 

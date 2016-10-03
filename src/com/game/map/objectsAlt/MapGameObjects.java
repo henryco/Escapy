@@ -7,6 +7,7 @@ import com.game.map.objectsAlt.objects.GameObject;
 import com.game.map.objectsAlt.objects.StaticObject;
 import com.game.map.objectsAlt.objects.utils.PositionCorrector;
 import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
+import com.game.render.camera.EscapyGdxCamera;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
 import net.henryco.struct.container.tree.StructNode;
@@ -16,21 +17,32 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Henry on 03/10/16.
  */
 public class MapGameObjects {
 
-	public LayerContainer[] layerContainers;
+	public final LayerContainer[] layerContainers;
 
-	public MapGameObjects(){
-	}
 	public MapGameObjects(int[] dim, String location, String cfg) {
-		this.initGameObjects(dim, location, cfg);
+		layerContainers = this.initGameObjects(dim, location, cfg);
 	}
 
-	public MapGameObjects initGameObjects(int[] dim, String location, String cfgFile) {
+	public void forEach(Consumer<LayerContainer> cons) {
+		Arrays.stream(layerContainers).forEach(cons);
+	}
+
+	public void renderNormals(EscapyGdxCamera camera) {
+		for (LayerContainer c : layerContainers) c.forEach(l -> l.renderNormals(camera));
+	}
+
+	public void renderLightMap(EscapyGdxCamera camera) {
+		for (LayerContainer c : layerContainers) c.forEach(l -> l.renderLightMap(camera));
+	}
+
+	private LayerContainer[] initGameObjects(int[] dim, String location, String cfgFile) {
 
 		System.out.println(cfgFile);
 
@@ -38,11 +50,8 @@ public class MapGameObjects {
 		StructTree containerTree = StructContainer.tree(containerList);
 		System.out.println(containerTree);
 
-		layerContainers = loadContainer(containerTree.mainNode.getStruct("map"), dim, location);
-
-		return this;
+		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location);
 	}
-
 
 	private static LayerContainer[] loadContainer(StructNode mapNode, int[] dim, String location) {
 

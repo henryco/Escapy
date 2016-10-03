@@ -10,6 +10,7 @@ import com.game.animator.EscapyAnimatorSuperObject;
 import com.game.map.objectsAlt.objects.utils.PositionCorrector;
 import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
 import com.game.render.EscapyRenderable;
+import com.game.render.EscapyUniRender;
 import com.game.render.extra.lightMap.EscapyLightMapRenderer;
 import com.game.render.extra.normalMap.EscapyNormalMapRender;
 import com.game.utils.absContainer.EscapyContainerable;
@@ -18,7 +19,7 @@ import com.game.utils.absContainer.EscapyContainerable;
  * @author Henry on 02/10/16.
  */
 public abstract class GameObject extends EscapyAnimatorSuperObject
-		implements EscapyRenderable, EscapyNormalMapRender, EscapyLightMapRenderer, EscapyContainerable {
+		implements EscapyContainerable, EscapyUniRender {
 
 	public static final class type {
 
@@ -55,9 +56,6 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	}
 
 	public abstract void initializeGraphic();
-	public abstract void renderLightMap(Batch batch);
-	public abstract void renderGraphic(Batch batch);
-	public abstract void renderNormals(Batch batch);
 
 	@Override
 	public void initObjectAnimator(EscapyAnimatorObject object) {

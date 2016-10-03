@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.animator.EscapyAnimatorSuperCharacter;
 import com.game.physics_temp.EscapyPhysicsEvent;
 import com.game.render.EscapyRenderable;
+import com.game.render.EscapyUniRender;
 import com.game.render.extra.lightMap.EscapyLightMapRenderer;
 import com.game.render.extra.normalMap.EscapyNormalMapRender;
 
@@ -20,7 +21,7 @@ import com.game.render.extra.normalMap.EscapyNormalMapRender;
  */
 public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter 
 	implements EscapyRenderable, EscapyNormalMapRender, EscapyLightMapRenderer,
-		EscapyPhysicsEvent {
+		EscapyPhysicsEvent, EscapyUniRender {
 
 	private float xPos, yPos;
 	private float zoom;

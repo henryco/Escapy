@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.game.animator.EscapyAnimatorObject;
-import com.game.render.camera.EscapyGdxCamera;
 
 import java.util.Arrays;
 
@@ -90,36 +89,6 @@ public class AnimatedObject extends GameObject {
 		System.gc();
 	}
 
-
-	@Override
-	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-		if (obSpriteLTM != null) {
-			spriteBatch.setProjectionMatrix(escapyCamera.getCamera().combined);
-			spriteBatch.begin();
-			obSpriteLTM[animob.actualFrame].draw(spriteBatch);
-			spriteBatch.end();
-		}
-	}
-
-	@Override
-	public void renderGraphic(float[] translationVec, EscapyGdxCamera escapyCamera) {
-		if (obSpriteSTD != null) {
-			spriteBatch.setProjectionMatrix(escapyCamera.getCamera().combined);
-			spriteBatch.begin();
-			obSpriteSTD[animob.actualFrame].draw(spriteBatch);
-			spriteBatch.end();
-		}
-	}
-
-	@Override
-	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-		if (obSpriteNRML != null) {
-			spriteBatch.setProjectionMatrix(escapyCamera.getCamera().combined);
-			spriteBatch.begin();
-			obSpriteNRML[animob.actualFrame].draw(spriteBatch);
-			spriteBatch.end();
-		}
-	}
 
 	@Override
 	public void renderLightMap(Batch batch) {
