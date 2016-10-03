@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.map.objectsAlt.GameObject;
 import com.game.render.camera.EscapyGdxCamera;
+import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.StandartFBO;
 import com.game.utils.absContainer.EscapyAbsContainer;
 
 import java.util.function.Consumer;
@@ -14,11 +16,16 @@ import java.util.function.Consumer;
 public class ObjectLayer extends EscapyAbsContainer<GameObject> {
 
 	private Batch batch = new SpriteBatch();
+	public EscapyFBO layerFBO;
 
-	public ObjectLayer() {
+	public ObjectLayer(int[] dimension, String ... name) {
 		super();
 	}
 
+	public ObjectLayer initFBO(int[] dim, String ... name) {
+		this.layerFBO = new StandartFBO(dim, name);
+		return this;
+	}
 
 	public void renderGraphic(EscapyGdxCamera escapyCamera) {
 

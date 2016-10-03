@@ -35,6 +35,7 @@ public abstract class InGameObject extends EscapyAnimatorSuperObject
 	public InGameObject(float x, float y, int iD, String imgurl, double defzoom, int typo) {
 		xPos = x;
 		yPos = y;
+		System.out.println(x+" : "+y+" : "+imgurl+" : "+defzoom+" : "+typo + ": "+iD);
 		ID = iD;
 		imgUrl = new String[]{imgurl};
 		defZoom = defzoom;

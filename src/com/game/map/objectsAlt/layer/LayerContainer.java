@@ -7,8 +7,10 @@ import com.game.utils.arrContainer.EscapyArrContainer;
  */
 public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 
+
 	public LayerContainer() {
 		super(ObjectLayer.class);
 	}
+
 
 }
