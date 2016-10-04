@@ -70,7 +70,7 @@ lights: {
 	containers[0]: {
 
 		type: {
-			glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
+			glProgram.glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 			shader.builtIn: ADD_OVERLAY_STRONG
 
 //			custom shaders
