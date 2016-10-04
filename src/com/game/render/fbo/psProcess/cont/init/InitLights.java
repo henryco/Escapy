@@ -1,9 +1,7 @@
 package com.game.render.fbo.psProcess.cont.init;
 
 import com.badlogic.gdx.graphics.GL20;
-import com.game.render.EscapyLightMapRenderer;
-import com.game.render.EscapyNormalsMapRenderer;
-import com.game.render.extra.container.ExtraRenderContainer;
+import com.game.render.EscapyMapRenderer;
 import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsLightProxy;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
@@ -41,21 +39,21 @@ public class InitLights {
 	public InitLights() {
 		this.lights = new EscapyLights();
 	}
-	public InitLights(EscapyLightMapRenderer lightMapRenderer, EscapyNormalsMapRenderer normalsMapRenderer, String url, int[] dim_xywh) {
+	public InitLights(EscapyMapRenderer lightMapRenderer, EscapyMapRenderer normalsMapRenderer, String url, int[] dim_xywh) {
 		this.lights = new EscapyLights();
 		this.postExecutor = new LightsPostExecutor(dim_xywh[dim_xywh.length - 2], dim_xywh[dim_xywh.length - 1], normalsMapRenderer);
 		this.create(url, lightMapRenderer, dim_xywh);
 	}
 
 
-	public InitLights create(String url, EscapyLightMapRenderer lightMapRenderer, int[] dimension) {
+	public InitLights create(String url, EscapyMapRenderer lightMapRenderer, int[] dimension) {
 
 		lightID = loadLights(lightMapRenderer, new ArrayList<>(), url, dimension);
 		return this;
 	}
 
 
-	private int[][] loadLights(EscapyLightMapRenderer lightMapRenderer, ArrayList<int[]> IDList, String url, int[] dimension) {
+	private int[][] loadLights(EscapyMapRenderer lightMapRenderer, ArrayList<int[]> IDList, String url, int[] dimension) {
 
 		List<String[]>[] lightList = Struct.printDataFile(Struct.in.readStructData(url));
 		StructTree lightContainer = StructContainer.tree(lightList);
@@ -90,8 +88,8 @@ public class InitLights {
 			lightExecutor.setNormalMappingOn(enable);
 			if (executorNode.getStruct(node.normals).containsStruct(node.shader)) {
 				StructNode shaderNode = executorNode.getStruct(node.normals).getStruct(node.shader);
-				if (shaderNode.containsPrimitive(node.shaderBuiltIn)) {
-					if (shaderNode.getPrimitive(node.shaderBuiltIn).equalsIgnoreCase(node.defaults)) {
+				if (shaderNode.containsPrimitive(node.builtIn)) {
+					if (shaderNode.getPrimitive(node.builtIn).equalsIgnoreCase(node.defaults)) {
 						if (shaderNode.containsStruct(node.shaderFields)) {
 							StructNode fieldNode = shaderNode.getStruct(node.shaderFields);
 							if (fieldNode.containsPrimitive(node.spriteSize) || fieldNode.containsPrimitive("0"))
@@ -131,12 +129,12 @@ public class InitLights {
 					EscapyBlendRenderer blendProgram = null;
 
 					if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).contains("0")) {
-						String fieldName = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getPrimitive("0");
+						String fieldName = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct("0").getPrimitive(node.builtIn);
 						Field additiveBlendProgram = GLBlendProgram.class.getDeclaredField(fieldName);
 						additiveBlendProgram.setAccessible(true);
 						additiveProgram = (int[])additiveBlendProgram.get(GLBlendProgram.class.newInstance());
 					} else {
-						StructNode addBlendNode = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.addFunc);
+						StructNode addBlendNode = containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.glProgram).getStruct(node.addFunc);
 						for (int i = 0; i < 4; i++) {
 							String name = addBlendNode.getPrimitive(Integer.toString(i));
 							Field addProgram = GL20.class.getDeclaredField(name);
@@ -154,8 +152,8 @@ public class InitLights {
 					if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).contains("1")) {
 						blendProgram = ShaderBlendProgram.blendProgram(getStringField(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type), "1"));
 					} else {
-						if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).containsPrimitive(node.shaderBuiltIn))
-							blendProgram = ShaderBlendProgram.blendProgram(getStringField(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader), node.shaderBuiltIn));
+						if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).containsPrimitive(node.builtIn))
+							blendProgram = ShaderBlendProgram.blendProgram(getStringField(containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader), node.builtIn));
 						else if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).containsStruct(node.shader)) {
 							if (containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).contains(node.file) ||
 									containersNode.getStruct(Integer.toString(iter)).getStruct(node.type).getStruct(node.shader).contains(node.fileDir)) {
@@ -213,7 +211,7 @@ public class InitLights {
 	}
 
 	private static ArrayList<int[]> loadFromContainer(ArrayList<int[]> IDList, StructNode containersNode,
-													  EscapyLightMapRenderer lightMapRenderer, EscapyLights lights) throws StructContainerException {
+													  EscapyMapRenderer lightMapRenderer, EscapyLights lights) throws StructContainerException {
 		boolean stop = false;
 		int iter = 0;
 		while (!stop) {
@@ -358,7 +356,7 @@ public class InitLights {
 		private static final String blur = "blur";
 		private static final String shader = "shader";
 		private static final String shaderFields = "fields";
-		private static final String shaderBuiltIn = "builtIn";
+		private static final String builtIn = "builtIn";
 		private static final String shaderVertex = "vertex";
 		private static final String shaderFragment = "fragment";
 		private static final String shaderUniforms = "uniforms";
@@ -369,6 +367,7 @@ public class InitLights {
 		private static final String dir = "dir";
 		private static final String shaderName = "name";
 		private static final String addFunc = "glBlendFuncSeparate";
+		private static final String glProgram = "glProgram";
 		private static final String direct = "direct";
 		private static final String ambient = "ambient";
 		private static final String shadow = "shadow";

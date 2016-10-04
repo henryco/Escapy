@@ -40,7 +40,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	/** The player camera program ID. */
 	protected int playerCameraProgramID;
 
-	private EscapyFBO stdFBO, bgrFBO, lightBuffFBO, MAIN_STD_FBO;
+	private EscapyFBO stdFBO, bgrFBO, lightBuffFBO;
 	private ExtraRenderContainer stdContainer, bgrContainer;
 
 	private TransVec otherTranslationVec;
@@ -105,20 +105,19 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void init_fbo(Object ... vars) {
 
         this.lightBuffFBO = new StandartFBO((int[])vars[0], "<LIGHT_FBUFFER>");
-        this.MAIN_STD_FBO = new StandartFBO((int[])vars[0], "<MAIN_FBUFFER>");
         this.bgrFBO = new StandartFBO((int[])vars[0], "<BGR_FBUFFER>");
         this.stdFBO = new StandartFBO((int[])vars[0], "<STD_FBUFFER>");
     }
     public void init_mask(Object ... vars) {
 
-		stdMask = new LightMask((int[])vars[0]).setColor(40,40,40,250);
-		bgrMask = new LightMask((int[])vars[0]).setColor(60,60,60,250);
+		stdMask = new LightMask((int[])vars[0], true, "<STD_MASK_FBUFFER>").setColor(40,40,40,250);
+		bgrMask = new LightMask((int[])vars[0], true, "<BGR_MASK_FBUFFER>").setColor(60,60,60,250);
 	}
     public void init_containers(Object ... vars) {
 
         this.bgrContainer = new ExtraRenderContainer();
         this.stdContainer = new ExtraRenderContainer();
-		
+
         this.bgrContainer.addSource(new StdRenderer(mapContainer.backGround()));
         for (int i = 0; i < 4; i++)
             for (int j = 0; j < mapContainer.objectSize()[mapContainer.indexTab()[i]]; j++) {
@@ -230,9 +229,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.ESCAPE();
     }
     public void resetFBO(){
-
-        super.escapyCamera.clear();
-        this.MAIN_STD_FBO.forceWipeFBO();
+		super.escapyCamera.wipe();
         this.lightBuffFBO.forceWipeFBO();
     }
 
@@ -252,12 +249,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
     public void renderMasks() {
 
-		bgrMask.renderMask(bgrFBO.getTextureRegion().getTexture());
-		MAIN_STD_FBO = stdMask.renderMaskBuffered(stdFBO.getTextureRegion().getTexture(), MAIN_STD_FBO);
-    }
+		bgrMask.renderMaskBuffered(bgrFBO.getTextureRegion().getTexture()).renderFBO();
+		stdMask.renderMaskBuffered(stdFBO.getTextureRegion().getTexture()).renderFBO();
+	}
 	public void renderFBO() {
 
-		MAIN_STD_FBO.renderFBO();
 		lightContainer.lights.forEach(l -> l.makeLights().renderBlendedLights(escapyCamera, stdFBO.getSpriteRegion(), lightBuffFBO));
 		lightContainer.postExecutor.processLightBuffer(lightBuffFBO.getSpriteRegion(), escapyCamera);
 

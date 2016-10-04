@@ -6,7 +6,7 @@ import com.game.render.camera.EscapyGdxCamera;
  * @author Henry on 04/10/16.
  */
 @FunctionalInterface
-public interface EscapyNormalsMapRenderer {
+public interface EscapyMapRenderer {
 
-	void renderNormalsMap(EscapyGdxCamera escapyCamera);
+	void renderTextureMap(EscapyGdxCamera escapyCamera);
 }
