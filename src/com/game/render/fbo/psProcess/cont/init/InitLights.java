@@ -1,6 +1,8 @@
 package com.game.render.fbo.psProcess.cont.init;
 
 import com.badlogic.gdx.graphics.GL20;
+import com.game.render.EscapyLightMapRenderer;
+import com.game.render.EscapyNormalsMapRenderer;
 import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsLightProxy;
@@ -39,21 +41,21 @@ public class InitLights {
 	public InitLights() {
 		this.lights = new EscapyLights();
 	}
-	public InitLights(ExtraRenderContainer lightMapContainer, String url, int[] dim_xywh) {
+	public InitLights(EscapyLightMapRenderer lightMapRenderer, EscapyNormalsMapRenderer normalsMapRenderer, String url, int[] dim_xywh) {
 		this.lights = new EscapyLights();
-		this.postExecutor = new LightsPostExecutor(dim_xywh[dim_xywh.length - 2], dim_xywh[dim_xywh.length - 1]);
-		this.create(url, lightMapContainer, dim_xywh);
+		this.postExecutor = new LightsPostExecutor(dim_xywh[dim_xywh.length - 2], dim_xywh[dim_xywh.length - 1], normalsMapRenderer);
+		this.create(url, lightMapRenderer, dim_xywh);
 	}
 
 
-	public InitLights create(String url, ExtraRenderContainer lightMapContainer, int[] dimension) {
+	public InitLights create(String url, EscapyLightMapRenderer lightMapRenderer, int[] dimension) {
 
-		lightID = loadLights(lightMapContainer, new ArrayList<>(), url, dimension);
+		lightID = loadLights(lightMapRenderer, new ArrayList<>(), url, dimension);
 		return this;
 	}
 
 
-	private int[][] loadLights(ExtraRenderContainer lightMapContainer, ArrayList<int[]> IDList, String url, int[] dimension) {
+	private int[][] loadLights(EscapyLightMapRenderer lightMapRenderer, ArrayList<int[]> IDList, String url, int[] dimension) {
 
 		List<String[]>[] lightList = Struct.printDataFile(Struct.in.readStructData(url));
 		StructTree lightContainer = StructContainer.tree(lightList);
@@ -63,7 +65,7 @@ public class InitLights {
 			StructNode lightsNode = lightContainer.mainNode.getStruct(node.lights);
 			postExecutor = loadExecutor(postExecutor, lightsNode.getStruct(node.lightExecutor));
 			lights = loadContainer(lights, lightsNode.getStruct(node.containers), dimension);
-			IDList = loadFromContainer(IDList, lightsNode.getStruct(node.containers), lightMapContainer, lights);
+			IDList = loadFromContainer(IDList, lightsNode.getStruct(node.containers), lightMapRenderer, lights);
 		} catch (StructContainerException e) {e.printStackTrace();}
 
 
@@ -211,7 +213,7 @@ public class InitLights {
 	}
 
 	private static ArrayList<int[]> loadFromContainer(ArrayList<int[]> IDList, StructNode containersNode,
-													  ExtraRenderContainer lightMapContainer, EscapyLights lights) throws StructContainerException {
+													  EscapyLightMapRenderer lightMapRenderer, EscapyLights lights) throws StructContainerException {
 		boolean stop = false;
 		int iter = 0;
 		while (!stop) {
@@ -286,8 +288,8 @@ public class InitLights {
 						if (lightNode.contains(node.visible)) 	proxy.visible = Boolean.parseBoolean(lightNode.getPrimitive(node.visible));
 
 						if (lightType.equalsIgnoreCase("EscapyShadedLight")) {
-							if (proxy.accuracy != Integer.MAX_VALUE) absStdLight = new EscapyShadedLight(lightMapContainer, proxy.accuracy, escapyLightType);
-							else absStdLight = new EscapyShadedLight(lightMapContainer, escapyLightType);
+							if (proxy.accuracy != Integer.MAX_VALUE) absStdLight = new EscapyShadedLight(lightMapRenderer, proxy.accuracy, escapyLightType);
+							else absStdLight = new EscapyShadedLight(lightMapRenderer, escapyLightType);
 						}
 						else absStdLight = new EscapyStdLight(escapyLightType);
 

@@ -4,108 +4,113 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.game.characters.states.stdCharacter.StdCharacter;
 import com.game.characters.states.stdCharacter.stdNPC.NPC;
 import com.game.characters.states.stdCharacter.stdPlayer.Player;
+import com.game.render.EscapyUniRender;
 
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class InitCharacters.
  */
-public class InitCharacters {
+public class InitCharacters implements EscapyUniRender {
 
 	private ArrayList<String>[] playerAnimationUrlTab;
 	private ArrayList<Integer>[] playerTimeTab;
 	private StdCharacter player;
 	private NPC[] npc;
-	
+
+	private int ID;
+
 	/**
 	 * Instantiates a new inits the characters.
 	 */
-	public InitCharacters()
-	{
+	public InitCharacters() {
 		loadAnimationDataFF();
 		this.player = new Player(playerAnimationUrlTab, playerTimeTab, 4f);
 		this.setNpc(new NPC[0]);// TEMP
-		
+
+	}
+
+	private void render(Consumer<EscapyUniRender> cons) {
+		for (NPC n : npc) cons.accept(n);
+		cons.accept(player);
+	}
+
+	@Override
+	public void renderLightMap(Batch batch) {
+		render(uni -> uni.renderLightMap(batch));
+	}
+
+	@Override
+	public void renderGraphic(Batch batch) {
+		render(uni -> uni.renderGraphic(batch));
+	}
+
+	@Override
+	public void renderNormals(Batch batch) {
+		render(uni -> uni.renderNormals(batch));
 	}
 
 
+	@Override
+	public void setID(int id) {
+		this.ID = Integer.hashCode(this.hashCode() + Integer.hashCode(id));
+	}
+
+	@Override
+	public int getID() {
+		return ID;
+	}
+
 	@SuppressWarnings("unchecked")
-	private void loadAnimationDataFF()
-	{
+	private void loadAnimationDataFF() {
 		String[] names = new String[]{"stand", "walk", "run", "jump", "fall", "land"};
 		playerAnimationUrlTab = new ArrayList[6];
 		playerTimeTab = new ArrayList[6];
 		String line;
-		for (int i = 0; i < names.length; i++)
-		{
+		for (int i = 0; i < names.length; i++) {
 			playerAnimationUrlTab[i] = new ArrayList<>();
 			playerTimeTab[i] = new ArrayList<>();
 			try (BufferedReader doc = new BufferedReader(new FileReader("data/characters/player/"
-					+names[i]+"/"+names[i]+".txt")))
-			{
-				while ((line = doc.readLine()) != null) 
-				{
+					+ names[i] + "/" + names[i] + ".txt"))) {
+				while ((line = doc.readLine()) != null) {
 					playerAnimationUrlTab[i].add("data/characters/player/"
-							+ names[i]+"/"+line.substring(0, line.indexOf("\t"))+".png");
-					playerTimeTab[i].add(Integer.parseInt(line.substring(line.indexOf("\t")+1)));
+							+ names[i] + "/" + line.substring(0, line.indexOf("\t")) + ".png");
+					playerTimeTab[i].add(Integer.parseInt(line.substring(line.indexOf("\t") + 1)));
 				}
 				doc.close();
 			} catch (IOException e) {
 				e.printStackTrace();
-			} 
+			}
 		}
 	}
 
 
-
-	
-	/**
-	 * StdCharacter.
-	 *
-	 * @return the player
-	 */
 	public Player player() {
 		return (Player) this.player;
 	}
-	
 	public Player getPlayer() {
 		return (Player) this.player;
 	}
-	
-	public InitCharacters createNewPlayer(Player newPlayer){
+	public InitCharacters createNewPlayer(Player newPlayer) {
 		this.player = newPlayer;
 		return this;
 	}
-	
-	/**
-	 * Npc.
-	 *
-	 * @return the NP c[]
-	 */
 	public NPC getNPC(int index) {
 		return this.npc[index];
 	}
-	
-	/**
-	 * Gets the npc.
-	 *
-	 * @return the npc
-	 */
 	public NPC[] npc() {
 		return npc;
 	}
-
-	/**
-	 * Sets the npc.
-	 *
-	 * @param npc
-	 *            the new npc
-	 */
 	public void setNpc(NPC[] npc) {
 		this.npc = npc;
 	}
+
+
 }

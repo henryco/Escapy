@@ -7,6 +7,7 @@ import com.game.map.objectsAlt.objects.GameObject;
 import com.game.map.objectsAlt.objects.StaticObject;
 import com.game.map.objectsAlt.objects.utils.PositionCorrector;
 import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
+import com.game.render.EscapyUniRender;
 import com.game.render.camera.EscapyGdxCamera;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
@@ -26,8 +27,8 @@ public class MapGameObjects {
 
 	public final LayerContainer[] layerContainers;
 
-	public MapGameObjects(int[] dim, String location, String cfg) {
-		layerContainers = this.initGameObjects(dim, location, cfg);
+	public MapGameObjects(int[] dim, String location, String cfg, EscapyUniRender ... uniRenders) {
+		layerContainers = this.initGameObjects(dim, location, cfg, uniRenders);
 	}
 
 	public void forEach(Consumer<LayerContainer> cons) {
@@ -42,7 +43,7 @@ public class MapGameObjects {
 		for (LayerContainer c : layerContainers) c.forEach(l -> l.renderLightMap(camera));
 	}
 
-	private LayerContainer[] initGameObjects(int[] dim, String location, String cfgFile) {
+	private LayerContainer[] initGameObjects(int[] dim, String location, String cfgFile, EscapyUniRender ... uniRenders) {
 
 		System.out.println(cfgFile);
 
@@ -50,10 +51,10 @@ public class MapGameObjects {
 		StructTree containerTree = StructContainer.tree(containerList);
 		System.out.println(containerTree);
 
-		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location);
+		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location, uniRenders);
 	}
 
-	private static LayerContainer[] loadContainer(StructNode mapNode, int[] dim, String location) {
+	private static LayerContainer[] loadContainer(StructNode mapNode, int[] dim, String location, EscapyUniRender ... uniRenders) {
 
 		List<LayerContainer> containers = new ArrayList<>();
 		StructNode container = mapNode.getStruct("container");
@@ -62,22 +63,22 @@ public class MapGameObjects {
 			StructNode actualCont = container.getStruct(Integer.toString(i));
 			String fboName = "";
 			if (actualCont.containsPrimitive("fboName")) fboName = actualCont.getPrimitive("fboName");
-			containers.add(fillContainer(new LayerContainer(dim, fboName), actualCont, location, dim));
+			containers.add(fillContainer(new LayerContainer(dim, fboName), actualCont, location, dim, uniRenders));
 		}
 		return containers.toArray(new LayerContainer[containers.size()]);
 	}
 
-	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location, int[] dim) {
+	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location, int[] dim, EscapyUniRender ... uniRenders) {
 
 		if (containerNode.containsStruct("layer")) {
 			StructNode layerNode = containerNode.getStruct("layer");
 			int[] iter = getIntArray(layerNode.getStructChild());
-			for (int i : iter) container.addSource(loadLayer(layerNode.getStruct(Integer.toString(i)), location, dim));
+			for (int i : iter) container.addSource(loadLayer(layerNode.getStruct(Integer.toString(i)), location, dim, uniRenders));
 		}
 		return container;
 	}
 
-	private static ObjectLayer loadLayer(StructNode actLayerNode, String location, int[] dim){
+	private static ObjectLayer loadLayer(StructNode actLayerNode, String location, int[] dim, EscapyUniRender ... uniRenders){
 
 		String layerName = "";
 		float[] xyShift = new float[2];
@@ -86,15 +87,26 @@ public class MapGameObjects {
 			xyShift[0] = Float.parseFloat(actLayerNode.getStruct("stepShift").getPrimitive("0", "x"));
 			xyShift[1] = Float.parseFloat(actLayerNode.getStruct("stepShift").getPrimitive("1", "y"));
 		}
-		return fillLayer(new ObjectLayer(xyShift[0], xyShift[1], layerName), actLayerNode, location, dim);
+		return fillLayer(new ObjectLayer(xyShift[0], xyShift[1], layerName), actLayerNode, location, dim, uniRenders);
 	}
 
-	private static ObjectLayer fillLayer(ObjectLayer layer, StructNode actLayerNode, String location, int[] dim) {
+	private static ObjectLayer fillLayer(ObjectLayer layer, StructNode actLayerNode, String location, int[] dim, EscapyUniRender ... uniRenders) {
 
 		if (actLayerNode.containsStruct("objects")) {
 			StructNode objectsNode = actLayerNode.getStruct("objects");
 			int[] iter = getIntArray(objectsNode.getStructChild());
 			for (int i : iter) layer.addSource(loadGameObject(objectsNode.getStruct(Integer.toString(i)), location, dim));
+		}
+		if (actLayerNode.containsStruct("uniRender"))
+			layer = loadUniRenders(layer, actLayerNode.getStruct("uniRender"), uniRenders);
+		return layer;
+	}
+
+	private static ObjectLayer loadUniRenders(ObjectLayer layer, StructNode uniRenderNode, EscapyUniRender ... uniRenders) {
+
+		int[] iter = getIntArray(uniRenderNode.getPrimitiveChild());
+		for (int i : iter) {
+			if (uniRenderNode.getPrimitive(Integer.toString(i)).equalsIgnoreCase("CHARACTERS")) layer.addSource(uniRenders[0]);
 		}
 		return layer;
 	}

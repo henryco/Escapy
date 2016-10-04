@@ -40,8 +40,6 @@ public abstract class StdCharacter extends AbstractCharacters
 	public StdCharacter(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		super(urls, times, zoom);
 		this.initCharacter();
-		
-
 	}
 
 	public StdCharacter(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom, int[] position) {
@@ -91,11 +89,17 @@ public abstract class StdCharacter extends AbstractCharacters
 		try {
 			if (lastWasRight()) sprite = this.setFrame0(textures[actualFrame]);
 			else if (lastWasLeft()) sprite = this.setFrame180(textures[actualFrame]);
-		} catch (Exception ignored) {}
 
-		batch.begin();
+		} catch (Exception ignored) {}
 		sprite.setPosition(super.xPos(), super.yPos());
 		sprite.draw(batch);
+	}
+
+	@Deprecated
+	private void render2(Batch batch, Sprite sprite, Texture[] textures){
+
+		batch.begin();
+		render(batch, sprite, textures);
 		batch.end();
 	}
 
@@ -117,25 +121,28 @@ public abstract class StdCharacter extends AbstractCharacters
 
 
 	@Override
+	@Deprecated
 	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 
 		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-		render(super.spriteBatcher, characterSprite, actualTexture);
+		render2(super.spriteBatcher, characterSprite, actualTexture);
 	}
 	
 
 	@Override
+	@Deprecated
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 
 		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-		render(super.spriteBatcher, NRMLSprite, actualNRMLTexture);
+		render2(super.spriteBatcher, NRMLSprite, actualNRMLTexture);
 	}
 	
 	@Override
+	@Deprecated
 	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
 
 		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-		render(super.spriteBatcher, LTMPSprite, actualLTMPTexture);
+		render2(super.spriteBatcher, LTMPSprite, actualLTMPTexture);
 	}
 	
 	

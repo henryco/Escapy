@@ -1,15 +1,14 @@
 package com.game.render.fbo.psProcess.lights.volLight.userState;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.game.render.EscapyNormalsMapRenderer;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.StandartFBO;
 import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.volumeLight.EscapyVolumeRenderer;
 import com.game.render.shader.volumeLight.userState.EscapyStdVolumeRenderer;
-import com.game.screens.userState.EscapyGameScreen;
 import com.game.utils.translationVec.TransVec;
-
-import java.util.function.Consumer;
 
 /**
  * @author Henry on 26/09/16.
@@ -22,6 +21,9 @@ public class LightsPostExecutor {
 	private EscapyStdShaderRenderer stdRenderer;
 
 	private boolean normalMappingOn, blur;
+
+	private EscapyFBO normalMapFBO;
+	private EscapyNormalsMapRenderer normalsMapRenderer;
 
 	private float directIntensity, ambientIntesity, shadowIntensity, spriteSize, lumimance;
 
@@ -39,24 +41,32 @@ public class LightsPostExecutor {
 		this.stdRenderer = new EscapyStdShaderRenderer();
 	}
 
-	public LightsPostExecutor(float frameWidth, float frameHeight) {
+	public LightsPostExecutor(float frameWidth, float frameHeight, EscapyNormalsMapRenderer normalsMapRenderer) {
 		setFrameDim(new TransVec(frameWidth, frameHeight));
 		camera = new EscapyGdxCamera((int) frameWidth, (int) frameHeight);
+		normalMapFBO = new StandartFBO(new int[]{0, 0, (int) frameWidth, (int) frameHeight}, "<NORMAL_MAP_FBUFFER>");
+		setNormalsMapRenderer(normalsMapRenderer);
 	}
-	public LightsPostExecutor(float[] dim) {
+	public LightsPostExecutor(float[] dim, EscapyNormalsMapRenderer normalsMapRenderer) {
 		setFrameDim(new TransVec(dim));
 		camera = new EscapyGdxCamera((int) dim[0], (int) dim[1]);
+		normalMapFBO = new StandartFBO(new int[]{0, 0, (int) dim[0], (int) dim[1]}, "<NORMAL_MAP_FBUFFER>");
+		setNormalsMapRenderer(normalsMapRenderer);
 	}
-	public LightsPostExecutor(TransVec dim) {
+	public LightsPostExecutor(TransVec dim, EscapyNormalsMapRenderer normalsMapRenderer) {
 		setFrameDim(new TransVec(dim));
 		camera = new EscapyGdxCamera((int) dim.x, (int) dim.y);
+		normalMapFBO = new StandartFBO(new int[]{0, 0, (int)dim.x, (int)dim.y}, "<NORMAL_MAP_FBUFFER>");
+		setNormalsMapRenderer(normalsMapRenderer);
 	}
 
 
-
-	@SafeVarargs
-	public final void containerFunc(EscapyGameScreen instance, Consumer<EscapyGameScreen>... func) {
-		if (normalMappingOn) for (Consumer<EscapyGameScreen> f : func) f.accept(instance);
+	public void processFunc(EscapyGdxCamera camera) {
+		if (normalMappingOn) {
+			normalMapFBO.begin().clearFBO(0.502f, 0.502f, 1f, 1f);
+			normalsMapRenderer.renderNormalsMap(camera);
+			normalMapFBO.end();
+		}
 	}
 
 	public void processLightBuffer(EscapyGdxCamera camera, Sprite colorMap, Sprite normalsMap) {
@@ -67,6 +77,10 @@ public class LightsPostExecutor {
 	}
 	public void processLightBuffer(Sprite colorMap, Sprite normalsMap) {
 		processLightBuffer(camera, colorMap, normalsMap);
+	}
+	public void processLightBuffer(Sprite colorMap, EscapyGdxCamera cam) {
+		processFunc(cam);
+		processLightBuffer(camera, colorMap, normalMapFBO.getSpriteRegion());
 	}
 	public EscapyFBO processLightBuffer(EscapyFBO fbo, EscapyGdxCamera camera, Sprite colorMap, Sprite normalsMap) {
 
@@ -81,8 +95,9 @@ public class LightsPostExecutor {
 	}
 
 
-
-
+	public void setNormalsMapRenderer(EscapyNormalsMapRenderer normalsMapRenderer) {
+		this.normalsMapRenderer = normalsMapRenderer;
+	}
 	public LightsPostExecutor setFrameDim(TransVec frameDim) {
 		return setFrameDim(frameDim.x, frameDim.y);
 	}

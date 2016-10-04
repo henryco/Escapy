@@ -7,6 +7,7 @@ import com.game.render.EscapyRenderable;
 /**
  * The Interface EscapyNormalMapRender.
  */
+@Deprecated
 public interface EscapyNormalMapRender extends EscapyRenderable {
 
 	/**
