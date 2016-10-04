@@ -22,7 +22,7 @@ containers - <b>light containers</b><br><br>
       blur: false;
     }	
   
-  glBlendFuncSeparate - <b>manual alternative for built in GL blend programs</b><br>
+  glProgram.glBlendFuncSeparate - <b>manual alternative for built in GL blend programs (glProgram.builtIn: #)</b><br>
 
   shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");<br>
   <b>^ manual alternative for built in shaders</b><br>
