@@ -14,7 +14,7 @@ containers - <b>light containers</b><br><br>
   type[2] = <b>blur </b> <br>
 
 	type: { - alternative 
-      glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
+      glProgram.glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
       shader.builtIn: OVERLAY
       shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
       shader.fileDir("data/shaders/blend/screen/", "screen");
