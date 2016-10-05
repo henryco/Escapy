@@ -1,4 +1,4 @@
-package com.game.map.objectsAlt.objects;
+package com.game.map.objects.objects;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;

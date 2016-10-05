@@ -1,4 +1,4 @@
-package com.game.map.objectsAlt.objects;
+package com.game.map.objects.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.animator.EscapyAnimatorObject;
 import com.game.animator.EscapyAnimatorSuperObject;
-import com.game.map.objectsAlt.objects.utils.PositionCorrector;
-import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
+import com.game.map.objects.objects.utils.PositionCorrector;
+import com.game.map.objects.objects.utils.ZoomCalculator;
 import com.game.render.EscapyUniRender;
 import com.game.utils.absContainer.EscapyContainerable;
 

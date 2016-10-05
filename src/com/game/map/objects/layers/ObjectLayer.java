@@ -1,9 +1,9 @@
-package com.game.map.objectsAlt.layers;
+package com.game.map.objects.layers;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.game.map.objectsAlt.layers.utils.LayerCameraShift;
+import com.game.map.objects.layers.utils.LayerCameraShift;
 import com.game.render.EscapyUniRender;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.absContainer.EscapyAbsContainer;

@@ -1,13 +1,13 @@
-package com.game.map.objectsAlt;
+package com.game.map.objects;
 
 import com.badlogic.gdx.graphics.GL20;
-import com.game.map.objectsAlt.layers.LayerContainer;
-import com.game.map.objectsAlt.layers.ObjectLayer;
-import com.game.map.objectsAlt.objects.AnimatedObject;
-import com.game.map.objectsAlt.objects.GameObject;
-import com.game.map.objectsAlt.objects.StaticObject;
-import com.game.map.objectsAlt.objects.utils.PositionCorrector;
-import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
+import com.game.map.objects.layers.LayerContainer;
+import com.game.map.objects.layers.ObjectLayer;
+import com.game.map.objects.objects.AnimatedObject;
+import com.game.map.objects.objects.GameObject;
+import com.game.map.objects.objects.StaticObject;
+import com.game.map.objects.objects.utils.PositionCorrector;
+import com.game.map.objects.objects.utils.ZoomCalculator;
 import com.game.render.EscapyUniRender;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.cont.init.EscapyLights;
@@ -85,7 +85,6 @@ public class MapGameObjects {
 	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location,
 												String cfgLoc, MapGameObjects mgo, int[] dim, EscapyUniRender ... uniRenders) {
 
-		System.out.println(cfgLoc);
 		if (containerNode.containsStruct("lights")) container.setLights(loadLights(containerNode.getStruct("lights"), cfgLoc, mgo, dim));
 		if (containerNode.containsStruct("mask")) container.setMask(loadMask(containerNode.getStruct("mask"), dim));
 		if (containerNode.containsStruct("layer")) {
@@ -101,6 +100,7 @@ public class MapGameObjects {
 		String loc = location;
 		if (lightsNode.containsPrimitive("path") || lightsNode.containsPrimitive("0")) loc = ePrep(lightsNode.getPrimitive("path", "0"));
 		loc += lightsNode.getPrimitive("file", "1");
+		System.out.println("\nLIGHTS: "+loc);
 		return new LightContainer(mgo::renderLightMap, null, loc, new int[]{0, 0, dim[0], dim[1]}).lights;
 	}
 

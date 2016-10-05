@@ -1,6 +1,6 @@
-package com.game.map.objectsAlt.layers;
+package com.game.map.objects.layers;
 
-import com.game.map.objectsAlt.layers.utils.UniMaskRenderer;
+import com.game.map.objects.layers.utils.UniMaskRenderer;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;

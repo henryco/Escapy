@@ -1,4 +1,4 @@
-package com.game.map.objectsAlt.layers.utils;
+package com.game.map.objects.layers.utils;
 
 import com.game.render.camera.EscapyGdxCamera;
 
