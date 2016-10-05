@@ -11,7 +11,7 @@ import java.util.function.Function;
 public class EscapyLights {
 
 	public EscapyLightContainer[] lightContainers = new EscapyLightContainer[0];
-
+	private int size;
 	public EscapyLights() {
 
 	}
@@ -22,6 +22,7 @@ public class EscapyLights {
 		System.arraycopy(lightContainers, 0, tmp, 0, lightContainers.length);
 		tmp[tmp.length - 1] = container;
 		lightContainers = tmp;
+		size += 1;
 		return this;
 	}
 
@@ -31,5 +32,9 @@ public class EscapyLights {
 
 	public void forEach(Consumer<EscapyLightContainer> consumer) {
 		for (EscapyLightContainer container : lightContainers) consumer.accept(container);
+	}
+
+	public int size(){
+		return size;
 	}
 }

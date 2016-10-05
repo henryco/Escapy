@@ -10,9 +10,13 @@ import com.game.map.objectsAlt.objects.utils.PositionCorrector;
 import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
 import com.game.render.EscapyUniRender;
 import com.game.render.camera.EscapyGdxCamera;
+import com.game.render.fbo.psProcess.cont.init.EscapyLights;
+import com.game.render.fbo.psProcess.cont.init.LightContainer;
+import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
 import com.game.render.mask.LightMask;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
+import net.henryco.struct.container.exceptions.StructContainerException;
 import net.henryco.struct.container.tree.StructNode;
 import net.henryco.struct.container.tree.StructTree;
 
@@ -28,6 +32,7 @@ import java.util.function.Consumer;
 public class MapGameObjects {
 
 	public final LayerContainer[] layerContainers;
+	private LightsPostExecutor postExecutor;
 
 	public MapGameObjects(int[] dim, String location, String cfg, EscapyUniRender ... uniRenders) {
 		layerContainers = this.initGameObjects(dim, location, cfg, uniRenders);
@@ -35,6 +40,10 @@ public class MapGameObjects {
 
 	public void forEach(Consumer<LayerContainer> cons) {
 		Arrays.stream(layerContainers).forEach(cons);
+	}
+
+	public void postExecutorFunc(Consumer<LightsPostExecutor> f) {
+		if (postExecutor != null) f.accept(postExecutor);
 	}
 
 	public void renderNormals(EscapyGdxCamera camera) {
@@ -53,10 +62,13 @@ public class MapGameObjects {
 		StructTree containerTree = StructContainer.tree(containerList);
 		System.out.println(containerTree);
 
-		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location, uniRenders);
+		if (containerTree.mainNode.getStruct("map").containsStruct("lightExecutor"))
+			postExecutor = loadExecutor(containerTree.mainNode.getStruct("map").getStruct("lightExecutor"), this, dim);
+
+		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location, cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1), this, uniRenders);
 	}
 
-	private static LayerContainer[] loadContainer(StructNode mapNode, int[] dim, String location, EscapyUniRender ... uniRenders) {
+	private static LayerContainer[] loadContainer(StructNode mapNode, int[] dim, String location, String cfgLoc, MapGameObjects mgo, EscapyUniRender ... uniRenders) {
 
 		List<LayerContainer> containers = new ArrayList<>();
 		StructNode container = mapNode.getStruct("container");
@@ -65,13 +77,16 @@ public class MapGameObjects {
 			StructNode actualCont = container.getStruct(Integer.toString(i));
 			String fboName = "";
 			if (actualCont.containsPrimitive("fboName")) fboName = actualCont.getPrimitive("fboName");
-			containers.add(fillContainer(new LayerContainer(dim, fboName), actualCont, location, dim, uniRenders));
+			containers.add(fillContainer(new LayerContainer(dim, fboName), actualCont, location, cfgLoc, mgo, dim, uniRenders));
 		}
 		return containers.toArray(new LayerContainer[containers.size()]);
 	}
 
-	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location, int[] dim, EscapyUniRender ... uniRenders) {
+	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location,
+												String cfgLoc, MapGameObjects mgo, int[] dim, EscapyUniRender ... uniRenders) {
 
+		System.out.println(cfgLoc);
+		if (containerNode.containsStruct("lights")) container.setLights(loadLights(containerNode.getStruct("lights"), cfgLoc, mgo, dim));
 		if (containerNode.containsStruct("mask")) container.setMask(loadMask(containerNode.getStruct("mask"), dim));
 		if (containerNode.containsStruct("layer")) {
 			StructNode layerNode = containerNode.getStruct("layer");
@@ -79,6 +94,14 @@ public class MapGameObjects {
 			for (int i : iter) container.addSource(loadLayer(layerNode.getStruct(Integer.toString(i)), location, dim, uniRenders));
 		}
 		return container;
+	}
+
+	private static EscapyLights loadLights(StructNode lightsNode, String location, MapGameObjects mgo, int[] dim) {
+
+		String loc = location;
+		if (lightsNode.containsPrimitive("path") || lightsNode.containsPrimitive("0")) loc = ePrep(lightsNode.getPrimitive("path", "0"));
+		loc += lightsNode.getPrimitive("file", "1");
+		return new LightContainer(mgo::renderLightMap, null, loc, new int[]{0, 0, dim[0], dim[1]}).lights;
 	}
 
 	private static LightMask loadMask(StructNode maskNode, int[] dim) {
@@ -192,7 +215,7 @@ public class MapGameObjects {
 				period[i] = Integer.parseInt(actObjectNode.getStruct("period", "5").getPrimitive(Integer.toString(i)));
 
 			scale = getScale(actObjectNode.getPrimitive("scale", "2"));
-			textureUrl = getFileName(location, prep(actObjectNode.getPrimitive("url", "file", "img", "0")));
+			textureUrl = getFileName(location, sPrep(actObjectNode.getPrimitive("url", "file", "img", "0")));
 			position[0] = Float.parseFloat(actObjectNode.getStruct("position", "1").getPrimitive("0", "x"));
 			position[1] = Float.parseFloat(actObjectNode.getStruct("position", "1").getPrimitive("1", "y"));
 			type = (int) typeField.get(GameObject.type.class.newInstance());
@@ -236,6 +259,50 @@ public class MapGameObjects {
 		return gameObject;
 	}
 
+	private static LightsPostExecutor loadExecutor(StructNode executorNode, MapGameObjects mgo, int[] dim_xywh) throws StructContainerException {
+
+		LightsPostExecutor lightExecutor = new LightsPostExecutor(dim_xywh[dim_xywh.length - 2], dim_xywh[dim_xywh.length - 1], mgo::renderNormals);
+
+		boolean blur = false;
+		boolean enable = false;
+		try {
+			blur = Boolean.parseBoolean(getVaguePrimitive(executorNode, node.blur, "0"));
+		} catch (StructContainerException ex) {ex.printStackTrace();}
+		lightExecutor.setBlur(blur);
+		if (executorNode.containsStruct(node.normals)) {
+			try {
+				enable = Boolean.parseBoolean(getVaguePrimitive(executorNode.getStruct(node.normals), node.enable, "0"));
+			} catch (StructContainerException ex) {ex.printStackTrace();}
+			lightExecutor.setNormalMappingOn(enable);
+			if (executorNode.getStruct(node.normals).containsStruct(node.shader)) {
+				StructNode shaderNode = executorNode.getStruct(node.normals).getStruct(node.shader);
+				if (shaderNode.containsPrimitive(node.builtIn)) {
+					if (shaderNode.getPrimitive(node.builtIn).equalsIgnoreCase(node.defaults)) {
+						if (shaderNode.containsStruct(node.shaderFields)) {
+							StructNode fieldNode = shaderNode.getStruct(node.shaderFields);
+							if (fieldNode.containsPrimitive(node.spriteSize) || fieldNode.containsPrimitive("0"))
+								lightExecutor.setSpriteSize(Float.parseFloat(getVaguePrimitive(fieldNode, node.spriteSize, "0")));
+							if (fieldNode.containsStruct(node.intensity)) {
+								StructNode intensityNode = fieldNode.getStruct(node.intensity);
+								if (intensityNode.containsPrimitive(node.direct) || intensityNode.containsPrimitive("0"))
+									lightExecutor.setDirectIntensity(Float.parseFloat(getVaguePrimitive(intensityNode, node.direct, "0")));
+								if (intensityNode.containsPrimitive(node.ambient) || intensityNode.containsPrimitive("1"))
+									lightExecutor.setAmbientIntesity(Float.parseFloat(getVaguePrimitive(intensityNode, node.ambient, "1")));
+								if (intensityNode.containsPrimitive(node.shadow) || intensityNode.containsPrimitive("2"))
+									lightExecutor.setShadowIntensity(Float.parseFloat(getVaguePrimitive(intensityNode, node.shadow, "2")));
+								if (intensityNode.containsPrimitive(node.luminance) || intensityNode.containsPrimitive("3"))
+									lightExecutor.setLumimance(Float.parseFloat(getVaguePrimitive(intensityNode, node.luminance, "3")));
+							}
+						}
+					}
+				}
+			}
+
+		}
+		return lightExecutor;
+	}
+
+
 	private static float getScale(String scale) {
 		return (scale.equalsIgnoreCase("MAX")) ? Float.NaN : Float.parseFloat(scale);
 	}
@@ -250,8 +317,12 @@ public class MapGameObjects {
 		return forReturn;
 	}
 
-	private static String prep(String name) {
+	private static String sPrep(String name) {
 		if (!name.startsWith("/")) name = "/" + name;
+		return name;
+	}
+	private static String ePrep(String name) {
+		if (!name.endsWith("/")) return name + "/";
 		return name;
 	}
 
@@ -265,5 +336,57 @@ public class MapGameObjects {
 		for (int i = 0; i < ret.length; i++) ret[i] = iar[i];
 		Arrays.sort(ret);
 		return ret;
+	}
+
+	private static String getVaguePrimitive(StructNode node, String ... st) throws StructContainerException {
+		for (String s : st) if (node.containsPrimitive(s)) return node.getPrimitive(s);
+		throw new StructContainerException("any fields");
+	}
+
+
+	private static final class node {
+		private static final String lights = "lights";
+		private static final String containers = "containers";
+		private static final String type = "type";
+		private static final String source = "source";
+		private static final String sourceType = "srcType";
+		private static final String accuracy = "accuracy";
+		private static final String minRadius = "minRadius";
+		private static final String maxRadius = "maxRadius";
+		private static final String position = "position";
+		private static final String color = "color";
+		private static final String angle = "angle";
+		private static final String scale = "scale";
+		private static final String threshold = "threshold";
+		private static final String visible = "visible";
+		private static final String umbra = "umbra";
+		private static final String umbraCoeff = "coeff";
+		private static final String umbraRecess = "recess";
+		private static final String blur = "blur";
+		private static final String shader = "shader";
+		private static final String shaderFields = "fields";
+		private static final String builtIn = "builtIn";
+		private static final String shaderVertex = "vertex";
+		private static final String shaderFragment = "fragment";
+		private static final String shaderUniforms = "uniforms";
+		private static final String shaderTarget = "target";
+		private static final String shaderBlend = "blend";
+		private static final String file = "file";
+		private static final String fileDir = "fileDir";
+		private static final String dir = "dir";
+		private static final String shaderName = "name";
+		private static final String addFunc = "glBlendFuncSeparate";
+		private static final String glProgram = "glProgram";
+		private static final String direct = "direct";
+		private static final String ambient = "ambient";
+		private static final String shadow = "shadow";
+		private static final String spriteSize = "spriteSize";
+		private static final String enable = "enable";
+		private static final String normals = "normalMapping";
+		private static final String defaults = "DEFAULT";
+		private static final String lightExecutor = "executor";
+		private static final String intensity = "intensity";
+		private static final String luminance = "luminance";
+
 	}
 }

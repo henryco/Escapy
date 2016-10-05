@@ -9,7 +9,7 @@ import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyStdLight;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightSrcFactory;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
-import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
+//import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
 import com.game.render.program.gl.separate.GLBlendProgram;
 import com.game.render.program.shader.blend.EscapyBlendRenderer;
 import com.game.render.program.shader.blend.ShaderBlendProgram;
@@ -28,25 +28,20 @@ import java.util.List;
 /**
  * @author Henry on 06/09/16.
  */
-public class InitLights {
+public class LightContainer {
 
 
 	public EscapyLights lights;
-	public LightsPostExecutor postExecutor;
 
 	public int[][] lightID;
 
-	public InitLights() {
+	public LightContainer(EscapyMapRenderer lightMapRenderer, EscapyMapRenderer normalsMapRenderer, String url, int[] dim_xywh) {
 		this.lights = new EscapyLights();
-	}
-	public InitLights(EscapyMapRenderer lightMapRenderer, EscapyMapRenderer normalsMapRenderer, String url, int[] dim_xywh) {
-		this.lights = new EscapyLights();
-		this.postExecutor = new LightsPostExecutor(dim_xywh[dim_xywh.length - 2], dim_xywh[dim_xywh.length - 1], normalsMapRenderer);
 		this.create(url, lightMapRenderer, dim_xywh);
 	}
 
 
-	public InitLights create(String url, EscapyMapRenderer lightMapRenderer, int[] dimension) {
+	private LightContainer create(String url, EscapyMapRenderer lightMapRenderer, int[] dimension) {
 
 		lightID = loadLights(lightMapRenderer, new ArrayList<>(), url, dimension);
 		return this;
@@ -61,7 +56,6 @@ public class InitLights {
 
 		try {
 			StructNode lightsNode = lightContainer.mainNode.getStruct(node.lights);
-			postExecutor = loadExecutor(postExecutor, lightsNode.getStruct(node.lightExecutor));
 			lights = loadContainer(lights, lightsNode.getStruct(node.containers), dimension);
 			IDList = loadFromContainer(IDList, lightsNode.getStruct(node.containers), lightMapRenderer, lights);
 		} catch (StructContainerException e) {e.printStackTrace();}
@@ -72,48 +66,6 @@ public class InitLights {
 			forReturn[i] = IDList.get(i);
 		return forReturn;
 	}
-
-	private static LightsPostExecutor loadExecutor(LightsPostExecutor lightExecutor, StructNode executorNode) throws StructContainerException {
-
-		boolean blur = false;
-		boolean enable = false;
-		try {
-			blur = Boolean.parseBoolean(getVaguePrimitive(executorNode, node.blur, "0"));
-		} catch (StructContainerException ex) {ex.printStackTrace();}
-		lightExecutor.setBlur(blur);
-		if (executorNode.containsStruct(node.normals)) {
-			try {
-				enable = Boolean.parseBoolean(getVaguePrimitive(executorNode.getStruct(node.normals), node.enable, "0"));
-			} catch (StructContainerException ex) {ex.printStackTrace();}
-			lightExecutor.setNormalMappingOn(enable);
-			if (executorNode.getStruct(node.normals).containsStruct(node.shader)) {
-				StructNode shaderNode = executorNode.getStruct(node.normals).getStruct(node.shader);
-				if (shaderNode.containsPrimitive(node.builtIn)) {
-					if (shaderNode.getPrimitive(node.builtIn).equalsIgnoreCase(node.defaults)) {
-						if (shaderNode.containsStruct(node.shaderFields)) {
-							StructNode fieldNode = shaderNode.getStruct(node.shaderFields);
-							if (fieldNode.containsPrimitive(node.spriteSize) || fieldNode.containsPrimitive("0"))
-								lightExecutor.setSpriteSize(Float.parseFloat(getVaguePrimitive(fieldNode, node.spriteSize, "0")));
-							if (fieldNode.containsStruct(node.intensity)) {
-								StructNode intensityNode = fieldNode.getStruct(node.intensity);
-								if (intensityNode.containsPrimitive(node.direct) || intensityNode.containsPrimitive("0"))
-									lightExecutor.setDirectIntensity(Float.parseFloat(getVaguePrimitive(intensityNode, node.direct, "0")));
-								if (intensityNode.containsPrimitive(node.ambient) || intensityNode.containsPrimitive("1"))
-									lightExecutor.setAmbientIntesity(Float.parseFloat(getVaguePrimitive(intensityNode, node.ambient, "1")));
-								if (intensityNode.containsPrimitive(node.shadow) || intensityNode.containsPrimitive("2"))
-									lightExecutor.setShadowIntensity(Float.parseFloat(getVaguePrimitive(intensityNode, node.shadow, "2")));
-								if (intensityNode.containsPrimitive(node.luminance) || intensityNode.containsPrimitive("3"))
-									lightExecutor.setLumimance(Float.parseFloat(getVaguePrimitive(intensityNode, node.luminance, "3")));
-							}
-						}
-					}
-				}
-			}
-
-		}
-		return lightExecutor;
-	}
-
 
 	@SuppressWarnings("unchecked")
 	private static EscapyLights loadContainer(EscapyLights lights, StructNode containersNode, int[] dimension) throws StructContainerException {

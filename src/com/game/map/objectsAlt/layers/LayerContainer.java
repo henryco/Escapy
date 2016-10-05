@@ -4,6 +4,8 @@ import com.game.map.objectsAlt.layers.utils.UniMaskRenderer;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
+import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
+import com.game.render.fbo.psProcess.cont.init.EscapyLights;
 import com.game.render.mask.LightMask;
 import com.game.utils.arrContainer.EscapyArrContainer;
 
@@ -16,6 +18,7 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 
 	public EscapyFBO layerFBO;
 	public LightMask mask;
+	public EscapyLights lights;
 
 	public LayerContainer() {
 		super(ObjectLayer.class);
@@ -46,8 +49,25 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 		return this;
 	}
 
-	public void renderContained(){
+	public LayerContainer renderContained(){
 		maskRenderer.renderUniMask(layerFBO, mask);
+		return this;
+	}
+
+	public LayerContainer setLights(EscapyLights lights) {
+		this.lights = lights;
+		return this;
+	}
+
+	public LayerContainer makeAndRenderLights(EscapyGdxCamera camera, EscapyFBO lightBuffFBO) {
+		if (lights != null) lights.forEach(l -> l.makeLights().renderBlendedLights(camera, layerFBO.getSpriteRegion(), lightBuffFBO));
+		return this;
+	}
+	public void makeLights() {
+		if (lights != null) lights.forEach(EscapyLightContainer::makeLights);
+	}
+	public void renderLights(EscapyGdxCamera camera, EscapyFBO lightBuffFBO) {
+		if (lights != null) lights.forEach(l -> l.renderBlendedLights(camera, layerFBO.getSpriteRegion(), lightBuffFBO));
 	}
 
 }
