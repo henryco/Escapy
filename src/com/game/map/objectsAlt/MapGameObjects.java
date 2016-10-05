@@ -1,5 +1,6 @@
 package com.game.map.objectsAlt;
 
+import com.badlogic.gdx.graphics.GL20;
 import com.game.map.objectsAlt.layers.LayerContainer;
 import com.game.map.objectsAlt.layers.ObjectLayer;
 import com.game.map.objectsAlt.objects.AnimatedObject;
@@ -9,6 +10,7 @@ import com.game.map.objectsAlt.objects.utils.PositionCorrector;
 import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
 import com.game.render.EscapyUniRender;
 import com.game.render.camera.EscapyGdxCamera;
+import com.game.render.mask.LightMask;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
 import net.henryco.struct.container.tree.StructNode;
@@ -70,12 +72,71 @@ public class MapGameObjects {
 
 	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location, int[] dim, EscapyUniRender ... uniRenders) {
 
+		if (containerNode.containsStruct("mask")) container.setMask(loadMask(containerNode.getStruct("mask"), dim));
 		if (containerNode.containsStruct("layer")) {
 			StructNode layerNode = containerNode.getStruct("layer");
 			int[] iter = getIntArray(layerNode.getStructChild());
 			for (int i : iter) container.addSource(loadLayer(layerNode.getStruct(Integer.toString(i)), location, dim, uniRenders));
 		}
 		return container;
+	}
+
+	private static LightMask loadMask(StructNode maskNode, int[] dim) {
+
+		if (maskNode.containsPrimitive("0") && maskNode.getPrimitive("0").equalsIgnoreCase("null")) return null;
+
+		String name;
+		int[] color = new int[4];
+		int[] dimension = new int[]{0, 0, dim[0], dim[1]};
+		int[] glblend = new int[2];
+		int id;
+		boolean buffered;
+
+		name = maskNode.getPrimitive("0", "name");
+		buffered = Boolean.parseBoolean(maskNode.getPrimitive("4", "buffered"));
+		id = Integer.parseInt(maskNode.getPrimitive("5", "id"));
+
+		color[0] = Integer.parseInt(maskNode.getStruct("3", "color").getPrimitive("0", "r"));
+		color[1] = Integer.parseInt(maskNode.getStruct("3", "color").getPrimitive("1", "g"));
+		color[2] = Integer.parseInt(maskNode.getStruct("3", "color").getPrimitive("2", "b"));
+		color[3] = Integer.parseInt(maskNode.getStruct("3", "color").getPrimitive("3", "a"));
+
+		int[] iter = getIntArray(maskNode.getStruct("2", "dimension").getPrimitiveChild());
+		if (iter.length == 4) {
+			for (int i : iter) dimension[i] = Integer.parseInt(maskNode.getStruct("2",  "dimension").getPrimitive(Integer.toString(i)));
+		} else if (iter.length == 2) {
+			dimension[2] = Integer.parseInt(maskNode.getStruct("2",  "dimension").getPrimitive("0"));
+			dimension[3] = Integer.parseInt(maskNode.getStruct("2",  "dimension").getPrimitive("1"));
+		}
+
+		StructNode blendNode = maskNode.getStruct("1", "glProgram");
+		if (blendNode.containsStruct("glBlendFunc")) {
+
+			StructNode addBlendNode = blendNode.getStruct("glBlendFunc");
+			for (int i = 0; i < glblend.length; i++) {
+				String nameFun = addBlendNode.getPrimitive(Integer.toString(i));
+				try {
+					Field addProgram = GL20.class.getDeclaredField(nameFun);
+					addProgram.setAccessible(true);
+					glblend[i] = (int) addProgram.get(GL20.class);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+		} else if (blendNode.containsStruct("builtIn")) {
+			StructNode addBlendNode = blendNode.getStruct("builtIn");
+			String nameField = addBlendNode.getPrimitive("0", "name");
+			try {
+				Field addProgram = LightMask.class.getDeclaredField(nameField);
+				addProgram.setAccessible(true);
+				glblend = (int[]) addProgram.get(LightMask.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return new LightMask(dimension, buffered, name).setColor(color).setMaskFunc(glblend).setID(id);
 	}
 
 	private static ObjectLayer loadLayer(StructNode actLayerNode, String location, int[] dim, EscapyUniRender ... uniRenders){

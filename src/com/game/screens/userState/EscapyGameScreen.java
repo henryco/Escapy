@@ -9,6 +9,7 @@ import com.game.characters.InitCharacters;
 import com.game.controlls.PlayerControl;
 import com.game.map.InitMap;
 import com.game.map.objectsAlt.MapGameObjects;
+import com.game.map.objectsAlt.layers.LayerContainer;
 import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
@@ -44,7 +45,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private ExtraRenderContainer stdContainer, bgrContainer;
 
 	private TransVec otherTranslationVec;
-	private LightMask stdMask, bgrMask;
+	//private LightMask stdMask, bgrMask;
 	
 	/**
 	 * Instantiates a new escapy game screen.
@@ -110,8 +111,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     }
     public void init_mask(Object ... vars) {
 
-		stdMask = new LightMask((int[])vars[0], true, "<STD_MASK_FBUFFER>").setColor(40,40,40,250);
-		bgrMask = new LightMask((int[])vars[0], true, "<BGR_MASK_FBUFFER>").setColor(60,60,60,250);
+		//stdMask = new LightMask((int[])vars[0], true, "<STD_MASK_FBUFFER>").setColor(40,40,40,250);
+		//bgrMask = new LightMask((int[])vars[0], true, "<BGR_MASK_FBUFFER>").setColor(60,60,60,250);
 	}
     public void init_containers(Object ... vars) {
 
@@ -249,8 +250,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
     public void renderMasks() {
 
-		bgrMask.renderMaskBuffered(bgrFBO.getTextureRegion().getTexture()).renderFBO();
-		stdMask.renderMaskBuffered(stdFBO.getTextureRegion().getTexture()).renderFBO();
+		for (LayerContainer container : mapObjects.layerContainers) container.prepareContained(escapyCamera).renderContained();
+		//mapObjects.forEach(container -> container.prepareContained(escapyCamera).renderContained());
+
 	}
 	public void renderFBO() {
 
