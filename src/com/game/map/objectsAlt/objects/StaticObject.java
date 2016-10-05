@@ -36,18 +36,24 @@ public class StaticObject extends GameObject {
 		}
 
 		Arrays.stream(obTextures).filter(texture -> texture != null).
-				forEach(texture -> texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest));
+				forEach(texture -> {
+					texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+					//texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+				});
 
 		this.obSprites = new Sprite[3];
 		for (int i = 0; i < obSprites.length; i++) if (obTextures[i] != null) obSprites[i] = new Sprite(obTextures[i]);
 
+
+
 		Arrays.stream(obSprites).filter(sprite -> sprite != null).forEach(
 				sprite -> {
-					sprite.flip(false, true);
-					sprite.setPosition(super.position[0], super.position[1]);
+					float[] posCorrection = calcPos(positionCorrector, super.F_WIDTH, super.F_HEIGHT, sprite.getTexture(), defZoom);
 					sprite.setSize(
 							sprite.getTexture().getWidth() * super.defZoom,
 							sprite.getTexture().getHeight() * super.defZoom);
+					sprite.setPosition(super.position[0] + posCorrection[0], super.position[1] + posCorrection[1]);
+					sprite.flip(false, true);
 				});
 	}
 

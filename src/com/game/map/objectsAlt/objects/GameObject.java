@@ -9,10 +9,7 @@ import com.game.animator.EscapyAnimatorObject;
 import com.game.animator.EscapyAnimatorSuperObject;
 import com.game.map.objectsAlt.objects.utils.PositionCorrector;
 import com.game.map.objectsAlt.objects.utils.ZoomCalculator;
-import com.game.render.EscapyRenderable;
 import com.game.render.EscapyUniRender;
-import com.game.render.extra.lightMap.EscapyLightMapRenderer;
-import com.game.render.extra.normalMap.EscapyNormalMapRender;
 import com.game.utils.absContainer.EscapyContainerable;
 
 /**
@@ -75,6 +72,9 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	protected static float calcZoom(ZoomCalculator zoomCalc, int FW, int FH, Texture texture, float zoom) {
 		return zoomCalc.calculateZoom(FW, FH, texture.getWidth(), texture.getHeight(), zoom);
 	}
+	protected static float[] calcPos(PositionCorrector corrector, int FW, int FH, Texture texture, float zoom) {
+		return corrector.calculateCorrection(FW, FH, texture.getWidth() * zoom, texture.getHeight() * zoom);
+	}
 
 	protected static String removePNG(String url) {
 
@@ -84,17 +84,22 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		return strb.toString();
 	}
 
-	protected static Sprite makeSpriteFromTexture(TextureRegion texture, float xpos, float ypos, float zoom) {
+	protected static Sprite makeSpriteFromTexture(TextureRegion texture, int FW, int FH, float xpos, float ypos, float zoom, PositionCorrector ... corrector) {
+
+		float[] correction = new float[2];
+		try {
+			correction = corrector[0].calculateCorrection(FW, FH, texture.getRegionWidth() * zoom, texture.getRegionHeight() * zoom);
+		} catch (Exception ignored){}
 
 		Sprite sprite = new Sprite(texture);
 		sprite.flip(false, true);
-		sprite.setPosition(xpos, ypos);
+		sprite.setPosition(xpos + correction[0], ypos + correction[1]);
 		sprite.setSize(sprite.getWidth() * zoom, sprite.getHeight() * zoom);
 
 		return sprite;
 	}
 
-	protected static Sprite[] makeSpriteArray(Texture texture, float xpos, float ypos, float zoom) {
+	protected static Sprite[] makeSpriteArray(Texture texture, int FW, int FH, float xpos, float ypos, float zoom, PositionCorrector ... corrector) {
 
 		Sprite[] arr = new Sprite[10];
 		TextureRegion texReg = new TextureRegion(texture, 0, 0,
@@ -103,7 +108,7 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		for (int i = 0; i < 10; i++) {
 			texReg.setRegion((int) ((texture.getWidth() / 10.) * i), 0,
 					(int) ((float) texture.getWidth() / 10.), texture.getHeight());
-			arr[i] = makeSpriteFromTexture(texReg, xpos, ypos, zoom);
+			arr[i] = makeSpriteFromTexture(texReg, FW, FH, xpos, ypos, zoom, corrector);
 		}	return arr;
 	}
 

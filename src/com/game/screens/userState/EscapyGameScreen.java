@@ -18,11 +18,9 @@ import com.game.render.extra.std.StdRenderer;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.init.InitLights;
-import com.game.render.mask.LightMask;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
-import com.game.utils.translationVec.TransVec;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -44,9 +42,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private EscapyFBO stdFBO, bgrFBO, lightBuffFBO;
 	private ExtraRenderContainer stdContainer, bgrContainer;
 
-	private TransVec otherTranslationVec;
-	//private LightMask stdMask, bgrMask;
-	
+
 	/**
 	 * Instantiates a new escapy game screen.
 	 *
@@ -77,7 +73,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         this.init_base(dim);
         this.init_fbo(dim);
-		this.init_mask(dim);
         this.init_containers(dim);
 		System.out.println(super.settings.getFrameWIDHT()+"::"+super.settings.getFrameHEIGHT());
 
@@ -109,11 +104,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.bgrFBO = new StandartFBO((int[])vars[0], "<BGR_FBUFFER>");
         this.stdFBO = new StandartFBO((int[])vars[0], "<STD_FBUFFER>");
     }
-    public void init_mask(Object ... vars) {
-
-		//stdMask = new LightMask((int[])vars[0], true, "<STD_MASK_FBUFFER>").setColor(40,40,40,250);
-		//bgrMask = new LightMask((int[])vars[0], true, "<BGR_MASK_FBUFFER>").setColor(60,60,60,250);
-	}
     public void init_containers(Object ... vars) {
 
         this.bgrContainer = new ExtraRenderContainer();

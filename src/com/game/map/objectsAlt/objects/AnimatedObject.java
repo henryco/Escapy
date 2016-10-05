@@ -69,9 +69,9 @@ public class AnimatedObject extends GameObject {
 					texture -> texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest));
 			super.defZoom = calcZoom(zoomCalculator, super.F_WIDTH, super.F_HEIGHT, obTempTexs[0], defZoom);
 
-			this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.position[0], super.position[1], super.defZoom);
-			this.obSpriteNRML = makeSpriteArray(obTempTexs[1], super.position[0], super.position[1], super.defZoom);
-			this.obSpriteLTM = makeSpriteArray(obTempTexs[2], super.position[0], super.position[1], super.defZoom);
+			this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
+			this.obSpriteNRML = makeSpriteArray(obTempTexs[1], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
+			this.obSpriteLTM = makeSpriteArray(obTempTexs[2], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
 
 		} catch (com.badlogic.gdx.utils.GdxRuntimeException excp) {
 			if (errPrint) excp.printStackTrace();
@@ -79,7 +79,8 @@ public class AnimatedObject extends GameObject {
 				obTempTexs = new Texture[]{new Texture(new FileHandle(super.textureUrl[0]))};
 				obTempTexs[0].setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 				super.defZoom = calcZoom(zoomCalculator, super.F_WIDTH, super.F_HEIGHT, obTempTexs[0], defZoom);
-				this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.position[0], super.position[1], super.defZoom);
+
+				this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
 
 			} catch (com.badlogic.gdx.utils.GdxRuntimeException exc) {
 				exc.printStackTrace();

@@ -148,7 +148,8 @@ public class MapGameObjects {
 			xyShift[0] = Float.parseFloat(actLayerNode.getStruct("stepShift").getPrimitive("0", "x"));
 			xyShift[1] = Float.parseFloat(actLayerNode.getStruct("stepShift").getPrimitive("1", "y"));
 		}
-		return fillLayer(new ObjectLayer(xyShift[0], xyShift[1], layerName), actLayerNode, location, dim, uniRenders);
+		int[] dimension = new int[]{dim[dim.length - 2], dim[dim.length - 1]};
+		return fillLayer(new ObjectLayer(xyShift[0], xyShift[1], dimension[0], dimension[1], layerName), actLayerNode, location, dim, uniRenders);
 	}
 
 	private static ObjectLayer fillLayer(ObjectLayer layer, StructNode actLayerNode, String location, int[] dim, EscapyUniRender ... uniRenders) {
