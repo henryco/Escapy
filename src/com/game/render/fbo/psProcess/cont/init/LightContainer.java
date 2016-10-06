@@ -35,7 +35,7 @@ public class LightContainer {
 
 	public int[][] lightID;
 
-	public LightContainer(EscapyMapRenderer lightMapRenderer, EscapyMapRenderer normalsMapRenderer, String url, int[] dim_xywh) {
+	public LightContainer(EscapyMapRenderer lightMapRenderer, String url, int[] dim_xywh) {
 		this.lights = new EscapyLights();
 		this.create(url, lightMapRenderer, dim_xywh);
 	}
@@ -50,7 +50,7 @@ public class LightContainer {
 
 	private int[][] loadLights(EscapyMapRenderer lightMapRenderer, ArrayList<int[]> IDList, String url, int[] dimension) {
 
-		List<String[]>[] lightList = Struct.printDataFile(Struct.in.readStructData(url));
+		List<String[]>[] lightList = Struct.in.readStructData(url);
 		StructTree lightContainer = StructContainer.tree(lightList);
 		System.out.println(lightContainer);
 

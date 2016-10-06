@@ -51,7 +51,7 @@ public class MapGameObjects {
 		for (LayerContainer c : layerContainers) c.forEach(l -> l.renderLightMap(camera));
 	}
 
-	public AbsStdLight getSourceByID(int[] id) {
+	public AbsStdLight getSourceByID(int... id) {
 		return layerContainers[id[0]].getSourceByID(id[1]);
 	}
 	public int[] getIndexID(int index){
@@ -61,7 +61,7 @@ public class MapGameObjects {
 	private LayerContainer[] initGameObjects(int[] dim, String location, String cfgFile, EscapyUniRender ... uniRenders) {
 
 		System.out.println(cfgFile);
-		List<String[]>[] containerList = Struct.printDataFile(Struct.in.readStructData(cfgFile));
+		List<String[]>[] containerList = Struct.in.readStructData(cfgFile);
 		StructTree containerTree = StructContainer.tree(containerList);
 		System.out.println(containerTree);
 
@@ -107,7 +107,7 @@ public class MapGameObjects {
 		if (lightsNode.containsPrimitive("path") || lightsNode.containsPrimitive("0")) loc = ePrep(lightsNode.getPrimitive("path", "0"));
 		loc += lightsNode.getPrimitive("file", "1");
 		System.out.println("\nLIGHTS: "+loc);
-		return new LightContainer(mgo::renderLightMap, null, loc, new int[]{0, 0, dim[0], dim[1]});
+		return new LightContainer(mgo::renderLightMap, loc, new int[]{0, 0, dim[0], dim[1]});
 	}
 
 	private static LightMask loadMask(StructNode maskNode, int[] dim) {

@@ -82,7 +82,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
 
 		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder().
-				addCameraProgram(new StdCameraProgram(this.charactersContainer.player(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, 0.5f, 0.5f).
+				addCameraProgram(new StdCameraProgram(this.charactersContainer.player(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, 0.35f, 0.35f).
 				setXProgram(StdCameraProgram.program.followCam).setMinTranslations(0.4f, 0.4f));
 
 		this.mapObjects = new MapGameObjects(new int[]{super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT},
@@ -176,6 +176,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.wipe();
 		this.lightBuffFBO.forceWipeFBO();
 
+		//for (LayerContainer c : this.mapObjects.layerContainers)
+		//	c.prepareContained(escapyCamera).makeAndRenderLights(escapyCamera, lightBuffFBO).renderContained();
 		this.mapObjects.forEach(container -> container.prepareContained(escapyCamera).makeAndRenderLights(escapyCamera, lightBuffFBO).renderContained());
 		this.mapObjects.postExecutorFunc(p -> p.processLightBuffer(lightBuffFBO.getSpriteRegion(), escapyCamera));
 

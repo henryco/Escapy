@@ -11,7 +11,6 @@ import com.game.characters.states.AbstractCharacters;
 import com.game.physics_temp.EscapyPhysicsEvent;
 import com.game.physics_temp.EscapyPhysicsObjectDefault;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;
-import com.game.render.camera.EscapyGdxCamera;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -84,24 +83,16 @@ public abstract class StdCharacter extends AbstractCharacters
 	}
 
 
-	private void render(Batch batch, Sprite sprite, Texture[] textures){
+	private void render(Batch batch, Sprite sprite, Texture[] textures) {
 
-		try {
+		if (textures[actualFrame] != null) {
 			if (lastWasRight()) sprite = this.setFrame0(textures[actualFrame]);
 			else if (lastWasLeft()) sprite = this.setFrame180(textures[actualFrame]);
-
-		} catch (Exception ignored) {}
+		}
 		sprite.setPosition(super.xPos(), super.yPos());
 		sprite.draw(batch);
 	}
 
-	@Deprecated
-	private void render2(Batch batch, Sprite sprite, Texture[] textures){
-
-		batch.begin();
-		render(batch, sprite, textures);
-		batch.end();
-	}
 
 	@Override
 	public void renderLightMap(Batch batch) {
@@ -118,34 +109,6 @@ public abstract class StdCharacter extends AbstractCharacters
 		render(batch, NRMLSprite, actualNRMLTexture);
 	}
 
-
-
-	@Override
-	@Deprecated
-	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-
-		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-		render2(super.spriteBatcher, characterSprite, actualTexture);
-	}
-	
-
-	@Override
-	@Deprecated
-	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-
-		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-		render2(super.spriteBatcher, NRMLSprite, actualNRMLTexture);
-	}
-	
-	@Override
-	@Deprecated
-	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-
-		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-		render2(super.spriteBatcher, LTMPSprite, actualLTMPTexture);
-	}
-	
-	
 
 	@Override
 	public void defineJumpAnimation() {
