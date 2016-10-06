@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-import com.game.map.objects.AnimatedObject;
-import com.game.map.objects.BackGround;
-import com.game.map.objects.InGameObject;
-import com.game.map.objects.NonAnimatedObject;
 import com.game.utils.primitives.walls.Walls;
 
 import cern.colt.matrix.ObjectMatrix3D;
@@ -20,8 +16,6 @@ import cern.colt.matrix.impl.SparseObjectMatrix3D;
  */
 public class InitMap {
 
-	private InGameObject[][] inGameObject;
-	private BackGround bckgr;
 	private ObjectMatrix3D areaMap;
 	private int[] size;
 	private int[] adrtab = new int[] { 4, 2, 1, 0, 3 };
@@ -29,8 +23,6 @@ public class InitMap {
 	private Walls walls;
 	private long actualPointerPos;
 
-	
-	
 	
 	/**
 	 * Instantiates a new inits the map.
@@ -45,18 +37,14 @@ public class InitMap {
 	 *            the scale ratio
 	 */
 	public InitMap(String Location, int frameW, int frameH, double scaleRatio) {
-		double[] mapsize = readMapSize(Location);
 
+		double[] mapsize = readMapSize(Location);
 		this.areaMap = new SparseObjectMatrix3D((int) mapsize[0], (int) mapsize[1], 4);
 		this.size = getObjectsNumb(Location);
-		this.inGameObject = loadObjects(size);
-		this.inGameObject = createObjectsFF(size, inGameObject, Location);
-		this.bckgr = loadBackGround(Location, frameW, frameH, scaleRatio);
+		createObjectsFF(size, Location);
 
 		ArrayList<int[]> wallPointList = new ArrayList<>();
-		fillMapFF(new int[] { size[5], size[6] }, Location, wallPointList); // wallPointList
-																			// &
-																			// areaMap
+		fillMapFF(new int[] { size[5], size[6] }, Location, wallPointList); // wallPointList & areaMap
 
 		this.walls = new Walls(wallPointList);
 
@@ -89,23 +77,6 @@ public class InitMap {
 		return areaMap;
 	}
 
-	/**
-	 * Game objects.
-	 *
-	 * @return the in game object[][]
-	 */
-	public InGameObject[][] gameObjects() {
-		return inGameObject;
-	}
-
-	/**
-	 * Back ground.
-	 *
-	 * @return the back ground
-	 */
-	public BackGround backGround() {
-		return bckgr;
-	}
 
 	/**
 	 * Index tab.
@@ -128,7 +99,7 @@ public class InitMap {
 	
 	
 	
-	private InGameObject[][] createObjectsFF(int[] tabsize, InGameObject[][] inGameObject, String locUrl) {
+	private void createObjectsFF(int[] tabsize, String locUrl) {
 		RandomAccessFile raf;
 		try {
 			raf = new RandomAccessFile(locUrl + "_.gmd", "r");
@@ -143,18 +114,10 @@ public class InitMap {
 					int id = raf.readShort();
 					int spt = raf.readShort();
 					double zoom = raf.readDouble();
-					int[] animtime = new int[10];
 					if (spt == 1) {
 						for (int anm = 0; anm < 10; anm++) {
-							animtime[anm] = raf.readShort();
+							raf.readShort();
 						}
-					}
-					if (spt == 1) {
-						inGameObject[adtab[i]][j] = new AnimatedObject(x, y, id, locUrl + "" + id + ".png", animtime,
-								zoom, adtab[i]);
-					} else if (spt == 0) {
-						inGameObject[adtab[i]][j] = new NonAnimatedObject(x, y, id, locUrl + "" + id + ".png", zoom,
-								adtab[i]);
 					}
 					actualPointerPos = raf.getFilePointer();
 				}
@@ -163,7 +126,6 @@ public class InitMap {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return inGameObject;
 	}
 
 	
@@ -186,32 +148,6 @@ public class InitMap {
 		}
 		return numbtab;
 	}
-
-	
-	
-	
-	private InGameObject[][] loadObjects(int[] tab) {
-		int[] adtab3 = new int[] { 0, 1, 4, 2, 3 };
-		InGameObject[][] intab = new InGameObject[5][];
-		for (int i = 0; i < 3; i++) {
-			intab[adtab3[i]] = new AnimatedObject[tab[adtab3[i]]];
-		}
-		for (int i = 3; i < 5; i++) {
-			intab[adtab3[i]] = new NonAnimatedObject[tab[adtab3[i]]];
-		}
-		return intab;
-	}
-
-	
-	
-	
-	
-	private BackGround loadBackGround(String location, int frameW, int frameH, double scaleRatio) {
-		return new BackGround(location + "bckgr.png", frameW, frameH, scaleRatio);
-	}
-
-	
-	
 	
 	
 	private void fillMapFF(int[] tab, String locUrl, ArrayList<int[]> wallPointList) {

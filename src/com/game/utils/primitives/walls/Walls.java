@@ -41,62 +41,39 @@ public class Walls implements EscapyGeometry {
 	 */
 	public Walls(ArrayList<int[]> wallPoints) 
 	{
-		this.wallList = new ArrayList<float[]>();
-		this.shapeList = new ArrayList<Shape2D>();
+		this.wallList = new ArrayList<>();
+		this.shapeList = new ArrayList<>();
 		fillWallMap(wallPoints);
 		sortWallMap();
 	}
 
-	/*
-	public void renderWalls(Graphics g, int translationX, int translationY, boolean ifucan)
-	{
-		if (ifucan)
-		{
-			g.setColor(Color.red);
-			for (int i = 0; i < wallList.size(); i++)
-			{
-				float[] tab = wallList.get(i);
-				g.drawLine(tab[START_X] - translationX, tab[START_Y] - translationY, 
-						tab[END_X] - translationX, tab[END_Y] - translationY);
-			}
-			g.setColor(Color.white);
-		}
-	}
-	*/
-	
+
 	private void sortWallMap()
 	{
-		wallList.sort(new Comparator<float[]>() 
-		{
-			@Override
-			public int compare(float[] wall1, float[] wall2) 
-			{
-				int val = (new Float(wall1[0])).compareTo(new Float(wall2[0]));
-				if (val == 0)
-					val = (new Float(wall1[1])).compareTo(new Float(wall2[1]));
-				return val;
-			}			
+		wallList.sort((wall1, wall2) -> {
+			int val = (new Float(wall1[0])).compareTo(wall2[0]);
+			if (val == 0) val = (new Float(wall1[1])).compareTo(wall2[1]);
+			return val;
 		});
 	}
 	
 	
 	private void fillWallMap(ArrayList<int[]> wallPoints)
 	{
-		for (int i = 0; i < wallPoints.size(); i++)
-		{
+		for (int[] wallPoint : wallPoints) {
 			float[][] walls = null;
-			
-			if (wallPoints.get(i)[4] == TYPE_SQUARE)
-				walls = squareWall(wallPoints.get(i)[START_X], wallPoints.get(i)[START_Y],
-						wallPoints.get(i)[END_X], wallPoints.get(i)[END_Y]);
-			
-			else if (wallPoints.get(i)[4] == TYPE_TRIANGLE)
-				walls = triangleWall(wallPoints.get(i)[START_X], wallPoints.get(i)[START_Y],
-						wallPoints.get(i)[END_X], wallPoints.get(i)[END_Y]);
-			
-			for (int j = 0; j < walls.length; j++)
-			{
-				addToArrayLists(walls[j]);
+
+			if (wallPoint[4] == TYPE_SQUARE)
+				walls = squareWall(wallPoint[START_X], wallPoint[START_Y],
+						wallPoint[END_X], wallPoint[END_Y]);
+
+			else if (wallPoint[4] == TYPE_TRIANGLE)
+				walls = triangleWall(wallPoint[START_X], wallPoint[START_Y],
+						wallPoint[END_X], wallPoint[END_Y]);
+
+			assert walls != null;
+			for (float[] wall : walls) {
+				addToArrayLists(wall);
 			}
 			addFlattenArray(walls);
 		}
@@ -112,11 +89,9 @@ public class Walls implements EscapyGeometry {
 	{
 		float[] target_xy_xy_array = new float[array.length*2];
 		int numb = 0;
-		for (int i = 0; i < array.length; i++)
-		{
-			for (int k = 0; k < 2; k++)
-			{
-				target_xy_xy_array[numb] = array[i][k];
+		for (float[] anArray : array) {
+			for (int k = 0; k < 2; k++) {
+				target_xy_xy_array[numb] = anArray[k];
 				numb++;
 			}
 		}
@@ -176,11 +151,9 @@ public class Walls implements EscapyGeometry {
 	public void debugWallMap()
 	{
 		System.out.println("\n Walls:");
-		for (int i = 0; i < wallList.size(); i++)
-		{
-			float[] tab = wallList.get(i);
-			System.out.println((int)tab[START_X]+" : "+(int)tab[START_Y]+" | "+(int)tab[END_X]+" : "+
-					(int)tab[END_Y]+"		"+tab[4]+" : "+tab[5]+" : "+tab[6]+"");
+		for (float[] tab : wallList) {
+			System.out.println((int) tab[START_X] + " : " + (int) tab[START_Y] + " | " + (int) tab[END_X] + " : " +
+					(int) tab[END_Y] + "		" + tab[4] + " : " + tab[5] + " : " + tab[6] + "");
 		}
 		System.out.println("\n");
 	}

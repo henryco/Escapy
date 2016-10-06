@@ -34,7 +34,7 @@ public abstract class EscapyAnimatorSuper implements EscapyAnimator {
 	 */
 	public void addAnimated(EscapyAnimator object) {
 		animatedList.add(object);
-		indexOfList.add(new Integer(EscapyAnimator.INTERRUPTED));
+		indexOfList.add(EscapyAnimator.INTERRUPTED);
 		System.gc();
 	}
 

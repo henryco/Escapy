@@ -1,5 +1,6 @@
 package com.game.render.fbo.psProcess.lights.stdLIght.userState;
 
+import com.game.render.EscapyMapRenderer;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.extra.container.ExtraRenderContainer;
 import com.game.render.fbo.EscapyFBO;
@@ -15,6 +16,7 @@ public class EscapyShadedLight extends EscapyStdLight {
 
     private EscapyStdShadowMapRenderer shadowMapRenderer;
     private EscapyStdShadowRenderer shadowRenderer;
+	private EscapyMapRenderer lightMapRenderer;
 
     private EscapyFBO lightMapFBO, shadowMapFBO, shadowFBO;
     private EscapyGdxCamera lightCam, shadowMapCam, shadowCam, resultCam;
@@ -24,6 +26,16 @@ public class EscapyShadedLight extends EscapyStdLight {
     protected TransVec transPos;
 
 
+	public EscapyShadedLight(EscapyMapRenderer lightMapRenderer, EscapyLightType lightType) {
+		super(lightType);
+		this.initBlock((int) (64 * Math.pow(2, 1)));
+		this.setLightMapRenderer(lightMapRenderer);
+	}
+	public EscapyShadedLight(EscapyMapRenderer lightMapRenderer,  int accuracy, EscapyLightType lightType) {
+		super(lightType);
+		initBlock((int) (64 * Math.pow(2, accuracy)));
+		this.setLightMapRenderer(lightMapRenderer);
+	}
     public EscapyShadedLight(ExtraRenderContainer lmapContainer, EscapyLightType lightType) {
         super(lightType);
         this.initBlock((int) (64 * Math.pow(2, 1)));
@@ -143,6 +155,11 @@ public class EscapyShadedLight extends EscapyStdLight {
         return this;
     }
 
+    public AbsStdLight setLightMapRenderer(EscapyMapRenderer lightMapRenderer) {
+		this.lightMapRenderer = lightMapRenderer;
+		return this;
+	}
+
     @Override
     public AbsStdLight lazyRender(EscapyGdxCamera escapyCamera) {
 		System.out.println("render: "+getID());
@@ -160,8 +177,8 @@ public class EscapyShadedLight extends EscapyStdLight {
                 lightSource.getPosition().y + lightMapFBO.getRegHeight() / 2f
         );
         lightMapFBO.begin().clearFBO(1f, 1f, 1f, 1f);
-        lightMapContainer.renderGraphic(lightCam);
-        return lightMapFBO.end();
+		lightMapRenderer.renderTextureMap(lightCam);
+		return lightMapFBO.end();
     }
     public EscapyFBO renderShadowMap() {
 

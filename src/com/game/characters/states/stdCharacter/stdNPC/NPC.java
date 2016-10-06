@@ -2,6 +2,7 @@ package com.game.characters.states.stdCharacter.stdNPC;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.game.characters.states.stdCharacter.StdCharacter;
 import com.game.physics_temp.EscapyPhysicsObjectSuper;
 
@@ -52,9 +53,5 @@ public class NPC extends StdCharacter {
 		// TODO Auto-generated method stub
 	}
 
-	
-	
-	
-	
 
 }

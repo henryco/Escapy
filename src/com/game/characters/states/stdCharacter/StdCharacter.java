@@ -3,6 +3,7 @@ package com.game.characters.states.stdCharacter;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.animator.EscapyAnimatorCharacter;
@@ -20,13 +21,11 @@ public abstract class StdCharacter extends AbstractCharacters
 		implements EscapyAnimatorCharacter, EscapyPhysicsEvent {
 
 
-	private Sprite characterSprite, NRMLSprite, LTMPSprite;
-	protected Texture[] actualTexture;
-	protected Texture[] actualNRMLTexture;
-	protected Texture[] actualLTMPTexture;
+	protected Sprite characterSprite, NRMLSprite, LTMPSprite;
+	protected Texture[] actualTexture, actualNRMLTexture, actualLTMPTexture;
+	protected EscapyPhysicsObjectDefault physBody;
 
-	private EscapyPhysicsObjectDefault physBody;
-
+	private int ID;
 
 	/**
 	 * Instantiates a new player.
@@ -41,8 +40,6 @@ public abstract class StdCharacter extends AbstractCharacters
 	public StdCharacter(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		super(urls, times, zoom);
 		this.initCharacter();
-		
-
 	}
 
 	public StdCharacter(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom, int[] position) {
@@ -52,7 +49,8 @@ public abstract class StdCharacter extends AbstractCharacters
 	}
 	
 	private void initCharacter() {
-	
+
+		this.setID(hashCode());
 		this.physBody 
 			= new EscapyPhysicsObjectDefault(characterSprite.getWidth(),
 				characterSprite.getHeight(), 0, xPos(), yPos(), this);
@@ -86,60 +84,65 @@ public abstract class StdCharacter extends AbstractCharacters
 	}
 
 
+	private void render(Batch batch, Sprite sprite, Texture[] textures){
+
+		try {
+			if (lastWasRight()) sprite = this.setFrame0(textures[actualFrame]);
+			else if (lastWasLeft()) sprite = this.setFrame180(textures[actualFrame]);
+
+		} catch (Exception ignored) {}
+		sprite.setPosition(super.xPos(), super.yPos());
+		sprite.draw(batch);
+	}
+
+	@Deprecated
+	private void render2(Batch batch, Sprite sprite, Texture[] textures){
+
+		batch.begin();
+		render(batch, sprite, textures);
+		batch.end();
+	}
+
 	@Override
-	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) 
-	{
+	public void renderLightMap(Batch batch) {
+		render(batch, LTMPSprite, actualLTMPTexture);
+	}
+
+	@Override
+	public void renderGraphic(Batch batch) {
+		render(batch, characterSprite, actualTexture);
+	}
+
+	@Override
+	public void renderNormals(Batch batch) {
+		render(batch, NRMLSprite, actualNRMLTexture);
+	}
+
+
+
+	@Override
+	@Deprecated
+	public void renderGraphic(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
+
 		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
-
-		if (lastWasRight())
-			this.characterSprite = this.setFrame0(actualTexture[actualFrame]);
-		else if (lastWasLeft())
-			this.characterSprite = this.setFrame180(actualTexture[actualFrame]);
-
-		super.spriteBatcher.begin();
-			this.characterSprite.setPosition(super.xPos(), super.yPos());
-			this.characterSprite.draw(spriteBatcher);
-		super.spriteBatcher.end();
-
+		render2(super.spriteBatcher, characterSprite, actualTexture);
 	}
 	
 
 	@Override
+	@Deprecated
 	public void renderNormals(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
 
-		try {
-			if (lastWasRight())
-				this.NRMLSprite = this.setFrame0(actualNRMLTexture[actualFrame]);
-			else if (lastWasLeft())
-				this.NRMLSprite = this.setFrame180(actualNRMLTexture[actualFrame]);
-		} catch (IndexOutOfBoundsException | NullPointerException e) {
-			System.out.println("problem");
-		}
-		
-		super.spriteBatcher.begin();
-			this.NRMLSprite.setPosition(super.xPos(), super.yPos());
-			this.NRMLSprite.draw(spriteBatcher);
-		super.spriteBatcher.end();
-		
+		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
+		render2(super.spriteBatcher, NRMLSprite, actualNRMLTexture);
 	}
 	
 	@Override
+	@Deprecated
 	public void renderLightMap(float[] translationMatrix, EscapyGdxCamera escapyCamera) {
-		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
 
-		try {
-			if (lastWasRight())
-				this.LTMPSprite = this.setFrame0(actualLTMPTexture[actualFrame]);
-			else if (lastWasLeft())
-				this.LTMPSprite = this.setFrame180(actualLTMPTexture[actualFrame]);
-		} catch (IndexOutOfBoundsException | NullPointerException ignored) {
-		}
-		
-		super.spriteBatcher.begin();
-			this.LTMPSprite.setPosition(super.xPos(), super.yPos());
-			this.LTMPSprite.draw(spriteBatcher);
-		super.spriteBatcher.end();
+		super.spriteBatcher.setProjectionMatrix(escapyCamera.getCamera().combined);
+		render2(super.spriteBatcher, LTMPSprite, actualLTMPTexture);
 	}
 	
 	
@@ -189,6 +192,13 @@ public abstract class StdCharacter extends AbstractCharacters
 	}
 
 
-	
+	@Override
+	public void setID(int id) {
+		this.ID = Integer.hashCode(this.hashCode() + Integer.hashCode(id));
+	}
 
+	@Override
+	public int getID() {
+		return ID;
+	}
 }

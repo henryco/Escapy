@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
+import com.game.render.fbo.StandartFBO;
 
 /**
  * @author Henry on 23/09/16.
@@ -25,8 +26,12 @@ public class LightMask {
 	private Texture maskTexture;
 	private int[] blendFunc;
 	private EscapyGdxCamera camera;
+	private EscapyFBO maskFBO;
 
-	public LightMask(int x, int y, int width, int height) {
+	private int ID;
+	public final boolean buffered;
+
+	public LightMask(int x, int y, int width, int height, boolean buffered, String ... name) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -34,8 +39,12 @@ public class LightMask {
 		camera = new EscapyGdxCamera(width, height);
 		setMaskFunc(MULTIPLY);
 		setColor((60f/255f), (60f/255f), (60f/255f), 1f);
+		this.buffered = buffered;
+		if (buffered) maskFBO = new StandartFBO(x, y, width, height, name);
+
+		this.ID = this.hashCode();
 	}
-	public LightMask(int[] dim) {
+	public LightMask(int[] dim, boolean buffered, String ... name) {
 		this.x = dim[0];
 		this.y = dim[1];
 		this.width = dim[2];
@@ -43,6 +52,10 @@ public class LightMask {
 		camera = new EscapyGdxCamera(dim[2], dim[3]);
 		setMaskFunc(MULTIPLY);
 		setColor((60f/255f), (60f/255f), (60f/255f), 1f);
+		this.buffered = buffered;
+		if (buffered) maskFBO = new StandartFBO(dim, name);
+
+		this.ID = this.hashCode();
 	}
 
 	public LightMask initMaskTexture() {
@@ -55,6 +68,12 @@ public class LightMask {
 		maskTexture = tmp.getColorBufferTexture();
 		return this;
 	}
+
+	public LightMask setID(int id) {
+		this.ID = id;
+		return this;
+	}
+	public int getID(){return ID;}
 
 	public LightMask setMaskFunc(int dst, int src) {
 		batch = new SpriteBatch();
@@ -73,12 +92,21 @@ public class LightMask {
 	public LightMask setColor(int r, int g, int b, int a) {
 		return setColor(r/255f, g/255f, b/255f, a/255f);
 	}
-
+	public LightMask setColor(int[] color) {
+		return setColor(color[0], color[1], color[2], color[3]);
+	}
 	public EscapyFBO renderMaskBuffered(Texture target, EscapyFBO fbo){
 
 		fbo.begin();
 		renderMask(target);
 		return fbo.end();
+	}
+
+	public EscapyFBO renderMaskBuffered(Texture target){
+
+		maskFBO.begin().wipeFBO();
+		renderMask(target);
+		return maskFBO.end();
 	}
 
 	public void renderMask(Texture target) {

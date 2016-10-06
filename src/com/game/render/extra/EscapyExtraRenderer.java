@@ -22,14 +22,14 @@ public interface EscapyExtraRenderer <T extends EscapyRenderable>
 	 * @param escapyCamera
 	 *            the escapy camera
 	 */
-	public void extraRender(float[] translationVec, EscapyGdxCamera escapyCamera);
+	void extraRender(float[] translationVec, EscapyGdxCamera escapyCamera);
 	
 	/**
 	 * Gets the render target.
 	 *
 	 * @return the render target
 	 */
-	public T getRenderTarget();
+	T getRenderTarget();
 	
 	/**
 	 * Sets the render target.
@@ -38,14 +38,14 @@ public interface EscapyExtraRenderer <T extends EscapyRenderable>
 	 *            the render target
 	 * @return the escapy extra renderer
 	 */
-	public EscapyExtraRenderer<T> setRenderTarget(T renderTarget);
+	EscapyExtraRenderer<T> setRenderTarget(T renderTarget);
 	
 	/**
 	 * Gets the translation vec.
 	 *
 	 * @return the translation vec
 	 */
-	public float[] getTranslationVec();
+	float[] getTranslationVec();
 	
 	/**
 	 * Sets the translation vec.
@@ -54,6 +54,6 @@ public interface EscapyExtraRenderer <T extends EscapyRenderable>
 	 *            the translation vec
 	 * @return the escapy extra renderer
 	 */
-	public EscapyExtraRenderer<T> setTranslationVec(float[] translationVec);
+	EscapyExtraRenderer<T> setTranslationVec(float[] translationVec);
 	
 }
