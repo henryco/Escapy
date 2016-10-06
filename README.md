@@ -1,7 +1,7 @@
 #![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
 <h4>libGDX based 2D game engine</h4><br>
 <b>6.10.16:</b><br> LightExecutor and LightContainer now is a part of new game object layer system.<br>
-<b><a href ="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/LightExecutor.md"> -> .Struct game layer initialization file.</a></b><br><br>
+<b><a href ="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/ObjectsCFG.struct"> -> .Struct game layer initialization file.</a></b><br><br>
 
 <b>27.09.16:</b><br> Support normal mapping via LightExecutor (uses Struct for initialization).<br>
 <b><a href ="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/LightExecutor.md"> -> About light executor</a></b><br><br>
