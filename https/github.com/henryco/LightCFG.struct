@@ -1,0 +1,112 @@
+// Escapy light system config
+#type struct
+
+# CEB 
+# DPO
+# VHD 
+# VCD 
+# VOD2 
+# VSD
+
+# ADD
+# ADD_AVERAGE
+# ADD_DODGE
+# ADD_DODGE_STRONG
+# ADD_OVERLAY
+# ADD_OVERLAY_STRONG
+# ADD_SOFT
+# ADD_SCREEN
+# ADD_VIVID
+# ADD_MULTIPLY
+# ADD_MULTIPLY_STRONG
+
+# COLOR_DODGE 
+# COLOR_DODGE_MULTI 
+# COLOR_DODGE_HARD 
+	
+# SOFT_LIGHT
+# SOFT_COLOR_DODGE_REVERSED
+# SOFT_COLOR_DODGE
+# SOFT_LIGHT_STRONG
+# SOFT_SCREEN
+# SOFT_AVERAGE
+# SOFT_OVERLAY
+
+# VIVID_DODGE 
+# VIVID_HUE
+# VIVID_SOFT 
+
+# SCREEN
+# SCREEN_COLOR_DODGE
+
+# OVERLAY
+# OVERLAY_LIGHT
+# OVERLAY_AVERAGE
+
+# MULTIPLY
+
+
+//lights.containers: [(type[ADD_RGBA, SOFT_LIGHT, false])]
+
+lights: {
+
+	containers[0]: {
+
+		type: {
+			glProgram.glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
+			shader.builtIn: ADD_OVERLAY_STRONG
+//			shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
+//			shader.fileDir("data/shaders/blend/overlayLight/", "overlayLight");
+//			shader.uniforms("targetMap", "blendMap")
+			blur: false;
+		}		
+
+		source[0]: {
+			EscapyStdLight : {
+				srcType: RND_512
+				position: (350, 500)
+				color (250, 0, 0)
+				scale: 1.7
+				visible true
+			}
+		}
+		source[1]: {
+			EscapyStdLight {
+				srcType RND_512
+				position[0] = 0;
+				position[y] = 420;
+				color: {
+					r: 0
+					g: 0
+					b: 250
+				}
+				scale = 1.7
+				visible true
+			}
+		}
+		source[2]: {
+			EscapyShadedLight: {
+				accuracy = 4
+				srcType = RND_1024
+				maxRadius = 1.4
+				minRadius = 0.3
+				position = [400, 450]
+				color = (0, 0, 0)
+				angle: {
+					angle: 0.125 	//angle
+					shift: 0 		//shift
+					corr: 0.5 		//corr
+				}
+				scale = 1.5
+				threshold = 0.7
+				umbra: {
+					coeff = 0.2
+					recess = 5
+				}
+				visible = false
+			}
+		}
+	}
+}
+
+	

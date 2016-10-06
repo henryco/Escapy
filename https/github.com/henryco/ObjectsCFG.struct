@@ -1,0 +1,113 @@
+//Escapy map objects config
+#type struct
+#######################
+# BUILT-IN BLEND FUNC: 
+#
+# MULTIPLY
+# SEPIA
+# SCREEN
+# LINEAD_DODGE
+#
+#######################
+
+map: {
+
+	lightExecutor : {
+		blur: false;
+		normalMapping: {
+			enable: true;
+			shader.builtIn: DEFAULT; //In future there will be custom normalmap shaders passes via reflection
+			shader.fields: {
+				spriteSize = 1.1995	
+				intensity: {
+					direct: 0.20
+					ambient: 0.64
+					shadow: 8
+					luminance: 1.255
+				}	
+			}
+		}		
+	}
+
+	container[0]: {
+		fboName: "<BGR_FBUFFER>";
+	
+		mask: {
+			name: "<BGR_MASK_FBUFFER>"
+			glProgram.glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA)
+			dimension: (PARENT) // or (x, y, width, height)
+			color (60, 60, 60, 250);
+			buffered = false;
+			id: 132;
+		}
+
+		layer[0]: { 
+			name: "bgr static"
+			stepShift(0, 0);
+			objects[0]: ("Loc_3bckgr.png", [0,0], MAX, STATIC, DOWN, (null), 0)
+
+		}
+		layer[1]: { 
+			name: "bgr parallax"
+			stepShift(0, 0);
+		}
+	}
+
+ 	container[1]: {
+		fboName: "<STD_FBUFFER>";
+		mask = ("<STD_MASK_FBUFFER>",(builtIn(MULTIPLY)), (PARENT), (40,40,40,250), true, 461);		
+		//mask(null) or just nothink
+		
+		lights.file "LightCFG.struct"
+		//lights.path "data/maps/Loc_3" //optional
+		//lights ("data/maps/Loc_3", "LightCFG.struct"); //optional
+
+		layer[0]: {
+			name: "main"
+			stepShift(1, 1);
+			uniRender(CHARACTERS);
+			objects: {
+				0: {
+					url: "Loc_33.png";
+					position(0, 15)
+					scale 1
+					type: STATIC
+					hook: UP
+					period(null)
+					z: 3;
+				}
+				1: {
+					url: "Loc_32.png";
+					position(270, 495)
+					scale 1
+					type: ANIMATED
+					hook: UP
+					period (100,70,100,100,50,100,70,80,100,50)
+					z: 2;
+				}
+				2: {
+					url: "Loc_31.png";
+					position(405, 130)
+					scale 1
+					type: ANIMATED
+					hook: UP
+					period (80,100,70,100,150,200,90,100,50,90)
+					z: 1;
+				}
+				3: {
+					url: "Loc_34.png";
+					position(649, 467)
+					scale 1
+					type: INTERACTIVE
+					hook: UP
+					period: (50);
+					z: 4;
+				}
+			}
+		}
+		layer[1]: { 
+			name: "front parallax"
+			stepShift(1.3, 1);
+		}
+	}
+}
