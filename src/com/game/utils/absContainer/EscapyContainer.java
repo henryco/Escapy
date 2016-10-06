@@ -44,4 +44,6 @@ public interface EscapyContainer <T> {
 	 * @return true, if successful
 	 */
 	boolean removeSource(T source);
+
+	int getIndexID(int n);
 }

@@ -41,6 +41,10 @@ public abstract class EscapyAbsContainer<T extends EscapyContainerable>
 		return targetsList.get(targetsList.size() - 1).getID();
 	}
 
+	@Override
+	public int getIndexID(int n){
+		return targetsList.get(n).getID();
+	}
 
 	@Override
 	public T getSourceByID(int ID) {

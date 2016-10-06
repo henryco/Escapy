@@ -10,8 +10,8 @@ import com.game.map.objects.objects.utils.PositionCorrector;
 import com.game.map.objects.objects.utils.ZoomCalculator;
 import com.game.render.EscapyUniRender;
 import com.game.render.camera.EscapyGdxCamera;
-import com.game.render.fbo.psProcess.cont.init.EscapyLights;
 import com.game.render.fbo.psProcess.cont.init.LightContainer;
+import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
 import com.game.render.mask.LightMask;
 import net.henryco.struct.Struct;
@@ -41,30 +41,32 @@ public class MapGameObjects {
 	public void forEach(Consumer<LayerContainer> cons) {
 		Arrays.stream(layerContainers).forEach(cons);
 	}
-
 	public void postExecutorFunc(Consumer<LightsPostExecutor> f) {
 		if (postExecutor != null) f.accept(postExecutor);
 	}
-
 	public void renderNormals(EscapyGdxCamera camera) {
 		for (LayerContainer c : layerContainers) c.forEach(l -> l.renderNormals(camera));
 	}
-
 	public void renderLightMap(EscapyGdxCamera camera) {
 		for (LayerContainer c : layerContainers) c.forEach(l -> l.renderLightMap(camera));
+	}
+
+	public AbsStdLight getSourceByID(int[] id) {
+		return layerContainers[id[0]].getSourceByID(id[1]);
+	}
+	public int[] getIndexID(int index){
+		return layerContainers[index].getIndexID();
 	}
 
 	private LayerContainer[] initGameObjects(int[] dim, String location, String cfgFile, EscapyUniRender ... uniRenders) {
 
 		System.out.println(cfgFile);
-
 		List<String[]>[] containerList = Struct.printDataFile(Struct.in.readStructData(cfgFile));
 		StructTree containerTree = StructContainer.tree(containerList);
 		System.out.println(containerTree);
 
 		if (containerTree.mainNode.getStruct("map").containsStruct("lightExecutor"))
 			postExecutor = loadExecutor(containerTree.mainNode.getStruct("map").getStruct("lightExecutor"), this, dim);
-
 		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location, cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1), this, uniRenders);
 	}
 
@@ -85,7 +87,11 @@ public class MapGameObjects {
 	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location,
 												String cfgLoc, MapGameObjects mgo, int[] dim, EscapyUniRender ... uniRenders) {
 
-		if (containerNode.containsStruct("lights")) container.setLights(loadLights(containerNode.getStruct("lights"), cfgLoc, mgo, dim));
+		if (containerNode.containsStruct("lights")){
+			LightContainer tm = loadLights(containerNode.getStruct("lights"), cfgLoc, mgo, dim);
+			container.setLights(tm.lights);
+			container.lightID = tm.lightID;
+		}
 		if (containerNode.containsStruct("mask")) container.setMask(loadMask(containerNode.getStruct("mask"), dim));
 		if (containerNode.containsStruct("layer")) {
 			StructNode layerNode = containerNode.getStruct("layer");
@@ -95,18 +101,19 @@ public class MapGameObjects {
 		return container;
 	}
 
-	private static EscapyLights loadLights(StructNode lightsNode, String location, MapGameObjects mgo, int[] dim) {
+	private static LightContainer loadLights(StructNode lightsNode, String location, MapGameObjects mgo, int[] dim) {
 
 		String loc = location;
 		if (lightsNode.containsPrimitive("path") || lightsNode.containsPrimitive("0")) loc = ePrep(lightsNode.getPrimitive("path", "0"));
 		loc += lightsNode.getPrimitive("file", "1");
 		System.out.println("\nLIGHTS: "+loc);
-		return new LightContainer(mgo::renderLightMap, null, loc, new int[]{0, 0, dim[0], dim[1]}).lights;
+		return new LightContainer(mgo::renderLightMap, null, loc, new int[]{0, 0, dim[0], dim[1]});
 	}
 
 	private static LightMask loadMask(StructNode maskNode, int[] dim) {
 
 		if (maskNode.containsPrimitive("0") && maskNode.getPrimitive("0").equalsIgnoreCase("null")) return null;
+		if (maskNode.containsPrimitive("0") && maskNode.getPrimitive("0").equalsIgnoreCase("NULL")) return null;
 
 		String name;
 		int[] color = new int[4];

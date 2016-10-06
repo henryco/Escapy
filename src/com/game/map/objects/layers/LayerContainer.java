@@ -6,8 +6,12 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
 import com.game.render.fbo.psProcess.cont.init.EscapyLights;
+import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.mask.LightMask;
 import com.game.utils.arrContainer.EscapyArrContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Henry on 02/10/16.
@@ -19,6 +23,7 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 	public EscapyFBO layerFBO;
 	public LightMask mask;
 	public EscapyLights lights;
+	public int[][] lightID;
 
 	public LayerContainer() {
 		super(ObjectLayer.class);
@@ -68,6 +73,18 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 	}
 	public void renderLights(EscapyGdxCamera camera, EscapyFBO lightBuffFBO) {
 		if (lights != null) lights.forEach(l -> l.renderBlendedLights(camera, layerFBO.getSpriteRegion(), lightBuffFBO));
+	}
+
+	public AbsStdLight getSourceByID(int id) {
+		return lights.lightContainers[lightID[id][0]].getSourceByID(lightID[id][1]);
+	}
+	public int[] getIndexID() {
+
+		List<Integer> id = new ArrayList<>();
+		for (EscapyLightContainer c : lights.lightContainers) c.forEach(l -> id.add(l.getID()));
+		int[] arr = new int[id.size()];
+		for (int i = 0; i < id.size(); i++) arr[i] = id.get(i);
+		return arr;
 	}
 
 }
