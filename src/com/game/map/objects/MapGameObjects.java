@@ -65,9 +65,22 @@ public class MapGameObjects {
 		StructTree containerTree = StructContainer.tree(containerList);
 		System.out.println(containerTree);
 
-		if (containerTree.mainNode.getStruct("map").containsStruct("lightExecutor"))
-			postExecutor = loadExecutor(containerTree.mainNode.getStruct("map").getStruct("lightExecutor"), this, dim);
+		if (containerTree.mainNode.getStruct("map").containsStruct("lightExecutor")) {
+			StructNode exec = containerTree.mainNode.getStruct("map").getStruct("lightExecutor");
+			if (exec.containsPrimitive("file")) postExecutor = loadExecutor(loadFromFile(exec, cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1), "lightExecutor", "LightExecutor"), this, dim);
+			else postExecutor = loadExecutor(exec, this, dim);
+		}
 		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location, cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1), this, uniRenders);
+	}
+
+	private StructNode loadFromFile(StructNode fileNode, String location, String file, String ... msg) {
+		String loc = location;
+		if (fileNode.containsPrimitive("path") || fileNode.containsPrimitive("0")) loc = ePrep(fileNode.getPrimitive("path", "0"));
+		loc += fileNode.getPrimitive("file", "1");
+		String ms = "";
+		for (String s : msg) ms += s;
+		System.out.println("\n"+ms+": "+loc);
+		return StructContainer.tree(Struct.in.readStructData(loc)).mainNode.getStruct(file);
 	}
 
 	private static LayerContainer[] loadContainer(StructNode mapNode, int[] dim, String location, String cfgLoc, MapGameObjects mgo, EscapyUniRender ... uniRenders) {

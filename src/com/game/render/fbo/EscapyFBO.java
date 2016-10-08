@@ -30,7 +30,7 @@ public abstract class EscapyFBO {
 	protected EscapyGdxCamera fboCamera;
 	
 	/** The fbo batch. */
-	protected Batch fboBatch;
+	public Batch fboBatch;
 	
 	/** The mainbuffer. */
 	protected FrameBuffer MAINBUFFER;
@@ -119,6 +119,25 @@ public abstract class EscapyFBO {
 		this.fboBatch = new SpriteBatch();
 		System.out.println("COMPILED: "+this.toString());
 		
+	}
+
+	public void draw(Batch batch) {
+
+		MAINSPRITE.draw(batch);
+
+	}
+	public void draw() {draw(1);}
+	public void draw(int times) {
+		fboBatch.setProjectionMatrix(fboCamera.combined());
+		fboBatch.begin();
+		while ((times -= 1) > -1) MAINSPRITE.draw(fboBatch);
+		fboBatch.end();
+	}
+	public void draw(int times, int[] program) {
+		fboBatch.setProjectionMatrix(fboCamera.combined());
+		fboBatch.begin();
+		while ((times -= 1) > 0) MAINSPRITE.draw(fboBatch);
+		fboBatch.end();
 	}
 	
 	
