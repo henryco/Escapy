@@ -15,7 +15,7 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 	private static final String colorMap = "colorMap", lightMap = "lightMap", normalMap = "normalMap",
 								fieldSize = "fieldSize", ambientIntensity = "ambientIntensity",
 								directIntensity = "directIntensity", shadowIntensity = "shadowIntensity",
-								spriteSize = "spriteSize", luminance = "luminance";
+								spriteSize = "spriteSize", height = "height";
 	
 	private String FRAGMENT_NAME = "_";
 	
@@ -89,11 +89,9 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 			float amIntensity, float dirIntensity, float shadIntensity, float sprtSize, float lum, ShaderProgram shader) {
 		shader.begin();
 		{
-			//lMap.bind(2);
 			nMap.bind(1);
 			cMap.bind(0);
 			super.batcher.setShader(shader);
-			//shader.setUniformi(lightMap, 2);
 			shader.setUniformi(normalMap, 1);
 			shader.setUniformi(colorMap, 0);
 			shader.setUniformf(fieldSize, dim.x, dim.y);
@@ -101,7 +99,7 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 			shader.setUniformf(directIntensity, dirIntensity);
 			shader.setUniformf(shadowIntensity, shadIntensity);
 			shader.setUniformf(spriteSize, sprtSize);
-			shader.setUniformf(luminance, lum);
+			shader.setUniformf(height, lum);
 		}
 		shader.end();
 		return shader;

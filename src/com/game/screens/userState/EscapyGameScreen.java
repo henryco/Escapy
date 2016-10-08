@@ -70,6 +70,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		System.out.println(super.settings.getFrameWIDHT()+"::"+super.settings.getFrameHEIGHT());
 
         super.initializationEnded = true;
+		this.resize(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
         System.gc();
         return this;
     }
@@ -203,7 +204,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     @Override
     public void hide() {}
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+		mapObjects.postExecutorFunc(p -> p.setFrameDim(width, height));
+	}
     @Override
     public void dispose() {}
 

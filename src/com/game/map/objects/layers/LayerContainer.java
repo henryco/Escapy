@@ -86,7 +86,6 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 			blender.renderBlended(actualFBO.getSpriteRegion(), otherFBO.getSpriteRegion(), otherFBO.getFBOCamera().getCamera());
 			lightBuffFBO.end();
 		}
-
 		return this;
 	}
 	public void makeLights() {

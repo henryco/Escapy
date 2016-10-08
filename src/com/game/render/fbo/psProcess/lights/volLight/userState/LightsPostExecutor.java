@@ -25,14 +25,14 @@ public class LightsPostExecutor {
 	private EscapyFBO normalMapFBO;
 	private EscapyMapRenderer normalsMapRenderer;
 
-	private float directIntensity, ambientIntesity, shadowIntensity, spriteSize, lumimance;
+	private float directIntensity, ambientIntesity, shadowIntensity, spriteSize, height;
 
 	{
 		this.directIntensity = 0.2f;
 		this.ambientIntesity = 0.75f;
 		this.shadowIntensity = 8;
 		this.spriteSize = 1;
-		this.lumimance = 0;
+		this.height = 0;
 
 		this.normalMappingOn = true;
 		this.blur = false;
@@ -71,9 +71,9 @@ public class LightsPostExecutor {
 
 	public void processLightBuffer(EscapyGdxCamera camera, Sprite colorMap, Sprite normalsMap) {
 
-		stdRenderer.drawSprite(colorMap, camera.getCamera());
 		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalsMap, frameDim,
-				ambientIntesity, directIntensity, shadowIntensity, spriteSize, lumimance, camera.getCamera());
+				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, camera.getCamera());
+		else stdRenderer.drawSprite(colorMap, camera.getCamera());
 	}
 	public void processLightBuffer(Sprite colorMap, Sprite normalsMap) {
 		processLightBuffer(camera, colorMap, normalsMap);
@@ -85,9 +85,9 @@ public class LightsPostExecutor {
 	public EscapyFBO processLightBuffer(EscapyFBO fbo, EscapyGdxCamera camera, Sprite colorMap, Sprite normalsMap) {
 
 		fbo.begin();
-		stdRenderer.drawSprite(colorMap, camera.getCamera());
 		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalsMap, frameDim,
-				ambientIntesity, directIntensity, shadowIntensity, spriteSize, lumimance, camera.getCamera());
+				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, camera.getCamera());
+		else stdRenderer.drawSprite(colorMap, camera.getCamera());
 		return fbo.end();
 	}
 	public EscapyFBO processLightBuffer(EscapyFBO fbo, Sprite colorMap, Sprite normalsMap) {
@@ -139,9 +139,9 @@ public class LightsPostExecutor {
 		System.out.println("nrmlSpiteSize:\t\t"+spriteSize);
 		return this;
 	}
-	public LightsPostExecutor setLumimance(float lumimance) {
-		System.out.println("luminance:\t\t\t"+lumimance);
-		this.lumimance = lumimance;
+	public LightsPostExecutor setHeight(float height) {
+		System.out.println("height:\t\t\t\t"+ height);
+		this.height = height;
 		return this;
 	}
 
