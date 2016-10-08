@@ -59,7 +59,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 
 
-
     @Override
     public Screen initState(Object ... vars) {
 

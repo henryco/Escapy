@@ -6,7 +6,7 @@ lightExecutor : {
 			enable: true;
 			shader.builtIn: DEFAULT; //In future there will be custom normalmap shaders passes via reflection
 			shader.fields: {
-				spriteSize = 26
+				spriteSize = 100
 				intensity: {
 					direct: 2.5
 					ambient: 2
