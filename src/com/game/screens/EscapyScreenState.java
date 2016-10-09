@@ -21,9 +21,8 @@ public abstract class EscapyScreenState implements Screen, Updatable {
 	protected Game game;
 	/** The initialization ended. */
 	protected boolean initializationEnded;
-	/** The screen width. */
+
 	protected final int SCREEN_WIDTH;
-	/** The screen height. */
 	protected final int SCREEN_HEIGHT;
 	protected final int SCREEN_DEFAULT_WIDTH;
 	protected final int SCREEN_DEFAULT_HEIGHT;
@@ -45,11 +44,12 @@ public abstract class EscapyScreenState implements Screen, Updatable {
 		this.gameState = gameState;
 		this.settings = gameState.getSettings();
 		this.game = gameState.getGame();
-		
-		this.SCREEN_WIDTH = settings.getFrameWIDHT();
-		this.SCREEN_HEIGHT = settings.getFrameHEIGHT();
-		this.SCREEN_DEFAULT_WIDTH = GameSettings.DEFAULT_WIDTH;
-		this.SCREEN_DEFAULT_HEIGHT = GameSettings.DEFAULT_HEIGHT;
+
+		this.SCREEN_DEFAULT_WIDTH = gameState.SCREEN_DEFAULT_WIDTH;
+		this.SCREEN_DEFAULT_HEIGHT = gameState.SCREEN_DEFAULT_HEIGHT;
+
+		this.SCREEN_WIDTH = gameState.SCREEN_WIDTH;
+		this.SCREEN_HEIGHT = gameState.SCREEN_HEIGHT;
 
 		System.out.println(SCREEN_WIDTH+ ":: W:H ::" +SCREEN_HEIGHT);
 

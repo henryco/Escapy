@@ -12,8 +12,8 @@ public final class GameSettings {
 	private static int gameXsize, gameYsize;
 
 
-	public static final int DEFAULT_WIDTH = 1280;
-	public static final int DEFAULT_HEIGHT = 720;
+	//public static final int DEFAULT_WIDTH = 1280;
+	//public static final int DEFAULT_HEIGHT = 720;
 
 
 	private static String location = "";
@@ -94,18 +94,18 @@ public final class GameSettings {
 	 *
 	 * @return the frame WIDHT
 	 */
-	public int getFrameWIDHT() {
-		return (int)(DEFAULT_WIDTH * scaleRatio());
-	}
+	//public int getFrameWIDHT() {
+		//return (int)(DEFAULT_WIDTH * scaleRatio());
+	//}
 
 	/**
 	 * Gets the frame HEIGHT.
 	 *
 	 * @return the frame HEIGHT
 	 */
-	public int getFrameHEIGHT() {
-		return (int)(DEFAULT_HEIGHT * scaleRatio());
-	}
+	//public int getFrameHEIGHT() {
+	//	return (int)(DEFAULT_HEIGHT * scaleRatio());
+	//}
 
 	/**
 	 * Define screen res.

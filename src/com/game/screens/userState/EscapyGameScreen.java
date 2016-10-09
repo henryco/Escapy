@@ -66,7 +66,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         this.init_base(dim);
 		this.lightBuffFBO = new StandartFBO(dim, "<LIGHT_FBUFFER>");
-		System.out.println(super.settings.getFrameWIDHT()+"::"+super.settings.getFrameHEIGHT());
+		System.out.println(super.SCREEN_WIDTH+"::"+super.SCREEN_HEIGHT);
 
         super.initializationEnded = true;
 		this.resize(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);

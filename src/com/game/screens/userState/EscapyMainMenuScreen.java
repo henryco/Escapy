@@ -36,7 +36,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
        this.privGdxCamera = new EscapyGdxCamera(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
 
        this.testShaderSprite = new Sprite(new Texture(new FileHandle("data/logo/splash/BgLogo.png")));
-       this.testShaderSprite.setSize(super.settings.getFrameWIDHT(), super.settings.getFrameWIDHT());
+       this.testShaderSprite.setSize(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
        this.testShaderSprite.flip(false, true);
 
        this.batcher = new SpriteBatch();

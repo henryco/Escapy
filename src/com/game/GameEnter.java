@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.screens.userState.EscapyStateContainer;
 import com.game.userState.settings.GameSettings;
+import net.henryco.struct.container.tree.StructNode;
+import net.henryco.struct.container.tree.StructTree;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -20,6 +22,11 @@ public class GameEnter extends Game {
 	/** The states container. */
 	private EscapyStateContainer statesContainer;
 
+	public final int SCREEN_WIDTH;
+	public final int SCREEN_HEIGHT;
+	public final int SCREEN_DEFAULT_WIDTH;
+	public final int SCREEN_DEFAULT_HEIGHT;
+
 	/**
 	 * Instantiates a new game enter.
 	 *
@@ -27,17 +34,26 @@ public class GameEnter extends Game {
 	 */
 	public GameEnter(GameSettings settings) {
 		this.settings = settings;
+		StructNode screenNode
+				= new StructTree("data/config/LaunchCFG.struct").
+				mainNode.getPath("launcher", "game", "screen", "size");
+
+		this.SCREEN_DEFAULT_WIDTH = Integer.parseInt(screenNode.getPrimitive("0", "x", "w", "width"));
+		this.SCREEN_DEFAULT_HEIGHT = Integer.parseInt(screenNode.getPrimitive("1", "y", "h", "height"));
+
+		this.SCREEN_WIDTH = (int) (SCREEN_DEFAULT_WIDTH * GameSettings.scaleRatio());
+		this.SCREEN_HEIGHT = (int) (SCREEN_DEFAULT_HEIGHT * GameSettings.scaleRatio());
 	}
 
 	@Override
 	public void create() {
 
-		this.escapyCamera = new EscapyGdxCamera(GameSettings.DEFAULT_WIDTH, GameSettings.DEFAULT_HEIGHT);
+		this.escapyCamera = new EscapyGdxCamera(SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
 		this.statesContainer = new EscapyStateContainer(this, escapyCamera);
 		this.statesContainer.getUpdLoopedQueue().setSleepTime(10);
 
 		super.setScreen(statesContainer.getLoadingScreen());
-		resize(GameSettings.DEFAULT_WIDTH, GameSettings.DEFAULT_HEIGHT);
+		resize(SCREEN_DEFAULT_WIDTH, SCREEN_DEFAULT_HEIGHT);
 		System.gc();
 	}
 
