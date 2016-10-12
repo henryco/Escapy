@@ -67,8 +67,8 @@ public class MapGameObjects {
 
 		if (containerTree.mainNode.getStruct("map").containsStruct("lightExecutor")) {
 			StructNode exec = containerTree.mainNode.getStruct("map").getStruct("lightExecutor");
-			if (exec.containsPrimitive("file"))
-				postExecutor = loadExecutor(StructContainer.loadFromFile(exec, cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1),
+			if (exec.containsStruct("ext") && exec.getStruct("ext").containsPrimitive("file"))
+				postExecutor = loadExecutor(StructContainer.loadFromFile(exec.getStruct("ext"), cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1),
 						"lightExecutor", "file", "path", "LightExecutor"), this, dim);
 			else postExecutor = loadExecutor(exec, this, dim);
 		}
@@ -92,8 +92,8 @@ public class MapGameObjects {
 	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location,
 												String cfgLoc, MapGameObjects mgo, int[] dim, EscapyUniRender ... uniRenders) {
 
-		if (containerNode.containsStruct("lights")){
-			LightContainer tm = loadLights(containerNode.getStruct("lights"), cfgLoc, mgo, dim);
+		if (containerNode.containsStruct("lights") && containerNode.getStruct("lights").containsStruct("ext")){
+			LightContainer tm = loadLights(containerNode.getPath("lights", "ext"), cfgLoc, mgo, dim);
 			container.setLights(tm.lights);
 			container.lightID = tm.lightID;
 		}
