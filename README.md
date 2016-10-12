@@ -21,8 +21,6 @@
 <br><br>
 ![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/esChar.png)
 <br>
-![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/MODERN.png)
-<br>
 ![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ims.png)
 <br>
 ![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ims3.png)
