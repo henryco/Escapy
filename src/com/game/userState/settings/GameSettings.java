@@ -12,20 +12,13 @@ public final class GameSettings {
 	private static int gameXsize, gameYsize;
 
 
-	//public static final int DEFAULT_WIDTH = 1280;
-	//public static final int DEFAULT_HEIGHT = 720;
-
-
 	private static String location = "";
 	public static int SCREEN_WIDTH, SCREEN_HEIGHT;
 	private static double scaleRatio = 1;
-	private static double defaultScale = 1;// 1;
-	private static boolean mapVisible = false;
+	private static double defaultScale = 1;
 	private static boolean vSync = false;
 
-	public static String CFG_DIR_NAME ="/Config";
-	public static String LIGHT_CFG_NAME = "/LightCFG.struct";
-	public static String OBJECTS_CFG_NAME = "/ObjectsCFG.struct";
+	public static String mapObjCfgDir = "";
 
 	/**
 	 * Instantiates a new game settings.
@@ -39,11 +32,7 @@ public final class GameSettings {
 	}
 
 	public String getObjectsCfgName() {
-		return getMapDir() + CFG_DIR_NAME + OBJECTS_CFG_NAME;
-	}
-
-	public String getLightCfgUrl() {
-		return getMapDir() + CFG_DIR_NAME + LIGHT_CFG_NAME;
+		return getMapDir() + mapObjCfgDir;
 	}
 
 	public String getMapDir() {
@@ -89,23 +78,7 @@ public final class GameSettings {
 		return (float) (scaleRatio * defaultScale);
 	}
 
-	/**
-	 * Gets the frame WIDHT.
-	 *
-	 * @return the frame WIDHT
-	 */
-	//public int getFrameWIDHT() {
-		//return (int)(DEFAULT_WIDTH * scaleRatio());
-	//}
 
-	/**
-	 * Gets the frame HEIGHT.
-	 *
-	 * @return the frame HEIGHT
-	 */
-	//public int getFrameHEIGHT() {
-	//	return (int)(DEFAULT_HEIGHT * scaleRatio());
-	//}
 
 	/**
 	 * Define screen res.
@@ -191,25 +164,6 @@ public final class GameSettings {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Checks if is map visible.
-	 *
-	 * @return true, if is map visible
-	 */
-	public boolean isMapVisible() {
-		return mapVisible;
-	}
-
-	/**
-	 * Sets the map visible.
-	 *
-	 * @param mapVisible
-	 *            the new map visible
-	 */
-	public void setMapVisible(boolean mapVisible) {
-		GameSettings.mapVisible = mapVisible;
 	}
 
 	/**

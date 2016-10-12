@@ -1,0 +1,20 @@
+//Escapy init config
+#type struct
+launcher: {
+
+	game.screen: {
+		size (1280, 720)
+		useGL30 = true;
+		vSync = true;
+		resizable false;
+		FPS {
+			back: 1
+			fore: 25
+		}
+	}
+	
+	game.title "Escapy"
+	game.source.map.dir = "data/maps/"
+	game.source.map.userState.config.file: "/Config/ObjectsCFG.struct";
+
+}

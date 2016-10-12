@@ -55,8 +55,8 @@ lights: {
 		type: {
 			glProgram.glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 			shader.builtIn: ADD_OVERLAY_STRONG
-//			shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
-//			shader.fileDir("data/shaders/blend/overlayLight/", "overlayLight");
+//			shader.ext.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
+//			shader.ext.fileDir("data/shaders/blend/overlayLight/", "overlayLight");
 //			shader.uniforms("targetMap", "blendMap")
 			blur: false;
 		}		

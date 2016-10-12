@@ -12,7 +12,7 @@
 
 map: {
 
-	lightExecutor.file = "LexCFG.struct"
+	lightExecutor.ext.file = "LexCFG.struct"
 
 	container[0]: {
 		fboName: "<BGR_FBUFFER>";
@@ -43,9 +43,9 @@ map: {
 		mask = ("<STD_MASK_FBUFFER>",(builtIn(MULTIPLY)), (PARENT), (40,40,40,250), true, 461);		
 		//mask(null) or just nothink
 		
-		lights.file "LightCFG.struct"
-		//lights.path "data/maps/Loc_3" //optional
-		//lights ("data/maps/Loc_3", "LightCFG.struct"); //optional
+		lights.ext.file "LightCFG.struct"
+		//lights.ext.path "data/maps/Loc_3" //optional
+		//lights.ext ("data/maps/Loc_3", "LightCFG.struct"); //optional
 
 		layer[0]: {
 			name: "main"

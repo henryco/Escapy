@@ -1,0 +1,5 @@
+//Escapy start confgi
+#type struct
+enter:{
+	config.launcher.ext ("data/config/", "LaunchCFG.struct")
+}
