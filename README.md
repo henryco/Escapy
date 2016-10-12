@@ -1,5 +1,9 @@
 #![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
 <h4>libGDX based 2D game engine</h4><br>
+
+<b>12.10.16:</b><br> Game initialization reworked, now it uses config files to load.<br>
+<b><a href ="https://github.com/henryco/Escapy/tree/master/configs"> -> .Struct game initialization config files.</a></b><br><br>
+
 <b>6.10.16:</b><br> LightExecutor and LightContainer now is a part of new game object layer system.<br>
 <b><a href ="https://github.com/henryco/Escapy/blob/master/https/github.com/henryco/ObjectsCFG.struct"> -> .Struct game layer initialization file.</a></b><br><br>
 
