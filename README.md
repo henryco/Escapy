@@ -1,5 +1,4 @@
-#![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
-Test
+#![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png) test
 <h4>libGDX based 2D game engine</h4><br>
 
 <b>12.10.16:</b><br> Game initialization reworked, now it uses enter config file to load source data and load other config files.<br>
