@@ -11,6 +11,7 @@ launcher: {
 			back: 1
 			fore: 25
 		}
+		// or FPS(1, 25)
 	}
 	
 	game.title "Escapy"
