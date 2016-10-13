@@ -95,9 +95,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 
 
-
     @Override
-    public void update() {
+    public void update(float delta) {
         this.controlls.baseKeyboard_upd();
         this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
                 controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
@@ -170,7 +169,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
     @Override
     public void render(float delta) {
-
 		super.escapyCamera.holdCamera(delta);
         this.updDist();
 		super.escapyCamera.wipe();

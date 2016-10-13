@@ -57,7 +57,7 @@ public class EscapySplashScreen extends EscapyScreenState {
 	}
 
 	@Override
-	public void update() {
+	public void update(float deltas) {
 
 	}
 }

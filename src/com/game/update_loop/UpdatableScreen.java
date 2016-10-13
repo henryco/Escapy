@@ -22,8 +22,8 @@ public class UpdatableScreen implements Updatable {
 
 
 	@Override
-	public void update() {
-		screen.update();
+	public void update(float delta) {
+		screen.update(delta);
 	}
 
 	/**

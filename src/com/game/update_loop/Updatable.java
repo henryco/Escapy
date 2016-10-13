@@ -9,6 +9,6 @@ public interface Updatable {
 	/**
 	 * Update.
 	 */
-	void update();
+	void update(float delta);
 
 }

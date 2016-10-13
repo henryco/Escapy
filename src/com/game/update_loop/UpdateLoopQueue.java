@@ -126,9 +126,9 @@ public class UpdateLoopQueue implements Runnable {
 		return this;
 	}
 
-	private float updSynced(float ud, float dt, float eq) {
+	private float updSynced(float ud, float dt, float eq, float delta) {
 		if ((ud += dt) >= eq) {
-			updList.forEach(Updatable::update);
+			for (Updatable upd : updList) upd.update(delta);
 			ud = 0;
 		}	return ud;
 	}
@@ -136,15 +136,17 @@ public class UpdateLoopQueue implements Runnable {
 	@Override
 	public void run() {
 		float upd_dt = 0;
+		long dt_1 = 0;
+
 		while (inLoop) {
-			upd_dt = updSynced(upd_dt, delta, syncTime);
-			if (inLoop) {
+			dt_1 = System.nanoTime();
+			if (inLoop)
 				try {
 					Thread.sleep(sleep);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			}
+			upd_dt = updSynced(upd_dt, delta, syncTime, 0.000000001f * (System.nanoTime() - dt_1));
 		}
 		Thread.currentThread().interrupt();
 	}

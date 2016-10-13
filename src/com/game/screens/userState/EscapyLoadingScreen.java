@@ -97,7 +97,7 @@ public class EscapyLoadingScreen extends EscapyScreenState implements Runnable {
 	}
 
 	@Override
-	public void update() {
+	public void update(float delta) {
 
 	}
 }
