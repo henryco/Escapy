@@ -37,26 +37,30 @@ public class InitCharacters implements EscapyUniRender {
 
 	}
 
-	private void render(Consumer<EscapyUniRender> cons) {
+	private void forEach(Consumer<EscapyUniRender> cons) {
 		for (NPC n : npc) cons.accept(n);
 		cons.accept(player);
 	}
 
 	@Override
 	public void renderLightMap(Batch batch) {
-		render(uni -> uni.renderLightMap(batch));
+		forEach(uni -> uni.renderLightMap(batch));
 	}
 
 	@Override
 	public void renderGraphic(Batch batch) {
-		render(uni -> uni.renderGraphic(batch));
+		forEach(uni -> uni.renderGraphic(batch));
 	}
 
 	@Override
 	public void renderNormals(Batch batch) {
-		render(uni -> uni.renderNormals(batch));
+		forEach(uni -> uni.renderNormals(batch));
 	}
 
+	@Override
+	public void shift() {
+		forEach(EscapyUniRender::shift);
+	}
 
 	@Override
 	public void setID(int id) {

@@ -11,4 +11,5 @@ public interface EscapyUniRender extends EscapyContainerable {
 	void renderLightMap(Batch batch);
 	void renderGraphic(Batch batch);
 	void renderNormals(Batch batch);
+	void shift();
 }

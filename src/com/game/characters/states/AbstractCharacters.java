@@ -121,8 +121,11 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	 */
 	protected abstract Sprite setFrame180(Texture texture);
 
+	@Override
+	public void shift() {
 
-	
+	}
+
 	private void fillDataTabs(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		
 		this.standImg = listToImg(urls[0]);

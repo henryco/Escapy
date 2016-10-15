@@ -19,9 +19,9 @@ public class AnimatedObject extends GameObject {
 	private boolean animationEnded = false;
 	private Sprite[] obSpriteSTD, obSpriteNRML, obSpriteLTM;
 
-	public AnimatedObject(float x, float y, int iD, String texUrl, float zoom, int type, int[] animPeriod, int w, int h) {
+	public AnimatedObject(float x, float y, int iD, String texUrl, float zoom, int type, boolean repeat, int[] animPeriod, int w, int h) {
 
-		super(x, y, iD, texUrl, zoom, type, w, h);
+		super(x, y, iD, texUrl, zoom, type, repeat, w, h);
 		this.animPeriod = animPeriod;
 		this.animob = this;
 		this.actualFrame = 0;
@@ -80,6 +80,13 @@ public class AnimatedObject extends GameObject {
 				obTempTexs[0].setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 				super.defZoom = calcZoom(zoomCalculator, super.F_WIDTH, super.F_HEIGHT, obTempTexs[0], defZoom);
 
+				float[] correction = new float[2];
+				try {
+					correction = positionCorrector.calculateCorrection(super.F_WIDTH, super.F_HEIGHT,
+							(obTempTexs[0].getWidth() / 10.f) * super.defZoom, obTempTexs[0].getHeight() * super.defZoom);
+				} catch (Exception ignored){}
+				super.position = new float[]{position[0] + correction[0], position[1] + correction[1]};
+
 				this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
 
 			} catch (com.badlogic.gdx.utils.GdxRuntimeException exc) {
@@ -93,17 +100,17 @@ public class AnimatedObject extends GameObject {
 
 	@Override
 	public void renderLightMap(Batch batch) {
-		if (obSpriteLTM != null) obSpriteLTM[animob.actualFrame].draw(batch);
+		if (obSpriteLTM != null) tranlateSprite(obSpriteLTM[animob.actualFrame]).draw(batch);
 	}
 
 	@Override
 	public void renderGraphic(Batch batch) {
-		if (obSpriteSTD != null) obSpriteSTD[animob.actualFrame].draw(batch);
+		if (obSpriteSTD != null) tranlateSprite(obSpriteSTD[animob.actualFrame]).draw(batch);
 	}
 
 	@Override
 	public void renderNormals(Batch batch) {
-		if (obSpriteNRML != null) obSpriteNRML[animob.actualFrame].draw(batch);
+		if (obSpriteNRML != null) tranlateSprite(obSpriteNRML[animob.actualFrame]).draw(batch);
 	}
 
 }

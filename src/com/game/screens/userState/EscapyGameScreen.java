@@ -100,6 +100,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.controlls.baseKeyboard_upd();
         this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
                 controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
+		this.mapObjects.forEach(contianer -> contianer.forEach(objLayer -> objLayer.shift()));
     }
     private void updDist() {
 

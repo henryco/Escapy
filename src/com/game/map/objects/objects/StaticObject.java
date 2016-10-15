@@ -15,8 +15,8 @@ public class StaticObject extends GameObject {
 
 	private Sprite[] obSprites;
 
-	public StaticObject(float x, float y, int iD, String texUrl, float zoom, int type, int w, int h) {
-		super(x, y, iD, texUrl, zoom, type, w, h);
+	public StaticObject(float x, float y, int iD, String texUrl, float zoom, int type, boolean repeat, int w, int h) {
+		super(x, y, iD, texUrl, zoom, type, repeat, w, h);
 	}
 
 	@Override
@@ -41,15 +41,14 @@ public class StaticObject extends GameObject {
 		this.obSprites = new Sprite[3];
 		for (int i = 0; i < obSprites.length; i++) if (obTextures[i] != null) obSprites[i] = new Sprite(obTextures[i]);
 
-
-
 		Arrays.stream(obSprites).filter(sprite -> sprite != null).forEach(
 				sprite -> {
 					float[] posCorrection = calcPos(positionCorrector, super.F_WIDTH, super.F_HEIGHT, sprite.getTexture(), defZoom);
+					super.position = new float[]{position[0] + posCorrection[0], position[1] + posCorrection[1]};
 					sprite.setSize(
 							sprite.getTexture().getWidth() * super.defZoom,
 							sprite.getTexture().getHeight() * super.defZoom);
-					sprite.setPosition(super.position[0] + posCorrection[0], super.position[1] + posCorrection[1]);
+					sprite.setPosition(super.position[0], super.position[1]);
 					sprite.flip(false, true);
 
 				});
@@ -58,17 +57,17 @@ public class StaticObject extends GameObject {
 
 	@Override
 	public void renderLightMap(Batch batch) {
-		if (obSprites[2] != null) obSprites[2].draw(batch);
+		if (obSprites[2] != null) tranlateSprite(obSprites[2]).draw(batch);
 	}
 
 	@Override
 	public void renderGraphic(Batch batch) {
-		if (obSprites[0] != null) obSprites[0].draw(batch);
+		if (obSprites[0] != null) tranlateSprite(obSprites[0]).draw(batch);
 	}
 
 	@Override
 	public void renderNormals(Batch batch) {
-		if (obSprites[1] != null) obSprites[1].draw(batch);
+		if (obSprites[1] != null) tranlateSprite(obSprites[1]).draw(batch);
 	}
 
 }

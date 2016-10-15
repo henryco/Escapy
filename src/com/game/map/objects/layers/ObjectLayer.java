@@ -39,6 +39,9 @@ public class ObjectLayer extends EscapyAbsContainer<EscapyUniRender> {
 		System.out.println(this);
 	}
 
+	public void shift() {
+		forEach(obj -> obj.shift());
+	}
 
 	public void renderGraphic(EscapyGdxCamera escapyCamera) {
 

@@ -7,7 +7,9 @@ import com.game.map.objects.objects.AnimatedObject;
 import com.game.map.objects.objects.GameObject;
 import com.game.map.objects.objects.StaticObject;
 import com.game.map.objects.objects.utils.PositionCorrector;
+import com.game.map.objects.objects.utils.PositionTranslator;
 import com.game.map.objects.objects.utils.ZoomCalculator;
+import com.game.map.objects.objects.utils.translators.GameObjTranslators;
 import com.game.render.EscapyUniRender;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.cont.init.LightContainer;
@@ -21,6 +23,8 @@ import net.henryco.struct.container.tree.StructNode;
 import net.henryco.struct.container.tree.StructTree;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -211,11 +215,13 @@ public class MapGameObjects {
 	private static GameObject loadGameObject(StructNode actObjectNode, String location, int[] dim) {
 
 		GameObject gameObject = null;
+		PositionTranslator trsF = null;
 		String textureUrl;
 		float[] position = new float[2];
 		float scale;
 		int type;
 		boolean hookUp;
+		boolean repeat;
 		int[] period = new int[10];
 		int zPos;
 
@@ -232,9 +238,11 @@ public class MapGameObjects {
 			position[1] = Float.parseFloat(actObjectNode.getStruct("position", "1").getPrimitive("1", "y"));
 			type = (int) typeField.get(GameObject.type.class.newInstance());
 			hookUp = getHook(actObjectNode.getPrimitive("hook", "4"));
-			zPos = Integer.parseInt(actObjectNode.getPrimitive("z", "zPos", "6"));
+			zPos = Integer.parseInt(actObjectNode.getPrimitive("z", "zPos", "8"));
+			repeat = actObjectNode.getBool(false, "repeat", "7");
+			trsF = loadPosTranslator(actObjectNode.getStruct("shift", "6"));
 
-			gameObject = createGameObject(textureUrl, position, scale, type, hookUp, period, zPos, dim);
+			gameObject = createGameObject(textureUrl, position, scale, type, hookUp, period, zPos, repeat, dim, trsF);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -243,7 +251,8 @@ public class MapGameObjects {
 		return gameObject;
 	}
 
-	private static GameObject createGameObject(String url, float[] pos, float scale, int type, boolean hookUp, int[] period, int zpos, int[] dim) {
+	private static GameObject createGameObject(String url, float[] pos, float scale, int type, boolean hookUp, int[] period, int zpos, boolean repeat,
+											   int[] dim, PositionTranslator trsF) {
 
 		GameObject gameObject = null;
 		PositionCorrector posF = null;
@@ -254,8 +263,8 @@ public class MapGameObjects {
 			zoomF = (frameW, frameH, w, h, zoom) -> Math.max((frameW / w), (frameH / h));
 		}
 		if (type == GameObject.type.ANIMATED || type == GameObject.type.INTERACTIVE)
-			gameObject = new AnimatedObject(pos[0], pos[1], zpos, url, scale, type, period, dim[0], dim[1]);
-		else if (type == GameObject.type.STATIC) gameObject = new StaticObject(pos[0], pos[1], zpos, url, scale, type, dim[0], dim[1]);
+			gameObject = new AnimatedObject(pos[0], pos[1], zpos, url, scale, type, repeat, period, dim[0], dim[1]);
+		else if (type == GameObject.type.STATIC) gameObject = new StaticObject(pos[0], pos[1], zpos, url, scale, type, repeat, dim[0], dim[1]);
 		if (gameObject != null) {
 			boolean reinit = false;
 			if (posF != null) {
@@ -266,9 +275,30 @@ public class MapGameObjects {
 				gameObject.setZoomFunc(zoomF);
 				reinit = true;
 			}
+			if (trsF != null) {
+				gameObject.setTranlatorFunc(trsF);
+				reinit = true;
+			}
 			if (reinit) gameObject.initializeGraphic();
 		}
 		return gameObject;
+	}
+
+
+	private static PositionTranslator loadPosTranslator(StructNode shiftNode) {
+
+		if (shiftNode.getChild().length > 0) {
+			StructNode transNode = shiftNode.getStructSafe(shiftNode.getChild()[0]);
+			if (transNode != null)
+				try {
+					Method trm = GameObjTranslators.class.getDeclaredMethod(transNode.name, StructNode.class);
+					trm.setAccessible(true);
+					return (PositionTranslator) trm.invoke(GameObjTranslators.class, transNode);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
+		return null;
 	}
 
 	private static LightsPostExecutor loadExecutor(StructNode executorNode, MapGameObjects mgo, int[] dim_xywh) throws StructContainerException {
