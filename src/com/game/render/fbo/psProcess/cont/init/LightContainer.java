@@ -1,6 +1,8 @@
 package com.game.render.fbo.psProcess.cont.init;
 
 import com.badlogic.gdx.graphics.GL20;
+import com.game.map.objects.objects.utils.PositionTranslator;
+import com.game.map.objects.objects.utils.translators.GameObjTranslators;
 import com.game.render.EscapyMapRenderer;
 import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsLightProxy;
@@ -50,7 +52,7 @@ public class LightContainer {
 	private int[][] loadLights(EscapyMapRenderer lightMapRenderer, ArrayList<int[]> IDList, String url, int[] dimension) {
 
 		List<String[]>[] lightList = Struct.in.readStructData(url);
-		StructTree lightContainer = StructContainer.tree(lightList);
+		StructTree lightContainer = StructContainer.tree(lightList, url);
 		System.out.println(lightContainer);
 
 		try {
@@ -177,6 +179,7 @@ public class LightContainer {
 
 						StructNode source = sourceNode.getStruct(Integer.toString(iter2));
 						AbsStdLight absStdLight;
+						PositionTranslator translator = null;
 						EscapyLightType escapyLightType;
 						String lightType = "";
 
@@ -257,6 +260,9 @@ public class LightContainer {
 							else 	absStdLight.setAngle(proxy.angle);
 						}
 						absStdLight.setVisible(proxy.visible);
+						if((translator = GameObjTranslators.loadPosTranslator(lightNode.getStructSafe(node.shift))) != null)
+							absStdLight.setPositionTranslator(translator);
+
 						IDList.add(new int[]{iter, lights.lightContainers[iter].addSource(absStdLight)});
 
 					} else stop2 = true;
@@ -329,6 +335,7 @@ public class LightContainer {
 		private static final String lightExecutor = "executor";
 		private static final String intensity = "intensity";
 		private static final String luminance = "luminance";
+		private static final String shift = "shift";
 
 	}
 

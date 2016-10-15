@@ -9,10 +9,11 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
+import com.game.map.objects.objects.utils.PositionTranslator;
+import com.game.render.EscapyUniTrans;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
-import com.game.render.fbo.psProcess.EscapyPostProcessed;
 import com.game.render.fbo.psProcess.cont.EscapyFBOContainer;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
 import com.game.render.shader.EscapyStdShaderRenderer;
@@ -23,8 +24,10 @@ import com.game.utils.observ.SimpleObservated;
 import com.game.utils.observ.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
 
-public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProcessed,
-		SimpleObserver<TransVec>, SimpleObservated {
+public abstract class AbsStdLight implements EscapyContainerable,
+		SimpleObserver<TransVec>, SimpleObservated, EscapyUniTrans {
+
+	private PositionTranslator positionTranslator = (width, height, position1) -> position1;
 
 	protected SimpleObserver<EscapyFBOContainer> observer;
 	protected Sprite lightSprite, bgSprite;
@@ -46,7 +49,6 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 
 	protected float coeff;
 	protected float correct;
-
 
 	protected float scale;
 	protected float threshold;
@@ -128,6 +130,11 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 		float tempX = state.x - (this.lightSource.getWidth() / 2.f);
 		float tempY = state.y - (this.lightSource.getHeight() / 2.f);
 		this.lightSource.setPosition(tempX, tempY);
+	}
+
+	@Override
+	public void shift() {
+		if (positionTranslator != null) this.position.setTransVec(positionTranslator.translatePosition(resolution.x, resolution.y, position.getVecArray()));
 	}
 
 	public AbsStdLight setLightSource(EscapyLightType light) {
@@ -291,6 +298,10 @@ public abstract class AbsStdLight implements EscapyContainerable, EscapyPostProc
 	}
 	public AbsStdLight setThreshold(float threshold) {
 		this.threshold = threshold;
+		return this;
+	}
+	public AbsStdLight setPositionTranslator(PositionTranslator translator) {
+		this.positionTranslator = translator;
 		return this;
 	}
 

@@ -66,7 +66,7 @@ public class MapGameObjects {
 
 		System.out.println(cfgFile);
 		List<String[]>[] containerList = Struct.in.readStructData(cfgFile);
-		StructTree containerTree = StructContainer.tree(containerList);
+		StructTree containerTree = StructContainer.tree(containerList, cfgFile);
 		System.out.println(containerTree);
 
 		if (containerTree.mainNode.getStruct("map").containsStruct("lightExecutor")) {
@@ -240,7 +240,7 @@ public class MapGameObjects {
 			hookUp = getHook(actObjectNode.getPrimitive("hook", "4"));
 			zPos = Integer.parseInt(actObjectNode.getPrimitive("z", "zPos", "8"));
 			repeat = actObjectNode.getBool(false, "repeat", "7");
-			trsF = loadPosTranslator(actObjectNode.getStruct("shift", "6"));
+			trsF = GameObjTranslators.loadPosTranslator(actObjectNode.getStructSafe("shift", "6"));
 
 			gameObject = createGameObject(textureUrl, position, scale, type, hookUp, period, zPos, repeat, dim, trsF);
 
@@ -284,22 +284,6 @@ public class MapGameObjects {
 		return gameObject;
 	}
 
-
-	private static PositionTranslator loadPosTranslator(StructNode shiftNode) {
-
-		if (shiftNode.getChild().length > 0) {
-			StructNode transNode = shiftNode.getStructSafe(shiftNode.getChild()[0]);
-			if (transNode != null)
-				try {
-					Method trm = GameObjTranslators.class.getDeclaredMethod(transNode.name, StructNode.class);
-					trm.setAccessible(true);
-					return (PositionTranslator) trm.invoke(GameObjTranslators.class, transNode);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		}
-		return null;
-	}
 
 	private static LightsPostExecutor loadExecutor(StructNode executorNode, MapGameObjects mgo, int[] dim_xywh) throws StructContainerException {
 

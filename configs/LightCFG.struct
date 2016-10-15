@@ -63,16 +63,17 @@ lights: {
 
 		source[0]: {
 			EscapyStdLight : {
-				srcType: RND_512
+				srcType: RND_256
 				position: (350, 500)
 				color (250, 0, 0)
-				scale: 1.7
+				scale: 3.5
 				visible true
+			//	shift.orto.ext.file = "orto.struct";
 			}
 		}
 		source[1]: {
 			EscapyStdLight {
-				srcType RND_512
+				srcType RND_256
 				position[0] = 0;
 				position[y] = 420;
 				color: {
@@ -80,16 +81,16 @@ lights: {
 					g: 0
 					b: 250
 				}
-				scale = 1.7
+				scale = 3.5
 				visible true
 			}
 		}
 		source[2]: {
 			EscapyShadedLight: {
 				accuracy = 4
-				srcType = RND_1024
-				maxRadius = 1.4
-				minRadius = 0.3
+				srcType = RND_512
+				maxRadius = 1.0
+				minRadius = 0.1
 				position = [400, 450]
 				color = (0, 0, 0)
 				angle: {
@@ -97,7 +98,7 @@ lights: {
 					shift: 0 		//shift
 					corr: 0.5 		//corr
 				}
-				scale = 1.5
+				scale = 3.2
 				threshold = 0.7
 				umbra: {
 					coeff = 0.2

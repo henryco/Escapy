@@ -6,10 +6,9 @@ import com.game.utils.absContainer.EscapyContainerable;
 /**
  * @author Henry on 03/10/16.
  */
-public interface EscapyUniRender extends EscapyContainerable {
+public interface EscapyUniRender extends EscapyContainerable, EscapyUniTrans {
 
 	void renderLightMap(Batch batch);
 	void renderGraphic(Batch batch);
 	void renderNormals(Batch batch);
-	void shift();
 }
