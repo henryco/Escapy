@@ -43,8 +43,7 @@ public class GameObjTranslators  {
 			public float[] translatePosition(float width, float height, float[] position) {
 				if ((t1 = System.currentTimeMillis() - t0) >= timeStep) {
 					t0 = System.currentTimeMillis();
-					position[0] += (vec[0] * step);
-					position[1] += (vec[1] * step);
+					return new float[]{position[0] + (vec[0] * step), position[1] + (vec[1] * step)};
 				}
 				return position;
 			}

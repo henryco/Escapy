@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.game.map.objects.layers.utils.LayerCameraShift;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
@@ -18,7 +19,7 @@ import com.game.utils.absContainer.EscapyAbsContainer;
 /**
  * @author Henry on 22/09/16.
  */
-public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
+public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight> {
 
 	public static final GLBlendProgram glProgram = new GLBlendProgram();
 
@@ -28,6 +29,8 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 	private Batch batch;
 	private EscapyFBO colorizedFBO;
 	private EscapyBlendRenderer shaderBlendProgram;
+	private LayerCameraShift cameraShift = (camera, pos) -> camera;
+
 
 	private EscapyLightContainer() {
 	}
@@ -69,8 +72,11 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 
 	public void renderLights(EscapyGdxCamera camera) {
 
-		Sprite tmpSprite;
+		float[] pos = LayerCameraShift.getCamPos(camera);
+		camera = cameraShift.shiftCamera(camera, pos);
 		camera.update();
+
+		Sprite tmpSprite;
 		batch.setProjectionMatrix(camera.combined());
 
 		int srcFunc = batch.getBlendSrcFunc();
@@ -102,6 +108,9 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 		batch.end();
 
 		colorizedFBO.end();
+
+
+		camera.setCameraPosition(pos);
 	}
 
 	public EscapyFBO renderBlendedLights(EscapyGdxCamera camera, Sprite target, EscapyFBO fbo) {
@@ -139,6 +148,11 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight>  {
 	public EscapyLightContainer setShaderBlendProgram(EscapyBlendRenderer shaderBlendProgram) {
 		if (shaderBlendProgram != null) this.shaderBlendProgram = shaderBlendProgram;
 		else this.shaderBlendProgram = ShaderBlendProgram.blendProgram(ShaderBlendProgram.program.SCREEN);
+		return this;
+	}
+
+	public EscapyLightContainer setCameraShifter(LayerCameraShift shifter) {
+		this.cameraShift = shifter;
 		return this;
 	}
 

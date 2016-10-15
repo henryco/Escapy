@@ -171,14 +171,7 @@ public class TransVec {
 	 *            the new translation vector
 	 */
 	public TransVec setTransVec(float[] translationMatrix) {
-		if (this.accuracy != (-1)) 	
-			translationMatrix = roundVec(translationMatrix);
-		this.translationVectorArray = translationMatrix.clone();
-		this.x = translationMatrix[0];
-		this.y = translationMatrix[1];
-		if (observeObj != null)
-			this.observeObj.stateUpdated(this);
-		return this;
+		return setTransVec(translationMatrix[0], translationMatrix[1]);
 	}
 	
 	/**
@@ -188,14 +181,7 @@ public class TransVec {
 	 *            the new translation vector
 	 */
 	public void setTransVec(Vector2 translationVector) {
-		if (this.accuracy != (-1)) 
-			translationVector = roundVec(translationVector);
-		this.translationVectorArray[0] = translationVector.x;
-		this.translationVectorArray[1] = translationVector.y;
-		this.x = translationVector.x;
-		this.y = translationVector.y;
-		if (observeObj != null)
-			this.observeObj.stateUpdated(this);
+		setTransVec(translationVector.x, translationVector.y);
 	}
 	
 	/**
@@ -208,6 +194,7 @@ public class TransVec {
 	 * @return 
 	 */
 	public TransVec setTransVec(float x, float y) {
+
 		if (this.accuracy != (-1)) {
 			x = roundVec(x);
 			y = roundVec(y);

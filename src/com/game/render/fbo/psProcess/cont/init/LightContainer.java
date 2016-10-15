@@ -1,6 +1,7 @@
 package com.game.render.fbo.psProcess.cont.init;
 
 import com.badlogic.gdx.graphics.GL20;
+import com.game.map.objects.layers.utils.LayerCameraShift;
 import com.game.map.objects.objects.utils.PositionTranslator;
 import com.game.map.objects.objects.utils.translators.GameObjTranslators;
 import com.game.render.EscapyMapRenderer;
@@ -152,7 +153,20 @@ public class LightContainer {
 							}
 						}
 					}
-					lights.addLightContainer(new EscapyLightContainer(additiveProgram, blendProgram, dimension[dimension.length - 2], dimension[dimension.length - 1]));
+					EscapyLightContainer newContainer = new EscapyLightContainer(additiveProgram, blendProgram, dimension[dimension.length - 2], dimension[dimension.length - 1]);
+					StructNode shiftNode = containersNode.getStruct(Integer.toString(iter)).getStructSafe("stepShift");
+					if (shiftNode != null){
+						float xShift = shiftNode.getFloat(1, "0", "x", "s");
+						float yShift = shiftNode.getFloat(1, "1", "y", "t");
+
+						final float[] frameVec = new float[]{0.5f * dimension[dimension.length - 2], 0.5f * dimension[dimension.length - 1]};
+						LayerCameraShift shift = (camera, pos) -> {
+							camera.setCameraPosition((xShift * (pos[0] - frameVec[0])) + frameVec[0], (yShift * (pos[1] - frameVec[1])) + frameVec[1]);
+							return camera;
+						};
+						newContainer.setCameraShifter(shift);
+					}
+					lights.addLightContainer(newContainer);
 
 				} catch (Exception e) {
 					e.printStackTrace();

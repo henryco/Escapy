@@ -134,7 +134,11 @@ public abstract class AbsStdLight implements EscapyContainerable,
 
 	@Override
 	public void shift() {
-		if (positionTranslator != null) this.position.setTransVec(positionTranslator.translatePosition(resolution.x, resolution.y, position.getVecArray()));
+		if (positionTranslator != null) {
+			float[] newVec = positionTranslator.translatePosition(resolution.x, resolution.y, position.getVecArray().clone());
+			if (newVec[0] != position.x || newVec[1] != position.y)
+				this.position.setTransVec(positionTranslator.translatePosition(resolution.x, resolution.y, newVec));
+		}
 	}
 
 	public AbsStdLight setLightSource(EscapyLightType light) {

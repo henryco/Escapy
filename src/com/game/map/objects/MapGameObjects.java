@@ -11,7 +11,6 @@ import com.game.map.objects.objects.utils.PositionTranslator;
 import com.game.map.objects.objects.utils.ZoomCalculator;
 import com.game.map.objects.objects.utils.translators.GameObjTranslators;
 import com.game.render.EscapyUniRender;
-import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.psProcess.cont.init.LightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
@@ -23,8 +22,6 @@ import net.henryco.struct.container.tree.StructNode;
 import net.henryco.struct.container.tree.StructTree;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +33,6 @@ import java.util.function.Consumer;
 public class MapGameObjects {
 
 	public final LayerContainer[] layerContainers;
-	private LightsPostExecutor postExecutor;
 
 	public MapGameObjects(int[] dim, String location, String cfg, EscapyUniRender ... uniRenders) {
 		layerContainers = this.initGameObjects(dim, location, cfg, uniRenders);
@@ -45,16 +41,6 @@ public class MapGameObjects {
 	public void forEach(Consumer<LayerContainer> cons) {
 		Arrays.stream(layerContainers).forEach(cons);
 	}
-	public void postExecutorFunc(Consumer<LightsPostExecutor> f) {
-		if (postExecutor != null) f.accept(postExecutor);
-	}
-	public void renderNormals(EscapyGdxCamera camera) {
-		for (LayerContainer c : layerContainers) c.forEach(l -> l.renderNormals(camera));
-	}
-	public void renderLightMap(EscapyGdxCamera camera) {
-		for (LayerContainer c : layerContainers) c.forEach(l -> l.renderLightMap(camera));
-	}
-
 	public AbsStdLight getSourceByID(int... id) {
 		return layerContainers[id[0]].getSourceByID(id[1]);
 	}
@@ -68,14 +54,6 @@ public class MapGameObjects {
 		List<String[]>[] containerList = Struct.in.readStructData(cfgFile);
 		StructTree containerTree = StructContainer.tree(containerList, cfgFile);
 		System.out.println(containerTree);
-
-		if (containerTree.mainNode.getStruct("map").containsStruct("lightExecutor")) {
-			StructNode exec = containerTree.mainNode.getStruct("map").getStruct("lightExecutor");
-			if (exec.containsStruct("ext") && exec.getStruct("ext").containsPrimitive("file"))
-				postExecutor = loadExecutor(StructContainer.loadFromFile(exec.getStruct("ext"), cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1),
-						"lightExecutor", "file", "path", "LightExecutor"), this, dim);
-			else postExecutor = loadExecutor(exec, this, dim);
-		}
 		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location, cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1), this, uniRenders);
 	}
 
@@ -96,8 +74,15 @@ public class MapGameObjects {
 	private static LayerContainer fillContainer(LayerContainer container, StructNode containerNode, String location,
 												String cfgLoc, MapGameObjects mgo, int[] dim, EscapyUniRender ... uniRenders) {
 
+		if (containerNode.containsStruct("lightExecutor")) {
+			StructNode execNode = containerNode.getStructSafe("lightExecutor");
+			if (execNode != null) {
+				container.setLightExecutor(loadExecutor(execNode, dim, container));
+			}
+		}
+
 		if (containerNode.containsStruct("lights") && containerNode.getStruct("lights").containsStruct("ext")){
-			LightContainer tm = loadLights(containerNode.getPath("lights", "ext"), cfgLoc, mgo, dim);
+			LightContainer tm = loadLights(containerNode.getPath("lights", "ext"), cfgLoc, container, dim);
 			container.setLights(tm.lights);
 			container.lightID = tm.lightID;
 		}
@@ -110,13 +95,13 @@ public class MapGameObjects {
 		return container;
 	}
 
-	private static LightContainer loadLights(StructNode lightsNode, String location, MapGameObjects mgo, int[] dim) {
+	private static LightContainer loadLights(StructNode lightsNode, String location, LayerContainer container, int[] dim) {
 
 		String loc = location;
 		if (lightsNode.containsPrimitive("path") || lightsNode.containsPrimitive("0")) loc = ePrep(lightsNode.getPrimitive("path", "0"));
 		loc += lightsNode.getPrimitive("file", "1");
 		System.out.println("\nLIGHTS: "+loc);
-		return new LightContainer(mgo::renderLightMap, loc, new int[]{0, 0, dim[0], dim[1]});
+		return new LightContainer(escapyCamera -> container.forEach(c -> c.renderLightMap(escapyCamera)), loc, new int[]{0, 0, dim[0], dim[1]});
 	}
 
 	private static LightMask loadMask(StructNode maskNode, int[] dim) {
@@ -285,9 +270,10 @@ public class MapGameObjects {
 	}
 
 
-	private static LightsPostExecutor loadExecutor(StructNode executorNode, MapGameObjects mgo, int[] dim_xywh) throws StructContainerException {
+	private static LightsPostExecutor loadExecutor(StructNode executorNode, int[] dim_xywh, LayerContainer container) throws StructContainerException {
 
-		LightsPostExecutor lightExecutor = new LightsPostExecutor(dim_xywh[dim_xywh.length - 2], dim_xywh[dim_xywh.length - 1], mgo::renderNormals);
+		LightsPostExecutor lightExecutor = new LightsPostExecutor(dim_xywh[dim_xywh.length - 2], dim_xywh[dim_xywh.length - 1],
+				escapyCamera -> container.forEach(l -> l.renderNormals(escapyCamera)));
 
 		boolean blur = false;
 		boolean enable = false;

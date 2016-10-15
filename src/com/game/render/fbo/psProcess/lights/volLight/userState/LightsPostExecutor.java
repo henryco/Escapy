@@ -34,30 +34,33 @@ public class LightsPostExecutor {
 		this.spriteSize = 1;
 		this.height = 0;
 
-		this.normalMappingOn = true;
+		this.normalMappingOn = false;
 		this.blur = false;
 
 		this.volRenderer = new EscapyStdVolumeRenderer();
 		this.stdRenderer = new EscapyStdShaderRenderer();
 	}
 
-	public LightsPostExecutor(float frameWidth, float frameHeight, EscapyMapRenderer normalsMapRenderer) {
+	public LightsPostExecutor(float frameWidth, float frameHeight, EscapyMapRenderer ... normalsMapRenderer) {
+
 		setFrameDim(new TransVec(frameWidth, frameHeight));
 		camera = new EscapyGdxCamera((int) frameWidth, (int) frameHeight);
-		normalMapFBO = new StandartFBO(new int[]{0, 0, (int) frameWidth, (int) frameHeight}, "<NORMAL_MAP_FBUFFER>");
-		setNormalsMapRenderer(normalsMapRenderer);
+		if (normalsMapRenderer != null && normalsMapRenderer.length > 0)
+			setNormalsMapRenderer(normalsMapRenderer[0]);
 	}
-	public LightsPostExecutor(float[] dim, EscapyMapRenderer normalsMapRenderer) {
+	public LightsPostExecutor(float[] dim, EscapyMapRenderer ... normalsMapRenderer) {
+
 		setFrameDim(new TransVec(dim));
 		camera = new EscapyGdxCamera((int) dim[0], (int) dim[1]);
-		normalMapFBO = new StandartFBO(new int[]{0, 0, (int) dim[0], (int) dim[1]}, "<NORMAL_MAP_FBUFFER>");
-		setNormalsMapRenderer(normalsMapRenderer);
+		if (normalsMapRenderer != null && normalsMapRenderer.length > 0)
+			setNormalsMapRenderer(normalsMapRenderer[0]);
 	}
-	public LightsPostExecutor(TransVec dim, EscapyMapRenderer normalsMapRenderer) {
+	public LightsPostExecutor(TransVec dim, EscapyMapRenderer ... normalsMapRenderer) {
+
 		setFrameDim(new TransVec(dim));
 		camera = new EscapyGdxCamera((int) dim.x, (int) dim.y);
-		normalMapFBO = new StandartFBO(new int[]{0, 0, (int)dim.x, (int)dim.y}, "<NORMAL_MAP_FBUFFER>");
-		setNormalsMapRenderer(normalsMapRenderer);
+		if (normalsMapRenderer != null && normalsMapRenderer.length > 0)
+			setNormalsMapRenderer(normalsMapRenderer[0]);
 	}
 
 
@@ -80,7 +83,9 @@ public class LightsPostExecutor {
 	}
 	public void processLightBuffer(Sprite colorMap, EscapyGdxCamera cam) {
 		processFunc(cam);
-		processLightBuffer(camera, colorMap, normalMapFBO.getSpriteRegion());
+		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, normalMapFBO.getSpriteRegion(), frameDim,
+				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, camera.getCamera());
+		else stdRenderer.drawSprite(colorMap, camera.getCamera());
 	}
 	public EscapyFBO processLightBuffer(EscapyFBO fbo, EscapyGdxCamera camera, Sprite colorMap, Sprite normalsMap) {
 
@@ -97,6 +102,7 @@ public class LightsPostExecutor {
 
 	public void setNormalsMapRenderer(EscapyMapRenderer normalsMapRenderer) {
 		this.normalsMapRenderer = normalsMapRenderer;
+		normalMapFBO = new StandartFBO(new int[]{0, 0, (int)frameDim.x, (int)frameDim.y}, "<NORMAL_MAP_FBUFFER>");
 	}
 	public LightsPostExecutor setFrameDim(TransVec frameDim) {
 		return setFrameDim(frameDim.x, frameDim.y);
@@ -106,7 +112,7 @@ public class LightsPostExecutor {
 	}
 	public LightsPostExecutor setFrameDim(float width, float height) {
 		this.frameDim = new TransVec(width, height);
-		System.out.println("NrmlMapSize:\t\t"+width+" : "+height);
+		System.out.println("PostExecDim:\t\t"+width+" : "+height);
 		return this;
 	}
 	public LightsPostExecutor setDirectIntensity(float directIntensity) {

@@ -9,6 +9,7 @@ import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
 import com.game.render.fbo.psProcess.cont.init.EscapyLights;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
+import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
 import com.game.render.mask.LightMask;
 import com.game.render.program.shader.blend.EscapyBlendRenderer;
 import com.game.render.program.shader.blend.ShaderBlendProgram;
@@ -16,6 +17,7 @@ import com.game.utils.arrContainer.EscapyArrContainer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Henry on 02/10/16.
@@ -23,8 +25,9 @@ import java.util.List;
 public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 
 	private UniMaskRenderer maskRenderer = (fbo, mask1) -> fbo.renderFBO();
+	private LightsPostExecutor postExecutor;
 
-	public EscapyFBO layerFBO, actualFBO, otherFBO;
+	public EscapyFBO layerFBO, actualFBO, otherFBO, lightBuffFBO;
 	public LightMask mask;
 	public EscapyLights lights = null;
 	public int[][] lightID;
@@ -41,15 +44,15 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 	}
 
 	public LayerContainer initFBO(int[] dim, String ... name) {
-		if (dim.length == 2) {
-			this.layerFBO = new StandartFBO(new int[]{0, 0, dim[0], dim[1]}, name);
-			this.otherFBO = new StandartFBO(new int[]{0, 0, dim[0], dim[1]}, "CORR_", name[0]);
-		}
-		else if (dim.length == 4) {
-			this.layerFBO = new StandartFBO(dim, name);
-			this.otherFBO = new StandartFBO(dim, "CORR_", name[0]);
-		}
-		actualFBO = layerFBO;
+
+		int[] dimen = dim;
+		if (dim.length == 2) dimen = new int[]{0, 0, dim[0], dim[1]};
+
+		this.layerFBO = new StandartFBO(dimen, name);
+		this.otherFBO = new StandartFBO(dimen, "CORR_", name[0]);
+		this.lightBuffFBO = new StandartFBO(dimen, "LIGHTBUFF_", name[0]);
+		this.actualFBO = layerFBO;
+		this.postExecutor = new LightsPostExecutor(dimen[2], dimen[3]);
 		return this;
 	}
 	public LayerContainer setMask(LightMask mask) {
@@ -77,24 +80,39 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 		return this;
 	}
 
+	public LayerContainer setLightExecutor(LightsPostExecutor exec) {
+		this.postExecutor = exec;
+		return this;
+	}
+
+	public void processLights(EscapyGdxCamera camera) {
+		processLights(camera, lightBuffFBO);
+	}
+	public void processLights(EscapyGdxCamera camera, EscapyFBO lightBuffFBO) {
+		postExecutor.processLightBuffer(lightBuffFBO.getSpriteRegion(), camera);
+	}
+
 	public LayerContainer makeAndRenderLights(EscapyGdxCamera camera, EscapyFBO lightBuffFBO) {
 
 		if (lights != null) {
 			otherFBO.forceWipeFBO();
 			lights.forEach(l -> l.makeLights().renderBlendedLights(camera, layerFBO.getSpriteRegion(), otherFBO));
-			lightBuffFBO.begin();
+			lightBuffFBO.begin().wipeFBO();
 			blender.renderBlended(actualFBO.getSpriteRegion(), otherFBO.getSpriteRegion(), otherFBO.getFBOCamera().getCamera());
 			lightBuffFBO.end();
 		}
 		return this;
 	}
+	public LayerContainer makeAndRenderLights(EscapyGdxCamera camera) {
+		return makeAndRenderLights(camera, lightBuffFBO);
+	}
 	public void makeLights() {
 		if (lights != null) lights.forEach(EscapyLightContainer::makeLights);
 	}
-	public void renderLights(EscapyGdxCamera camera, EscapyFBO lightBuffFBO) {
+
+	public void renderLights(EscapyGdxCamera camera) {
 		if (lights != null) lights.forEach(l -> l.renderBlendedLights(camera, layerFBO.getSpriteRegion(), lightBuffFBO));
 	}
-
 	public AbsStdLight getSourceByID(int id) {
 		return lights.lightContainers[lightID[id][0]].getSourceByID(lightID[id][1]);
 	}
@@ -107,4 +125,7 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 		return arr;
 	}
 
+	public void postExecutorFunc(Consumer<LightsPostExecutor> exec) {
+		exec.accept(this.postExecutor);
+	}
 }

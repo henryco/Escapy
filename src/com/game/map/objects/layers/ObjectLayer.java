@@ -45,7 +45,7 @@ public class ObjectLayer extends EscapyAbsContainer<EscapyUniRender> {
 
 	public void renderGraphic(EscapyGdxCamera escapyCamera) {
 
-		float[] pos = getCamPos(escapyCamera);
+		float[] pos = LayerCameraShift.getCamPos(escapyCamera);
 		escapyCamera = cameraShift.shiftCamera(escapyCamera, pos);
 		escapyCamera.update();
 
@@ -56,7 +56,7 @@ public class ObjectLayer extends EscapyAbsContainer<EscapyUniRender> {
 
 	public void renderNormals(EscapyGdxCamera escapyCamera) {
 
-		float[] pos = getCamPos(escapyCamera);
+		float[] pos = LayerCameraShift.getCamPos(escapyCamera);
 		escapyCamera = cameraShift.shiftCamera(escapyCamera, pos);
 		escapyCamera.update();
 
@@ -67,7 +67,7 @@ public class ObjectLayer extends EscapyAbsContainer<EscapyUniRender> {
 
 	public void renderLightMap(EscapyGdxCamera escapyCamera) {
 
-		float[] pos = getCamPos(escapyCamera);
+		float[] pos = LayerCameraShift.getCamPos(escapyCamera);
 		escapyCamera = cameraShift.shiftCamera(escapyCamera, pos);
 		escapyCamera.update();
 
@@ -90,10 +90,6 @@ public class ObjectLayer extends EscapyAbsContainer<EscapyUniRender> {
 		return tmp;
 	}
 
-	private static float[] getCamPos(EscapyGdxCamera camera){
-		Vector3 pos = camera.getCamera().position;
-		return new float[]{pos.x, pos.y};
-	}
 	@Override
 	public String toString() {
 		return "COMPILED: "+this.name+ " layer";

@@ -12,8 +12,6 @@ import com.game.map.objects.MapGameObjects;
 import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
-import com.game.render.fbo.EscapyFBO;
-import com.game.render.fbo.StandartFBO;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
@@ -33,8 +31,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	/** The player camera program ID. */
 	protected int playerCameraProgramID;
-
-	private EscapyFBO lightBuffFBO;
 
 	private int [][] id;
 
@@ -65,7 +61,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		int[] dim = new int[]{0, 0, super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT};
 
         this.init_base(dim);
-		this.lightBuffFBO = new StandartFBO(dim, "<LIGHT_FBUFFER>");
 		System.out.println(super.SCREEN_WIDTH+"::"+super.SCREEN_HEIGHT);
 
         super.initializationEnded = true;
@@ -177,11 +172,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.holdCamera(delta);
         this.updDist();
 		super.escapyCamera.wipe();
-		this.lightBuffFBO.forceWipeFBO();
 
-		this.mapObjects.forEach(container -> container.prepareContained(escapyCamera).renderContained().makeAndRenderLights(escapyCamera, lightBuffFBO));
-		this.mapObjects.postExecutorFunc(p -> p.processLightBuffer(lightBuffFBO.getSpriteRegion(), escapyCamera));
-
+		this.mapObjects.forEach(container -> container.prepareContained(escapyCamera).renderContained()
+				.makeAndRenderLights(escapyCamera).processLights(escapyCamera));
 		this.ESCAPE();
     }
 
@@ -207,7 +200,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void hide() {}
     @Override
     public void resize(int width, int height) {
-		mapObjects.postExecutorFunc(p -> p.setFrameDim(width, height));
+		System.out.println("RESIZE: " +width +" : "+height);
+		mapObjects.forEach(container -> container.postExecutorFunc(p -> p.setFrameDim(width, height)));
 	}
     @Override
     public void dispose() {}
