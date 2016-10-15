@@ -68,7 +68,6 @@ lights: {
 				color (250, 0, 0)
 				scale: 3.5
 				visible true
-			//	shift.orto.ext.file = "orto.struct";
 			}
 		}
 		source[1]: {
