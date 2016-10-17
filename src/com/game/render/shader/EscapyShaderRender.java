@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 public abstract class EscapyShaderRender {
 
 
-	public class Uniforms <T> {
+	public final class Uniforms <T> {
 
 		private Consumer<ShaderProgram> loader;
 		private EscapyArray<T> uni;
@@ -103,6 +103,12 @@ public abstract class EscapyShaderRender {
 			for (int i = 0; i < names.length; i++) if (names[i].equalsIgnoreCase(name)) return uniforms[i];
 			return null;
 		}
+		public void set(int index, T val) {
+			uni.container[index] = val;
+		}
+		public void set(String name, T val) {
+			for (int i = 0; i < str.container.length; i++) if (str.container[i].equalsIgnoreCase(name)) uni.container[i] = val;
+		}
 	}
 
 
@@ -126,8 +132,18 @@ public abstract class EscapyShaderRender {
 	}
 
 	public abstract String toString();
-	public abstract EscapyShaderRender setCustomUniforms(boolean uniforms);
 	public abstract EscapyShaderRender initShaderProgram(String VERTEX, String FRAGMENT);
+
+	public EscapyShaderRender setCustomUniforms(boolean uniforms) {
+		if (uniforms) shaderLoader = program -> {
+			floatUniforms.loadUniforms(program);
+			intUniforms.loadUniforms(program);
+			floatArrUniforms.loadUniforms(program);
+			intArrUniforms.loadUniforms(program);
+		};
+		else shaderLoader = program -> {};
+		return this;
+	}
 
 
 	/**

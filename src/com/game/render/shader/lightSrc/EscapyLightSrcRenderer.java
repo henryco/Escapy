@@ -98,9 +98,4 @@ public class EscapyLightSrcRenderer extends EscapyShaderRender {
 		return "EscapyColorizeRenderer_"+super.id;
 	}
 
-	@Override
-	public EscapyShaderRender setCustomUniforms(boolean uniforms) {
-		return null;
-	}
-
 }

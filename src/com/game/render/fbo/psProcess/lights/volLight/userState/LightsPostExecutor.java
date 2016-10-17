@@ -41,8 +41,7 @@ public class LightsPostExecutor {
 
 		this.volRenderer = new EscapyStdVolumeRenderer();
 		this.maxRenderer = ShaderBlendProgram.blendProgram("max");
-		maxRenderer.setCustomUniforms(true);
-		setThreshold(0.2f);
+		maxRenderer.floatUniforms.addUniform("threshold", 0f);
 	}
 
 	public LightsPostExecutor(float frameWidth, float frameHeight, EscapyMapRenderer ... normalsMapRenderer) {
@@ -155,9 +154,14 @@ public class LightsPostExecutor {
 		return this;
 	}
 	public LightsPostExecutor setThreshold(float threshold) {
-		System.out.println("threshold:\t\t\t\t"+ threshold);
+		System.out.println("threshold:\t\t\t"+ threshold);
 		this.threshold = threshold;
-		maxRenderer.floatUniforms.addUniform("threshold", this.threshold);
+		maxRenderer.floatUniforms.set("threshold", threshold);
+		return this;
+	}
+	public LightsPostExecutor setUniformsEnable(boolean enable) {
+		System.out.println("uniforms:\t\t\t"+ enable);
+		maxRenderer.setCustomUniforms(enable);
 		return this;
 	}
 

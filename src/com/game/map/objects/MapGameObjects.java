@@ -281,6 +281,7 @@ public class MapGameObjects {
 			blur = Boolean.parseBoolean(getVaguePrimitive(executorNode, node.blur, "0"));
 		} catch (StructContainerException ex) {ex.printStackTrace();}
 		lightExecutor.setBlur(blur);
+		lightExecutor.setUniformsEnable(executorNode.getBool(false, "uniforms", "1"));
 		if (executorNode.containsStruct(node.normals)) {
 			try {
 				enable = Boolean.parseBoolean(getVaguePrimitive(executorNode.getStruct(node.normals), node.enable, "0"));
@@ -294,6 +295,7 @@ public class MapGameObjects {
 							StructNode fieldNode = shaderNode.getStruct(node.shaderFields);
 							if (fieldNode.containsPrimitive(node.spriteSize) || fieldNode.containsPrimitive("0"))
 								lightExecutor.setSpriteSize(Float.parseFloat(getVaguePrimitive(fieldNode, node.spriteSize, "0")));
+							lightExecutor.setThreshold(fieldNode.getFloat(0, "threshold", "1"));
 							if (fieldNode.containsStruct(node.intensity)) {
 								StructNode intensityNode = fieldNode.getStruct(node.intensity);
 								if (intensityNode.containsPrimitive(node.direct) || intensityNode.containsPrimitive("0"))

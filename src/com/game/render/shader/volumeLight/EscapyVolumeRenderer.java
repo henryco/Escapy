@@ -99,10 +99,6 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 		return "EscapyVolumeRenderer"+"_"+this.FRAGMENT_NAME+"_"+super.id;
 	}
 
-	@Override
-	public EscapyShaderRender setCustomUniforms(boolean uniforms) {
-		return null;
-	}
 
 
 }

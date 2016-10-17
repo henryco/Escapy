@@ -88,8 +88,4 @@ public class EscapyBlurRenderer extends EscapyShaderRender{
 		return "EscapyBlurRenderer_"+super.id;
 	}
 
-	@Override
-	public EscapyShaderRender setCustomUniforms(boolean uniforms) {
-		return null;
-	}
 }
