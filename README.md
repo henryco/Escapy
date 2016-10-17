@@ -4,7 +4,7 @@
 <b>17.10.16:</b><br> Fixed lights and incraced performance, also light executor got new features.<br>
 <b><a href ="https://github.com/henryco/Escapy/tree/master/configs"> -> See config files.</a></b><br><br>
 
-<b>15.10.16:</b><br> Reworked camera system and light executor, now its part of layer container (again)<br>
+<b>15.10.16:</b><br> Reworked camera system and light executor, now its part of layer container (again).<br>
 <b></b><br><br>
 
 <b>12.10.16:</b><br> Game initialization reworked, now it uses enter config file to load source data and load other config files.<br>
