@@ -12,10 +12,10 @@ import com.game.utils.translationVec.TransVec;
 public class EscapyVolumeRenderer extends EscapyShaderRender {
 
 	private ShaderProgram volShader;
-	private static final String colorMap = "colorMap", lightMap = "lightMap", normalMap = "normalMap",
+	private static final String colorMap = "colorMap", maskMap = "maskMap", normalMap = "normalMap",
 								fieldSize = "fieldSize", ambientIntensity = "ambientIntensity",
 								directIntensity = "directIntensity", shadowIntensity = "shadowIntensity",
-								spriteSize = "spriteSize", height = "height";
+								spriteSize = "spriteSize", height = "height", threshold = "threshold";
 	
 	private String FRAGMENT_NAME = "_";
 	
@@ -40,66 +40,55 @@ public class EscapyVolumeRenderer extends EscapyShaderRender {
 		return this;
 	}
 	
+
 	
-	public void renderVolumeLights(float x, float y, Texture cMap, Texture nMap, TransVec dim,
-			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, OrthographicCamera camera) {
-		this.renderVolumeLights(cMap, x, y, cMap, nMap, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, camera);
-	}
-	
-	
-	public void renderVolumeLights(Sprite cMap, Sprite nMap, TransVec dim,
-			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, OrthographicCamera camera) {
-		this.renderVolumeLights(cMap, cMap, nMap, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, camera);
-	}
-	
-	public void renderVolumeLights(float x, float y, TextureRegion cMap, TextureRegion nMap,
-								   TransVec dim, float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, OrthographicCamera camera) {
-		this.renderVolumeLights(cMap, x, y, cMap, nMap, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, camera);
-	}
-	
-	
-	public void renderVolumeLights(Texture target, float x, float y, Texture cMap, Texture nMap, TransVec dim,
-			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, OrthographicCamera camera) {
+	public void renderVolumeLights(Texture color, float x, float y, Texture masked, Texture normal, TransVec dim,
+			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, float threshold, OrthographicCamera camera) {
 		
 		this.volShader = initShader(
-				target, cMap, nMap, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, volShader);
-		super.drawTexture(target, camera, x, y);
+				color, masked, normal, dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, threshold, volShader);
+		super.drawTexture(color, camera, x, y);
 	}
 	
 	
-	public void renderVolumeLights(Sprite target, Sprite cMap, Sprite nMap, TransVec dim,
-			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, OrthographicCamera camera) {
+	public void renderVolumeLights(Sprite color, Sprite masked, Sprite normal, TransVec dim,
+			float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, float threshold, OrthographicCamera camera) {
 		this.volShader = initShader(
-				target.getTexture(), cMap.getTexture(), nMap.getTexture(),
-				dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, volShader);
-		super.drawSprite(target, camera);
+				color.getTexture(), masked.getTexture(), normal.getTexture(),
+				dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, threshold, volShader);
+		super.drawSprite(color, camera);
 	}
 	
-	public void renderVolumeLights(TextureRegion target, float x, float y, TextureRegion cMap, TextureRegion nMap,
-								   TransVec dim, float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, OrthographicCamera camera) {
+	public void renderVolumeLights(TextureRegion color, float x, float y, TextureRegion masked, TextureRegion normal, TransVec dim,
+								   float amIntensity, float dirIntensity, float shdIntensity, float sprtSize, float lum, float threshold, OrthographicCamera camera) {
 		
 		this.volShader = initShader(
-				target.getTexture(), cMap.getTexture(), nMap.getTexture(),
-				dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, volShader);
-		super.drawTextureRegion(target, camera, x, y, dim.x, dim.y);
+				color.getTexture(), masked.getTexture(), normal.getTexture(),
+				dim, amIntensity, dirIntensity, shdIntensity, sprtSize, lum, threshold, volShader);
+		super.drawTextureRegion(color, camera, x, y, dim.x, dim.y);
 	}
 	
 	
-	private ShaderProgram initShader(Texture tMap, Texture cMap, Texture nMap, TransVec dim,
-			float amIntensity, float dirIntensity, float shadIntensity, float sprtSize, float lum, ShaderProgram shader) {
+	private ShaderProgram initShader(Texture colorMapTex, Texture maskMapTex, Texture normalMapTex, TransVec dim,
+			float amIntensity, float dirIntensity, float shadIntensity, float sprtSize, float lum, float thresh, ShaderProgram shader) {
 		shader.begin();
 		{
-			nMap.bind(1);
-			cMap.bind(0);
+			maskMapTex.bind(2);
+			normalMapTex.bind(1);
+			colorMapTex.bind(0);
 			super.batcher.setShader(shader);
+
+			shader.setUniformi(maskMap, 2);
 			shader.setUniformi(normalMap, 1);
 			shader.setUniformi(colorMap, 0);
+
 			shader.setUniformf(fieldSize, dim.x, dim.y);
 			shader.setUniformf(ambientIntensity, amIntensity);
 			shader.setUniformf(directIntensity, dirIntensity);
 			shader.setUniformf(shadowIntensity, shadIntensity);
 			shader.setUniformf(spriteSize, sprtSize);
 			shader.setUniformf(height, lum);
+			shader.setUniformf(threshold, thresh);
 		}
 		shader.end();
 		return shader;

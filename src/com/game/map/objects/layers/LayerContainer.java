@@ -25,9 +25,10 @@ import java.util.function.Consumer;
 public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 
 	private UniMaskRenderer maskRenderer = (fbo, mask1) -> fbo.renderFBO();
+
 	private LightsPostExecutor postExecutor;
 
-	public EscapyFBO layerFBO, actualFBO, otherFBO, lightBuffFBO;
+	public EscapyFBO layerFBO, maskedFBO, lightBuffFBO;
 	public LightMask mask;
 	public EscapyLights lights = null;
 	public int[][] lightID;
@@ -49,15 +50,14 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 		if (dim.length == 2) dimen = new int[]{0, 0, dim[0], dim[1]};
 
 		this.layerFBO = new StandartFBO(dimen, name);
-		this.otherFBO = new StandartFBO(dimen, "CORR_", name[0]);
 		this.lightBuffFBO = new StandartFBO(dimen, "LIGHTBUFF_", name[0]);
-		this.actualFBO = layerFBO;
+		this.maskedFBO = layerFBO;
 		this.postExecutor = new LightsPostExecutor(dimen[2], dimen[3]);
 		return this;
 	}
 	public LayerContainer setMask(LightMask mask) {
 		if (mask != null)
-			if (mask.buffered) maskRenderer = (fbo, mask1) -> actualFBO = mask1.renderMaskBuffered(fbo.getTextureRegion().getTexture()).renderFBO();
+			if (mask.buffered) maskRenderer = (fbo, mask1) -> maskedFBO = mask1.renderMaskBuffered(fbo.getTextureRegion().getTexture()).renderFBO();
 			else maskRenderer = (fbo, mask1) -> mask1.renderMask(fbo.getTextureRegion().getTexture());
 		this.mask = mask;
 		return this;
@@ -75,6 +75,11 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 		return this;
 	}
 
+	public LayerContainer renderMasked() {
+
+		return this;
+	}
+
 	public LayerContainer setLights(EscapyLights lights) {
 		this.lights = lights;
 		return this;
@@ -89,16 +94,24 @@ public class LayerContainer extends EscapyArrContainer <ObjectLayer> {
 		processLights(camera, lightBuffFBO);
 	}
 	public void processLights(EscapyGdxCamera camera, EscapyFBO lightBuffFBO) {
-		postExecutor.processLightBuffer(lightBuffFBO.getSpriteRegion(), camera);
+		postExecutor.processLightBuffer(lightBuffFBO.getSpriteRegion(), maskedFBO.getSpriteRegion(), camera);
 	}
 
 	public LayerContainer makeAndRenderLights(EscapyGdxCamera camera, EscapyFBO lightBuffFBO) {
 
 		if (lights != null) {
-			otherFBO.forceWipeFBO();
-			lights.forEach(l -> l.makeLights().renderBlendedLights(camera, layerFBO.getSpriteRegion(), otherFBO));
+
+			/*
+			transitFBO.forceWipeFBO();
+			lights.forEach(l -> l.makeLights().renderBlendedLights(camera, layerFBO.getSpriteRegion(), transitFBO));
 			lightBuffFBO.begin().wipeFBO();
-			blender.renderBlended(actualFBO.getSpriteRegion(), otherFBO.getSpriteRegion(), otherFBO.getFBOCamera().getCamera());
+			blender.renderBlended(maskedFBO.getSpriteRegion(), transitFBO.getSpriteRegion(), transitFBO.getFBOCamera().getCamera());
+			lightBuffFBO.end();
+			*/
+
+			lights.forEach(l -> l.makeLights().renderLights(camera));
+			lightBuffFBO.begin().wipeFBO();
+			lights.forEach(l -> l.renderBlendedLights(layerFBO.getFBOCamera(), layerFBO.getSpriteRegion()));
 			lightBuffFBO.end();
 		}
 		return this;

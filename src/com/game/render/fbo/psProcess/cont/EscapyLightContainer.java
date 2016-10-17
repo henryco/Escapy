@@ -121,6 +121,10 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight> {
 		return fbo.end();
 	}
 
+	public void renderBlendedLights(EscapyGdxCamera camera, Sprite target) {
+		this.shaderBlendProgram.renderBlended(target, colorizedFBO.getSpriteRegion(), camera.getCamera());
+	}
+
 	public EscapyFBO renderBlendedLights(EscapyGdxCamera camera, Texture target, EscapyFBO fbo) {
 
 		this.renderLights(camera);
