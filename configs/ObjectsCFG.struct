@@ -14,7 +14,7 @@ map: {
 
 	container[0]: {
 		fboName: "<BGR_FBUFFER>";
-		//lights.ext.file = "bgLightsCFG.struct"
+	//	lights.ext.file = "bgLightsCFG.struct"
 		mask: {
 			name: "<BGR_MASK_FBUFFER>"
 			glProgram.glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA)

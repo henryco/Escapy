@@ -6,7 +6,7 @@ lights {
 	containers[0]: {
 		type {
 			glProgram.glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
-			shader.builtIn: ADD_DODGE_STRONG
+			shader.builtIn: (SOFT_COLOR_DODGE, 0)
 			blur: false;
 		}
 		stepShift(0, 0);

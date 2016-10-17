@@ -1,18 +1,20 @@
 //Escapy executor config
 #type struct
 lightExecutor : {
-		blur: false;
-		normalMapping: {
-			enable: true;
-			shader.builtIn: DEFAULT; //In future there will be custom normalmap shaders passes via reflection
-			shader.fields: {
-				spriteSize = 100
-				intensity: {
-					direct: 2.5
-					ambient: 2
-					shadow: 0.455
-					height: 0.865
-				}	
-			}
-		}		
+	blur: false;
+	uniforms: false;
+	normalMapping: {
+		enable: true;
+		shader.builtIn: DEFAULT; //In future there will be custom normalmap shaders passes via reflection
+		shader.fields: {
+			spriteSize = 45
+			threshold 0.135;
+			intensity: {
+				direct: 2.5
+				ambient: 2
+				shadow: 0.455
+				height: 0.865
+			}	
+		}
+	}		
 }

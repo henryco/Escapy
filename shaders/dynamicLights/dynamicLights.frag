@@ -1,16 +1,22 @@
 #version 330 core
+
+#define dota(one, two)       dot(two, one.rgb)
+
 in vec4 v_texCoord0;
 
 uniform sampler2D normalMap;
-uniform sampler2D colorMap; 
+uniform sampler2D colorMap;
+uniform sampler2D maskMap;
 uniform float ambientIntensity;
 uniform float directIntensity;
 uniform float shadowIntensity;
 uniform float spriteSize;
 uniform float height;
+uniform float threshold;
 uniform vec2 fieldSize;
 
 const vec3 av = vec3(0.33333);
+const vec3 c_one = vec3(1);
 const int c_dir[3] = int[](-1, 0, 1);
 
 vec4 floorLight(in vec4 light, in float comp) {
@@ -47,16 +53,21 @@ void main() {
 
 	if (col.a != 0) {
 
-        vec2 uv = vec2(gl_FragCoord.st / fieldSize.st);
-        vec3 normal = normalize(2.0 * texture2D(normalMap, uv).rgb - 1.0);
-        float z = min(1, dot((col.rgb * directIntensity) - shadowIntensity, av));
-        vec3 direction = vec3(getLightDirection(colorMap, uv, fieldSize, spriteSize), z);
+        vec4 maskRGBA = texture2D(maskMap, v_texCoord0.st);
+        col = max(maskRGBA, col);
+        if (dota(c_one, col.rgb) <= threshold) gl_FragColor = vec4(0);
+        else {
+            vec2 uv = vec2(gl_FragCoord.st / fieldSize.st);
+            vec3 normal = normalize(2.0 * texture2D(normalMap, uv).rgb - 1.0);
+            float z = min(1, dot((col.rgb * directIntensity) - shadowIntensity, av));
+            vec3 direction = vec3(getLightDirection(colorMap, uv, fieldSize, spriteSize), z);
 
-        float a = dot(direction, normal) * ambientIntensity;
-        a = (min(1, max(height * col.a, a + height)));
-        vec4 finVec = vec4(col.rgb, min(a, col.a));
+            float a = dot(direction, normal) * ambientIntensity;
+            a = (min(1, max(height * col.a, a + height)));
+            vec4 finVec = vec4(col.rgb, min(a, col.a));
 
-		gl_FragColor = finVec;
+        	gl_FragColor = finVec;
+        }
 	}	else gl_FragColor = col;
 }
 

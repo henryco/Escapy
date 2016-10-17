@@ -1,6 +1,11 @@
 #version 330 core
+#define dota(one, two)       dot(two.rgb, one.rgb)
+
 uniform sampler2D targetMap;
 uniform sampler2D blendMap;
+uniform float threshold;
+
+const vec3 c_one = vec3(1);
 
 in vec2 v_texCoord0;
 
@@ -12,13 +17,10 @@ void main() {
 	if (targetRGBA.a != 0)
 	{
         vec4 fin = vec4(0);
-        if (blendRGBA.a > 0) {
-            fin = max(blendRGBA, targetRGBA);
-            if (fin.rgb == targetRGBA.rgb) fin.a = 0;
-            //    fin = mix(fin, targetRGBA, blendRGBA);
-           // }
-        }
-		gl_FragColor = fin;
-
+        fin = max(blendRGBA, targetRGBA);
+        if (dota(c_one.rgb, fin.rgb) <= threshold)
+            gl_FragColor = vec4(0);
+        else
+		    gl_FragColor = fin;
 	} else gl_FragColor = targetRGBA;
 }

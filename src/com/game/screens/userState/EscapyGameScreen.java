@@ -166,7 +166,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     }
 
 
-
     @Override
     public void render(float delta) {
 		super.escapyCamera.holdCamera(delta);

@@ -54,33 +54,33 @@ lights: {
 
 		type: {
 			glProgram.glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
-			shader.builtIn: ADD_OVERLAY_STRONG
-//			shader.ext.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
-//			shader.ext.fileDir("data/shaders/blend/overlayLight/", "overlayLight");
-//			shader.uniforms("targetMap", "blendMap")
+			shader.builtIn: SOFT_LIGHT
+//			shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
+//			shader.fileDir("data/shaders/blend/overlayLight/", "overlayLight");
+//			shader.uniforms("texture1", "texture2", "texture3", "u_threshold")
 			blur: false;
 		}		
 
 		source[0]: {
 			EscapyStdLight : {
-				srcType: RND_256
-				position: (350, 500)
-				color (250, 0, 0)
-				scale: 3.5
+				srcType: RND_64
+				position: (500, 500)
+				color (50, 150, 200)
+				scale: 12.5
 				visible true
 			}
 		}
 		source[1]: {
 			EscapyStdLight {
-				srcType RND_256
+				srcType RND_64
 				position[0] = 0;
 				position[y] = 420;
 				color: {
-					r: 0
+					r: 250
 					g: 0
-					b: 250
+					b: 50
 				}
-				scale = 3.5
+				scale = 12.5
 				visible true
 			}
 		}

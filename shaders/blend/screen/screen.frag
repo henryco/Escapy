@@ -21,7 +21,7 @@ void main() {
 		vec4 blendRGBA = texture2D(blendMap, v_texCoord0);
 		vec3 maskedMapPre = BlendScreen(targtetRGBA, blendRGBA);
 
-		gl_FragColor = vec4(maskedMapPre, blendRGBA.a));
+		gl_FragColor = vec4(maskedMapPre, blendRGBA.a);
 
 	} else gl_FragColor = targtetRGBA;
 }
