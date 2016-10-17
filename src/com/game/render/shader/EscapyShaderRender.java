@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.game.utils.arrContainer.EscapyArray;
+
+import java.util.function.Consumer;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -13,39 +16,120 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
  */
 public abstract class EscapyShaderRender {
 
-		
-	/** The id. */
+
+	public class Uniforms <T> {
+
+		private Consumer<ShaderProgram> loader;
+		private EscapyArray<T> uni;
+		private EscapyArray<String> str;
+		private T[] uniforms;
+		private String[] names;
+
+		private Float[] fArr;
+		private Integer[] iArr;
+		private Float[][] fFArr;
+		private Integer[][] iIArr;
+
+		public Uniforms(Class<T> objClass) {
+			this.uni = new EscapyArray<T>(objClass){};
+			this.str = new EscapyArray<String>(String.class){};
+			this.uniforms = uni.container;
+			this.names = str.container;
+			try {
+				if (indexOf(objClass, 0)){
+					iArr = (Integer[]) uniforms;
+					loader = program -> {for (int i = 0; i < iArr.length; i++) program.setUniformi(names[i], iArr[i]);};
+				}
+				else if (indexOf(objClass, 0f)){
+					fArr = (Float[]) uniforms;
+					loader = program -> {for (int i = 0; i < fArr.length; i++) program.setUniformf(names[i], fArr[i]);};
+				}
+				else if (indexOf(objClass, new Float[0])) {
+					fFArr = (Float[][]) uniforms;
+					loader = program -> {
+						for (int k = 0; k < fFArr.length; k++) for (int i = 0; i < fFArr[k].length; i++) program.setUniformf(names[k], fFArr[k][i]);
+					};
+				}
+				else if (indexOf(objClass, new Integer[0])) {
+					iIArr = (Integer[][]) uniforms;
+					loader = program -> {
+						for (int k = 0; k < iIArr.length; k++) for (int i = 0; i < iIArr[k].length; i++) program.setUniformi(names[k], iIArr[k][i]);
+					};
+				}
+
+			} catch (Exception ignored) {}
+		}
+
+		private boolean indexOf(Class<T> tc, Object arg1){
+			try{
+				return tc.isAssignableFrom(arg1.getClass());
+			}catch(Exception e){
+				return false;
+			}
+		}
+
+		public Uniforms addUniform(String name, T val) {
+			uni.addSource(val);
+			str.addSource(name);
+			uniforms = uni.container;
+			names = str.container;
+
+			try {
+				iArr = (Integer[]) uniforms;
+			} catch (Exception a) {
+				try {
+					fArr = (Float[]) uniforms;
+				} catch (Exception b) {
+					try {
+						fFArr = (Float[][]) uniforms;
+					} catch (Exception c) {
+						try {
+							iIArr = (Integer[][]) uniforms;
+						} catch (Exception ignored) {}
+					}
+				}
+			}
+			return this;
+		}
+
+		public void loadUniforms(ShaderProgram program) {
+			loader.accept(program);
+		}
+
+		public T get(int index) {
+			return uniforms[index];
+		}
+		public T get(String name) {
+			for (int i = 0; i < names.length; i++) if (names[i].equalsIgnoreCase(name)) return uniforms[i];
+			return null;
+		}
+	}
+
+
+	public final Uniforms<Float> floatUniforms = new Uniforms<>(Float.class);
+	public final Uniforms<Integer> intUniforms = new Uniforms<>(Integer.class);
+	public final Uniforms<Float[]> floatArrUniforms = new Uniforms<>(Float[].class);
+	public final Uniforms<Integer[]> intArrUniforms = new Uniforms<>(Integer[].class);
+
+	protected Consumer<ShaderProgram> shaderLoader = program -> {};
+
 	protected final int id;
-	
-	/** The batcher. */
 	protected SpriteBatch batcher;
-	
-	
-	/**
-	 * Instantiates a new escapy shader render.
-	 */
+
 	public EscapyShaderRender() {
 		this.id = generateID();
 		this.batcher = new SpriteBatch();
 	}
-	
-	/**
-	 * Instantiates a new escapy shader render.
-	 *
-	 * @param id
-	 *            the id
-	 */
 	public EscapyShaderRender(int id) {
 		this.id = id;
 		this.batcher = new SpriteBatch();
 	}
-	
-
 
 	public abstract String toString();
-	
+	public abstract EscapyShaderRender setCustomUniforms(boolean uniforms);
 	public abstract EscapyShaderRender initShaderProgram(String VERTEX, String FRAGMENT);
-	
+
+
 	/**
 	 * Check status.
 	 *
@@ -138,7 +222,7 @@ public abstract class EscapyShaderRender {
 	 *
 	 * @return the int
 	 */
-	protected int generateID() {
+	private int generateID() {
 		return this.hashCode();
 	}
 	

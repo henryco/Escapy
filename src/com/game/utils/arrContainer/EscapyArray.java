@@ -8,18 +8,18 @@ import java.util.function.Consumer;
 /**
  * @author Henry on 02/10/16.
  */
-public abstract class EscapyArrContainer<T> {
+public abstract class EscapyArray<T> {
 
 	public T[] container;
 	private Class<T> obClass;
 
 
-	public EscapyArrContainer(Class<T> obClass) {
+	public EscapyArray(Class<T> obClass) {
 		this.obClass = obClass;
 		this.container = instanceArray(obClass, 0);
 	}
 
-	public EscapyArrContainer addSource(T ob) {
+	public EscapyArray addSource(T ob) {
 
 		T[] tmp = instanceArray(obClass, container.length + 1);
 		System.arraycopy(container, 0, tmp, 0, container.length);
@@ -28,7 +28,7 @@ public abstract class EscapyArrContainer<T> {
 		return this;
 	}
 
-	public EscapyArrContainer forEach(Consumer<T> consumer) {
+	public EscapyArray forEach(Consumer<T> consumer) {
 		Arrays.stream(container).forEach(consumer);
 		return this;
 	}
@@ -37,7 +37,12 @@ public abstract class EscapyArrContainer<T> {
 		return container.length;
 	}
 
-	public EscapyArrContainer clear() {
+	public T get(int index) {
+		if (container.length > index) return container[index];
+		return null;
+	}
+
+	public EscapyArray clear() {
 		container = instanceArray(obClass, 0);
 		return this;
 	}

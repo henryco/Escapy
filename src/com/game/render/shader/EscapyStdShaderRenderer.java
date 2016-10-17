@@ -56,6 +56,11 @@ public class EscapyStdShaderRenderer extends EscapyShaderRender {
 	}
 
 	@Override
+	public EscapyShaderRender setCustomUniforms(boolean uniforms) {
+		return null;
+	}
+
+	@Override
 	public EscapyShaderRender initShaderProgram(String VERTEX, String FRAGMENT) {
 		ShaderProgram.pedantic = false;
 		this.stdProgram = new ShaderProgram(new FileHandle(VERTEX), new FileHandle(FRAGMENT));

@@ -5,7 +5,8 @@ import com.game.render.EscapyMapRenderer;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
-import com.game.render.shader.EscapyStdShaderRenderer;
+import com.game.render.program.shader.blend.EscapyBlendRenderer;
+import com.game.render.program.shader.blend.ShaderBlendProgram;
 import com.game.render.shader.volumeLight.EscapyVolumeRenderer;
 import com.game.render.shader.volumeLight.userState.EscapyStdVolumeRenderer;
 import com.game.utils.translationVec.TransVec;
@@ -18,7 +19,7 @@ public class LightsPostExecutor {
 	private TransVec frameDim;
 	private EscapyGdxCamera camera;
 	private EscapyVolumeRenderer volRenderer;
-	private EscapyStdShaderRenderer stdRenderer;
+	private EscapyBlendRenderer maxRenderer;
 
 	private boolean normalMappingOn, blur;
 
@@ -39,7 +40,9 @@ public class LightsPostExecutor {
 		this.blur = false;
 
 		this.volRenderer = new EscapyStdVolumeRenderer();
-		this.stdRenderer = new EscapyStdShaderRenderer();
+		this.maxRenderer = ShaderBlendProgram.blendProgram("max");
+		maxRenderer.setCustomUniforms(true);
+		setThreshold(0.2f);
 	}
 
 	public LightsPostExecutor(float frameWidth, float frameHeight, EscapyMapRenderer ... normalsMapRenderer) {
@@ -76,8 +79,8 @@ public class LightsPostExecutor {
 	public void processLightBuffer(EscapyGdxCamera camera, Sprite colorMap, Sprite maskMap, Sprite normalsMap) {
 
 		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, maskMap, normalsMap, frameDim,
-				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, threshold * 3, camera.getCamera());
-		else stdRenderer.drawSprite(colorMap, camera.getCamera());
+				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, threshold, camera.getCamera());
+		else maxRenderer.renderBlended(colorMap, maskMap, camera.getCamera());
 	}
 	public void processLightBuffer(Sprite colorMap, Sprite maskMap, Sprite normalsMap) {
 		processLightBuffer(camera, colorMap, maskMap, normalsMap);
@@ -85,15 +88,15 @@ public class LightsPostExecutor {
 	public void processLightBuffer(Sprite colorMap, Sprite maskMap, EscapyGdxCamera cam) {
 		processFunc(cam);
 		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, maskMap, normalMapFBO.getSpriteRegion(), frameDim,
-				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, threshold * 3, camera.getCamera());
-		else stdRenderer.drawSprite(colorMap, camera.getCamera());
+				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, threshold, camera.getCamera());
+		else maxRenderer.renderBlended(colorMap, maskMap, camera.getCamera());
 	}
 	public EscapyFBO processLightBuffer(EscapyFBO fbo, EscapyGdxCamera camera, Sprite colorMap, Sprite maskMap, Sprite normalsMap) {
 
 		fbo.begin();
 		if (normalMappingOn) volRenderer.renderVolumeLights(colorMap, maskMap, normalsMap, frameDim,
-				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, threshold * 3, camera.getCamera());
-		else stdRenderer.drawSprite(colorMap, camera.getCamera());
+				ambientIntesity, directIntensity, shadowIntensity, spriteSize, height, threshold, camera.getCamera());
+		else maxRenderer.renderBlended(colorMap, maskMap, camera.getCamera());
 		return fbo.end();
 	}
 	public EscapyFBO processLightBuffer(EscapyFBO fbo, Sprite colorMap, Sprite maskMap, Sprite normalsMap) {
@@ -154,6 +157,7 @@ public class LightsPostExecutor {
 	public LightsPostExecutor setThreshold(float threshold) {
 		System.out.println("threshold:\t\t\t\t"+ threshold);
 		this.threshold = threshold;
+		maxRenderer.floatUniforms.addUniform("threshold", this.threshold);
 		return this;
 	}
 

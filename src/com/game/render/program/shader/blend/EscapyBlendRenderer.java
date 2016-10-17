@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.game.render.shader.EscapyShaderRender;
 
+import java.util.function.Consumer;
+
 // TODO: Auto-generated Javadoc
 
 /**
@@ -19,7 +21,7 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 	private ShaderProgram blendShader;
 	private final String targetMap, blendMap;
 	private String FRAGMENT_NAME = "_";
-	
+
 	/**
 	 * Instantiates a new escapy blend renderer.
 	 *
@@ -109,8 +111,19 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 		super.checkStatus(blendShader);
 		return this;
 	}
-	
-	
+
+	@Override
+	public EscapyShaderRender setCustomUniforms(boolean uniforms) {
+		if (uniforms) super.shaderLoader = program -> {
+			super.floatUniforms.loadUniforms(program);
+			super.intUniforms.loadUniforms(program);
+			super.floatArrUniforms.loadUniforms(program);
+			super.intArrUniforms.loadUniforms(program);
+		};
+		else super.shaderLoader = program -> {};
+		return this;
+	}
+
 	/**
 	 * Render blended.
 	 *
@@ -186,6 +199,7 @@ public class EscapyBlendRenderer extends EscapyShaderRender {
 			super.batcher.setShader(shader);
 			shader.setUniformi(this.blendMap, 1);
 			shader.setUniformi(this.targetMap, 0);
+			shaderLoader.accept(shader);
 		}
 		shader.end();
 		return shader;

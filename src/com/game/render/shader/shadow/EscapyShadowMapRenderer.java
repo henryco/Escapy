@@ -83,4 +83,9 @@ public class EscapyShadowMapRenderer extends EscapyShaderRender {
 	public String toString() {
 		return "EscapyShadowMapRenderer_"+super.id;
 	}
+
+	@Override
+	public EscapyShaderRender setCustomUniforms(boolean uniforms) {
+		return null;
+	}
 }

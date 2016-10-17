@@ -173,8 +173,14 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.updDist();
 		super.escapyCamera.wipe();
 
-		this.mapObjects.forEach(container -> container.prepareContained(escapyCamera).renderContained()
-				.makeAndRenderLights(escapyCamera).processLights(escapyCamera));
+		this.mapObjects.forEach(container
+				-> container
+						.prepareContained(escapyCamera)
+						.prepareMask()
+						.renderMasked()
+						.makeAndPrepareLights(escapyCamera)
+						.renderLights(escapyCamera)
+		);
 		this.ESCAPE();
     }
 

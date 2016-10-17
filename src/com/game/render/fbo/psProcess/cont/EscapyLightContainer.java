@@ -2,7 +2,6 @@ package com.game.render.fbo.psProcess.cont;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -70,7 +69,7 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight> {
 	}
 
 
-	public void renderLights(EscapyGdxCamera camera) {
+	public void blendLights(EscapyGdxCamera camera) {
 
 		float[] pos = LayerCameraShift.getCamPos(camera);
 		camera = cameraShift.shiftCamera(camera, pos);
@@ -113,26 +112,10 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight> {
 		camera.setCameraPosition(pos);
 	}
 
-	public EscapyFBO renderBlendedLights(EscapyGdxCamera camera, Sprite target, EscapyFBO fbo) {
-
-		this.renderLights(camera);
-		fbo.begin();
-		this.shaderBlendProgram.renderBlended(target, colorizedFBO.getSpriteRegion(), fbo.getFBOCamera().getCamera());
-		return fbo.end();
-	}
 
 	public void renderBlendedLights(EscapyGdxCamera camera, Sprite target) {
 		this.shaderBlendProgram.renderBlended(target, colorizedFBO.getSpriteRegion(), camera.getCamera());
 	}
-
-	public EscapyFBO renderBlendedLights(EscapyGdxCamera camera, Texture target, EscapyFBO fbo) {
-
-		this.renderLights(camera);
-		fbo.begin();
-		this.shaderBlendProgram.renderBlended(target, colorizedFBO.getTextureRegion().getTexture(), 0, 0, fbo.getFBOCamera().getCamera());
-		return fbo.end();
-	}
-
 
 
 	public EscapyLightContainer initFBO(int[] dimension) {
