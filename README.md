@@ -2,13 +2,13 @@
 <h4>libGDX based 2D game engine</h4> <h9>(<a href ="https://drive.google.com/open?id=0BzwCB78J-oVxSXRXcmE5RFFnYXc" title = "version: 20.10.16">download</a>)</h9><br><br><br>
 
 <b>20.10.16:</b><br> Added particle system and weather via WeatherExecutor.<br>
-<b><a href ="https://github.com/henryco/Escapy/blob/master/configs/WeatherCFG.struct"> -> WeatherExecutor .Struct file.</a></b><br><a href ="https://www.youtube.com/watch?v=0zItTGZU6T4&feature=youtu.be"> -> Weather video example.</a><br><br>
+<b><a href ="https://github.com/henryco/Escapy/blob/master/configs/WeatherCFG.struct"> -> WeatherExecutor .Struct file.</a><br><a href ="https://www.youtube.com/watch?v=0zItTGZU6T4&feature=youtu.be"> -> Weather video example.</a></b><br><br>
 
 <b>17.10.16:</b><br> Fixed lights and incraced performance, also light executor got new features.<br>
 <b><a href ="https://github.com/henryco/Escapy/tree/master/configs"> -> See config files.</a></b><br><br>
 
 <b>15.10.16:</b><br> Reworked camera system and light executor, now its part of layer container (again).<br>
-<b></b><br><br>
+<b></b><br>
 
 <b>12.10.16:</b><br> Game initialization reworked, now it uses enter config file to load source data and load other config files.<br>
 <b><a href ="https://github.com/henryco/Escapy/tree/master/configs"> -> .Struct game initialization config files.</a></b><br><br>
