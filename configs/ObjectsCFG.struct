@@ -14,7 +14,7 @@ map: {
 
 	container[0]: {
 		fboName: "<BGR_FBUFFER>";
-	//	lights.ext.file = "bgLightsCFG.struct"
+		//lights.ext.file = "bgLightsCFG.struct"
 		mask: {
 			name: "<BGR_MASK_FBUFFER>"
 			glProgram.glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA)
@@ -39,7 +39,7 @@ map: {
  	container[1]: {
 		fboName: "<STD_FBUFFER>";
 		mask = ("<STD_MASK_FBUFFER>",(builtIn(MULTIPLY)), (PARENT), (40,40,40,250), true, 461);		
-		//mask(null) or just nothink
+		weatherExecutor.ext.file: "WeatherCFG.struct"
 		lightExecutor.ext.file = "LexCFG.struct"
 		lights.ext.file "LightCFG.struct"
 		//lights.ext.path "data/maps/Loc_3" //optional

@@ -1,0 +1,16 @@
+//Escapy weather map config
+#type struct
+
+weatherExecutor {
+	name "main"
+	program {
+		//TODO
+		startPoint (0, -50)
+		default "snow" //weatherExecutor.container[0].name
+		start: true
+	}
+	container[0]: {
+		name: "snow"
+		fileDir ("data/particles/", "sn.p");
+	}
+}
