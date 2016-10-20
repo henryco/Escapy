@@ -20,11 +20,12 @@ public abstract class EscapyArray<T> {
 	}
 
 	public EscapyArray addSource(T ob) {
+		container = addObjToArray(obClass, container, ob);
+		return this;
+	}
 
-		T[] tmp = instanceArray(obClass, container.length + 1);
-		System.arraycopy(container, 0, tmp, 0, container.length);
-		tmp[tmp.length - 1] = ob;
-		container = tmp;
+	public EscapyArray removeLast(){
+		container = removeLast(obClass, container);
 		return this;
 	}
 
@@ -42,13 +43,30 @@ public abstract class EscapyArray<T> {
 		return null;
 	}
 
+	public T getLast(){
+		return container[container.length - 1];
+	}
+
 	public EscapyArray clear() {
 		container = instanceArray(obClass, 0);
 		return this;
 	}
 
 	@SuppressWarnings("unchecked")
-	private T[] instanceArray(Class<T> obClass, int length) {
-		return (T[]) Array.newInstance(obClass, length);
+	private static <U> U[] instanceArray(Class<U> obClass, int length) {
+		return (U[]) Array.newInstance(obClass, length);
+	}
+
+	protected static <U> U[] addObjToArray(Class<U> obClass, U[] superArray, U ob) {
+		U[] tmp = instanceArray(obClass, superArray.length + 1);
+		System.arraycopy(superArray, 0, tmp, 0, superArray.length);
+		tmp[tmp.length - 1] = ob;
+		return tmp;
+	}
+
+	protected static <U> U[] removeLast(Class<U> obClass, U[] superArray){
+		U[] tmp = instanceArray(obClass, superArray.length - 1);
+		System.arraycopy(superArray, 0, tmp, 0, tmp.length);
+		return tmp;
 	}
 }

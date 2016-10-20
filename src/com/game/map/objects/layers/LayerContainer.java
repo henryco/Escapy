@@ -1,8 +1,11 @@
 package com.game.map.objects.layers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.map.objects.layers.utils.UniMaskRenderer;
+import com.game.map.particles.ParticleContainer;
+import com.game.map.weather.EscapyWeather;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
@@ -10,12 +13,13 @@ import com.game.render.fbo.psProcess.cont.EscapyLightContainer;
 import com.game.render.fbo.psProcess.cont.init.EscapyLights;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
-import com.game.render.mask.LightMask;
+import com.game.map.mask.LightMask;
 import com.game.utils.arrContainer.EscapyArray;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author Henry on 02/10/16.
@@ -25,6 +29,8 @@ public class LayerContainer extends EscapyArray<ObjectLayer> {
 	private UniMaskRenderer maskCreator = (fbo, mask1) -> fbo.draw();
 	private Consumer<EscapyFBO> maskRenderer = fbo -> fbo.draw();
 	private LightsPostExecutor postExecutor;
+	private ParticleContainer particles;
+	private EscapyWeather weatherExecutor;
 
 	public EscapyFBO layerFBO, maskedFBO, lightBuffFBO;
 	public LightMask mask;
@@ -51,6 +57,7 @@ public class LayerContainer extends EscapyArray<ObjectLayer> {
 		this.lightBuffFBO = new StandartFBO(dimen, "LIGHTBUFF_", name[0]);
 		this.maskedFBO = layerFBO;
 		this.postExecutor = new LightsPostExecutor(dimen[2], dimen[3]);
+		this.weatherExecutor = new EscapyWeather(dimen[2], dimen[3]);
 		return this;
 	}
 	public LayerContainer setMask(LightMask mask) {
@@ -69,6 +76,7 @@ public class LayerContainer extends EscapyArray<ObjectLayer> {
 	public LayerContainer prepareContained(EscapyGdxCamera camera) {
 		layerFBO.begin().wipeFBO();
 		forEach(objectLayer -> objectLayer.renderGraphic(camera));
+		weatherExecutor.updateWeather(Gdx.graphics.getDeltaTime()).renderWeather(camera);
 		layerFBO.end();
 		return this;
 	}
@@ -106,6 +114,7 @@ public class LayerContainer extends EscapyArray<ObjectLayer> {
 			lights.forEach(l -> l.makeLights().blendLights(camera));
 			lightBuffFBO.begin().wipeFBO();
 			lights.forEach(l -> l.renderBlendedLights(layerFBO.getFBOCamera(), layerFBO.getSpriteRegion()));
+		//	particles.renderParticles(camera);
 			lightBuffFBO.end();
 		}
 		return this;
@@ -138,5 +147,18 @@ public class LayerContainer extends EscapyArray<ObjectLayer> {
 
 	public void postExecutorFunc(Consumer<LightsPostExecutor> exec) {
 		exec.accept(this.postExecutor);
+	}
+
+	public LayerContainer setWeatherExecutor(EscapyWeather weatherExecutor) {
+		this.weatherExecutor = weatherExecutor;
+		return this;
+	}
+
+	public <T> T weatherFunc(Function<EscapyWeather, T> function) {
+		return function.apply(weatherExecutor);
+	}
+	public LayerContainer weatherCons(Consumer<EscapyWeather> cons) {
+		cons.accept(weatherExecutor);
+		return this;
 	}
 }

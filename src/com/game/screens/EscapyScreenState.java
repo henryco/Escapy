@@ -26,6 +26,7 @@ public abstract class EscapyScreenState implements Screen, Updatable {
 	protected final int SCREEN_HEIGHT;
 	protected final int SCREEN_DEFAULT_WIDTH;
 	protected final int SCREEN_DEFAULT_HEIGHT;
+	protected final float SCREEN_SCALE;
 
 	/** The escapy camera. */
 	protected EscapyGdxCamera escapyCamera;
@@ -50,6 +51,8 @@ public abstract class EscapyScreenState implements Screen, Updatable {
 
 		this.SCREEN_WIDTH = gameState.SCREEN_WIDTH;
 		this.SCREEN_HEIGHT = gameState.SCREEN_HEIGHT;
+
+		this.SCREEN_SCALE = gameState.SCREEN_SCALE;
 
 		System.out.println(SCREEN_WIDTH+ ":: W:H ::" +SCREEN_HEIGHT);
 

@@ -26,6 +26,7 @@ public class GameEnter extends Game {
 	public final int SCREEN_HEIGHT;
 	public final int SCREEN_DEFAULT_WIDTH;
 	public final int SCREEN_DEFAULT_HEIGHT;
+	public final float SCREEN_SCALE;
 
 	/**
 	 * Instantiates a new game enter.
@@ -38,11 +39,14 @@ public class GameEnter extends Game {
 				= new StructTree("data/config/LaunchCFG.struct").
 				mainNode.getPath("launcher", "game", "screen", "size");
 
+		this.SCREEN_SCALE = GameSettings.scaleRatio();
+
 		this.SCREEN_DEFAULT_WIDTH = Integer.parseInt(screenNode.getPrimitive("0", "x", "w", "width"));
 		this.SCREEN_DEFAULT_HEIGHT = Integer.parseInt(screenNode.getPrimitive("1", "y", "h", "height"));
 
-		this.SCREEN_WIDTH = (int) (SCREEN_DEFAULT_WIDTH * GameSettings.scaleRatio());
-		this.SCREEN_HEIGHT = (int) (SCREEN_DEFAULT_HEIGHT * GameSettings.scaleRatio());
+		this.SCREEN_WIDTH = (int) (SCREEN_DEFAULT_WIDTH * SCREEN_SCALE);
+		this.SCREEN_HEIGHT = (int) (SCREEN_DEFAULT_HEIGHT * SCREEN_SCALE);
+
 	}
 
 	@Override

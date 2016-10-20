@@ -1,4 +1,4 @@
-package com.game.render.mask;
+package com.game.map.mask;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;

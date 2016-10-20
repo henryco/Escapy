@@ -9,9 +9,11 @@ import com.game.characters.InitCharacters;
 import com.game.controlls.PlayerControl;
 import com.game.map.InitMap;
 import com.game.map.objects.MapGameObjects;
+import com.game.map.objects.layers.ObjectLayer;
 import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
+import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
@@ -22,7 +24,6 @@ import com.game.update_loop.Updatable;
  */
 public class EscapyGameScreen extends EscapyScreenState implements Updatable, EscapyMainState {
 
-	private InitMap mapContainer;
 	private InitCharacters charactersContainer;
 	private PlayerControl controlls;
 	private EscapyPhysicsBase physics;
@@ -71,7 +72,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void init_base(Object ... vars) {
 
         this.controlls = PlayerControl.playerController();
-        this.mapContainer = new InitMap(super.settings.Location(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.settings.scaleRatio());
+		InitMap mapContainer = new InitMap(super.settings.Location(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.SCREEN_SCALE);
 		this.charactersContainer = new InitCharacters();
         this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
@@ -85,6 +86,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		id = new int[][]{{1, 0}, {1, 1}, {1, 2}};
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
+
+		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
     }
 
 
@@ -96,9 +99,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
                 controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
 		this.mapObjects.forEach(contianer -> {
-			contianer.forEach(objLayer -> objLayer.shift());
-			if (contianer.lights != null)
-				contianer.lights.forEach(l -> l.forEach(a -> a.shift()));
+			contianer.forEach(ObjectLayer::shift);
+			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(AbsStdLight::shift));
 		});
     }
     private void updDist() {
@@ -173,13 +175,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		super.escapyCamera.wipe();
 
 		this.mapObjects.forEach(container
-				-> container
-						.prepareContained(escapyCamera)
-						.prepareMask()
-						.renderMasked()
-						.makeAndPrepareLights(escapyCamera)
-						.renderLights(escapyCamera)
+				->
+				container
+				.prepareContained(escapyCamera)
+				.prepareMask()
+				.renderMasked()
+				.makeAndPrepareLights(escapyCamera)
+				.renderLights(escapyCamera)
 		);
+
 		this.ESCAPE();
     }
 

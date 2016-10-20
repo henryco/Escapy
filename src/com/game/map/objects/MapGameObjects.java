@@ -10,11 +10,12 @@ import com.game.map.objects.objects.utils.PositionCorrector;
 import com.game.map.objects.objects.utils.PositionTranslator;
 import com.game.map.objects.objects.utils.ZoomCalculator;
 import com.game.map.objects.objects.utils.translators.GameObjTranslators;
+import com.game.map.weather.WeatherStructLoader;
 import com.game.render.EscapyUniRender;
 import com.game.render.fbo.psProcess.cont.init.LightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
-import com.game.render.mask.LightMask;
+import com.game.map.mask.LightMask;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
 import net.henryco.struct.container.exceptions.StructContainerException;
@@ -92,6 +93,9 @@ public class MapGameObjects {
 			int[] iter = getIntArray(layerNode.getStructChild());
 			for (int i : iter) container.addSource(loadLayer(layerNode.getStruct(Integer.toString(i)), location, dim, uniRenders));
 		}
+		StructNode weatherExecutorNode = containerNode.getStructSafe("weatherExecutor");
+		if (weatherExecutorNode != null)
+			container.setWeatherExecutor(WeatherStructLoader.loadEscapyWeather(weatherExecutorNode, dim[dim.length - 2], dim[dim.length-1]));
 		return container;
 	}
 
