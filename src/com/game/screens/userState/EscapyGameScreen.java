@@ -90,8 +90,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
     }
 
-
-
+	
 
     @Override
     public void update(float delta) {
