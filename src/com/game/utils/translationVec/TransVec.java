@@ -3,7 +3,7 @@ package com.game.utils.translationVec;
 import java.util.function.Function;
 
 import com.badlogic.gdx.math.Vector2;
-import com.game.utils.observ.SimpleObserver;
+import com.game.utils.observer.SimpleObserver;
 
 // TODO: Auto-generated Javadoc
 /**

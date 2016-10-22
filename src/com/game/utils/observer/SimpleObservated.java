@@ -1,4 +1,4 @@
-package com.game.utils.observ;
+package com.game.utils.observer;
 
 /**
  * Created by root on 05/09/16.

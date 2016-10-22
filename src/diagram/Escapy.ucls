@@ -831,7 +831,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="82" language="java" name="com.game.utils.observ.SimpleObserver" project="EscapyProject_gdx-core" 
+  <interface id="82" language="java" name="com.game.utils.observer.SimpleObserver" project="EscapyProject_gdx-core"
     file="/EscapyProject_gdx-core/src/com/game/utils/observ/SimpleObserver.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="85" width="137" x="1859" y="11272"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

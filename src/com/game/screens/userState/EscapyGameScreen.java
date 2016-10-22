@@ -17,6 +17,7 @@ import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
+import com.game.utils.primitives.walls.Walls;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -29,11 +30,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private EscapyPhysicsBase physics;
 	private EscapyAnimatorBase animator;
 	private MapGameObjects mapObjects;
+	private Walls walls;
 
 	/** The player camera program ID. */
 	protected int playerCameraProgramID;
 
 	private int [][] id;
+
 
 	/**
 	 * Instantiates a new escapy game screen.
@@ -73,6 +76,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         this.controlls = PlayerControl.playerController();
 		InitMap mapContainer = new InitMap(super.settings.Location(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.SCREEN_SCALE);
+		this.walls = mapContainer.getWalls();
 		this.charactersContainer = new InitCharacters();
         this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
@@ -90,7 +94,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
     }
 
-	
+
 
     @Override
     public void update(float delta) {
@@ -183,6 +187,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.renderLights(escapyCamera)
 		);
 
+		//this.walls.draw(escapyCamera);
 		this.ESCAPE();
     }
 

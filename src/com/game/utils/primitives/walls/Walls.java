@@ -3,8 +3,12 @@ package com.game.utils.primitives.walls;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Shape2D;
+import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.primitives.EscapyGeometry;
 
 
@@ -16,23 +20,17 @@ public class Walls implements EscapyGeometry {
 
 	private static final short TYPE_SQUARE  = 1;
 	private static final short TYPE_TRIANGLE = 2;
-	
-	/** The Constant START_X. */
+
 	protected static final int START_X = 0;
-	
-	/** The Constant START_Y. */
 	protected static final int START_Y = 1;
-	
-	/** The Constant END_X. */
 	protected static final int END_X = 2;
-	
-	/** The Constant END_Y. */
 	protected static final int END_Y = 3;
 	
 	private ArrayList<float[]> wallList;
-	private ArrayList<Shape2D> shapeList;
-	
-	
+	private ArrayList<Polygon> shapeList;
+
+	private ShapeRenderer renderer;
+
 	/**
 	 * Instantiates a new walls.
 	 *
@@ -45,8 +43,8 @@ public class Walls implements EscapyGeometry {
 		this.shapeList = new ArrayList<>();
 		fillWallMap(wallPoints);
 		sortWallMap();
+		renderer = new ShapeRenderer();
 	}
-
 
 	private void sortWallMap()
 	{
@@ -56,7 +54,14 @@ public class Walls implements EscapyGeometry {
 			return val;
 		});
 	}
-	
+
+	public void draw(EscapyGdxCamera camera) {
+
+		renderer.setProjectionMatrix(camera.combined());
+		renderer.begin(ShapeRenderer.ShapeType.Line);
+		shapeList.forEach(s -> renderer.polygon(s.getVertices()));
+		renderer.end();
+	}
 	
 	private void fillWallMap(ArrayList<int[]> wallPoints)
 	{
@@ -99,7 +104,7 @@ public class Walls implements EscapyGeometry {
 	}
 	
 	
-	private float[][] squareWall(int stX, int stY, int edX, int edY)
+	private static float[][] squareWall(int stX, int stY, int edX, int edY)
 	{
 		float[][] walls = new float[4][];
 		walls[0] = arrayFiller(edX, stY, stX, stY);
@@ -111,7 +116,7 @@ public class Walls implements EscapyGeometry {
 	}
 	
 	
-	private float[][] triangleWall(int stX, int stY, int edX, int edY)
+	private static float[][] triangleWall(int stX, int stY, int edX, int edY)
 	{
 		float[][] walls = new float[3][];
 		walls[0] = arrayFiller(edX, stY, stX, stY);
@@ -122,7 +127,7 @@ public class Walls implements EscapyGeometry {
 	}
 	
 
-	private float[] arrayFiller(int stX, int stY, int edX, int edY)
+	private static float[] arrayFiller(int stX, int stY, int edX, int edY)
 	{
 		return new float[]
 		{
@@ -164,7 +169,7 @@ public class Walls implements EscapyGeometry {
 	 *
 	 * @return the shape list
 	 */
-	public ArrayList<Shape2D> getShapeList() {
+	public ArrayList<Polygon> getShapeList() {
 		return shapeList;
 	}
 
@@ -175,7 +180,7 @@ public class Walls implements EscapyGeometry {
 	 * @param shapeList
 	 *            the new shape list
 	 */
-	public void setShapeList(ArrayList<Shape2D> shapeList) {
+	public void setShapeList(ArrayList<Polygon> shapeList) {
 		this.shapeList = shapeList;
 	}
 	

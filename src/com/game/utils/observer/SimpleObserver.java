@@ -1,4 +1,4 @@
-package com.game.utils.observ;
+package com.game.utils.observer;
 
 public interface SimpleObserver<T> {
 	

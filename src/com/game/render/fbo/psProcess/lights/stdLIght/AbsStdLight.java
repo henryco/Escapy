@@ -20,8 +20,8 @@ import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.lightSrc.EscapyLightSrcRenderer;
 import com.game.render.shader.lightSrc.userState.EscapyStdLightSrcRenderer;
 import com.game.utils.absContainer.EscapyContainerable;
-import com.game.utils.observ.SimpleObservated;
-import com.game.utils.observ.SimpleObserver;
+import com.game.utils.observer.SimpleObservated;
+import com.game.utils.observer.SimpleObserver;
 import com.game.utils.translationVec.TransVec;
 
 public abstract class AbsStdLight implements EscapyContainerable,
