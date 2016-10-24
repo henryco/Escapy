@@ -42,24 +42,36 @@ public class EscapyPolygon extends Polygon {
 		}
 	}
 
+	@Override
+	public void setPosition(float x, float y) {
+		float tx = getX();
+		float ty = getY();
+		super.setPosition(x, y);
+		for (int i = 0; i < vertNumb; i++) {
+			lines[i].translate(x - tx, y - ty);
+			xVert[i] += x - tx;
+			yVert[i] += y - ty;
+		}
+	}
+
 	private EscapyLine checkLine = new EscapyLine(0, 0);
 	private float lastLength;
 	private float[] lastIntersected;
 	private EscapyLine retLine;
-	public float[] getCollisionVector(float[] normvec, float length, EscapyPolygon otherPolygon) {
+	public float[] getCollisionVector(float[] v_vec, EscapyPolygon otherPolygon) {
 
 		lastLength = 0;
-		lastIntersected = new float[]{normvec[0] * length, normvec[1] * length};
+		lastIntersected = new float[]{v_vec[0], v_vec[1]};
 		retLine = null;
 
 		for (int i = 0; i < otherPolygon.vertNumb; i++)
 			if (contains(otherPolygon.xVert[i], otherPolygon.yVert[i])) {
-				checkLine.set(otherPolygon.xVert[i], otherPolygon.yVert[i], normvec[0] * (-length), normvec[1] * (-length));
+				checkLine.set(otherPolygon.xVert[i], otherPolygon.yVert[i], v_vec[0] * (-1), v_vec[1] * (-1));
 				calc(lines, checkLine, 1);
 			}
 		for (int i = 0; i < vertNumb; i++)
 			if (otherPolygon.contains(xVert[i], yVert[i])) {
-				checkLine.set(xVert[i], yVert[i], normvec[0] * length, normvec[1] * length);
+				checkLine.set(xVert[i], yVert[i], v_vec[0], v_vec[1]);
 				calc(otherPolygon.lines, checkLine, -1);
 			}
 		if (retLine == null) return null;
