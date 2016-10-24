@@ -45,10 +45,13 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 		this.physExecutor = new PhysExecutor();
 
-		physExecutor.meter = 5;
+		physExecutor.meter = 50;
 		EscapyPolygon poly1 = new EscapyPolygon(new float[]{100, 100, 200, 100, 200, 300, 100, 300});
+		EscapyPolygon poly2 = new EscapyPolygon(new float[]{50, 550, 350, 550, 350, 600, 50, 600});
 
-		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly1));
+		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly1, "poly1"));
+		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly2, true, "poly2"));
+		physExecutor.getPhysPolygon("poly1").setSpeedX(2);
 
 	}
 

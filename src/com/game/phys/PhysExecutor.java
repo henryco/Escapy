@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.game.render.camera.EscapyGdxCamera;
 
+import java.util.function.Consumer;
+
 /**
  * @author Henry on 24/10/16.
  */
@@ -23,7 +25,17 @@ public class PhysExecutor {
 		for (PhysPolygon polygon : physQueue) {
 			if (!polygon.frozen) {
 				polygon.speed_vec[1] += g;
-				polygon.translate((polygon.speed_vec[0] * delta) * meter, (polygon.speed_vec[1] * delta) * meter);
+				float[] mov_vec = new float[]{(polygon.speed_vec[0] * delta) * meter, (polygon.speed_vec[1] * delta) * meter};
+				polygon.translate(mov_vec[0], mov_vec[1]);
+				for (int i = 0; i < physQueue.size; i++) {
+					if (physQueue.get(i) != polygon) {
+						float[] counter = polygon.polygon.getCollisionVector(mov_vec, physQueue.get(i).polygon);
+						if (counter != null) {
+							polygon.translate(counter[0], counter[1]);
+							polygon.speed_vec[1] = 0;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -42,5 +54,15 @@ public class PhysExecutor {
 	public PhysExecutor addPhysObjectToQueue(PhysPolygon polygon) {
 		physQueue.add(polygon);
 		return this;
+	}
+	public void forEach(Consumer<PhysPolygon> p) {
+		physQueue.forEach(p);
+	}
+	public PhysPolygon getPhysPolygon(String name) {
+		for (PhysPolygon p : physQueue) if (p.name.equalsIgnoreCase(name)) return p;
+		return null;
+	}
+	public PhysPolygon getPhysPolygon(int index) {
+		return physQueue.get(index);
 	}
 }

@@ -79,4 +79,9 @@ public class EscapyLine {
 	public EscapyLine copy(){
 		return new EscapyLine(this);
 	}
+
+	@Override
+	public String toString() {
+		return "["+start.x+", "+ start.y+"]" + " : " + "["+end.x+", "+ end.y+"]";
+	}
 }

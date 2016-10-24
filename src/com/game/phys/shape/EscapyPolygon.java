@@ -66,26 +66,26 @@ public class EscapyPolygon extends Polygon {
 
 		for (int i = 0; i < otherPolygon.vertNumb; i++)
 			if (contains(otherPolygon.xVert[i], otherPolygon.yVert[i])) {
-				checkLine.set(otherPolygon.xVert[i], otherPolygon.yVert[i], v_vec[0] * (-1), v_vec[1] * (-1));
-				calc(lines, checkLine, 1);
+				checkLine.set(otherPolygon.xVert[i], otherPolygon.yVert[i], otherPolygon.xVert[i] + (v_vec[0] * (-1)), otherPolygon.yVert[i] + (v_vec[1] * (-1)));
+				calc(lines, checkLine, checkLine.lengthSqr(), 1);
 			}
 		for (int i = 0; i < vertNumb; i++)
 			if (otherPolygon.contains(xVert[i], yVert[i])) {
-				checkLine.set(xVert[i], yVert[i], v_vec[0], v_vec[1]);
-				calc(otherPolygon.lines, checkLine, -1);
+				checkLine.set(xVert[i], yVert[i], xVert[i] + v_vec[0], yVert[i] + v_vec[1]);
+				calc(otherPolygon.lines, checkLine, checkLine.lengthSqr(), -1);
 			}
 		if (retLine == null) return null;
 		float[] norm = retLine.normal();
 		return new float[]{lastIntersected[0], lastIntersected[1], norm[0], norm[1]};
 	}
 
-	private void calc(EscapyLine[] lines, EscapyLine checkLine, int sign){
+	private void calc(EscapyLine[] lines, EscapyLine checkLine, float squaredAbsLength, int sign){
 
 		for (EscapyLine line : lines) {
 			float[] intersected = line.intersectedPoint(checkLine);
 			if (intersected != null) {
 				float length = squaredLength(checkLine.start.x, checkLine.start.y, intersected[0], intersected[1]);
-				if (length > lastLength) {
+				if (length > lastLength && length <= squaredAbsLength) {
 					lastLength = length;
 					lastIntersected[0] = sign * (checkLine.start.x - intersected[0]);
 					lastIntersected[1] = sign * (checkLine.start.y - intersected[1]);
