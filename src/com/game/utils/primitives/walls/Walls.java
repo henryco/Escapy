@@ -1,13 +1,9 @@
 package com.game.utils.primitives.walls;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Shape2D;
+import com.game.phys.shape.EscapyPolygon;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.primitives.EscapyGeometry;
 
@@ -21,13 +17,13 @@ public class Walls implements EscapyGeometry {
 	private static final short TYPE_SQUARE  = 1;
 	private static final short TYPE_TRIANGLE = 2;
 
-	protected static final int START_X = 0;
-	protected static final int START_Y = 1;
-	protected static final int END_X = 2;
-	protected static final int END_Y = 3;
+	private static final int START_X = 0;
+	private static final int START_Y = 1;
+	private static final int END_X = 2;
+	private static final int END_Y = 3;
 	
 	private ArrayList<float[]> wallList;
-	private ArrayList<Polygon> shapeList;
+	private ArrayList<EscapyPolygon> shapeList;
 
 	private ShapeRenderer renderer;
 
@@ -100,7 +96,7 @@ public class Walls implements EscapyGeometry {
 				numb++;
 			}
 		}
-		shapeList.add(new Polygon(target_xy_xy_array));
+		shapeList.add(new EscapyPolygon(target_xy_xy_array));
 	}
 	
 	
@@ -169,7 +165,7 @@ public class Walls implements EscapyGeometry {
 	 *
 	 * @return the shape list
 	 */
-	public ArrayList<Polygon> getShapeList() {
+	public ArrayList<EscapyPolygon> getShapeList() {
 		return shapeList;
 	}
 
@@ -180,7 +176,7 @@ public class Walls implements EscapyGeometry {
 	 * @param shapeList
 	 *            the new shape list
 	 */
-	public void setShapeList(ArrayList<Polygon> shapeList) {
+	public void setShapeList(ArrayList<EscapyPolygon> shapeList) {
 		this.shapeList = shapeList;
 	}
 	
