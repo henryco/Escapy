@@ -42,22 +42,48 @@ public class EscapyPolygon extends Polygon {
 		}
 	}
 
-	public float[] getCollisionVector(float[] normvec, EscapyPolygon otherPolygon) {
+	private EscapyLine checkLine = new EscapyLine(0, 0);
+	private float lastLength;
+	private float[] lastIntersected;
+	private EscapyLine retLine;
+	public float[] getCollisionVector(float[] normvec, float length, EscapyPolygon otherPolygon) {
 
+		lastLength = 0;
+		lastIntersected = new float[]{normvec[0] * length, normvec[1] * length};
+		retLine = null;
 
 		for (int i = 0; i < otherPolygon.vertNumb; i++)
 			if (contains(otherPolygon.xVert[i], otherPolygon.yVert[i])) {
-				for (EscapyLine line : lines) {
-
-				}
+				checkLine.set(otherPolygon.xVert[i], otherPolygon.yVert[i], normvec[0] * (-length), normvec[1] * (-length));
+				calc(lines, checkLine, 1);
 			}
 		for (int i = 0; i < vertNumb; i++)
 			if (otherPolygon.contains(xVert[i], yVert[i])) {
-
+				checkLine.set(xVert[i], yVert[i], normvec[0] * length, normvec[1] * length);
+				calc(otherPolygon.lines, checkLine, -1);
 			}
-
-
-		return null;
+		if (retLine == null) return null;
+		float[] norm = retLine.normal();
+		return new float[]{lastIntersected[0], lastIntersected[1], norm[0], norm[1]};
 	}
 
+	private void calc(EscapyLine[] lines, EscapyLine checkLine, int sign){
+
+		for (EscapyLine line : lines) {
+			float[] intersected = line.intersectedPoint(checkLine);
+			if (intersected != null) {
+				float length = squaredLength(checkLine.start.x, checkLine.start.y, intersected[0], intersected[1]);
+				if (length > lastLength) {
+					lastLength = length;
+					lastIntersected[0] = sign * (checkLine.start.x - intersected[0]);
+					lastIntersected[1] = sign * (checkLine.start.y - intersected[1]);
+					retLine = line;
+				}
+			}
+		}
+	}
+
+	private float squaredLength(float x1, float y1, float x2, float y2) {
+		return (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2);
+	}
 }
