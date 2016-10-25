@@ -128,7 +128,7 @@ public class UpdateLoopQueue implements Runnable {
 
 	private float updSynced(float ud, float dt, float eq, float delta) {
 		if ((ud += dt) >= eq) {
-			for (Updatable upd : updList) upd.update(delta);
+			for (int i = 0; i < updList.size(); i++) updList.get(i).update(delta);
 			ud = 0;
 		}	return ud;
 	}

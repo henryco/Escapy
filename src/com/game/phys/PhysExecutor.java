@@ -1,6 +1,7 @@
 package com.game.phys;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.primitives.EscapyGeometry;
@@ -17,10 +18,18 @@ public class PhysExecutor implements EscapyGeometry {
 	public float meter = 1;
 	private Array<PhysPolygon> physQueue = new Array<>();
 
-	public PhysExecutor(){
+	private float delta;
 
+	public PhysExecutor(){
+		this(0);
+	}
+	public PhysExecutor(float delta){
+		setDeltaTime(delta);
 	}
 
+	public void executePhysics(){
+		executePhysics(this.delta);
+	}
 	public void executePhysics(float delta){
 		float g = delta * gravity_a;
 		for (PhysPolygon polygon : physQueue) {
@@ -67,11 +76,10 @@ public class PhysExecutor implements EscapyGeometry {
 						float polyTarget_v_x = prim_proj_polyTarget_n * n[0] + proj_polyTarget_t * t[0];
 						float polyTarget_v_y = prim_proj_polyTarget_n * n[1] + proj_polyTarget_t * t[1];
 
-						polygon.speed_vec[0] = polygon_v_x / (delta * meter);
-						polygon.speed_vec[1] = polygon_v_y / (delta * meter);
-						polyTarget.speed_vec[0] = polyTarget_v_x / (delta * meter);
-						polyTarget.speed_vec[1] = polyTarget_v_y / (delta * meter);
-
+						polygon.setSpeedX(polygon_v_x);
+						polygon.setSpeedY(polygon_v_y);
+						polyTarget.setSpeedX(polyTarget_v_x);
+						polyTarget.setSpeedY(polyTarget_v_y);
 					}
 				}
 			}
@@ -102,5 +110,9 @@ public class PhysExecutor implements EscapyGeometry {
 	}
 	public PhysPolygon getPhysPolygon(int index) {
 		return physQueue.get(index);
+	}
+	public PhysExecutor setDeltaTime(float delta) {
+		this.delta = delta;
+		return this;
 	}
 }

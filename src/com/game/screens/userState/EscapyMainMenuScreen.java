@@ -26,6 +26,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 	private EscapyGdxCamera privGdxCamera;
 
 	private PhysExecutor physExecutor;
+	private float wait = 0;
 
 	/**
 	 * Instantiates a new escapy main menu screen.
@@ -43,23 +44,24 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 		this.batcher = new SpriteBatch();
 
+		this.physExecutor = new PhysExecutor(Gdx.graphics.getRawDeltaTime());
+		physExecutor.meter = 5;
+		physExecutor.gravity_a = 60;
+		EscapyPolygon poly1 = new EscapyPolygon(new float[]{50, 100, 150, 100, 150, 300, 50, 300});
+		EscapyPolygon poly2 = new EscapyPolygon(new float[]{50, 700, 900, 700, 900, 800, 50, 800});
 
+		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly1, "poly1"));
+		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly2, true, "poly2"));
+		physExecutor.getPhysPolygon("poly1").setSpeedX(10).setMass(100f);
+		physExecutor.getPhysPolygon("poly2").setMass(1000).setBounding(1000000000);
 
 	}
 
 
 	@Override
 	public void show() {
-		this.physExecutor = new PhysExecutor();
-		physExecutor.meter = 5;
-		physExecutor.gravity_a = 0;
-		EscapyPolygon poly1 = new EscapyPolygon(new float[]{50, 100, 150, 100, 150, 300, 50, 300});
-		EscapyPolygon poly2 = new EscapyPolygon(new float[]{50, 700, 900, 700, 900, 800, 50, 800});
 
-		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly1, "poly1"));
-		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly2, true, "poly2"));
-		physExecutor.getPhysPolygon("poly1").setSpeedX(30).setSpeedY(90).setMass(0.000002f);
-		physExecutor.getPhysPolygon("poly2").setMass(10000000).setBounding(1000000000);
+
 	}
 
 	@Override
@@ -67,19 +69,28 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 		this.privGdxCamera.clear();
 
-		/*
-		this.privGdxCamera.getCamera().update();
-		this.batcher.setProjectionMatrix(privGdxCamera.getCamera().combined);
-		this.batcher.begin();
-		this.testShaderSprite.draw(batcher);
-		this.batcher.end();
-		*/
 		physExecutor.executePhysics(delta);
 		physExecutor.draw(privGdxCamera);
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) /* Back to game */ {
 			super.gameState.setScreen(super.gameState.getStatesContainer().getGameScreen().getScreen());
 			super.gameState.getStatesContainer().getGameScreen().getScreen().resume();
+		}
+		wait += delta;
+		if (Gdx.input.isTouched(0) && wait > 0.5f) {
+			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
+			tmp.setPosition(Gdx.input.getX(), Gdx.input.getY());
+			tmp.setMass(200);
+			physExecutor.addPhysObjectToQueue(tmp);
+			wait = 0;
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.C) && wait > 0.5f) {
+			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
+			tmp.setPosition(Gdx.input.getX(), Gdx.input.getY());
+			tmp.setMass(200);
+			tmp.setSpeedX(-170f);
+			physExecutor.addPhysObjectToQueue(tmp);
+			wait = 0;
 		}
 	}
 

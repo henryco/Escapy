@@ -11,6 +11,7 @@ public class EscapyPolygon extends Polygon {
 	private float[] xVert, yVert;
 	private EscapyLine[] lines;
 	private int vertNumb = 0;
+	public static float ERR = 0.000001f;
 
 	public EscapyPolygon(float[] vertices) {
 		setVertices(vertices);
@@ -75,7 +76,6 @@ public class EscapyPolygon extends Polygon {
 				calc(otherPolygon.lines, checkLine, checkLine.lengthSqr(), -1);
 			}
 		if (retLine == null) return null;
-		//float[] norm = retLine.normal();
 		float[] norm = retLine.normal;
 		return new float[]{lastIntersected[0], lastIntersected[1], norm[0], norm[1]};
 	}
@@ -87,6 +87,7 @@ public class EscapyPolygon extends Polygon {
 			if (intersected != null) {
 				float length = squaredLength(checkLine.start.x, checkLine.start.y, intersected[0], intersected[1]);
 				if (length > lastLength && length <= squaredAbsLength) {
+
 					lastLength = length;
 					lastIntersected[0] = sign * (checkLine.start.x - intersected[0]);
 					lastIntersected[1] = sign * (checkLine.start.y - intersected[1]);
