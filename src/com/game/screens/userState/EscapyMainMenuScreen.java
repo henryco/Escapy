@@ -51,7 +51,8 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly1, "poly1"));
 		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly2, true, "poly2"));
-		physExecutor.getPhysPolygon("poly1").setSpeedX(2);
+		physExecutor.getPhysPolygon("poly1").setSpeedX(2).setMass(50);
+		//physExecutor.getPhysPolygon("poly2").setMass(650);
 
 	}
 

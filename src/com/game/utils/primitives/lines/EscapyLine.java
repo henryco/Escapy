@@ -34,7 +34,6 @@ public class EscapyLine {
 		if (denom == 0) return null;
 
 		float u = ((dx2 * (start.y - other.start.y)) - (dy2 * (start.x - other.start.x))) / denom;
-
 		return new float[]{start.x + (u * (end.x - start.x)), start.y + (u * (end.y - start.y))};
 	}
 

@@ -23,17 +23,16 @@ public class PhysExecutor {
 	public void executePhysics(float delta){
 		float g = delta * gravity_a;
 		for (PhysPolygon polygon : physQueue) {
-			if (!polygon.frozen) {
-				polygon.speed_vec[1] += g;
-				float[] mov_vec = new float[]{(polygon.speed_vec[0] * delta) * meter, (polygon.speed_vec[1] * delta) * meter};
-				polygon.translate(mov_vec[0], mov_vec[1]);
-				for (int i = 0; i < physQueue.size; i++) {
-					if (physQueue.get(i) != polygon) {
-						float[] counter = polygon.polygon.getCollisionVector(mov_vec, physQueue.get(i).polygon);
-						if (counter != null) {
-							polygon.translate(counter[0], counter[1]);
-							polygon.speed_vec[1] = 0;
-						}
+			polygon.speed_vec[1] += g;
+			float[] mov_vec = new float[]{(polygon.speed_vec[0] * delta) * meter, (polygon.speed_vec[1] * delta) * meter};
+			polygon.translate(mov_vec[0], mov_vec[1], polygon.mass);
+			for (int i = 0; i < physQueue.size; i++) {
+				PhysPolygon polyTarget = physQueue.get(i);
+				if (polyTarget != polygon) {
+					float[] counter = polygon.polygon.getCollisionVector(mov_vec, polyTarget.polygon);
+					if (counter != null) {
+						polygon.translate(counter[0], counter[1]); //mass not necessary here
+						polygon.speed_vec[1] = 0;
 					}
 				}
 			}
