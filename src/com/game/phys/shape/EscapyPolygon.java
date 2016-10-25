@@ -75,7 +75,8 @@ public class EscapyPolygon extends Polygon {
 				calc(otherPolygon.lines, checkLine, checkLine.lengthSqr(), -1);
 			}
 		if (retLine == null) return null;
-		float[] norm = retLine.normal();
+		//float[] norm = retLine.normal();
+		float[] norm = retLine.normal;
 		return new float[]{lastIntersected[0], lastIntersected[1], norm[0], norm[1]};
 	}
 

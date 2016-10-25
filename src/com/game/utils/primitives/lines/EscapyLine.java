@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class EscapyLine {
 
 	public Vector2 start, end;
+	public float[] normal;
 
 	public EscapyLine() {
 		createPoints();}
@@ -51,6 +52,7 @@ public class EscapyLine {
 		createPoints();
 		start.set(x1, y1);
 		end.set(x2, y2);
+		normal = normedNormal();
 		return this;
 	}
 

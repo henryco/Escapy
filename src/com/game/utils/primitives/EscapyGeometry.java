@@ -290,4 +290,18 @@ public interface EscapyGeometry {
 		return circlePoint;
 	}
 
+	static float dot(float[] vec1, float[] vec2) {
+		float ret = 0;
+		for (int i = 0; i < vec1.length; i++) ret += (vec1[i] * vec2[i]);
+		return ret;
+	}
+
+	static float dot2(float[] vec1, float[] vec2) {
+		return (vec1[0] * vec2[0]) + (vec1[1] * vec2[1]);
+	}
+
+	static float dot3(float[] vec1, float[] vec2) {
+		return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2];
+	}
+
 }

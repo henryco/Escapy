@@ -1,5 +1,6 @@
 package com.game.phys;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.game.phys.shape.EscapyPolygon;
 
 /**
@@ -37,7 +38,7 @@ public class PhysPolygon {
 	}
 
 	public void checkBounds(float x, float y, float m) {
-		if ((x+y)*m > bounding) frozen = false;
+		if (MathUtils.isEqual((x+y)*m , bounding) || (x+y)*m > bounding) frozen = false;
 		else {
 			speed_vec[0] = 0;
 			speed_vec[1] = 0;
@@ -71,4 +72,7 @@ public class PhysPolygon {
 		return this;
 	}
 
+	public void outSpeed() {
+		System.out.println(name+": "+speed_vec[0] + " <:> " + speed_vec[1]);
+	}
 }
