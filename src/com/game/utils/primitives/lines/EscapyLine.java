@@ -52,7 +52,7 @@ public class EscapyLine {
 		createPoints();
 		start.set(x1, y1);
 		end.set(x2, y2);
-		normal = normedNormal();
+		updateNormals();
 		return this;
 	}
 
@@ -79,6 +79,10 @@ public class EscapyLine {
 	}
 	public EscapyLine copy(){
 		return new EscapyLine(this);
+	}
+
+	public void updateNormals() {
+		normal = normedNormal();
 	}
 
 	@Override

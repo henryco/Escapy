@@ -297,7 +297,10 @@ public interface EscapyGeometry {
 	}
 
 	static float dot2(float[] vec1, float[] vec2) {
-		return (vec1[0] * vec2[0]) + (vec1[1] * vec2[1]);
+		return dot2(vec1[0], vec1[1], vec2[0], vec2[1]);
+	}
+	static float dot2(float v1x, float v1y, float v2x, float v2y) {
+		return (v1x * v2x) + (v1y * v2y);
 	}
 
 	static float dot3(float[] vec1, float[] vec2) {
