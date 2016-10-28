@@ -10,6 +10,8 @@ import com.game.utils.primitives.lines.EscapyLine;
  */
 public class EscapyPolygon extends Polygon {
 
+	private static final float maxFloat = 99999999999999999999999999999999999999f;
+
 	private float[] xVert, yVert;
 	private EscapyLine[] lines;
 	private int vertNumb = 0;
@@ -65,7 +67,7 @@ public class EscapyPolygon extends Polygon {
 		float[] points = new float[2];
 		float stepLength = EscapyGeometry.squaredLength(0, 0, moveVec[0], moveVec[1]);
 
-		for (EscapyLine line : lines) {
+		for (EscapyLine line : lines)
 			for (int i = 0; i < otherPolygon.vertNumb; i++) {
 				float xVertice = otherPolygon.xVert[i];
 				float yVectice = otherPolygon.yVert[i];
@@ -82,9 +84,8 @@ public class EscapyPolygon extends Polygon {
 					}
 				}
 			}
-		}
 		if (maxLength == 0) return null;
-		return new float[]{-points[0] - (points[0] * 0.0f) , -points[1] - (points[1] * 0.0f), retNormal[0], retNormal[1]};
+		return new float[]{-points[0] - (points[0] * 0.1f) , -points[1] - (points[1] * 0.1f), retNormal[0], retNormal[1]};
 	}
 
 	public boolean isCollide(EscapyPolygon otherPolygon){
@@ -109,8 +110,8 @@ public class EscapyPolygon extends Polygon {
 
 		for (int i = 0; i < normals.length - 1; i+=2) {
 
-			float[] min_max_1 = new float[]{1000000000, 0};
-			float[] min_max_2 = new float[]{1000000000, 0};
+			float[] min_max_1 = new float[]{maxFloat, 0};
+			float[] min_max_2 = new float[]{maxFloat, 0};
 
 			iter = 0;
 			for (int z = 0; z < otherPolygon.vertNumb; z++) {

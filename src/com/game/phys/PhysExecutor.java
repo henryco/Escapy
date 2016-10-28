@@ -36,7 +36,7 @@ public class PhysExecutor {
 		for (int z = 0; z < physQueue.size; z++) {
 			PhysPolygon polygon = physQueue.get(z);
 
-			polygon.speed_vec[1] += gravity_a * delta * meter;
+			polygon.speed_vec[1] += (gravity_a * delta * meter);
 			polygon.translate(polygon.speed_vec[0], polygon.speed_vec[1], polygon.mass);
 
 			for (PhysPolygon polyTarget : physQueue) {
