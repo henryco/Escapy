@@ -45,14 +45,14 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		this.batcher = new SpriteBatch();
 
 		this.physExecutor = new PhysExecutor(Gdx.graphics.getRawDeltaTime());
-		physExecutor.meter = 5;
-		physExecutor.gravity_a = 60;
+		physExecutor.meter = 0.5f;
+		physExecutor.gravity_a = 9;
 		EscapyPolygon poly1 = new EscapyPolygon(new float[]{50, 100, 150, 100, 150, 300, 50, 300});
 		EscapyPolygon poly2 = new EscapyPolygon(new float[]{50, 600, 900, 600, 900, 700, 50, 700});
 
-		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly1, "poly1"));
+	//	physExecutor.addPhysObjectToQueue(new PhysPolygon(poly1, "poly1"));
 		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly2, true, "poly2"));
-		physExecutor.getPhysPolygon("poly1").setSpeedX(0).setMass(100f);
+	//	physExecutor.getPhysPolygon("poly1").setSpeedX(0).setMass(100f);
 		physExecutor.getPhysPolygon("poly2").setMass(1000).setBounding(1000000000);
 
 		physExecutor.addPhysObjectToQueue(new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}), "tmps"));
@@ -81,12 +81,14 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		if (Gdx.input.isTouched(0) && wait > 0.5f) {
 			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
 			tmp.setPosition(Gdx.input.getX(), Gdx.input.getY());
-			tmp.setMass(200);
+			tmp.setMass(100);
+			tmp.setSpeedY(-20);
 			physExecutor.addPhysObjectToQueue(tmp);
 			wait = 0;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-			physExecutor.getPhysPolygon("tmps").setPosition(Gdx.input.getX(), Gdx.input.getY());
+			physExecutor.getPhysPolygon("tmps").setPosition(Gdx.input.getX(), Gdx.input.getY()).setSpeedY(0).setSpeedX(-50);
+
 		}
 	}
 

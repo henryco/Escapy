@@ -9,15 +9,13 @@ public interface EscapyGeometry {
 
 	/**
 	 * Inv sqrt.
-	 *
+	 * https://www.wikiwand.com/en/Fast_inverse_square_root
+	 * https://www.wikiwand.com/en/Fast_inverse_square_root#/Overview_of_the_code
 	 * @param x the x
 	 * @return the float
 	 */
 	static float invSqrt(float x) {
-		/*
-		 * https://www.wikiwand.com/en/Fast_inverse_square_root
-		 * https://www.wikiwand.com/en/Fast_inverse_square_root#/Overview_of_the_code
-		 */
+
 		float half = 0.5f * x;
 		int i = Float.floatToIntBits(x);
 		i = 0x5f3759df - (i >> 1); // magic constant
@@ -307,4 +305,11 @@ public interface EscapyGeometry {
 		return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2];
 	}
 
+
+	static float squaredLength(float x1, float y1, float x2, float y2) {
+		return (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2);
+	}
+	static float squaredLength(float[] p) {
+		return squaredLength(p[0], p[1], p[2], p[3]);
+	}
 }

@@ -23,19 +23,30 @@ public class EscapyLine {
 		this();
 		set(line);
 	}
+	public EscapyLine(float[] p) {
+		this();
+		if (p.length == 2) set(0, 0, p[0], p[1]);
+		else if (p.length == 4) set(p[0], p[1], p[2], p[3]);
+	}
 
-	public float[] intersectedPoint(EscapyLine other) {
+	public float[] intersectedPoint(float sx, float sy, float ex, float ey) {
 
 		float dx1 = end.x - start.x;
-		float dx2 = other.end.x - other.start.x;
+		float dx2 = ex - sx;
 		float dy1 = end.y - start.y;
-		float dy2 = other.end.y - other.start.y;
+		float dy2 = ey - sy;
 		float denom = (dy2 * dx1) - (dx2 * dy1);
 
 		if (denom == 0) return null;
 
-		float u = ((dx2 * (start.y - other.start.y)) - (dy2 * (start.x - other.start.x))) / denom;
+		float u = ((dx2 * (start.y - sy)) - (dy2 * (start.x - sx))) / denom;
 		return new float[]{start.x + (u * (end.x - start.x)), start.y + (u * (end.y - start.y))};
+	}
+	public float[] intersectedPoint(float[] other) {
+		return intersectedPoint(other[0], other[1], other[2], other[3]);
+	}
+	public float[] intersectedPoint(EscapyLine other) {
+		return intersectedPoint(other.start.x, other.start.y, other.end.x, other.end.y);
 	}
 
 	public void translate(float x, float y) {

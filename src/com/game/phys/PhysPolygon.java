@@ -19,7 +19,7 @@ public class PhysPolygon {
 		this.polygon = polygon;
 		this.frozen = frozen;
 		this.speed_vec = new float[2];
-		this.mass = 0.1f;
+		this.mass = 200f;
 		this.bounding = frozen ? 500 : 0;
 
 		setName(name);

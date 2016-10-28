@@ -1,5 +1,6 @@
 package com.game.phys.shape;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.game.utils.primitives.EscapyGeometry;
 import com.game.utils.primitives.lines.EscapyLine;
@@ -57,8 +58,33 @@ public class EscapyPolygon extends Polygon {
 		}
 	}
 
-	private float squaredLength(float x1, float y1, float x2, float y2) {
-		return (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2);
+	public float[] collisionVector(EscapyPolygon otherPolygon, float ... moveVec) {
+
+		float maxLength = 0;
+		float[] retNormal = new float[2];
+		float[] points = new float[2];
+		float stepLength = EscapyGeometry.squaredLength(0, 0, moveVec[0], moveVec[1]);
+
+		for (EscapyLine line : lines) {
+			for (int i = 0; i < otherPolygon.vertNumb; i++) {
+				float xVertice = otherPolygon.xVert[i];
+				float yVectice = otherPolygon.yVert[i];
+				float[] tmpLine = new float[]{xVertice, yVectice, xVertice - moveVec[0], yVectice - moveVec[1]};
+				float[] interPoint = line.intersectedPoint(tmpLine);
+				if (interPoint != null) {
+					float[] interLine = new float[]{0, 0, xVertice - interPoint[0], yVectice - interPoint[1]};
+					float l = EscapyGeometry.squaredLength(interLine);
+					if (l <= stepLength && l > maxLength){
+						maxLength = l;
+						retNormal = line.normal;
+						points[0] = interLine[2];
+						points[1] = interLine[3];
+					}
+				}
+			}
+		}
+		if (maxLength == 0) return null;
+		return new float[]{-points[0] - (points[0] * 0.1f) , -points[1] - (points[1] * 0.1f), retNormal[0], retNormal[1]};
 	}
 
 	public boolean isCollide(EscapyPolygon otherPolygon){
@@ -83,8 +109,8 @@ public class EscapyPolygon extends Polygon {
 
 		for (int i = 0; i < normals.length - 1; i+=2) {
 
-			float[] min_max_1 = new float[]{100000000, 0};
-			float[] min_max_2 = new float[]{100000000, 0};
+			float[] min_max_1 = new float[]{1000000000, 0};
+			float[] min_max_2 = new float[]{1000000000, 0};
 
 			iter = 0;
 			for (int z = 0; z < otherPolygon.vertNumb; z++) {

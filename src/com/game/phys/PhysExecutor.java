@@ -31,66 +31,65 @@ public class PhysExecutor implements EscapyGeometry {
 		executePhysics(this.delta);
 	}
 	public void executePhysics(float delta){
-		float g = delta * gravity_a;
+
+
 		for (int z = 0; z < physQueue.size; z++) {
 			PhysPolygon polygon = physQueue.get(z);
-			float[] mov_vec = new float[]{(polygon.speed_vec[0] * delta) * meter, (polygon.speed_vec[1] * delta + g) * meter};
-			polygon.translate(mov_vec[0], mov_vec[1], polygon.mass);
 
-			for (int i = 0; i < physQueue.size; i++) {
-				PhysPolygon polyTarget = physQueue.get(i);
+			polygon.speed_vec[1] += gravity_a * delta * meter;
+			polygon.translate(polygon.speed_vec[0], polygon.speed_vec[1], polygon.mass);
+			polygon.outSpeed();
+
+			for (PhysPolygon polyTarget : physQueue) {
 				if (polyTarget != polygon) {
 					if (polyTarget.polygon.isCollide(polygon.polygon)){
-						polygon.speed_vec[0] = 0;
-						polygon.speed_vec[1] = 0;
-						polyTarget.speed_vec[0] = 0;
-						polyTarget.speed_vec[1] = 0;
-						polygon.translate(-mov_vec[0] - MathUtils.FLOAT_ROUNDING_ERROR , -mov_vec[1] - MathUtils.FLOAT_ROUNDING_ERROR);
-					}
-					/*
-					float[] counter = polygon.polygon.getCollisionVector(mov_vec, polyTarget.polygon);
-					if (counter != null) {
-						polygon.translate(counter[0], counter[1]); //mass not necessary here
+						float[] counter = polyTarget.polygon.collisionVector(polygon.polygon, polygon.speed_vec[0], polygon.speed_vec[1]);
+						if (counter != null) {
+							polygon.translate(counter[0], counter[1], polygon.mass); //mass not necessary here
+							float[] n = new float[]{counter[2], counter[3]};
+							float[] t = new float[]{-counter[2], counter[3]};
+							if (n[0] == 0 && n[1] == 1) {
+								t[0] = -1;
+								t[1] = 0;
+							} else if (n[0] == -1 && n[1] == 0) {
+								t[0] = 0;
+								t[1] = 1;
+							} else if (n[0] == 0 && n[1] == -1) {
+								t[0] = 1;
+								t[1] = 0;
+							} else if (n[0] == 1 && n[1] == 0) {
+								t[0] = 0;
+								t[1] = -1;
+							}
 
-						float[] n = new float[]{counter[2], counter[3]};
-						float[] t = new float[]{-counter[2], counter[3]};
-						if (n[0] == 0 && n[1] == 1) {
-							t[0] = -1;
-							t[1] = 0;
-						} else if (n[0] == -1 && n[1] == 0) {
-							t[0] = 0;
-							t[1] = 1;
-						} else if (n[0] == 0 && n[1] == -1) {
-							t[0] = 1;
-							t[1] = 0;
-						} else if (n[0] == 1 && n[1] == 0) {
-							t[0] = 0;
-							t[1] = -1;
+							float m_sum = (polygon.mass + polyTarget.mass);
+							float u_polygon = polygon.mass / m_sum;
+							float u_polyTarget = polyTarget.mass / m_sum;
+
+							float proj_polygon_n = EscapyGeometry.dot2(n, polygon.speed_vec);
+							float proj_polygon_t = EscapyGeometry.dot2(t, polygon.speed_vec);
+							float proj_polyTarget_n = EscapyGeometry.dot2(n, polyTarget.speed_vec);
+							float proj_polyTarget_t = EscapyGeometry.dot2(t, polyTarget.speed_vec);
+
+							float prim_proj_polygon_n = (u_polygon - u_polyTarget) * proj_polygon_n + 2 * (u_polyTarget * proj_polyTarget_n);
+							float prim_proj_polyTarget_n = (u_polyTarget - u_polygon) * proj_polyTarget_n + 2 * (u_polygon * proj_polygon_n);
+
+							float polygon_v_x = prim_proj_polygon_n * n[0] + proj_polygon_t * t[0];
+							float polygon_v_y = prim_proj_polygon_n * n[1] + proj_polygon_t * t[1];
+							float polyTarget_v_x = prim_proj_polyTarget_n * n[0] + proj_polyTarget_t * t[0];
+							float polyTarget_v_y = prim_proj_polyTarget_n * n[1] + proj_polyTarget_t * t[1];
+
+							System.out.println("polygon_v: "+ polygon_v_x+ " "+ polygon_v_y);
+							System.out.println("polyTarget_v: "+ polyTarget_v_x+ " "+ polyTarget_v_y);
+
+							polygon.speed_vec[0] = polygon_v_x;
+							polygon.speed_vec[1] = polygon_v_y;
+							polyTarget.speed_vec[0] = polyTarget_v_x;
+							polyTarget.speed_vec[1] = polyTarget_v_y;
+							polygon.checkBounds();
+							polyTarget.checkBounds();
 						}
-
-						float m_sum = (polygon.mass + polyTarget.mass);
-						float u_polygon = polygon.mass / m_sum;
-						float u_polyTarget = polyTarget.mass / m_sum;
-
-						float proj_polygon_n = EscapyGeometry.dot2(n, polygon.speed_vec);
-						float proj_polygon_t = EscapyGeometry.dot2(t, polygon.speed_vec);
-						float proj_polyTarget_n = EscapyGeometry.dot2(n, polyTarget.speed_vec);
-						float proj_polyTarget_t = EscapyGeometry.dot2(t, polyTarget.speed_vec);
-
-						float prim_proj_polygon_n = (u_polygon - u_polyTarget) * proj_polygon_n + 2 * (u_polyTarget * proj_polyTarget_n);
-						float prim_proj_polyTarget_n = (u_polyTarget - u_polygon) * proj_polyTarget_n + 2 * (u_polygon * proj_polygon_n);
-
-						float polygon_v_x = prim_proj_polygon_n * n[0] + proj_polygon_t * t[0];
-						float polygon_v_y = prim_proj_polygon_n * n[1] + proj_polygon_t * t[1];
-						float polyTarget_v_x = prim_proj_polyTarget_n * n[0] + proj_polyTarget_t * t[0];
-						float polyTarget_v_y = prim_proj_polyTarget_n * n[1] + proj_polyTarget_t * t[1];
-
-						polygon.setSpeedX(polygon_v_x);
-						polygon.setSpeedY(polygon_v_y);
-						polyTarget.setSpeedX(polyTarget_v_x);
-						polyTarget.setSpeedY(polyTarget_v_y);
 					}
-					*/
 				}
 			}
 		}
