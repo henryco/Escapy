@@ -14,6 +14,7 @@ public class PhysPolygon {
 
 	public float[] speed_vec;
 	public float mass, bounding;
+	public float energyLoss;
 
 	public PhysPolygon(EscapyPolygon polygon, boolean frozen, String ... name) {
 		this.polygon = polygon;
@@ -21,6 +22,7 @@ public class PhysPolygon {
 		this.speed_vec = new float[2];
 		this.mass = 200f;
 		this.bounding = frozen ? 500 : 0;
+		this.energyLoss = 0.7f;
 
 		setName(name);
 	}
@@ -70,12 +72,21 @@ public class PhysPolygon {
 		speed_vec[1] = y;
 		return this;
 	}
+	public PhysPolygon setSpeed(float x, float y) {
+		speed_vec[0] = x;
+		speed_vec[1] = y;
+		return this;
+	}
 	public PhysPolygon setMass(float mass) {
 		this.mass = mass;
 		return this;
 	}
 	public PhysPolygon setBounding(float b) {
 		this.bounding = b;
+		return this;
+	}
+	public PhysPolygon setEnergyLoss(float e) {
+		this.energyLoss = 1 - e;
 		return this;
 	}
 

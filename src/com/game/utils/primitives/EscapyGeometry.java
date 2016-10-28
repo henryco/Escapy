@@ -312,4 +312,26 @@ public interface EscapyGeometry {
 	static float squaredLength(float[] p) {
 		return squaredLength(p[0], p[1], p[2], p[3]);
 	}
+
+	static float[] getVector_t(float[] vector_n){
+		float[] t = new float[]{-vector_n[0], vector_n[1]};
+		if (vector_n[0] == 0 && vector_n[1] == 1) {
+			t[0] = -1;
+			t[1] = 0;
+			return t;
+		}if (vector_n[0] == -1 && vector_n[1] == 0) {
+			t[0] = 0;
+			t[1] = 1;
+			return t;
+		}if (vector_n[0] == 0 && vector_n[1] == -1) {
+			t[0] = 1;
+			t[1] = 0;
+			return t;
+		}if (vector_n[0] == 1 && vector_n[1] == 0) {
+			t[0] = 0;
+			t[1] = -1;
+			return t;
+		}
+		return t;
+	}
 }

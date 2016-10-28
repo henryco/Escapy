@@ -84,7 +84,7 @@ public class EscapyPolygon extends Polygon {
 			}
 		}
 		if (maxLength == 0) return null;
-		return new float[]{-points[0] - (points[0] * 0.1f) , -points[1] - (points[1] * 0.1f), retNormal[0], retNormal[1]};
+		return new float[]{-points[0] - (points[0] * 0.0f) , -points[1] - (points[1] * 0.0f), retNormal[0], retNormal[1]};
 	}
 
 	public boolean isCollide(EscapyPolygon otherPolygon){
