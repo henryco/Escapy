@@ -3,6 +3,8 @@ package com.game.phys;
 import com.badlogic.gdx.math.MathUtils;
 import com.game.phys.shape.EscapyPolygon;
 
+import java.util.function.Consumer;
+
 /**
  * @author Henry on 24/10/16.
  */
@@ -17,6 +19,13 @@ public class PhysPolygon {
 	public float energyLoss;
 	public float liveTime;
 	public long liveHits;
+	public float minSpeed_x, minSpeed_y;
+	public float collisionTime;
+	private float actualCollisionTime;
+
+	public Consumer<PhysPolygon> timeOutAction = physPolygon -> {};
+	public Consumer<PhysPolygon> hitsOutAction = physPolygon -> liveTime = -1;
+	public Consumer<PhysPolygon> collOutAction = hitsOutAction;
 
 	public PhysPolygon(EscapyPolygon polygon, boolean frozen, String ... name) {
 		this.polygon = polygon;
@@ -25,9 +34,12 @@ public class PhysPolygon {
 		this.mass = 200f;
 		this.bounding = frozen ? 50000000 : 0;
 		this.energyLoss = 0.7f;
-		this.liveTime = 999999999999999999999999f;
+		this.liveTime = 999999999999999999f;
 		this.liveHits = 999999999999999999L;
-
+		this.collisionTime = 999999999999999999f;
+		this.actualCollisionTime = 0;
+		this.minSpeed_x = 0.99f;
+		this.minSpeed_y = 1.25f;
 		setName(name);
 	}
 	public PhysPolygon(EscapyPolygon polygon, String ... name) {
@@ -45,7 +57,7 @@ public class PhysPolygon {
 		return (liveTime -= delta) > 0;
 	}
 	public void updHits(){
-		if ((liveHits -= 1) <= 0) liveTime = -1;
+		if ((liveHits -= 1) <= 0) hitsOutAction.accept(this);
 	}
 	public void checkBounds(float x, float y, float m) {
 
@@ -57,6 +69,12 @@ public class PhysPolygon {
 				speed_vec[1] = 0;
 			}
 		}
+	}
+	public void updCollisionTime(float d){
+		if ((actualCollisionTime += d) >= collisionTime) collOutAction.accept(this);
+	}
+	public void restartCollisionTime() {
+		this.actualCollisionTime = 0;
 	}
 	public void checkBounds() {
 		checkBounds(speed_vec[0], speed_vec[1], mass);
@@ -104,6 +122,31 @@ public class PhysPolygon {
 	}
 	public PhysPolygon setLiveHits(long numb) {
 		this.liveHits = numb;
+		return this;
+	}
+	public PhysPolygon setMinSpeedX(float x){
+		minSpeed_x = x;
+		return this;
+	}
+	public PhysPolygon setMinSpeedY(float y){
+		minSpeed_y = y;
+		return this;
+	}
+	public PhysPolygon setMinSpeed(float x, float y){
+		minSpeed_x = x;
+		minSpeed_y = y;
+		return this;
+	}
+	public PhysPolygon setTimeOutAction(Consumer<PhysPolygon> ta) {
+		timeOutAction = ta;
+		return this;
+	}
+	public PhysPolygon setHitsOutAction(Consumer<PhysPolygon> ht) {
+		hitsOutAction = ht;
+		return this;
+	}
+	public PhysPolygon setCollisionsOutAction(Consumer<PhysPolygon> ca) {
+		collOutAction = ca;
 		return this;
 	}
 

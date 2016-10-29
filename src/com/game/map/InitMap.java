@@ -39,7 +39,7 @@ public class InitMap {
 	public InitMap(String Location, int frameW, int frameH, double scaleRatio) {
 
 		double[] mapsize = readMapSize(Location);
-		this.areaMap = new SparseObjectMatrix3D((int) mapsize[0], (int) mapsize[1], 4);
+		this.areaMap = new SparseObjectMatrix3D((int) mapsize[0], (int) mapsize[1], 1);
 		this.size = getObjectsNumb(Location);
 		createObjectsFF(size, Location);
 

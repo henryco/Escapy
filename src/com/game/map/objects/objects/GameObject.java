@@ -73,7 +73,6 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	@Override
 	public void shift() {
 		position = positionTranslator.translatePosition(F_WIDTH, F_HEIGHT, position);
-
 	}
 
 	@Override

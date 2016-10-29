@@ -32,7 +32,6 @@ public class PhysExecutor {
 	}
 	public void executePhysics(float delta){
 
-
 		for (int z = 0; z < physQueue.size; z++) {
 			PhysPolygon polygon = physQueue.get(z);
 			if (!polygon.checkLiveTime(delta)) {
@@ -40,8 +39,11 @@ public class PhysExecutor {
 				polygon = physQueue.get(z -= 1);
 			}
 
+			float[] vec = new float[2];
 			polygon.speed_vec[1] += (gravity_a * delta * meter);
-			polygon.translate(polygon.speed_vec[0], polygon.speed_vec[1], polygon.mass);
+			if (Math.abs(polygon.speed_vec[0]) >= polygon.minSpeed_x) vec[0] = polygon.speed_vec[0];
+			if (Math.abs(polygon.speed_vec[1]) >= polygon.minSpeed_y) vec[1] = polygon.speed_vec[1];
+			polygon.translate(vec[0], vec[1], polygon.mass);
 
 			for (int i = 0; i < physQueue.size; i++) {
 				PhysPolygon polyTarget = physQueue.get(i);
@@ -49,7 +51,9 @@ public class PhysExecutor {
 					if (polyTarget.polygon.isCollide(polygon.polygon)){
 						float[] counter = polyTarget.polygon.collisionVector(polygon.polygon, polygon.speed_vec[0], polygon.speed_vec[1]);
 						if (counter != null) {
+
 							polygon.translate(counter[0], counter[1], polygon.mass); //mass not necessary here
+
 							float[] n = new float[]{counter[2], counter[3]};
 							float[] t = EscapyGeometry.getVector_t(n);
 
@@ -75,17 +79,22 @@ public class PhysExecutor {
 							polyTarget.speed_vec[0] = polyTarget_v_x * polyTarget.energyLoss;
 							polyTarget.speed_vec[1] = polyTarget_v_y * polyTarget.energyLoss;
 
-							polygon.translate(polygon.speed_vec[0], polygon.speed_vec[1], polygon.mass);
-							polyTarget.translate(polyTarget.speed_vec[0], polyTarget.speed_vec[1], polyTarget.mass);
+							polygon.checkBounds();
 							polygon.updHits();
+							polyTarget.checkBounds();
 							polyTarget.updHits();
 						}
 					}
 				}
 			}
 		}
-	}
 
+	}
+	private int getSign(float val){
+		if (val > 0) return 1;
+		if (val < 0) return 1;
+		return 0;
+	}
 	public void draw(EscapyGdxCamera camera) {
 		renderer.setProjectionMatrix(camera.combined());
 		renderer.begin(ShapeRenderer.ShapeType.Line);

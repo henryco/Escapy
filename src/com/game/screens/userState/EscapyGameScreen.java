@@ -94,7 +94,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
 
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
-    }
+	}
 
 
 
