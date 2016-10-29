@@ -1,11 +1,11 @@
 package com.game.phys;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.primitives.EscapyGeometry;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -35,11 +35,16 @@ public class PhysExecutor {
 
 		for (int z = 0; z < physQueue.size; z++) {
 			PhysPolygon polygon = physQueue.get(z);
+			if (!polygon.checkLiveTime(delta)) {
+				physQueue.removeIndex(z);
+				polygon = physQueue.get(z -= 1);
+			}
 
 			polygon.speed_vec[1] += (gravity_a * delta * meter);
 			polygon.translate(polygon.speed_vec[0], polygon.speed_vec[1], polygon.mass);
 
-			for (PhysPolygon polyTarget : physQueue) {
+			for (int i = 0; i < physQueue.size; i++) {
+				PhysPolygon polyTarget = physQueue.get(i);
 				if (polyTarget != polygon) {
 					if (polyTarget.polygon.isCollide(polygon.polygon)){
 						float[] counter = polyTarget.polygon.collisionVector(polygon.polygon, polygon.speed_vec[0], polygon.speed_vec[1]);
@@ -72,6 +77,8 @@ public class PhysExecutor {
 
 							polygon.translate(polygon.speed_vec[0], polygon.speed_vec[1], polygon.mass);
 							polyTarget.translate(polyTarget.speed_vec[0], polyTarget.speed_vec[1], polyTarget.mass);
+							polygon.updHits();
+							polyTarget.updHits();
 						}
 					}
 				}
@@ -106,6 +113,10 @@ public class PhysExecutor {
 	}
 	public PhysExecutor setDeltaTime(float delta) {
 		this.delta = delta;
+		return this;
+	}
+	public PhysExecutor load(List<PhysPolygon> polygonList) {
+		polygonList.forEach(p -> physQueue.add(p));
 		return this;
 	}
 }

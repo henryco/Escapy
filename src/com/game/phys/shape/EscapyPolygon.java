@@ -1,6 +1,5 @@
 package com.game.phys.shape;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.game.utils.primitives.EscapyGeometry;
 import com.game.utils.primitives.lines.EscapyLine;

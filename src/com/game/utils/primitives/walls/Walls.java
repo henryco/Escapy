@@ -3,6 +3,7 @@ package com.game.utils.primitives.walls;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.game.phys.PhysPolygon;
 import com.game.phys.shape.EscapyPolygon;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.primitives.EscapyGeometry;
@@ -24,6 +25,7 @@ public class Walls implements EscapyGeometry {
 	
 	private ArrayList<float[]> wallList;
 	private ArrayList<EscapyPolygon> shapeList;
+	private ArrayList<PhysPolygon> polygons;
 
 	private ShapeRenderer renderer;
 
@@ -37,6 +39,7 @@ public class Walls implements EscapyGeometry {
 	{
 		this.wallList = new ArrayList<>();
 		this.shapeList = new ArrayList<>();
+		this.polygons = new ArrayList<>();
 		fillWallMap(wallPoints);
 		sortWallMap();
 		renderer = new ShapeRenderer();
@@ -97,6 +100,7 @@ public class Walls implements EscapyGeometry {
 			}
 		}
 		shapeList.add(new EscapyPolygon(target_xy_xy_array));
+		polygons.add(new PhysPolygon(shapeList.get(shapeList.size() - 1), true));
 	}
 	
 	
@@ -169,6 +173,7 @@ public class Walls implements EscapyGeometry {
 		return shapeList;
 	}
 
+	public ArrayList<PhysPolygon> getPolygons(){return polygons;}
 
 	/**
 	 * Sets the shape list.

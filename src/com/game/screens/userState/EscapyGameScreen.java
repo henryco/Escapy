@@ -10,6 +10,9 @@ import com.game.controlls.PlayerControl;
 import com.game.map.InitMap;
 import com.game.map.objects.MapGameObjects;
 import com.game.map.objects.layers.ObjectLayer;
+import com.game.phys.PhysExecutor;
+import com.game.phys.PhysPolygon;
+import com.game.phys.shape.EscapyPolygon;
 import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
@@ -17,7 +20,6 @@ import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
-import com.game.utils.primitives.walls.Walls;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -30,12 +32,12 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private EscapyPhysicsBase physics;
 	private EscapyAnimatorBase animator;
 	private MapGameObjects mapObjects;
-	private Walls walls;
+	private PhysExecutor physExecutor;
 
 	/** The player camera program ID. */
 	protected int playerCameraProgramID;
-
 	private int [][] id;
+	private float wait = 0;
 
 
 	/**
@@ -76,7 +78,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         this.controlls = PlayerControl.playerController();
 		InitMap mapContainer = new InitMap(super.settings.Location(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.SCREEN_SCALE);
-		this.walls = mapContainer.getWalls();
+		this.physExecutor = new PhysExecutor().load(mapContainer.getWalls().getPolygons());
 		this.charactersContainer = new InitCharacters();
         this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
@@ -105,8 +107,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			contianer.forEach(ObjectLayer::shift);
 			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(AbsStdLight::shift));
 		});
+		this.physExecutor.executePhysics(delta);
     }
-    private void updDist() {
+    private void updDist(float delta) {
 
         if (Gdx.input.isKeyPressed(Input.Keys.C)) {
             this.mapObjects.getSourceByID(id[0]).setPosition(
@@ -167,6 +170,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
             this.mapObjects.getSourceByID(id[2]).setVisible(false);
         }
 
+        wait += delta;
+		if (Gdx.input.isKeyPressed(Input.Keys.Z) && wait > 0.5f) {
+			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
+			physExecutor.addPhysObjectToQueue(tmp.setPosition(Gdx.input.getX(), Gdx.input.getY())
+					.setMass(100).setSpeedX(40).setLiveTime(5).setLiveHits(5));
+			wait = 0;
+		}
 
     }
 
@@ -174,7 +184,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     @Override
     public void render(float delta) {
 		super.escapyCamera.holdCamera(delta);
-        this.updDist();
+        this.updDist(delta);
 		super.escapyCamera.wipe();
 
 		this.mapObjects.forEach(container
@@ -186,8 +196,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.makeAndPrepareLights(escapyCamera)
 				.renderLights(escapyCamera)
 		);
-
-		//this.walls.draw(escapyCamera);
+		//this.physExecutor.draw(escapyCamera);
 		this.ESCAPE();
     }
 

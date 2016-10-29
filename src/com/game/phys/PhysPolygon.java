@@ -15,14 +15,18 @@ public class PhysPolygon {
 	public float[] speed_vec;
 	public float mass, bounding;
 	public float energyLoss;
+	public float liveTime;
+	public long liveHits;
 
 	public PhysPolygon(EscapyPolygon polygon, boolean frozen, String ... name) {
 		this.polygon = polygon;
 		this.frozen = frozen;
 		this.speed_vec = new float[2];
 		this.mass = 200f;
-		this.bounding = frozen ? 500 : 0;
+		this.bounding = frozen ? 50000000 : 0;
 		this.energyLoss = 0.7f;
+		this.liveTime = 999999999999999999999999f;
+		this.liveHits = 999999999999999999L;
 
 		setName(name);
 	}
@@ -37,7 +41,12 @@ public class PhysPolygon {
 		checkBounds(x, y, m);
 		translate(x, y);
 	}
-
+	public boolean checkLiveTime(float delta) {
+		return (liveTime -= delta) > 0;
+	}
+	public void updHits(){
+		if ((liveHits -= 1) <= 0) liveTime = -1;
+	}
 	public void checkBounds(float x, float y, float m) {
 
 		if (frozen) {
@@ -89,7 +98,14 @@ public class PhysPolygon {
 		this.energyLoss = 1 - e;
 		return this;
 	}
-
+	public PhysPolygon setLiveTime(float timeSec) {
+		liveTime = timeSec;
+		return this;
+	}
+	public PhysPolygon setLiveHits(long numb) {
+		this.liveHits = numb;
+		return this;
+	}
 
 	public void outSpeed() {
 		System.out.println(name+": "+speed_vec[0] + " <:> " + speed_vec[1]);
