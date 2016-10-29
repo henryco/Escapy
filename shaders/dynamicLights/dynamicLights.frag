@@ -61,8 +61,8 @@ void main() {
             vec3 normal = normalize(2.0 * texture2D(normalMap, uv).rgb - 1.0);
             float z = min(1, dot((col.rgb * directIntensity) - shadowIntensity, av));
             vec3 direction = vec3(getLightDirection(colorMap, uv, fieldSize, spriteSize), z);
-
-            float a = dot(direction, normal) * ambientIntensity;
+            normal.r *= -1;
+            float a = (dot(direction, normal) * ambientIntensity);
             a = (min(1, max(height * col.a, a + height)));
             vec4 finVec = vec4(col.rgb, min(a, col.a));
 
