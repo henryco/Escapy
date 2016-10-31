@@ -16,7 +16,8 @@ out float v_blurVal[9];
 
 void main(){
 	v_angles = u_angles - u_angCorrect; 
-	(v_angles.s > v_angles.t) ? v_angDiff = 1 : v_angDiff = 0;
+//	(v_angles.s > v_angles.t) ? v_angDiff = 1 : v_angDiff = 0;
+	v_angDiff = (v_angles.s > v_angles.t) ? 1 : 0;
 	
 	v_color = a_color;
 	v_texCoord0 = a_texCoord0;
