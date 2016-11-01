@@ -24,7 +24,7 @@ public class PhysPolygon {
 	private float actualCollisionTime;
 
 	public Consumer<PhysPolygon> timeOutAction = physPolygon -> {};
-	public Consumer<PhysPolygon> hitsOutAction = physPolygon -> liveTime = -1;
+	public Consumer<PhysPolygon> hitsOutAction = physPolygon -> {if (!physPolygon.frozen) liveTime = -1;};
 	public Consumer<PhysPolygon> collOutAction = hitsOutAction;
 
 	public PhysPolygon(EscapyPolygon polygon, boolean frozen, String ... name) {

@@ -16,7 +16,7 @@ public class EscapyPolygon extends Polygon {
 	private int vertNumb = 0;
 	private int normNumb = 0;
 
-	public EscapyPolygon(float[] vertices) {
+	public EscapyPolygon(float ... vertices) {
 		setVertices(vertices);
 	}
 

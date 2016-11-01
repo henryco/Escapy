@@ -76,8 +76,8 @@ public class PhysExecutor {
 
 							polygon.speed_vec[0] = polygon_v_x * polygon.energyLoss;
 							polygon.speed_vec[1] = polygon_v_y * polygon.energyLoss;
-							polyTarget.speed_vec[0] = polyTarget_v_x * polyTarget.energyLoss;
-							polyTarget.speed_vec[1] = polyTarget_v_y * polyTarget.energyLoss;
+							polyTarget.speed_vec[0] = polyTarget_v_x;
+							polyTarget.speed_vec[1] = polyTarget_v_y;
 
 							polygon.checkBounds();
 							polygon.updHits();
