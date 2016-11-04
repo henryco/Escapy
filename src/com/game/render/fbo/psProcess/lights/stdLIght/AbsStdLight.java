@@ -16,6 +16,7 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.EscapyFBOContainer;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
+import com.game.render.fbo.psProcess.lights.type.EscapyPeriodicAction;
 import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.lightSrc.EscapyLightSrcRenderer;
 import com.game.render.shader.lightSrc.userState.EscapyStdLightSrcRenderer;
@@ -28,6 +29,7 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		SimpleObserver<TransVec>, SimpleObservated, EscapyUniTrans {
 
 	private PositionTranslator positionTranslator = (width, height, position1) -> position1;
+	private EscapyPeriodicAction<AbsStdLight>[] periodicActions;
 
 	protected SimpleObserver<EscapyFBOContainer> observer;
 	protected Sprite lightSprite, bgSprite;
@@ -40,25 +42,14 @@ public abstract class AbsStdLight implements EscapyContainerable,
 
 	protected Color color;
 	protected EscapyFBO fbo;
+	protected TransVec position, umbra, resolution, lightAngles, radius;
 
-	protected TransVec position;
-	protected TransVec resolution;
-	protected TransVec lightAngles;
-	protected TransVec radius;
-	protected TransVec umbra;
-
-	protected float coeff;
-	protected float correct;
-
-	protected float scale;
-	protected float threshold;
-
+	protected float coeff, correct, scale, threshold;
 	protected float[] optTranslation;
+	protected boolean visible, needUpdate;
+	protected int periodsNumb, id, actualPeriod, actualPeriodTime;
+	protected int[] period;
 
-	protected boolean visible;
-	protected boolean needUpdate;
-
-	private int id;
 
 	{
 		this.id = this.hashCode();
@@ -77,8 +68,13 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		this.scale = 1;
 		this.coeff = 1.f;
 		this.correct = 0.5f;
+		this.periodsNumb = 0;
+		this.actualPeriod = 0;
+		this.actualPeriodTime = 0;
 
 		this.optTranslation = new float[2];
+		this.period = new int[]{Integer.MAX_VALUE};
+		this.periodicActions = new EscapyPeriodicAction[]{((delta, obj) -> obj)};
 
 		this.visible = true;
 	}
@@ -93,6 +89,37 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	public AbsStdLight(int id, TransVec position) {
 		this.setID(id);
 		this.setPosition(position);
+	}
+
+	@Override
+	public SimpleObservated addObserver(SimpleObserver observer) {
+		this.observer = observer;
+		return this;
+	}
+
+	@Override
+	public void stateUpdated(TransVec state) {
+		float tempX = state.x - (this.lightSource.getWidth() / 2.f);
+		float tempY = state.y - (this.lightSource.getHeight() / 2.f);
+		this.lightSource.setPosition(tempX, tempY);
+	}
+
+	@Override
+	public AbsStdLight shift() {
+		if (positionTranslator != null) {
+			float[] newVec = positionTranslator.translatePosition(resolution.x, resolution.y, position.getVecArray().clone());
+			if (newVec[0] != position.x || newVec[1] != position.y)
+				this.position.setTransVec(positionTranslator.translatePosition(resolution.x, resolution.y, newVec));
+		}
+		return this;
+	}
+
+	public AbsStdLight updAction(float delta) {
+		if ((actualPeriodTime -= (delta * 1000)) <= 0) {
+			if ((actualPeriod += 1) >= periodsNumb) actualPeriod = 0;
+			actualPeriodTime = period[actualPeriod];
+		}
+		return periodicActions[actualPeriod].action(delta, this);
 	}
 
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
@@ -120,27 +147,6 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		return preRender(interCam);
 	}
 
-	public SimpleObservated addObserver(SimpleObserver observer) {
-		this.observer = observer;
-		return this;
-	}
-
-	@Override
-	public void stateUpdated(TransVec state) {
-		float tempX = state.x - (this.lightSource.getWidth() / 2.f);
-		float tempY = state.y - (this.lightSource.getHeight() / 2.f);
-		this.lightSource.setPosition(tempX, tempY);
-	}
-
-	@Override
-	public void shift() {
-		if (positionTranslator != null) {
-			float[] newVec = positionTranslator.translatePosition(resolution.x, resolution.y, position.getVecArray().clone());
-			if (newVec[0] != position.x || newVec[1] != position.y)
-				this.position.setTransVec(positionTranslator.translatePosition(resolution.x, resolution.y, newVec));
-		}
-	}
-
 	public AbsStdLight setLightSource(EscapyLightType light) {
 
 		this.updState();
@@ -164,7 +170,6 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		System.out.println(lightSource.setName(Integer.toString(getID())));
 		return this;
 	}
-
 
 	public AbsStdLight setScale(float scale) {
 		this.updState();
@@ -308,7 +313,14 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		this.positionTranslator = translator;
 		return this;
 	}
-
+	public AbsStdLight setPeriods(int... period) {
+		this.period = period;
+		return updPeriodsNumb();
+	}
+	public AbsStdLight setPeriodicActions(EscapyPeriodicAction<AbsStdLight>... periodicActions) {
+		this.periodicActions = periodicActions;
+		return updPeriodsNumb();
+	}
 
 	public abstract EscapyLightType getDefaultLight();
 
@@ -352,6 +364,10 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	}
 	public float getScale() {
 		return scale;
+	}
+	public AbsStdLight updPeriodsNumb(){
+		this.periodsNumb = Math.min(period.length, periodicActions.length);
+		return this;
 	}
 
 }

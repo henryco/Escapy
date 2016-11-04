@@ -122,8 +122,8 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	protected abstract Sprite setFrame180(Texture texture);
 
 	@Override
-	public void shift() {
-
+	public AbstractCharacters shift() {
+		return this;
 	}
 
 	private void fillDataTabs(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {

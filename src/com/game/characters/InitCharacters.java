@@ -58,8 +58,9 @@ public class InitCharacters implements EscapyUniRender {
 	}
 
 	@Override
-	public void shift() {
+	public InitCharacters shift() {
 		forEach(EscapyUniRender::shift);
+		return this;
 	}
 
 	@Override

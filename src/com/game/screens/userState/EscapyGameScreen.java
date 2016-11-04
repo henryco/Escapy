@@ -105,7 +105,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
                 controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
 		this.mapObjects.forEach(contianer -> {
 			contianer.forEach(ObjectLayer::shift);
-			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(AbsStdLight::shift));
+			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(s -> s.shift().updAction(delta)));
 		});
 		this.physExecutor.executePhysics(delta);
     }
