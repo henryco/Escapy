@@ -2,9 +2,6 @@ package com.game.screens.userState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.GameEnter;
 import com.game.phys.PhysExecutor;
@@ -20,9 +17,8 @@ import com.game.screens.EscapyScreenState;
  */
 public class EscapyMainMenuScreen extends EscapyScreenState {
 
-	private Sprite testShaderSprite;
 
-	private SpriteBatch batcher;
+	private SpriteBatch batcher = new SpriteBatch();
 	private EscapyGdxCamera privGdxCamera;
 
 	private PhysExecutor physExecutor;
@@ -37,12 +33,6 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 	public EscapyMainMenuScreen(EscapyGdxCamera escapyCamera, GameEnter game) {
 		super(escapyCamera, game);
 		this.privGdxCamera = new EscapyGdxCamera(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
-
-		this.testShaderSprite = new Sprite(new Texture(new FileHandle("data/logo/splash/BgLogo.png")));
-		this.testShaderSprite.setSize(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
-		this.testShaderSprite.flip(false, true);
-
-		this.batcher = new SpriteBatch();
 
 		this.physExecutor = new PhysExecutor(0.2f);
 		physExecutor.meter = 0.5f;

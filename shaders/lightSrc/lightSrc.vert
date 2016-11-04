@@ -8,7 +8,7 @@ uniform vec2 u_radius;
 uniform float u_angCorrect;
 uniform vec2 u_umbra;
 
-const float c_pi = 3.14159;
+const float c_pi = radians(180);
 
 out vec2 v_texCoord0;
 out vec2 v_angles;
@@ -23,8 +23,7 @@ void main(){
 	gl_Position = u_projTrans * vec4(a_position, 1.0);
 	v_radius = vec2(u_radius.s * 0.5, u_radius.t);
 	v_angles = radians((u_angles - u_angCorrect) * 360);
-	//v_angles.s > v_angles.t ? v_angDiff = 1 : v_angDiff = 0;
-	v_angDiff = (v_angles.s > v_angles.t) ? 1 : 0;
+	v_angles.s > v_angles.t ? v_angDiff = 1 : v_angDiff = 0;
 	v_umbraCoeff = u_umbra.s;
 	v_umbraPower = u_umbra.t;
 	if (v_angDiff == 1) v_theta = (2.0 / abs(v_angles.s - v_angles.t));

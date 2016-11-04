@@ -19,20 +19,6 @@ const vec3 av = vec3(0.33333);
 const vec3 c_one = vec3(1);
 const int c_dir[3] = int[](-1, 0, 1);
 
-vec4 floorLight(in vec4 light, in float comp) {
-	return vec4(min(light.r, comp), min(light.g, comp), 
-		min(light.b, comp), min(light.a, comp));
-}
-
-vec4 cutLight(in vec4 light, in float comp) {
-	float m = max(comp, light.r);
-	m = max(m, light.g);
-	m = max(m, light.b);
-	vec4 returnable = light + max(0.0, m-1.); 
-	return returnable;
-}
-
-
 vec2 getLightDirection(sampler2D image, vec2 uv, vec2 resolution, float size) {
 
     vec2 dir = vec2(0);
@@ -50,6 +36,7 @@ vec2 getLightDirection(sampler2D image, vec2 uv, vec2 resolution, float size) {
 void main() {
 
 	vec4 col = texture2D(colorMap, v_texCoord0.st);	
+    float a_min = col.a;
 
 	if (col.a != 0) {
 
@@ -64,7 +51,9 @@ void main() {
             normal.r *= -1;
             float a = (dot(direction, normal) * ambientIntensity);
             a = (min(1, max(height * col.a, a + height)));
+
             vec4 finVec = vec4(col.rgb, min(a, col.a));
+            finVec.a = min(finVec.a, a_min);
 
         	gl_FragColor = finVec;
         }

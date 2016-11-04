@@ -6,7 +6,7 @@ lights {
 	containers[0]: {
 		type {
 			glProgram.glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
-			shader.builtIn: SOFT_COLOR_DODGE
+			shader.builtIn: ADD_SCREEN
 			blur: false;
 		}
 		stepShift(0, 0);
@@ -15,8 +15,9 @@ lights {
 				srcType: RND_64
 				position: (50, 200)
 				color (250, 250, 250)
-				scale: 7.5
+				scale: 7
 				visible true
+			//	maxRadius = 0.75
 				shift.orto.ext.file = "orto.struct";
 		}
 	}

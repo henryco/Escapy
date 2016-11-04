@@ -2,7 +2,7 @@
 #type struct
 
 orto {
-	vector (0.5, 0.5)
+	vector (0.35, 0.15)
 	step: 1; //px
 	dt = 30 //miliseconds
 }

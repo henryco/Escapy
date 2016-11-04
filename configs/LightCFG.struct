@@ -54,7 +54,7 @@ lights: {
 
 		type: {
 			glProgram.glBlendFuncSeparate: (GL_SRC_ALPHA, GL_ONE, GL_ONE, GL_ONE_MINUS_SRC_COLOR);
-			shader.builtIn: SOFT_LIGHT
+			shader.builtIn: ADD_OVERLAY_STRONG
 //			shader.file("data/shaders/blend/overlay/overlay.vert", "data/shaders/blend/overlay/overlay.frag");
 //			shader.fileDir("data/shaders/blend/overlayLight/", "overlayLight");
 //			shader.uniforms("texture1", "texture2", "texture3", "u_threshold")
@@ -65,7 +65,7 @@ lights: {
 			EscapyStdLight : {
 				srcType: RND_64
 				position: (500, 500)
-				color (50, 150, 200)
+				color (0, 0, 250)
 				scale: 12.5
 				visible true
 			}
