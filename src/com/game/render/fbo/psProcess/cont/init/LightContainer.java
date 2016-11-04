@@ -12,6 +12,7 @@ import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyShadedLight
 import com.game.render.fbo.psProcess.lights.stdLIght.userState.EscapyStdLight;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightSrcFactory;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
+import com.game.render.fbo.psProcess.lights.type.EscapyPeriodicLight;
 import com.game.render.program.gl.separate.GLBlendProgram;
 import com.game.render.program.shader.blend.EscapyBlendRenderer;
 import com.game.render.program.shader.blend.ShaderBlendProgram;
@@ -276,6 +277,8 @@ public class LightContainer {
 						absStdLight.setVisible(proxy.visible);
 						if((translator = GameObjTranslators.loadPosTranslator(lightNode.getStructSafe(node.shift))) != null)
 							absStdLight.setPositionTranslator(translator);
+
+						absStdLight = EscapyPeriodicLight.createPeriodActions(absStdLight, source.getStructSafe("periodic"));
 
 						IDList.add(new int[]{iter, lights.lightContainers[iter].addSource(absStdLight)});
 

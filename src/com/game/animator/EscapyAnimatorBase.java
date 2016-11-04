@@ -6,11 +6,12 @@ package com.game.animator;
  */
 public class EscapyAnimatorBase extends EscapyAnimatorSuper {
 
-	/** The Objects THREAD. */
+
 	private Thread Objects_THREAD;
-	
-	/** The Characters THREAD. */
 	private Thread Characters_THREAD;
+
+	private EscapyAnimatorThreadObject objT;
+	private EscapyAnimatorThreadCharacter chrT;
 
 	/** The ended. */
 	private boolean ended;
@@ -19,7 +20,6 @@ public class EscapyAnimatorBase extends EscapyAnimatorSuper {
 	 * Instantiates a new escapy animator base.
 	 */
 	protected EscapyAnimatorBase() {
-		return;
 	}
 
 	/**
@@ -31,14 +31,22 @@ public class EscapyAnimatorBase extends EscapyAnimatorSuper {
 		return new EscapyAnimatorBase();
 	}
 
+	public void animate(){
+		objT.animate();
+		chrT.animate();
+	}
+
 	/**
 	 * Inits the animator.
 	 *
 	 * @return the escapy animator base
 	 */
 	public EscapyAnimatorBase initAnimator() {
-		Objects_THREAD = new Thread(new EscapyAnimatorThreadObject());
-		Characters_THREAD = new Thread(new EscapyAnimatorThreadCharacter());
+
+		objT = new EscapyAnimatorThreadObject();
+		chrT = new EscapyAnimatorThreadCharacter();
+		Objects_THREAD = new Thread(objT);
+		Characters_THREAD = new Thread(chrT);
 
 		finished[0] = false;
 		finished[1] = false;

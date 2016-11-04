@@ -21,23 +21,22 @@ public class AnimatedObject extends GameObject {
 
 	public AnimatedObject(float x, float y, int iD, String texUrl, float zoom, int type, boolean repeat, int[] animPeriod, int w, int h) {
 
-		super(x, y, iD, texUrl, zoom, type, repeat, w, h);
+		super(x, y, iD, texUrl, zoom, type, repeat, w, h, animPeriod.length);
 		this.animPeriod = animPeriod;
 		this.animob = this;
 		this.actualFrame = 0;
 
 		EscapyAnimatorObject animator = new EscapyAnimatorObject() {
 
-			private long time0 = System.nanoTime();
+			private long time0 = System.currentTimeMillis();
 			private int currentFrame = 0;
 
 			@Override
 			public void defineAnimation() {
-				long time1 = System.nanoTime() - time0;
-				if ((time1 / 1000000) >= animob.animPeriod[currentFrame]) {
-					time0 = System.nanoTime();
-					currentFrame++;
-					if (currentFrame > 9) currentFrame = 0;
+				long time1 = System.currentTimeMillis() - time0;
+				if ((time1) >= animob.animPeriod[currentFrame]) {
+					time0 = System.currentTimeMillis();
+					if ((currentFrame+=1) >= animPeriod.length) currentFrame = 0;
 				}
 				animob.actualFrame = currentFrame;
 			}
@@ -69,9 +68,9 @@ public class AnimatedObject extends GameObject {
 					texture -> texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest));
 			super.defZoom = calcZoom(zoomCalculator, super.F_WIDTH, super.F_HEIGHT, obTempTexs[0], defZoom);
 
-			this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
-			this.obSpriteNRML = makeSpriteArray(obTempTexs[1], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
-			this.obSpriteLTM = makeSpriteArray(obTempTexs[2], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
+			this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom, spriteNumb);
+			this.obSpriteNRML = makeSpriteArray(obTempTexs[1], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom, spriteNumb);
+			this.obSpriteLTM = makeSpriteArray(obTempTexs[2], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom, spriteNumb);
 
 		} catch (com.badlogic.gdx.utils.GdxRuntimeException excp) {
 			if (errPrint) excp.printStackTrace();
@@ -83,11 +82,11 @@ public class AnimatedObject extends GameObject {
 				float[] correction = new float[2];
 				try {
 					correction = positionCorrector.calculateCorrection(super.F_WIDTH, super.F_HEIGHT,
-							(obTempTexs[0].getWidth() / 10.f) * super.defZoom, obTempTexs[0].getHeight() * super.defZoom);
+							(obTempTexs[0].getWidth() / spriteNumb) * super.defZoom, obTempTexs[0].getHeight() * super.defZoom);
 				} catch (Exception ignored){}
 				super.position = new float[]{position[0] + correction[0], position[1] + correction[1]};
 
-				this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom);
+				this.obSpriteSTD = makeSpriteArray(obTempTexs[0], super.F_WIDTH, super.F_HEIGHT, super.position[0], super.position[1], super.defZoom, spriteNumb);
 
 			} catch (com.badlogic.gdx.utils.GdxRuntimeException exc) {
 				exc.printStackTrace();

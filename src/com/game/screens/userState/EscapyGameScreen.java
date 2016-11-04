@@ -10,6 +10,7 @@ import com.game.controlls.PlayerControl;
 import com.game.map.InitMap;
 import com.game.map.objects.MapGameObjects;
 import com.game.map.objects.layers.ObjectLayer;
+import com.game.map.objects.objects.AnimatedObject;
 import com.game.phys.PhysExecutor;
 import com.game.phys.PhysPolygon;
 import com.game.phys.shape.EscapyPolygon;
@@ -91,9 +92,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				super.settings.getSourceDir(), super.settings.getObjectsCfgName(), charactersContainer);
 
 		id = new int[][]{{1, 0}, {1, 1}, {1, 2}};
-		this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
-
+		//this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
+		this.animator = EscapyAnimatorBase.createAnimator().initAnimator();
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
+
 	}
 
 
@@ -103,6 +105,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         this.controlls.baseKeyboard_upd();
         this.charactersContainer.player().updateControlls(controlls.down_A(),controlls.down_D(),
                 controlls.down_SPACE(), controlls.down_KEY_LSHIFT(), controlls.IS_MOVING(), false);
+		this.animator.animate();
 		this.mapObjects.forEach(contianer -> {
 			contianer.forEach(ObjectLayer::shift);
 			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(s -> s.shift().updAction(delta)));
@@ -204,16 +207,15 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     @Override
     public void pause() {
 		
-        this.animator.closeAnimator();
+    //    this.animator.closeAnimator();
         this.physics.closePhysic();
 
-        /* TEST */
         // super.escapyCamera.getCameraProgramHolder().removeCameraProgram(playerCameraProgramID);
         super.gameState.getStatesContainer().getUpdLoopedQueue().removeFromUpdQueueLast();
     }
     @Override
     public void resume() {
-        this.animator.initAnimator().startAnimator();
+    //    this.animator.initAnimator().startAnimator();
         this.physics.reInit().startPhysics();
 
         super.gameState.getStatesContainer().getUpdLoopedQueue().addToUpdQueue(this);

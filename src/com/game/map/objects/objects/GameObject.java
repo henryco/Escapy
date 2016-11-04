@@ -36,7 +36,7 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	protected PositionTranslator positionTranslator = (width, height, position) -> position;
 
 	protected volatile float[] position;
-	protected float defZoom;
+	protected float defZoom, spriteNumb;
 	protected String[] textureUrl;
 	protected int F_WIDTH, F_HEIGHT;
 	protected boolean repeat;
@@ -44,7 +44,7 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 	private int trueID;
 
 
-	public GameObject(float x, float y, int iD, String texUrl, float zoom, int type, boolean repeat, int width, int height) {
+	public GameObject(float x, float y, int iD, String texUrl, float zoom, int type, boolean repeat, int width, int height, float...spriteNumb) {
 
 		this.F_WIDTH = width;
 		this.F_HEIGHT = height;
@@ -55,6 +55,8 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		this.defZoom = zoom;
 		this.setID(iD);
 		this.repeat = repeat;
+		if (spriteNumb != null && spriteNumb.length > 0) this.spriteNumb = spriteNumb[0];
+		else this.spriteNumb = 10;
 		initializeGraphic();
 	}
 
@@ -106,15 +108,15 @@ public abstract class GameObject extends EscapyAnimatorSuperObject
 		return sprite;
 	}
 
-	protected static Sprite[] makeSpriteArray(Texture texture, int FW, int FH, float xpos, float ypos, float zoom) {
+	protected static Sprite[] makeSpriteArray(Texture texture, int FW, int FH, float xpos, float ypos, float zoom, float number) {
 
-		Sprite[] arr = new Sprite[10];
+		Sprite[] arr = new Sprite[(int)number];
 		TextureRegion texReg = new TextureRegion(texture, 0, 0,
-				(int) (texture.getWidth() / 10.f), texture.getHeight());
+				(int) (texture.getWidth() / number), texture.getHeight());
 
-		for (int i = 0; i < 10; i++) {
-			texReg.setRegion((int) ((texture.getWidth() / 10.f) * i), 0,
-					(int) (texture.getWidth() / 10.f), texture.getHeight());
+		for (int i = 0; i < number; i++) {
+			texReg.setRegion((int) ((texture.getWidth() / number) * i), 0,
+					(int) (texture.getWidth() / number), texture.getHeight());
 			arr[i] = makeSpriteFromTexture(texReg, FW, FH, xpos, ypos, zoom);
 		}	return arr;
 	}

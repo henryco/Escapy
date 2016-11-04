@@ -16,7 +16,7 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.EscapyFBOContainer;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
-import com.game.render.fbo.psProcess.lights.type.EscapyPeriodicAction;
+import com.game.utils.periodic.EscapyPeriodicAction;
 import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.lightSrc.EscapyLightSrcRenderer;
 import com.game.render.shader.lightSrc.userState.EscapyStdLightSrcRenderer;
@@ -44,11 +44,11 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	protected EscapyFBO fbo;
 	protected TransVec position, umbra, resolution, lightAngles, radius;
 
-	protected float coeff, correct, scale, threshold;
+	protected float coeff, correct, scale, threshold, actualPeriodTime;
 	protected float[] optTranslation;
 	protected boolean visible, needUpdate;
-	protected int periodsNumb, id, actualPeriod, actualPeriodTime;
-	protected int[] period;
+	protected int periodsNumb, id, actualPeriod;
+	protected float[] period;
 
 
 	{
@@ -73,8 +73,8 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		this.actualPeriodTime = 0;
 
 		this.optTranslation = new float[2];
-		this.period = new int[]{Integer.MAX_VALUE};
-		this.periodicActions = new EscapyPeriodicAction[]{((delta, obj) -> obj)};
+		this.period = new float[]{Float.MAX_VALUE};
+		this.periodicActions = new EscapyPeriodicAction[]{((delta, max, obj) -> obj)};
 
 		this.visible = true;
 	}
@@ -115,11 +115,15 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	}
 
 	public AbsStdLight updAction(float delta) {
-		if ((actualPeriodTime -= (delta * 1000)) <= 0) {
+
+		if ((actualPeriodTime -= (delta)) <= 0) {
 			if ((actualPeriod += 1) >= periodsNumb) actualPeriod = 0;
 			actualPeriodTime = period[actualPeriod];
 		}
-		return periodicActions[actualPeriod].action(delta, this);
+		if (periodicActions[actualPeriod] != null) {
+			periodicActions[actualPeriod].action(delta, actualPeriodTime - 0.5f * period[actualPeriod], this);
+		}
+		return this;
 	}
 
 	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
@@ -313,7 +317,7 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		this.positionTranslator = translator;
 		return this;
 	}
-	public AbsStdLight setPeriods(int... period) {
+	public AbsStdLight setPeriods(float... period) {
 		this.period = period;
 		return updPeriodsNumb();
 	}

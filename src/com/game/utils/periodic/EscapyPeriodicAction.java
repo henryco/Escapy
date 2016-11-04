@@ -1,4 +1,4 @@
-package com.game.render.fbo.psProcess.lights.type;
+package com.game.utils.periodic;
 
 
 /**
@@ -7,5 +7,5 @@ package com.game.render.fbo.psProcess.lights.type;
 @FunctionalInterface
 public interface EscapyPeriodicAction <T> {
 
-	T action(float delta, T obj);
+	T action(float delta, float actMax, T obj);
 }

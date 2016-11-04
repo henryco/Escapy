@@ -1,5 +1,6 @@
 package com.game.map.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.game.map.objects.layers.LayerContainer;
 import com.game.map.objects.layers.ObjectLayer;
@@ -218,8 +219,11 @@ public class MapGameObjects {
 			Field typeField = GameObject.type.class.getDeclaredField(actObjectNode.getPrimitive("type", "3"));
 			typeField.setAccessible(true);
 
-			for (int i : getIntArray(actObjectNode.getStruct("period", "5").getStructChild()))
-				period[i] = Integer.parseInt(actObjectNode.getStruct("period", "5").getPrimitive(Integer.toString(i)));
+			String[] periods = actObjectNode.getStruct("period", "5").getPrimitiveArray();
+			period = new int[periods.length];
+			if (periods != null && periods.length > 0 && !periods[0].equalsIgnoreCase("null") && !periods[0].equalsIgnoreCase("NULL")) {
+				for (int i = 0; i < period.length; i++) period[i] = Integer.parseInt(periods[i]);
+			}
 
 			scale = getScale(actObjectNode.getPrimitive("scale", "2"));
 			textureUrl = getFileName(location, sPrep(actObjectNode.getPrimitive("url", "file", "img", "0")));
