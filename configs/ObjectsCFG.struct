@@ -69,9 +69,6 @@ map: {
 					type: STATIC
 					hook: UP
 					period(null)
-					shift: {
-						//orto.ext.file = "orto.struct";
-					}
 					repeat false;
 					z: 3;
 				}
@@ -92,7 +89,7 @@ map: {
 					scale 1
 					type: ANIMATED
 					hook: UP
-					period (80,100,70,100,150,200,90,100,50,90)
+					period (700,500,1000,300,700,800,300,700,500,500)
 					shift(null)
 					repeat false;
 					z: 1;
@@ -103,7 +100,7 @@ map: {
 					scale 1
 					type: INTERACTIVE
 					hook: UP
-					period: (50);
+					period: (50, 50, 50, 50, 50, 50, 50, 50, 50, 50);
 					shift(null)
 					repeat false;
 					z: 4;

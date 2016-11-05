@@ -66,8 +66,12 @@ lights: {
 				srcType: RND_64
 				position: (500, 500)
 				color (0, 0, 250)
-				scale: 12.5
+				scale: 14
 				visible true
+			}
+			periodic {
+				periods (1000, 3000, 1000, 2000, 250, 100, 200, 100)
+				actions((alphaSwitch(0.90, 1)), (holdSwitch()), (alphaSwitch(1, 0.90)), (holdSwitch()))
 			}
 		}
 		source[1]: {
@@ -80,8 +84,12 @@ lights: {
 					g: 0
 					b: 50
 				}
-				scale = 12.5
+				scale = 14
 				visible true
+			}
+			periodic: {
+				periods(700,500,1000,300,700,800,300,700,500,500)
+				actions((simpSwitch(0.8)),(simpSwitch(1)),(simpSwitch(0.7)),(simpSwitch(0.95)),(simpSwitch(0.6)),(simpSwitch(1)));
 			}
 		}
 		source[2]: {
