@@ -63,8 +63,8 @@ public class EscapyPeriodicLight {
 
 	public static EscapyPeriodicAction<AbsStdLight> simpSwitch(final String ... args) {
 
-		final boolean switcher = Boolean.parseBoolean(args[0]);
-		return ((delta, actMax, obj) -> obj.setVisible(switcher));
+		final float finalAlpha = Float.parseFloat(args[0]);
+		return ((delta, actMax, obj) -> obj.setAlpha(finalAlpha));
 	}
 
 	public static EscapyPeriodicAction<AbsStdLight> alphaSwitch(final String... args) {
