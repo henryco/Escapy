@@ -44,7 +44,7 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	protected EscapyFBO fbo;
 	protected TransVec position, umbra, resolution, lightAngles, radius;
 
-	protected float coeff, correct, scale, threshold, actualPeriodTime;
+	protected float coeff, correct, scale, threshold, actualPeriodTime, alpha;
 	protected float[] optTranslation;
 	protected boolean visible, needUpdate;
 	protected int periodsNumb, id, actualPeriod;
@@ -65,8 +65,9 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		this.stdRenderer = new EscapyStdShaderRenderer(id);
 		this.srcRenderer = new EscapyStdLightSrcRenderer(id);
 
-		this.scale = 1;
+		this.scale = 1.f;
 		this.coeff = 1.f;
+		this.alpha = 1.f;
 		this.correct = 0.5f;
 		this.periodsNumb = 0;
 		this.actualPeriod = 0;
@@ -121,7 +122,7 @@ public abstract class AbsStdLight implements EscapyContainerable,
 			actualPeriodTime = period[actualPeriod];
 		}
 		if (periodicActions[actualPeriod] != null) {
-			periodicActions[actualPeriod].action(delta, actualPeriodTime - 0.5f * period[actualPeriod], this);
+			periodicActions[actualPeriod].action(delta, (actualPeriodTime / period[actualPeriod]), this);
 		}
 		return this;
 	}
@@ -325,6 +326,10 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		this.periodicActions = periodicActions;
 		return updPeriodsNumb();
 	}
+	public AbsStdLight setAlpha(float a) {
+		this.alpha = a;
+		return this;
+	}
 
 	public abstract EscapyLightType getDefaultLight();
 
@@ -354,6 +359,7 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	public float[] getOptTranslation() {
 		return optTranslation;
 	}
+	public float getAlpha() {return alpha;}
 	public boolean isNeedUpdate() {
 		return needUpdate;
 	}

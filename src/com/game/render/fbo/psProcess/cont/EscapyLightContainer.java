@@ -95,6 +95,7 @@ public class EscapyLightContainer extends EscapyAbsContainer<AbsStdLight> {
 						tempLight.lightSource.getPosition().x,
 						tempLight.lightSource.getPosition().y
 				);
+				tmpSprite.setAlpha(tempLight.getAlpha());
 				tmpSprite.setScale(tempLight.getScale());
 				tmpSprite.draw(batch);
 			}
