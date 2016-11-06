@@ -3,7 +3,7 @@
 
 <b>5.11.16:</b><br> Bugfixes, lights got behavior handling.<br><br>
 
-<b>30.10.16:</b><br> Getting started on changing physics engine. Added support 2d collisions, force, momentum, etc etc.<br>
+<b>30.10.16:</b><br> Starting worked on changing physics engine. Added support 2d collisions, force, momentum, etc etc.<br>
 Also fixed normal mapping shaders.<br><br>
 
 <b>20.10.16:</b><br> Added particle system and weather via WeatherExecutor.<br>
