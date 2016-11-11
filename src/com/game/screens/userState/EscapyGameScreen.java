@@ -96,6 +96,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator();
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
 
+		PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}), "champ");
+		physExecutor.addPhysObjectToQueue(tmp.setPosition(450, 10).setMass(100).setMinSpeedY(0.75f));
+
 	}
 
 
@@ -177,9 +180,19 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		if (Gdx.input.isKeyPressed(Input.Keys.Z) && wait > 0.5f) {
 			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
 			physExecutor.addPhysObjectToQueue(tmp.setPosition(Gdx.input.getX(), Gdx.input.getY())
-					.setMass(100).setSpeedX(40).setLiveTime(5).setLiveHits(5));
+					.setMass(100).setSpeedX(15).setLiveTime(5).setLiveHits(10).setMinSpeedY(0.85f));
 			wait = 0;
 		}
+		if (Gdx.input.isKeyPressed(Input.Keys.B) && wait > 0.5f) {
+			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
+			physExecutor.addPhysObjectToQueue(tmp.setPosition(Gdx.input.getX(), Gdx.input.getY())
+					.setMass(100).setSpeedY(-5).setLiveTime(5).setLiveHits(10).setMinSpeedY(0.85f));
+			wait = 0;
+		}
+
+		PhysPolygon champoly = physExecutor.getPhysPolygon("champ");
+		if (Gdx.input.isKeyPressed(Input.Keys.A)) champoly.setSpeedX(-2f);
+		else if (Gdx.input.isKeyPressed(Input.Keys.D)) champoly.setSpeedX(2);
 
     }
 
@@ -199,7 +212,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.makeAndPrepareLights(escapyCamera)
 				.renderLights(escapyCamera)
 		);
-		//this.physExecutor.draw(escapyCamera);
+		this.physExecutor.draw(escapyCamera);
 		this.ESCAPE();
     }
 

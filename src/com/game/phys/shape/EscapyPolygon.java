@@ -75,6 +75,7 @@ public class EscapyPolygon extends Polygon {
 				if (interPoint != null) {
 					float[] interLine = new float[]{0, 0, xVertice - interPoint[0], yVectice - interPoint[1]};
 					float l = EscapyGeometry.squaredLength(interLine);
+
 					if (l <= stepLength && l > maxLength){
 						maxLength = l;
 						retNormal = line.normal;
@@ -86,6 +87,41 @@ public class EscapyPolygon extends Polygon {
 		if (maxLength == 0) return null;
 		return new float[]{-points[0] - (points[0] * 0.1f) , -points[1] - (points[1] * 0.1f), retNormal[0], retNormal[1]};
 	}
+
+	public float[] altColVector(EscapyPolygon otherPolygon, float ... moveVec) {
+
+		float maxSqrdLengtgh = 0;
+		float[] retNormal = new float[2];
+		float[] direct = EscapyGeometry.normalize(moveVec);
+
+		for (EscapyLine line : lines) {
+			for (int i = 0; i < otherPolygon.vertNumb; i++) {
+				float xVert = otherPolygon.xVert[i];
+				float yVert = otherPolygon.yVert[i];
+				float[] tmpLine = new float[]{xVert, yVert, xVert - moveVec[0], yVert - moveVec[1]};
+				float[] interPoint = line.intersectedPoint(tmpLine);
+				if (interPoint != null) {
+
+					float minX = Math.min(xVert - moveVec[0], xVert);
+					float maxX = Math.max(xVert - moveVec[0], xVert);
+					float minY = Math.min(yVert - moveVec[1], yVert);
+					float maxY = Math.max(yVert - moveVec[1], yVert);
+					if (interPoint[0] >= minX && interPoint[0] <= maxX && interPoint[1] >= minY && interPoint[1] <= maxY) {
+						float[] interLine = new float[]{xVert, yVert, interPoint[0], interPoint[1]};
+						float l = EscapyGeometry.squaredLength(interLine);
+						if (l >= maxSqrdLengtgh) {
+							maxSqrdLengtgh = l;
+							retNormal = line.normal;
+						}
+					}
+				}
+			}
+		}
+		if (maxSqrdLengtgh == 0) return null;
+		float length = (float) Math.sqrt(maxSqrdLengtgh);
+		return new float[]{-direct[0]*(length + 5), -direct[1]*(length + 5), retNormal[0], retNormal[1]};
+	}
+
 
 	public boolean isCollide(EscapyPolygon otherPolygon){
 

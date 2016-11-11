@@ -313,6 +313,14 @@ public interface EscapyGeometry {
 		return squaredLength(p[0], p[1], p[2], p[3]);
 	}
 
+	static float length(float... p) {
+		return (float) Math.sqrt(squaredLength(p));
+	}
+	static float[] normalize(float[] vec) {
+		float sqrlen = length(0, 0, vec[0], vec[1]);
+		return new float[]{vec[0] / sqrlen, vec[1] / sqrlen};
+	}
+
 	static float[] getVector_t(float[] vector_n){
 		float[] t = new float[]{-vector_n[0], vector_n[1]};
 		if (vector_n[0] == 0 && vector_n[1] == 1) {

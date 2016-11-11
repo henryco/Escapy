@@ -49,9 +49,9 @@ public class PhysExecutor {
 				PhysPolygon polyTarget = physQueue.get(i);
 				if (polyTarget != polygon) {
 					if (polyTarget.polygon.isCollide(polygon.polygon)){
-						float[] counter = polyTarget.polygon.collisionVector(polygon.polygon, polygon.speed_vec[0], polygon.speed_vec[1]);
+						float[] counter = polyTarget.polygon.altColVector(polygon.polygon, polygon.speed_vec[0], polygon.speed_vec[1]);
 						if (counter != null) {
-
+							System.out.println(counter[0]+" : "+counter[1]);
 							polygon.translate(counter[0], counter[1], polygon.mass); //mass not necessary here
 
 							float[] n = new float[]{counter[2], counter[3]};
@@ -101,7 +101,6 @@ public class PhysExecutor {
 		physQueue.forEach(p -> renderer.polygon(p.polygon.getTransformedVertices()));
 		renderer.end();
 	}
-
 	public PhysExecutor setGravityAcceleration(float g) {
 		gravity_a = g;
 		return this;
