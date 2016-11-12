@@ -27,6 +27,7 @@ public class PhysExecutor {
 
 	private float delta, wait_time;
 	private boolean u_go = true;
+	private int normSign = 1;
 
 	public PhysExecutor(){
 		this(0);
@@ -66,12 +67,12 @@ public class PhysExecutor {
 
 				for (int i = 0; i < physQueue.size; i++) {
 					PhysPolygon polyTarget = physQueue.get(i);
-					if (polyTarget != polygon) {
+					if (polyTarget != polygon && !polygon.frozen) {
 						if (polyTarget.polygon.isCollide(polygon.polygon)){
 							float[] counter = polyTarget.polygon.collisionVector(polygon.polygon, polygon.speed_vec[0], polygon.speed_vec[1]);
 							if (counter != null) {
 								polygon.polygon.counter = counter;
-								polygon.translate(counter[0], counter[1]); //mass not necessary here
+								polygon.translate(counter[0] * normSign, counter[1] * normSign); //mass not necessary here
 
 								float[] n = new float[]{counter[2], counter[3]};
 
@@ -109,6 +110,11 @@ public class PhysExecutor {
 		polyTarget.speed_vec[0] = polyTarget_v_x;
 		polyTarget.speed_vec[1] = polyTarget_v_y;
 
+		if (Math.abs(polygon.speed_vec[0]) < 0.0001f) polygon.speed_vec[0] = 0;
+		if (Math.abs(polygon.speed_vec[1]) < 0.0001f) polygon.speed_vec[1] = 0;
+		if (Math.abs(polyTarget.speed_vec[0]) < 0.0001f) polyTarget.speed_vec[0] = 0;
+		if (Math.abs(polyTarget.speed_vec[1]) < 0.0001f) polyTarget.speed_vec[1] = 0;
+
 		polygon.checkBounds();
 		polygon.updHits();
 		polyTarget.checkBounds();
@@ -125,18 +131,14 @@ public class PhysExecutor {
 		renderer.begin(ShapeRenderer.ShapeType.Line);
 		physQueue.forEach(p -> renderer.polygon(p.polygon.getTransformedVertices()));
 		renderer.end();
-		fntRederer.setProjectionMatrix(camera.combined());
-		fntRederer.begin();
-		physQueue.forEach(p -> {
-			font.setColor(Color.WHITE);
-			font.draw(fntRederer, p.outSpeed(), p.polygon.getX() + 70, p.polygon.getY());
-			font.setColor(Color.RED);
-			font.draw(fntRederer, p.polygon.outCounter(), p.polygon.getX() + 70, p.polygon.getY()+20);
-		});
-		fntRederer.end();
+		outStats(camera);
 	}
 	public PhysExecutor setGravityAcceleration(float g) {
 		gravity_a = g;
+		return this;
+	}
+	public PhysExecutor setNormSign(int ns) {
+		normSign = ns;
 		return this;
 	}
 	public PhysExecutor addPhysObjectToQueue(PhysPolygon polygon) {
@@ -162,5 +164,18 @@ public class PhysExecutor {
 		return this;
 	}
 
+	private void outStats(EscapyGdxCamera camera){
+		fntRederer.setProjectionMatrix(camera.combined());
+		fntRederer.begin();
+		physQueue.forEach(p -> {
+			font.setColor(Color.ROYAL);
+			font.draw(fntRederer, p.name, p.polygon.getX() + 70, p.polygon.getY() - 20);
+			font.setColor(Color.WHITE);
+			font.draw(fntRederer, p.outSpeed(), p.polygon.getX() + 70, p.polygon.getY());
+			font.setColor(Color.RED);
+			font.draw(fntRederer, p.polygon.outCounter(), p.polygon.getX() + 70, p.polygon.getY()+20);
+		});
+		fntRederer.end();
+	}
 
 }

@@ -17,6 +17,7 @@ public class EscapyPolygon extends Polygon {
 	private EscapyLine[] lines;
 	private int vertNumb = 0;
 	private int normNumb = 0;
+	public String name = "";
 
 	public EscapyPolygon(float ... vertices) {
 		setVertices(vertices);
@@ -62,10 +63,21 @@ public class EscapyPolygon extends Polygon {
 		}
 	}
 
+	public EscapyPolygon setName(String name) {
+		this.name = name;
+		return this;
+	}
+
 	public String outCounter(){
 		return Float.toString(counter[0])+" : "+Float.toString(counter[1]);
 	}
-
+	public String outVert(){
+		String n = "";
+		for (int i = 0; i < vertNumb; i++) {
+			n += "["+Float.toString(xVert[i])+","+Float.toString(yVert[i])+"] ";
+		}
+		return n;
+	}
 
 
 	public float[] collisionVector(EscapyPolygon otherPolygon, float ... moveVec) {
@@ -84,8 +96,7 @@ public class EscapyPolygon extends Polygon {
 					float maxX = Math.max(xVert - moveVec[0], xVert);
 					float minY = Math.min(yVert - moveVec[1], yVert);
 					float maxY = Math.max(yVert - moveVec[1], yVert);
-					float[] interLine = new float[]{xVert, yVert, interPoint[0], interPoint[1]};
-					float l = EscapyGeometry.squaredLength(interLine);
+					float l = EscapyGeometry.squaredLength(xVert, yVert, interPoint[0], interPoint[1]);
 					if (interPoint[0] >= minX && interPoint[0] <= maxX && interPoint[1] >= minY && interPoint[1] <= maxY) {
 						if (l >= maxSqrdLengtgh) {
 							maxSqrdLengtgh = l;
@@ -95,35 +106,38 @@ public class EscapyPolygon extends Polygon {
 				}
 			}
 		}
-		if (maxSqrdLengtgh == 0) {
-			EscapyLine tmpLine = null;
-			float ortoDist = 0;
-			for (int i = 0; i < otherPolygon.vertNumb; i++) {
-				float xVert = otherPolygon.xVert[i];
-				float yVert = otherPolygon.yVert[i];
-				if (contains(xVert, yVert)) {
-					float lowDist = Integer.MAX_VALUE;
-					EscapyLine lowLine = null;
-					for (EscapyLine line : lines) {
-						float[] abc = EscapyGeometry.getLineAxByC(line.start.x, line.start.y, line.end.x, line.end.y);
-						float dist = EscapyGeometry.pointToLineDist(abc, xVert, yVert);
-						if (dist < lowDist){
-							lowDist = dist;
-							lowLine = line;
-						}
-					}
-					if (lowDist > ortoDist) {
-						ortoDist = lowDist;
-						tmpLine = lowLine;
-					}
-				}
-			}
-			if (tmpLine == null) return null;
-			float longDist = ortoDist*1.001f;
-			return new float[]{tmpLine.normal[0] * longDist, tmpLine.normal[1] * longDist, tmpLine.normal[0], tmpLine.normal[1]};
+		if (maxSqrdLengtgh > 0){
+			float length = (float) Math.sqrt(maxSqrdLengtgh);
+			return new float[]{-direct[0]*(length * 1.01f), -direct[1]*(length * 1.01f), retNormal[0], retNormal[1]};
 		}
-		float length = (float) Math.sqrt(maxSqrdLengtgh);
-		return new float[]{-direct[0]*(length * 1.001f), -direct[1]*(length * 1.001f), retNormal[0], retNormal[1]};
+		EscapyLine tmpLine = null;
+		float ortoDist = maxFloat;
+		float[][] verts = new float[otherPolygon.vertNumb][];
+
+		for (int i = 0; i < otherPolygon.vertNumb; i++) {
+			float xVerts = otherPolygon.xVert[i];
+			float yVerts = otherPolygon.yVert[i];
+			if (contains(xVerts, yVerts)) {
+				verts[i] = new float[2];
+				verts[i][0] = xVerts;
+				verts[i][1] = yVerts;
+			}
+		}
+		for (EscapyLine line : lines) {
+			float dist = 0;
+			for (float[] points : verts)
+				if (points != null) {
+					float l = EscapyGeometry.pointToLineDist(line.getCoeffABC(), points);
+					if (l > dist) dist = l;
+				}
+			if (dist <= ortoDist) {
+				ortoDist = dist;
+				tmpLine = line;
+			}
+		}
+		if (tmpLine == null) return null;
+		float longDist = ortoDist*1.01f;
+		return new float[]{tmpLine.normal[0] * longDist, -tmpLine.normal[1] * longDist, -tmpLine.normal[0], -tmpLine.normal[1]};
 	}
 
 

@@ -9,7 +9,7 @@ import com.game.utils.primitives.EscapyGeometry;
 public class EscapyLine {
 
 	public Vector2 start, end;
-	public float[] normal, coeff_Ax_By_C;
+	public float[] normal;
 
 	public EscapyLine() {
 		createPoints();}
@@ -70,7 +70,7 @@ public class EscapyLine {
 		start.set(x1, y1);
 		end.set(x2, y2);
 		updateNormals();
-		coeff_Ax_By_C = EscapyGeometry.getLineAxByC(new float[]{x1, y1}, new float[]{x2, y2});
+	//	System.out.println("Line: ["+x1+", "+y1+"], ["+x2+", "+y2+"] \tN: ["+normal[0]+", "+normal[1]+"]");
 		return this;
 	}
 
@@ -86,9 +86,13 @@ public class EscapyLine {
 	public float[] normedNormal(){
 		float[] n = normal();
 		float l = length();
-		n[0] /= l;
+		n[0] /= l * (-1);
 		n[1] /= l;
 		return n;
+	}
+
+	public float[] getCoeffABC(){
+		return EscapyGeometry.getLineAxByC(start.x, start.y, end.x, end.y);
 	}
 
 	private void createPoints() {

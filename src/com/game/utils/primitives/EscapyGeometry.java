@@ -226,14 +226,22 @@ public interface EscapyGeometry {
 		return point1[0];
 	}
 
+	static float lineAx(float[] p1, float[] p2) {
+		return p1[1] - p2[1];
+	}
+	static float lineBy(float[] p1, float[] p2) {
+		return p2[0] - p1[0];
+	}
+	static float lineC(float[] p1, float[] p2) {
+		return ((p1[0] * p2[1]) - (p2[0] * p1[1]));
+	}
+
 	static float[] getLineAxByC(float[] p1, float[] p2) {
-		return new float[]{lineCoeff_Ax(p1, p2), lineCoeff_By(p1, p2), lineCoeff_C(p1, p2)};
+		return new float[]{lineAx(p1, p2), lineBy(p1, p2), lineC(p1, p2)};
 	}
 
 	static float[] getLineAxByC(float p1x, float p1y, float p2x, float p2y) {
-		float[] p1 = new float[]{p1x, p1y};
-		float[] p2 = new float[]{p2x, p2y};
-		return new float[]{lineCoeff_Ax(p1, p2), lineCoeff_By(p1, p2), lineCoeff_C(p1, p2)};
+		return getLineAxByC(new float[]{p1x, p1y}, new float[]{p2x, p2y});
 	}
 
 	/**

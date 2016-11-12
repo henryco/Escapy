@@ -10,14 +10,12 @@ import com.game.controlls.PlayerControl;
 import com.game.map.InitMap;
 import com.game.map.objects.MapGameObjects;
 import com.game.map.objects.layers.ObjectLayer;
-import com.game.map.objects.objects.AnimatedObject;
 import com.game.phys.PhysExecutor;
 import com.game.phys.PhysPolygon;
 import com.game.phys.shape.EscapyPolygon;
 import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
-import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
@@ -97,11 +95,11 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 
 
-		this.physExecutor = new PhysExecutor(0.1f).load(mapContainer.getWalls().getPolygons());
+		this.physExecutor = new PhysExecutor(0.015f).load(mapContainer.getWalls().getPolygons()).setNormSign(1);
 		physExecutor.meter = 0.5f;
-		physExecutor.gravity_a = 5;
+		physExecutor.gravity_a = 80;
 		PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}), "champ");
-		physExecutor.addPhysObjectToQueue(tmp.setPosition(450, 10).setMass(100));
+		physExecutor.addPhysObjectToQueue(tmp.setPosition(450, 10).setMass(300));
 		physExecutor.addPhysObjectToQueue(new PhysPolygon(new EscapyPolygon(0,0, 50,0, 50,50, 0,50), "tmps"));
 	}
 
@@ -117,7 +115,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			contianer.forEach(ObjectLayer::shift);
 			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(s -> s.shift().updAction(delta)));
 		});
-		this.physExecutor.executePhysics();
+		this.physExecutor.wait_ms(delta).executePhysics();
     }
     private void updDist(float delta) {
 
@@ -184,13 +182,13 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		if (Gdx.input.isKeyPressed(Input.Keys.B) && wait > 0.5f) {
 			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
 			physExecutor.addPhysObjectToQueue(tmp.setPosition(Gdx.input.getX(), Gdx.input.getY())
-					.setMass(100).setSpeedY(-5).setLiveTime(5).setLiveHits(10).setMinSpeedY(0.85f));
+					.setMass(100).setSpeedY(-5).setLiveTime(5).setLiveHits(10).setMinSpeedY(0.25f));
 			wait = 0;
 		}
 
 		PhysPolygon champoly = physExecutor.getPhysPolygon("champ");
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) champoly.setSpeedX(-2f);
-		else if (Gdx.input.isKeyPressed(Input.Keys.D)) champoly.setSpeedX(2);
+		if (Gdx.input.isKeyPressed(Input.Keys.A)) champoly.setSpeedX(-5f);
+		else if (Gdx.input.isKeyPressed(Input.Keys.D)) champoly.setSpeedX(5);
 
     }
 

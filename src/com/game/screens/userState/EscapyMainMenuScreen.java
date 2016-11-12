@@ -34,12 +34,12 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		super(escapyCamera, game);
 		this.privGdxCamera = new EscapyGdxCamera(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
 
-		this.physExecutor = new PhysExecutor(0.15f);
+		this.physExecutor = new PhysExecutor(0.015f);
 		physExecutor.meter = 0.5f;
-		physExecutor.gravity_a = 5;
-		EscapyPolygon poly1 = new EscapyPolygon(50, 100, 150, 100, 150, 300, 50, 300);
-		EscapyPolygon poly2 = new EscapyPolygon(50, 600, 900, 600, 900, 700, 50, 700);
-		EscapyPolygon poly3 = new EscapyPolygon(0,0, 100,0, 100,100, 0,100);
+		physExecutor.gravity_a = 90;
+		EscapyPolygon poly1 = new EscapyPolygon(50, 100, 150, 100, 150, 300, 50, 300).setName("poly1");
+		EscapyPolygon poly2 = new EscapyPolygon(50, 600, 900, 600, 900, 700, 50, 700).setName("poly2");
+		EscapyPolygon poly3 = new EscapyPolygon(0,0, 100,0, 100,100, 0,100).setName("poly3");
 
 		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly1, "poly1"));
 		physExecutor.addPhysObjectToQueue(new PhysPolygon(poly2, true, "poly2"));
@@ -47,7 +47,11 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		physExecutor.getPhysPolygon("poly1").setSpeedX(0).setMass(100f);
 		physExecutor.getPhysPolygon("poly2").setMass(1000).setBounding(1000000000);
 
-		physExecutor.addPhysObjectToQueue(new PhysPolygon(new EscapyPolygon(0,0, 50,0, 50,50, 0,50), "tmps").setMinSpeed(0f,0f).setMass(100f));
+		physExecutor.addPhysObjectToQueue(new PhysPolygon(new EscapyPolygon(0,0, 50,0, 50,50, 0,50)
+				.setName("tmps"), "tmps")
+				.setMinSpeed(0.4f,0.4f)
+				.setMass(300f)
+				.setEnergyLoss(0.3f));
 	}
 
 
@@ -74,20 +78,26 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(0,0, 50,0, 50,50, 0,50));
 			tmp.setPosition(Gdx.input.getX(), Gdx.input.getY());
 			tmp.setMass(100);
-			tmp.setSpeedY(-20);
-			//tmp.setLiveHits(110);
-			tmp.setMinSpeed(0f, 0f);
+			tmp.setSpeedY(-10);
+			tmp.setLiveHits(100);
+			tmp.setMinSpeed(0.5f, 0.5f);
 			physExecutor.addPhysObjectToQueue(tmp);
 			wait = 0;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-			physExecutor.getPhysPolygon("tmps").setPosition(Gdx.input.getX(), Gdx.input.getY()).setSpeedY(0).setSpeedY(5).setSpeedX(-15);
+			physExecutor.getPhysPolygon("tmps").setPosition(Gdx.input.getX(), Gdx.input.getY()).setSpeedY(0).setSpeedY(0).setSpeedX(0);
 		}
 		if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
 			physExecutor.getPhysPolygon("tmps").speed_vec[0] -=5;
 		}
 		if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
 			physExecutor.getPhysPolygon("tmps").speed_vec[0] +=5;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+			physExecutor.getPhysPolygon("tmps").speed_vec[0] =-10;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+			physExecutor.getPhysPolygon("tmps").speed_vec[0] =10;
 		}
 	}
 
