@@ -34,7 +34,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		super(escapyCamera, game);
 		this.privGdxCamera = new EscapyGdxCamera(super.SCREEN_WIDTH, super.SCREEN_HEIGHT);
 
-		this.physExecutor = new PhysExecutor(0.2f);
+		this.physExecutor = new PhysExecutor(0.15f);
 		physExecutor.meter = 0.5f;
 		physExecutor.gravity_a = 5;
 		EscapyPolygon poly1 = new EscapyPolygon(50, 100, 150, 100, 150, 300, 50, 300);
@@ -47,7 +47,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 		physExecutor.getPhysPolygon("poly1").setSpeedX(0).setMass(100f);
 		physExecutor.getPhysPolygon("poly2").setMass(1000).setBounding(1000000000);
 
-		physExecutor.addPhysObjectToQueue(new PhysPolygon(new EscapyPolygon(0,0, 50,0, 50,50, 0,50), "tmps"));
+		physExecutor.addPhysObjectToQueue(new PhysPolygon(new EscapyPolygon(0,0, 50,0, 50,50, 0,50), "tmps").setMinSpeed(0f,0f).setMass(100f));
 	}
 
 
@@ -62,7 +62,7 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 
 		this.privGdxCamera.clear();
 
-		physExecutor.executePhysics();
+		physExecutor.wait_ms(delta).executePhysics();
 		physExecutor.draw(privGdxCamera);
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) /* Back to game */ {
@@ -75,13 +75,19 @@ public class EscapyMainMenuScreen extends EscapyScreenState {
 			tmp.setPosition(Gdx.input.getX(), Gdx.input.getY());
 			tmp.setMass(100);
 			tmp.setSpeedY(-20);
-			tmp.setLiveHits(50);
+			//tmp.setLiveHits(110);
+			tmp.setMinSpeed(0f, 0f);
 			physExecutor.addPhysObjectToQueue(tmp);
 			wait = 0;
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.C)) {
-			physExecutor.getPhysPolygon("tmps").setPosition(Gdx.input.getX(), Gdx.input.getY()).setSpeedY(0).setSpeedX(-50);
-
+			physExecutor.getPhysPolygon("tmps").setPosition(Gdx.input.getX(), Gdx.input.getY()).setSpeedY(0).setSpeedY(5).setSpeedX(-15);
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+			physExecutor.getPhysPolygon("tmps").speed_vec[0] -=5;
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+			physExecutor.getPhysPolygon("tmps").speed_vec[0] +=5;
 		}
 	}
 

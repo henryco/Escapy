@@ -1,6 +1,7 @@
 package com.game.utils.primitives.lines;
 
 import com.badlogic.gdx.math.Vector2;
+import com.game.utils.primitives.EscapyGeometry;
 
 /**
  * @author Henry on 24/10/16.
@@ -8,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 public class EscapyLine {
 
 	public Vector2 start, end;
-	public float[] normal;
+	public float[] normal, coeff_Ax_By_C;
 
 	public EscapyLine() {
 		createPoints();}
@@ -28,18 +29,23 @@ public class EscapyLine {
 		if (p.length == 2) set(0, 0, p[0], p[1]);
 		else if (p.length == 4) set(p[0], p[1], p[2], p[3]);
 	}
-
+	public float denom(float sx, float sy, float ex, float ey){
+		return (((ey - sy) * (end.x - start.x)) - ((ex - sx) * (end.y - start.y)));
+	}
+	public boolean intersects(float sx, float sy, float ex, float ey){
+		return denom(sx, sy, ex, ey) != 0;
+	}
+	public boolean intersects(float[] other){
+		return intersects(other[0], other[1], other[2], other[3]);
+	}
+	public boolean intersects(EscapyLine other){
+		return intersects(other.start.x, other.start.y, other.end.x, other.end.y);
+	}
 	public float[] intersectedPoint(float sx, float sy, float ex, float ey) {
 
-		float dx1 = end.x - start.x;
-		float dx2 = ex - sx;
-		float dy1 = end.y - start.y;
-		float dy2 = ey - sy;
-		float denom = (dy2 * dx1) - (dx2 * dy1);
-
+		float denom = denom(sx, sy, ex, ey);
 		if (denom == 0) return null;
-
-		float u = ((dx2 * (start.y - sy)) - (dy2 * (start.x - sx))) / denom;
+		float u = (((ex - sx) * (start.y - sy)) - ((ey - sy) * (start.x - sx))) / denom;
 		return new float[]{start.x + (u * (end.x - start.x)), start.y + (u * (end.y - start.y))};
 	}
 	public float[] intersectedPoint(float[] other) {
@@ -64,6 +70,7 @@ public class EscapyLine {
 		start.set(x1, y1);
 		end.set(x2, y2);
 		updateNormals();
+		coeff_Ax_By_C = EscapyGeometry.getLineAxByC(new float[]{x1, y1}, new float[]{x2, y2});
 		return this;
 	}
 

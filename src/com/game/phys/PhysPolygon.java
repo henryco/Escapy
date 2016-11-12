@@ -150,8 +150,8 @@ public class PhysPolygon {
 		return this;
 	}
 
-	public void outSpeed() {
-		System.out.println(name+": "+speed_vec[0] + " <:> " + speed_vec[1]);
+	public String outSpeed() {
+		return Float.toString(speed_vec[0]) + " : " + Float.toString(speed_vec[1]);
 	}
 	@Override
 	public String toString(){

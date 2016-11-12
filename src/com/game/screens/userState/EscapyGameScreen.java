@@ -79,7 +79,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
         this.controlls = PlayerControl.playerController();
 		InitMap mapContainer = new InitMap(super.settings.Location(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.SCREEN_SCALE);
-		this.physExecutor = new PhysExecutor().load(mapContainer.getWalls().getPolygons());
 		this.charactersContainer = new InitCharacters();
         this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
         this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
@@ -92,13 +91,18 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				super.settings.getSourceDir(), super.settings.getObjectsCfgName(), charactersContainer);
 
 		id = new int[][]{{1, 0}, {1, 1}, {1, 2}};
-		//this.animator = EscapyAnimatorBase.createAnimator().initAnimator().startAnimator();
+
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator();
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
 
-		PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}), "champ");
-		physExecutor.addPhysObjectToQueue(tmp.setPosition(450, 10).setMass(100).setMinSpeedY(0.75f));
 
+
+		this.physExecutor = new PhysExecutor(0.1f).load(mapContainer.getWalls().getPolygons());
+		physExecutor.meter = 0.5f;
+		physExecutor.gravity_a = 5;
+		PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}), "champ");
+		physExecutor.addPhysObjectToQueue(tmp.setPosition(450, 10).setMass(100));
+		physExecutor.addPhysObjectToQueue(new PhysPolygon(new EscapyPolygon(0,0, 50,0, 50,50, 0,50), "tmps"));
 	}
 
 
@@ -113,7 +117,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			contianer.forEach(ObjectLayer::shift);
 			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(s -> s.shift().updAction(delta)));
 		});
-		this.physExecutor.executePhysics(delta);
+		this.physExecutor.executePhysics();
     }
     private void updDist(float delta) {
 
@@ -174,15 +178,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.K)) {
             this.mapObjects.getSourceByID(id[2]).setVisible(false);
-        }
 
+        }
         wait += delta;
-		if (Gdx.input.isKeyPressed(Input.Keys.Z) && wait > 0.5f) {
-			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
-			physExecutor.addPhysObjectToQueue(tmp.setPosition(Gdx.input.getX(), Gdx.input.getY())
-					.setMass(100).setSpeedX(15).setLiveTime(5).setLiveHits(10).setMinSpeedY(0.85f));
-			wait = 0;
-		}
 		if (Gdx.input.isKeyPressed(Input.Keys.B) && wait > 0.5f) {
 			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
 			physExecutor.addPhysObjectToQueue(tmp.setPosition(Gdx.input.getX(), Gdx.input.getY())
@@ -214,34 +212,34 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		);
 		this.physExecutor.draw(escapyCamera);
 		this.ESCAPE();
+		if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+			physExecutor.getPhysPolygon("tmps").setPosition(Gdx.input.getX(), Gdx.input.getY()).setSpeedY(0).setSpeedX(-5);
+		}
     }
 
 
     @Override
     public void pause() {
 		
-    //    this.animator.closeAnimator();
         this.physics.closePhysic();
-
-        // super.escapyCamera.getCameraProgramHolder().removeCameraProgram(playerCameraProgramID);
         super.gameState.getStatesContainer().getUpdLoopedQueue().removeFromUpdQueueLast();
     }
     @Override
     public void resume() {
-    //    this.animator.initAnimator().startAnimator();
         this.physics.reInit().startPhysics();
-
         super.gameState.getStatesContainer().getUpdLoopedQueue().addToUpdQueue(this);
     }
     @Override
-    public void hide() {}
+    public void hide() {
+	}
     @Override
     public void resize(int width, int height) {
 		System.out.println("RESIZE: " +width +" : "+height);
 		mapObjects.forEach(container -> container.postExecutorFunc(p -> p.setFrameDim(width, height)));
 	}
     @Override
-    public void dispose() {}
+    public void dispose() {
+	}
 
     public void ESCAPE(){
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {

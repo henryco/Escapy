@@ -11,6 +11,7 @@ public interface EscapyGeometry {
 	 * Inv sqrt.
 	 * https://www.wikiwand.com/en/Fast_inverse_square_root
 	 * https://www.wikiwand.com/en/Fast_inverse_square_root#/Overview_of_the_code
+	 *
 	 * @param x the x
 	 * @return the float
 	 */
@@ -225,6 +226,16 @@ public interface EscapyGeometry {
 		return point1[0];
 	}
 
+	static float[] getLineAxByC(float[] p1, float[] p2) {
+		return new float[]{lineCoeff_Ax(p1, p2), lineCoeff_By(p1, p2), lineCoeff_C(p1, p2)};
+	}
+
+	static float[] getLineAxByC(float p1x, float p1y, float p2x, float p2y) {
+		float[] p1 = new float[]{p1x, p1y};
+		float[] p2 = new float[]{p2x, p2y};
+		return new float[]{lineCoeff_Ax(p1, p2), lineCoeff_By(p1, p2), lineCoeff_C(p1, p2)};
+	}
+
 	/**
 	 * Gets the cmn perp point.
 	 *
@@ -270,6 +281,12 @@ public interface EscapyGeometry {
 		return new float[]{1, (-1) * peprLine_ab[0], (-1) * peprLine_ab[1]};
 	}
 
+	static float pointToLineDist(float[] coeffABC, float... point) {
+
+		return (float) (Math.abs((coeffABC[0] * point[0]) + (coeffABC[1] * point[1]) + coeffABC[2])
+				/ (Math.sqrt((coeffABC[0] * coeffABC[0]) + (coeffABC[1] * coeffABC[1]))));
+	}
+
 	/**
 	 * Cirlce point radius intersected.
 	 *
@@ -297,6 +314,7 @@ public interface EscapyGeometry {
 	static float dot2(float[] vec1, float[] vec2) {
 		return dot2(vec1[0], vec1[1], vec2[0], vec2[1]);
 	}
+
 	static float dot2(float v1x, float v1y, float v2x, float v2y) {
 		return (v1x * v2x) + (v1y * v2y);
 	}
@@ -307,8 +325,9 @@ public interface EscapyGeometry {
 
 
 	static float squaredLength(float x1, float y1, float x2, float y2) {
-		return (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2);
+		return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
 	}
+
 	static float squaredLength(float[] p) {
 		return squaredLength(p[0], p[1], p[2], p[3]);
 	}
@@ -316,33 +335,38 @@ public interface EscapyGeometry {
 	static float length(float... p) {
 		return (float) Math.sqrt(squaredLength(p));
 	}
+
 	static float[] normalize(float[] vec) {
 		float sqrlen = length(0, 0, vec[0], vec[1]);
 		return new float[]{vec[0] / sqrlen, vec[1] / sqrlen};
 	}
 
-	static float[] getVector_t(float[] vector_n){
+	static float[] getVector_t(float[] vector_n) {
 		float[] t = new float[]{-vector_n[0], vector_n[1]};
 		if (vector_n[0] == 0 && vector_n[1] == 1) {
 			t[0] = -1;
 			t[1] = 0;
 			return t;
-		}if (vector_n[0] == -1 && vector_n[1] == 0) {
+		}
+		if (vector_n[0] == -1 && vector_n[1] == 0) {
 			t[0] = 0;
 			t[1] = 1;
 			return t;
-		}if (vector_n[0] == 0 && vector_n[1] == -1) {
+		}
+		if (vector_n[0] == 0 && vector_n[1] == -1) {
 			t[0] = 1;
 			t[1] = 0;
 			return t;
-		}if (vector_n[0] == 1 && vector_n[1] == 0) {
+		}
+		if (vector_n[0] == 1 && vector_n[1] == 0) {
 			t[0] = 0;
 			t[1] = -1;
 			return t;
 		}
 		return t;
 	}
-	static int getSign(float val){
+
+	static int getSign(float val) {
 		if (val > 0) return 1;
 		if (val < 0) return 1;
 		return 0;
