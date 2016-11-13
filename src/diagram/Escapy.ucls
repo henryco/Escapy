@@ -731,8 +731,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="72" language="java" name="com.game.utils.primitives.walls.Walls" project="EscapyProject_gdx-core" 
-    file="/EscapyProject_gdx-core/src/com/game/utils/primitives/walls/Walls.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="72" language="java" name="com.game.utils.primitives.walls.EscapyWalls.Walls" project="EscapyProject_gdx-core"
+    file="/EscapyProject_gdx-core/src/com/game/utils/primitives/escapyWalls/Walls.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="427" width="233" x="4475" y="6165"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -4065,7 +4065,7 @@
   </dependency>  
   <association id="599">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="600" name="walls">        
+      <attribute id="600" name="escapyWalls">
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="601" minimum="0" maximum="1">        

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-import com.game.utils.primitives.walls.Walls;
+import com.game.utils.primitives.walls.EscapyWalls;
 
 import cern.colt.matrix.ObjectMatrix3D;
 import cern.colt.matrix.impl.SparseObjectMatrix3D;
@@ -20,7 +20,7 @@ public class InitMap {
 	private int[] size;
 	private int[] adrtab = new int[] { 4, 2, 1, 0, 3 };
 
-	private Walls walls;
+	private EscapyWalls escapyWalls;
 	private long actualPointerPos;
 
 	
@@ -46,7 +46,7 @@ public class InitMap {
 		ArrayList<int[]> wallPointList = new ArrayList<>();
 		fillMapFF(new int[] { size[5], size[6] }, Location, wallPointList); // wallPointList & areaMap
 
-		this.walls = new Walls(wallPointList);
+		this.escapyWalls = new EscapyWalls(wallPointList);
 
 		System.gc();
 	}
@@ -298,12 +298,12 @@ public class InitMap {
 	
 
 	/**
-	 * Gets the walls.
+	 * Gets the escapyWalls.
 	 *
-	 * @return the walls
+	 * @return the escapyWalls
 	 */
-	public Walls getWalls() {
-		return walls;
+	public EscapyWalls getEscapyWalls() {
+		return escapyWalls;
 	}
 
 }

@@ -7,13 +7,14 @@ import com.game.phys.PhysPolygon;
 import com.game.phys.shape.EscapyPolygon;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.primitives.EscapyGeometry;
+import net.henryco.struct.container.tree.StructNode;
 
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Walls.
+ * The Class EscapyWalls.
  */
-public class Walls implements EscapyGeometry {
+public class EscapyWalls implements EscapyGeometry {
 
 	private static final short TYPE_SQUARE  = 1;
 	private static final short TYPE_TRIANGLE = 2;
@@ -30,19 +31,22 @@ public class Walls implements EscapyGeometry {
 	private ShapeRenderer renderer;
 
 	/**
-	 * Instantiates a new walls.
+	 * Instantiates a new escapyWalls.
 	 *
 	 * @param wallPoints
 	 *            the wall points
 	 */
-	public Walls(ArrayList<int[]> wallPoints) 
+	public EscapyWalls(ArrayList<int[]> wallPoints)
 	{
-		this.wallList = new ArrayList<>();
-		this.shapeList = new ArrayList<>();
-		this.polygons = new ArrayList<>();
+		this();
 		fillWallMap(wallPoints);
 		sortWallMap();
 		renderer = new ShapeRenderer();
+	}
+	public EscapyWalls(){
+		this.wallList = new ArrayList<>();
+		this.shapeList = new ArrayList<>();
+		this.polygons = new ArrayList<>();
 	}
 
 	private void sortWallMap()
@@ -129,13 +133,7 @@ public class Walls implements EscapyGeometry {
 
 	private static float[] arrayFiller(int stX, int stY, int edX, int edY)
 	{
-		return new float[]
-		{
-			stX, stY, edX, edY, 
-			EscapyGeometry.lineCoeff_Ax(new float[]{stX, stY}, new float[]{edX, edY}),
-			EscapyGeometry.lineCoeff_By(new float[]{stX, stY}, new float[]{edX, edY}),
-			EscapyGeometry.lineCoeff_C(new float[]{stX, stY}, new float[]{edX, edY})
-		};
+		return new float[]{stX, stY, edX, edY};
 	}
 
 	
@@ -155,7 +153,7 @@ public class Walls implements EscapyGeometry {
 	 */
 	public void debugWallMap()
 	{
-		System.out.println("\n Walls:");
+		System.out.println("\n EscapyWalls:");
 		for (float[] tab : wallList) {
 			System.out.println((int) tab[START_X] + " : " + (int) tab[START_Y] + " | " + (int) tab[END_X] + " : " +
 					(int) tab[END_Y] + "		" + tab[4] + " : " + tab[5] + " : " + tab[6] + "");
@@ -184,5 +182,10 @@ public class Walls implements EscapyGeometry {
 	public void setShapeList(ArrayList<EscapyPolygon> shapeList) {
 		this.shapeList = shapeList;
 	}
-	
+
+
+	public EscapyWalls loadFromStructFile(StructNode wallNode) {
+		System.out.println(wallNode);
+		return this;
+	}
 }

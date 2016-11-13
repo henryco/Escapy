@@ -1,6 +1,5 @@
 package com.game.map.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.game.map.objects.layers.LayerContainer;
 import com.game.map.objects.layers.ObjectLayer;
@@ -17,6 +16,7 @@ import com.game.render.fbo.psProcess.cont.init.LightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
 import com.game.map.mask.LightMask;
+import com.game.utils.primitives.walls.EscapyWalls;
 import net.henryco.struct.Struct;
 import net.henryco.struct.container.StructContainer;
 import net.henryco.struct.container.exceptions.StructContainerException;
@@ -35,8 +35,10 @@ import java.util.function.Consumer;
 public class MapGameObjects {
 
 	public final LayerContainer[] layerContainers;
+	public final EscapyWalls escapyWalls;
 
 	public MapGameObjects(int[] dim, String location, String cfg, EscapyUniRender ... uniRenders) {
+		escapyWalls = new EscapyWalls();
 		layerContainers = this.initGameObjects(dim, location, cfg, uniRenders);
 	}
 
@@ -56,6 +58,7 @@ public class MapGameObjects {
 		List<String[]>[] containerList = Struct.in.readStructData(cfgFile);
 		StructTree containerTree = StructContainer.tree(containerList, cfgFile);
 		System.out.println(containerTree);
+		escapyWalls.loadFromStructFile(containerTree.mainNode.getStruct("map").getStructSafe("shapeObjects"));
 		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location, cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1), this, uniRenders);
 	}
 

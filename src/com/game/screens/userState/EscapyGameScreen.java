@@ -3,22 +3,22 @@ package com.game.screens.userState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector2;
 import com.game.GameEnter;
 import com.game.animator.EscapyAnimatorBase;
+import com.game.boxPhysics.PhysContainer;
 import com.game.characters.InitCharacters;
 import com.game.controlls.PlayerControl;
 import com.game.map.InitMap;
 import com.game.map.objects.MapGameObjects;
 import com.game.map.objects.layers.ObjectLayer;
-import com.game.phys.PhysExecutor;
-import com.game.phys.PhysPolygon;
-import com.game.phys.shape.EscapyPolygon;
 import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
+import com.game.utils.primitives.walls.EscapyWalls;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,7 +31,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private EscapyPhysicsBase physics;
 	private EscapyAnimatorBase animator;
 	private MapGameObjects mapObjects;
-	private PhysExecutor physExecutor;
+	private PhysContainer physContainer;
 
 	/** The player camera program ID. */
 	protected int playerCameraProgramID;
@@ -93,15 +93,10 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator();
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
 
-
-
-		this.physExecutor = new PhysExecutor(0.015f).load(mapContainer.getWalls().getPolygons()).setNormSign(1);
-		physExecutor.meter = 0.5f;
-		physExecutor.gravity_a = 80;
-		PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}), "champ");
-		physExecutor.addPhysObjectToQueue(tmp.setPosition(450, 10).setMass(300));
-		physExecutor.addPhysObjectToQueue(new PhysPolygon(new EscapyPolygon(0,0, 50,0, 50,50, 0,50), "tmps"));
+		this.physContainer = new PhysContainer(mapContainer.getEscapyWalls(), 0.2f, new Vector2(0, 9.8f));
+		wallsz = mapContainer.getEscapyWalls();
 	}
+	private EscapyWalls wallsz;
 
 
 
@@ -115,7 +110,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			contianer.forEach(ObjectLayer::shift);
 			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(s -> s.shift().updAction(delta)));
 		});
-		this.physExecutor.wait_ms(delta).executePhysics();
+		//physContainer.update();
     }
     private void updDist(float delta) {
 
@@ -178,17 +173,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
             this.mapObjects.getSourceByID(id[2]).setVisible(false);
 
         }
-        wait += delta;
-		if (Gdx.input.isKeyPressed(Input.Keys.B) && wait > 0.5f) {
-			PhysPolygon tmp = new PhysPolygon(new EscapyPolygon(new float[]{0,0, 50,0, 50,50, 0,50}));
-			physExecutor.addPhysObjectToQueue(tmp.setPosition(Gdx.input.getX(), Gdx.input.getY())
-					.setMass(100).setSpeedY(-5).setLiveTime(5).setLiveHits(10).setMinSpeedY(0.25f));
-			wait = 0;
-		}
-
-		PhysPolygon champoly = physExecutor.getPhysPolygon("champ");
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) champoly.setSpeedX(-5f);
-		else if (Gdx.input.isKeyPressed(Input.Keys.D)) champoly.setSpeedX(5);
 
     }
 
@@ -208,11 +192,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.makeAndPrepareLights(escapyCamera)
 				.renderLights(escapyCamera)
 		);
-		this.physExecutor.draw(escapyCamera);
 		this.ESCAPE();
-		if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
-			physExecutor.getPhysPolygon("tmps").setPosition(Gdx.input.getX(), Gdx.input.getY()).setSpeedY(0).setSpeedX(-5);
-		}
+		wallsz.draw(escapyCamera);
+		physContainer.draw(escapyCamera);
     }
 
 

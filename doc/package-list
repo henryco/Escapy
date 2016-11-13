@@ -26,7 +26,7 @@ com.game.update_loop
 com.game.utils
 com.game.utils.absContainer
 com.game.utils.primitives
-com.game.utils.primitives.walls
+com.game.utils.primitives.escapyWalls
 com.game.utils.proxyContainer
 com.game.utils.simpleMemento
 com.game.utils.translationVec
