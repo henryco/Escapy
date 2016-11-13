@@ -18,7 +18,6 @@ import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
 import com.game.update_loop.Updatable;
-import com.game.utils.primitives.walls.EscapyWalls;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -93,10 +92,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator();
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
 
-		this.physContainer = new PhysContainer(mapContainer.getEscapyWalls(), 0.2f, new Vector2(0, 9.8f));
-		wallsz = mapContainer.getEscapyWalls();
+		this.physContainer = new PhysContainer(mapObjects.physShapes, 0.2f, new Vector2(0, 9.8f));
 	}
-	private EscapyWalls wallsz;
 
 
 
@@ -193,7 +190,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.renderLights(escapyCamera)
 		);
 		this.ESCAPE();
-		wallsz.draw(escapyCamera);
 		physContainer.draw(escapyCamera);
     }
 

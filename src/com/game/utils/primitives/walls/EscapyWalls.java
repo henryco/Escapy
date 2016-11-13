@@ -7,7 +7,6 @@ import com.game.phys.PhysPolygon;
 import com.game.phys.shape.EscapyPolygon;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.utils.primitives.EscapyGeometry;
-import net.henryco.struct.container.tree.StructNode;
 
 
 // TODO: Auto-generated Javadoc
@@ -31,7 +30,7 @@ public class EscapyWalls implements EscapyGeometry {
 	private ShapeRenderer renderer;
 
 	/**
-	 * Instantiates a new escapyWalls.
+	 * Instantiates a new physShapes.
 	 *
 	 * @param wallPoints
 	 *            the wall points
@@ -162,30 +161,14 @@ public class EscapyWalls implements EscapyGeometry {
 	}
 
 
-	/**
-	 * Gets the shape list.
-	 *
-	 * @return the shape list
-	 */
 	public ArrayList<EscapyPolygon> getShapeList() {
 		return shapeList;
 	}
-
 	public ArrayList<PhysPolygon> getPolygons(){return polygons;}
-
-	/**
-	 * Sets the shape list.
-	 *
-	 * @param shapeList
-	 *            the new shape list
-	 */
 	public void setShapeList(ArrayList<EscapyPolygon> shapeList) {
 		this.shapeList = shapeList;
 	}
 
 
-	public EscapyWalls loadFromStructFile(StructNode wallNode) {
-		System.out.println(wallNode);
-		return this;
-	}
+
 }

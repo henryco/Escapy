@@ -3,7 +3,6 @@ package com.game.boxPhysics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.game.render.camera.EscapyGdxCamera;
-import com.game.utils.primitives.walls.EscapyWalls;
 
 /**
  * @author Henry on 13/11/16.
@@ -27,19 +26,19 @@ public class PhysContainer {
 		this(g);
 		this.delta = delta;
 	}
-	public PhysContainer(EscapyWalls escapyWalls, Vector2... g) {
+	public PhysContainer(PhysShapes escapyWalls, Vector2... g) {
 		this(escapyWalls, .3f, g);
 	}
-	public PhysContainer(EscapyWalls escapyWalls, float delta, Vector2... g) {
+	public PhysContainer(PhysShapes escapyWalls, float delta, Vector2... g) {
 		this(delta, g);
 		load(escapyWalls);
 	}
 
-	public PhysContainer load(EscapyWalls escapyWalls) {
-		System.out.println();
-		for (int i = 0; i < escapyWalls.getShapeList().size(); i++) {
-			float[] wall = escapyWalls.getShapeList().get(i).getVertices();
-			BodyDef bodyDef = new BodyDef();
+	public PhysContainer load(PhysShapes escapyWalls) {
+		System.out.println("LOAD SHAPES");
+		for (int i = 0; i < escapyWalls.getVertices().size(); i++) {
+			float[] wall = escapyWalls.getVertices().get(i);
+			BodyDef bodyDef = escapyWalls.getBodyDefs().get(i);
 			Body body = world.createBody(bodyDef);
 			PolygonShape shape = new PolygonShape();
 			shape.set(wall);

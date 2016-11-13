@@ -1,13 +1,17 @@
 package com.game.render.shader;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.game.utils.arrContainer.EscapyArray;
 
+import java.util.Date;
 import java.util.function.Consumer;
 
 // TODO: Auto-generated Javadoc
@@ -154,6 +158,10 @@ public abstract class EscapyShaderRender {
 	 */
 	protected void checkStatus(ShaderProgram program) {
 		System.err.println(program.isCompiled() ? "COMPILED: "+this.toString() : "ERROR: "+this.toString()+"\n"+program.getLog()+"\n");
+		if (!program.isCompiled()) {
+			FileHandle file = Gdx.files.local("error_log.txt");
+			file.writeString(new Date(TimeUtils.millis()).toString()+"\nERROR: "+this.toString()+"\n"+program.getLog()+"\n", true);
+		}
 	}
 
 	/**

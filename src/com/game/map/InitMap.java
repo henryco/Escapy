@@ -298,9 +298,9 @@ public class InitMap {
 	
 
 	/**
-	 * Gets the escapyWalls.
+	 * Gets the physShapes.
 	 *
-	 * @return the escapyWalls
+	 * @return the physShapes
 	 */
 	public EscapyWalls getEscapyWalls() {
 		return escapyWalls;
