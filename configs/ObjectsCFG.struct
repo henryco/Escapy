@@ -11,7 +11,7 @@
 #######################
 
 map: {
-
+	shapeObjects.ext.file = "ShapesCFG.struct"
 	container[0]: {
 		fboName: "<BGR_FBUFFER>";
 		lights.ext.file = "bgLightsCFG.struct"

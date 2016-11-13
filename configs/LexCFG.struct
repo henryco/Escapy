@@ -13,7 +13,7 @@ lightExecutor : {
 				direct: 9
 				ambient: 0.45
 				shadow: 0.65
-				height: 0.8275
+				height: 0.8175
 			}	
 		}
 	}		
