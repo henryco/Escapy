@@ -14,6 +14,8 @@ public class PhysShapes implements Structurized {
 	private ArrayList<BodyDef> bodyDefs;
 	private ArrayList<float[]> vertices;
 
+	public boolean visible = false;
+
 	public PhysShapes(){
 		bodyDefs = new ArrayList<>();
 		vertices = new ArrayList<>();
@@ -22,6 +24,7 @@ public class PhysShapes implements Structurized {
 	@Override
 	public PhysShapes loadFromStruct(StructNode structNode) {
 		System.out.println(structNode);
+		visible = structNode.getBool(false, "visible");
 		for (StructNode container : structNode.getStructSafe("container").getStructArray()) {
 			BodyDef bodyDef = new BodyDef();
 			StructNode bodyNode = container.getStructSafe("bodyDef");

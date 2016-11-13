@@ -15,6 +15,7 @@ public class PhysContainer {
 	public Vector2 gravity_a = new Vector2(0,0);
 	public int positionIterations = 2, velocityIterataions = 6;
 	public float delta;
+	public boolean visible = false;
 
 	public PhysContainer(Vector2 ... g) {
 		shapeRenderer = new Box2DDebugRenderer();
@@ -36,6 +37,7 @@ public class PhysContainer {
 
 	public PhysContainer load(PhysShapes escapyWalls) {
 		System.out.println("LOAD SHAPES");
+		visible = escapyWalls.visible;
 		for (int i = 0; i < escapyWalls.getVertices().size(); i++) {
 			float[] wall = escapyWalls.getVertices().get(i);
 			BodyDef bodyDef = escapyWalls.getBodyDefs().get(i);
@@ -53,7 +55,7 @@ public class PhysContainer {
 	}
 
 	public void draw(EscapyGdxCamera camera) {
-		shapeRenderer.render(world, camera.combined());
+		if (visible) shapeRenderer.render(world, camera.combined());
 	}
 	public void update(float delta) {
 		world.step(delta, velocityIterataions, positionIterations);
