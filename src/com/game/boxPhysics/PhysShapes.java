@@ -13,12 +13,15 @@ public class PhysShapes implements Structurized {
 
 	private ArrayList<BodyDef> bodyDefs;
 	private ArrayList<float[]> vertices;
+	public ArrayList<BodyDef> getBodyDefs(){return bodyDefs;}
+	public ArrayList<float[]> getVertices(){return vertices;}
 
 	public boolean visible = false;
 
 	public PhysShapes(){
 		bodyDefs = new ArrayList<>();
 		vertices = new ArrayList<>();
+		StructNode.log_loading = true;
 	}
 
 	@Override
@@ -29,8 +32,8 @@ public class PhysShapes implements Structurized {
 			BodyDef bodyDef = new BodyDef();
 			StructNode bodyNode = container.getStructSafe("bodyDef");
 			{
-				//TODO BODY PARAMS
-
+				bodyDef = bodyNode.loadObjectFromStruct(bodyDef, bodyDef.getClass());
+				System.out.println(bodyDef.angularDamping);
 			}
 			for (StructNode polygon : container.getStructSafe("polygon").getStructArray()) {
 				bodyDefs.add(bodyDef);
@@ -45,6 +48,7 @@ public class PhysShapes implements Structurized {
 		}
 		return this;
 	}
-	public ArrayList<BodyDef> getBodyDefs(){return bodyDefs;}
-	public ArrayList<float[]> getVertices(){return vertices;}
+
+
+
 }
