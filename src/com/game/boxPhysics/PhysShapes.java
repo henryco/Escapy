@@ -1,6 +1,7 @@
 package com.game.boxPhysics;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import net.henryco.struct.Struct;
 import net.henryco.struct.Structurized;
 import net.henryco.struct.container.tree.StructNode;
 
@@ -21,9 +22,12 @@ public class PhysShapes implements Structurized {
 	public PhysShapes(){
 		bodyDefs = new ArrayList<>();
 		vertices = new ArrayList<>();
-		StructNode.log_loading = true;
+		Struct.log_loading = true;
 	}
-
+	public PhysShapes(StructNode structNode) {
+		this();
+		loadFromStruct(structNode);
+	}
 	@Override
 	public PhysShapes loadFromStruct(StructNode structNode) {
 		System.out.println(structNode);
@@ -31,10 +35,7 @@ public class PhysShapes implements Structurized {
 		for (StructNode container : structNode.getStructSafe("container").getStructArray()) {
 			BodyDef bodyDef = new BodyDef();
 			StructNode bodyNode = container.getStructSafe("bodyDef");
-			{
-				bodyDef = bodyNode.loadObjectFromStruct(bodyDef, bodyDef.getClass());
-				System.out.println(bodyDef.angularDamping);
-			}
+			bodyDef = bodyNode.loadObjectFromStruct(bodyDef, bodyDef.getClass());
 			for (StructNode polygon : container.getStructSafe("polygon").getStructArray()) {
 				bodyDefs.add(bodyDef);
 				StructNode[] index = polygon.getStructArray();
@@ -48,7 +49,6 @@ public class PhysShapes implements Structurized {
 		}
 		return this;
 	}
-
 
 
 }

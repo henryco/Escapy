@@ -59,6 +59,7 @@ public class MapGameObjects {
 		StructTree containerTree = StructContainer.tree(containerList, cfgFile);
 		System.out.println(containerTree);
 		physShapes.loadFromStruct(containerTree.mainNode.getStruct("map").getStructSafe("shapeObjects"));
+
 		return loadContainer(containerTree.mainNode.getStruct("map"), dim, location, cfgFile.substring(0, cfgFile.lastIndexOf("/") + 1), this, uniRenders);
 	}
 
