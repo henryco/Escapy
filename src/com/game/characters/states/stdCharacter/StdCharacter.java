@@ -22,12 +22,14 @@ public abstract class StdCharacter extends AbstractCharacters
 
 
 
-	protected Sprite characterSprite, NRMLSprite, LTMPSprite;
+	private Sprite characterSprite, NRMLSprite, LTMPSprite;
 	protected Texture[] actualTexture, actualNRMLTexture, actualLTMPTexture;
-
-
+	private boolean lastWasLeft = false;
+	private boolean lastWasRight = true;
+	private boolean lastMov = false;
+	private boolean lastRun = false;
+	private boolean lastStand = false;
 	protected IBoxBody bodyCharacter;
-
 	private int ID;
 
 
@@ -88,7 +90,7 @@ public abstract class StdCharacter extends AbstractCharacters
 	public BodyDef getBodyDef() {
 
 		BodyDef bodyDefChamp = new BodyDef();
-		bodyDefChamp.position.set(xPos(), yPos());
+		bodyDefChamp.position.set(getxPos(), getyPos());
 		bodyDefChamp.type = BodyDef.BodyType.DynamicBody;
 		bodyDefChamp.fixedRotation = true;
 		bodyDefChamp.linearDamping = 1;
@@ -114,7 +116,7 @@ public abstract class StdCharacter extends AbstractCharacters
 			if (lastWasRight()) sprite = this.setFrame0(textures[actualFrame]);
 			else if (lastWasLeft()) sprite = this.setFrame180(textures[actualFrame]);
 		}
-		sprite.setPosition(super.xPos(), super.yPos());
+		sprite.setPosition(super.getxPos(), super.getyPos());
 		sprite.draw(batch);
 	}
 
@@ -123,12 +125,10 @@ public abstract class StdCharacter extends AbstractCharacters
 	public void renderLightMap(Batch batch) {
 		render(batch, LTMPSprite, actualLTMPTexture);
 	}
-
 	@Override
 	public void renderGraphic(Batch batch) {
 		render(batch, characterSprite, actualTexture);
 	}
-
 	@Override
 	public void renderNormals(Batch batch) {
 		render(batch, NRMLSprite, actualNRMLTexture);
@@ -138,15 +138,12 @@ public abstract class StdCharacter extends AbstractCharacters
 	@Override
 	public void defineJumpAnimation() {
 	}
-
 	@Override
 	public void defineInteractAnimation() {
 	}
-
 	@Override
 	public void defineOtherAnimation() {
 	}
-
 	@Override
 	public void InterruptAnimator(EscapyAnimatorCharacter character) {
 	}
@@ -190,6 +187,38 @@ public abstract class StdCharacter extends AbstractCharacters
 	}
 
 	public float[] getPosition(){
-		return new float[]{xPos(), yPos()};
+		return new float[]{getxPos(), getyPos()};
+	}
+	private boolean lastWasLeft() {
+		return lastWasLeft;
+	}
+	private boolean lastWasRight() {
+		return lastWasRight;
+	}
+	protected void setLeftlast() {
+		lastWasLeft = true;
+		lastWasRight = false;
+	}
+	protected void setRightlast() {
+		lastWasRight = true;
+		lastWasLeft = false;
+	}
+	protected boolean isLastStand() {
+		return lastStand;
+	}
+	protected void setLastStand(boolean lastStand) {
+		this.lastStand = lastStand;
+	}
+	protected boolean isLastMov() {
+		return lastMov;
+	}
+	protected void setLastMov(boolean lastMov) {
+		this.lastMov = lastMov;
+	}
+	protected boolean isLastRun() {
+		return lastRun;
+	}
+	protected void setLastRun(boolean lastRun) {
+		this.lastRun = lastRun;
 	}
 }

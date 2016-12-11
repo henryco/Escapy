@@ -1,8 +1,6 @@
 package com.game.boxPhysics;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
 import net.henryco.struct.Struct;
 import net.henryco.struct.Structurized;
 import net.henryco.struct.container.tree.StructNode;
@@ -53,6 +51,31 @@ public class PhysShapes implements Structurized {
 		return this;
 	}
 
-
-
+	public static final String exampleStructFile =
+			"//EXAMPLE STRUCT FILE\n" +
+			"//use to init physics\n" +
+			"//Static*, Dynamic*, Kinematic*\n" +
+			"//@author: henryCo\n" +
+			"#import struct\n" +
+			"exampleName: {\n" +
+			"\tvisible true;\n" +
+			"\tcontainer[0]: {\n" +
+			"\t\tbodyDef {\n" +
+			"\t\t\tangularDamping = 0\n" +
+			"\t\t\tposition {\n" +
+			"\t\t\t\tx = 0;\n" +
+			"\t\t\t\ty = 0;\n" +
+			"\t\t\t}\n" +
+			"\t\t\ttype.java.field(\"com\",\"badlogic\",\"gdx\",\"physics\",\"box2d\",\"BodyDef\",\"$BodyType\", \"StaticBody\")\n" +
+			"\n" +
+			"\t\t}\n" +
+			"\t\tpolygon[0]: {\n" +
+			"\t\t\t0: [0.0, 0.0]\n" +
+			"\t\t\t1: [1.0, 0.0]\n" +
+			"\t\t\t2: [1.0, 1.0]\n" +
+			"\t\t\t3: [0.0, 1.0]\n" +
+			"\t\t}\n" +
+			"\t\tpolygon[1]: ([0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0])\n" +
+			"\t}\n" +
+			"}";
 }

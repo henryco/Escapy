@@ -35,7 +35,8 @@ public class SharedCharacters {
 	}
 
 	public List<IBoxBody> loadBodyList(World world, float meter_scale) {
-		return loader.load(world, meter_scale, new ArrayList<>(characterList));
+		iBoxBodyList = loader.load(world, meter_scale, new ArrayList<>(characterList));
+		return iBoxBodyList;
 	}
 
 }

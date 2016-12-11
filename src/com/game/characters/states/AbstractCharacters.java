@@ -21,10 +21,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	private float xPos, yPos;
 	private float zoom;
 
-	private int HP = 100;
-	private int MP = 100;
-	private int SP = 100;
-
 	/** The fall img. */
 	protected Texture[] standImg, landImg, walkImg,
 		runImg, jumpImg, fallImg;
@@ -40,84 +36,25 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	/** The sprite batcher. */
 	protected SpriteBatch spriteBatcher;
 
-	/** The mov speed. */
-	protected float movSpeed;
-	
-	/** The run speed. */
-	protected float runSpeed;
 
 	/** The land. */
 	protected int[] stand, walk, run, jump, fall, land;
 
-	/** The last was right. */
-	protected boolean lastWasLeft = false, lastWasRight = true;
-	private boolean lastMov = false;
-	private boolean lastRun = false;
-	private boolean lastStand = false;
-	
-	/** The last fall. */
-	protected boolean lastFall = false;
-	
-	/** The last land. */
-	protected boolean lastLand = false;
 
-	/** The actual frame. */
+
 	protected int actualFrame;
-	
-	/** The time 0. */
-	protected long time0 = 0;
-
-	/** The partBody position. */
-	protected int[] bodyPosition = new int[] { 0, 0 };
-	protected float[] bodyFloatPosition = new float[]{0,0};
 
 
-	/**
-	 * Instantiates a new abstract characters.
-	 *
-	 * @param urls
-	 *            the urls
-	 * @param times
-	 *            the times
-	 * @param zoom
-	 *            the zoom
-	 */
+
 	public AbstractCharacters(ArrayList<String>[] urls, ArrayList<Integer>[] times, float zoom) {
 		super();
 		fillDataTabs(urls, times, zoom);
 		initializeGraphic();
-		setDefaultSpeed();
 	}
 
-	/**
-	 * Sets the default speed.
-	 */
-	public void setDefaultSpeed() {
-		this.movSpeed = 1.f;
-		this.runSpeed = 11.f;
-	}
 
-	/**
-	 * Initialize graphic.
-	 */
 	protected abstract void initializeGraphic();
-
-	/**
-	 * Sets the frame 0.
-	 *
-	 * @param texture
-	 *            the texture
-	 * @return the sprite
-	 */
 	protected abstract Sprite setFrame0(Texture texture);
-
-	/**
-	 * Sets the frame 180.
-	 *
-	 * @param texture
-	 *            the texture
-	 * @return the sprite
-	 */
 	protected abstract Sprite setFrame180(Texture texture);
 
 	@Override
@@ -182,8 +119,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 				img[i] = new Texture(new FileHandle(this.removePNG(iterator.next()))+postFix);
 				img[i].setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 			}
-		} catch (com.badlogic.gdx.utils.GdxRuntimeException excp) {
-		//	excp.printStackTrace();
+		} catch (com.badlogic.gdx.utils.GdxRuntimeException ignored) {
 		} return img;
 	}
 	
@@ -195,15 +131,8 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		}	return timeTab;
 	}
 
-	/**
-	 * Animation.
-	 *
-	 * @param imgg
-	 *            the imgg
-	 * @param times
-	 *            the times
-	 * @return the texture[]
-	 */
+
+	private long time0 = 0;
 	protected Texture[] animation(Texture[] imgg, int[] times) {
 		long time1 = System.nanoTime() - time0;
 		if (time1 / 1000000.f >= times[actualFrame]) {
@@ -213,16 +142,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 				actualFrame = 0;
 		}	return imgg;
 	}
-
-	/**
-	 * Fly animation.
-	 *
-	 * @param imgg
-	 *            the imgg
-	 * @param times
-	 *            the times
-	 * @return the texture[]
-	 */
 	protected Texture[] flyAnimation(Texture[] imgg, int[] times) {
 		long time1 = System.nanoTime() - time0;
 		if (time1 / 1000000.f >= times[actualFrame]) {
@@ -234,168 +153,32 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	}
 
 	private String removePNG(String url) {
-		//.png
 		StringBuilder strb = new StringBuilder(url);
 		if (strb.charAt(strb.length()-4) == '.')
 			strb.delete(strb.length()-4, strb.length());
 		return strb.toString();
 	}
 	
-	
-	/**
-	 * X pos.
-	 *
-	 * @return the float
-	 */
-	public float xPos() {
-		return xPos;
-	}
 
-	/**
-	 * Sets the x pos.
-	 *
-	 * @param xPos
-	 *            the new x pos
-	 */
 	public void setXPos(float xPos) {
 		this.xPos = xPos;
 	}
-
-	/**
-	 * Y pos.
-	 *
-	 * @return the float
-	 */
-	public float yPos() {
-		return yPos;
-	}
-
-	/**
-	 * Sets the y pos.
-	 *
-	 * @param yPos
-	 *            the new y pos
-	 */
 	public void setYPos(float yPos) {
 		this.yPos = yPos;
 	}
-
-	/**
-	 * Zoom.
-	 *
-	 * @return the float
-	 */
 	public float zoom() {
 		return zoom;
 	}
-
-	/**
-	 * Sets the zoom.
-	 *
-	 * @param zoom
-	 *            the new zoom
-	 */
 	public void setZoom(float zoom) {
 		this.zoom = zoom;
 	}
-
-	/**
-	 * Hp.
-	 *
-	 * @return the int
-	 */
-	public int HP() {
-		return HP;
+	public float getxPos() {
+		return xPos;
+	}
+	public float getyPos() {
+		return yPos;
 	}
 
-	/**
-	 * Sets the hp.
-	 *
-	 * @param hP
-	 *            the new hp
-	 */
-	public void setHP(int hP) {
-		HP = hP;
-	}
-
-	/**
-	 * Mp.
-	 *
-	 * @return the int
-	 */
-	public int MP() {
-		return MP;
-	}
-
-	/**
-	 * Sets the mp.
-	 *
-	 * @param mP
-	 *            the new mp
-	 */
-	public void setMP(int mP) {
-		MP = mP;
-	}
-
-	/**
-	 * Sp.
-	 *
-	 * @return the int
-	 */
-	public int SP() {
-		return SP;
-	}
-
-	/**
-	 * Sets the sp.
-	 *
-	 * @param sP
-	 *            the new sp
-	 */
-	public void setSP(int sP) {
-		SP = sP;
-	}
-
-	/**
-	 * Last was left.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean lastWasLeft() {
-		return lastWasLeft;
-	}
-
-	/**
-	 * Last was right.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean lastWasRight() {
-		return lastWasRight;
-	}
-
-	/**
-	 * Sets the leftlast.
-	 */
-	protected void setLeftlast() {
-		lastWasLeft = true;
-		lastWasRight = false;
-	}
-
-	/**
-	 * Sets the rightlast.
-	 */
-	protected void setRightlast() {
-		lastWasRight = true;
-		lastWasLeft = false;
-	}
-
-	/**
-	 * Sets the position.
-	 *
-	 * @param position
-	 *            the new position
-	 */
 	public void setPosition(int[] position) {
 		this.xPos = position[0];
 		this.yPos = position[1];
@@ -409,106 +192,5 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		this.yPos = y;
 	}
 
-	/**
-	 * Gets the mov speed.
-	 *
-	 * @return the mov speed
-	 */
-	public float getMovSpeed() {
-		return movSpeed;
-	}
-	/**
-	 * Sets the mov speed.
-	 *
-	 * @param movSpeed
-	 *            the new mov speed
-	 */
-	public void setMovSpeed(float movSpeed) {
-		this.movSpeed = movSpeed;
-	}
-	/**
-	 * Gets the run speed.
-	 *
-	 * @return the run speed
-	 */
-	public float getRunSpeed() {
-		return runSpeed;
-	}
-	/**
-	 * Sets the run speed.
-	 *
-	 * @param runSpeed
-	 *            the new run speed
-	 */
-	public void setRunSpeed(float runSpeed) {
-		this.runSpeed = runSpeed;
-	}
-	/**
-	 * Checks if is last stand.
-	 *
-	 * @return true, if is last stand
-	 */
-	public boolean isLastStand() {
-		return lastStand;
-	}
-	/**
-	 * Sets the last stand.
-	 *
-	 * @param lastStand
-	 *            the new last stand
-	 */
-	public void setLastStand(boolean lastStand) {
-		this.lastStand = lastStand;
-	}
-	/**
-	 * Checks if is last mov.
-	 *
-	 * @return true, if is last mov
-	 */
-	public boolean isLastMov() {
-		return lastMov;
-	}
-	/**
-	 * Sets the last mov.
-	 *
-	 * @param lastMov
-	 *            the new last mov
-	 */
-	public void setLastMov(boolean lastMov) {
-		this.lastMov = lastMov;
-	}
-	/**
-	 * Checks if is last run.
-	 *
-	 * @return true, if is last run
-	 */
-	public boolean isLastRun() {
-		return lastRun;
-	}
-	/**
-	 * Sets the last run.
-	 *
-	 * @param lastRun
-	 *            the new last run
-	 */
-	public void setLastRun(boolean lastRun) {
-		this.lastRun = lastRun;
-	}
-	/**
-	 * Checks if is last fall.
-	 *
-	 * @return true, if is last fall
-	 */
-	public boolean isLastFall() {
-		return lastFall;
-	}
-	/**
-	 * Checks if is last land.
-	 *
-	 * @return true, if is last land
-	 */
-	public boolean isLastLand() {
-		return lastLand;
-	}
 
 }

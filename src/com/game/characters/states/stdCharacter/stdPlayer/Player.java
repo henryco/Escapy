@@ -38,8 +38,14 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 		this.isMoving = isMoving;
 
 
-		if (downA) bodyCharacter.setMoveSign(-1);
-		if (downD) bodyCharacter.setMoveSign(+1);
+		if (downA) {
+			if (downLShift) bodyCharacter.setMoveSign(-2.5f);
+			else bodyCharacter.setMoveSign(-1);
+		}
+		if (downD) {
+			if (downLShift)	bodyCharacter.setMoveSign(+2.5f);
+			else bodyCharacter.setMoveSign(+1);
+		}
 	}
 	
 
@@ -64,7 +70,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 
 	@Override
 	public void defineMovAnimation() {
-		if (!lastFall && downRight & !downLShift) {
+		if (downRight & !downLShift) {
 			if (!isLastMov()) {
 				super.actualFrame = 0;
 			}
@@ -79,7 +85,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 			super.setLastMov(false);
 		}
 
-		if (!lastFall && downLeft && !downLShift) {
+		else if (downLeft && !downLShift) {
 			if (!isLastMov()) {
 				super.actualFrame = 0;
 			}
@@ -96,7 +102,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 
 	@Override
 	public void defineRunAnimation() {
-		if (!lastFall && downRight && downLShift) {
+		if (downRight && downLShift) {
 			if (!isLastRun()) {
 				super.actualFrame = 0;
 			}
@@ -111,7 +117,7 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 			super.setLastRun(false);
 		}
 
-		if (!lastFall && downLeft && downLShift) {
+		else if (downLeft && downLShift) {
 			if (!isLastRun()) {
 				super.actualFrame = 0;
 			}

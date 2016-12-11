@@ -67,9 +67,7 @@ public class PhysContainer {
 			System.out.println(n);
 		}
 		System.out.println();
-
 		iBoxBodyList = sharedCharacters.loadBodyList(world, meter_scale);
-
 		return this;
 	}
 
