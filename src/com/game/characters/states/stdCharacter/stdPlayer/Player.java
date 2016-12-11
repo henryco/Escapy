@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 import com.game.characters.states.stdCharacter.StdCharacter;
 import com.game.controlls.EscapyPlayerControlls;
-import com.game.physics_temp.EscapyPhysics;
-import com.game.physics_temp.EscapyPhysicsObjectSuper;
-import com.game.physics_temp.TEMP_EscapyPhysicsPlayerControls;
 import com.game.render.camera.program.CameraProgramOwner;
 import com.game.render.camera.program.CameraVector;
 
@@ -39,30 +36,13 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 		this.pressedF = downF;
 		this.pressedJump = downSpace;
 		this.isMoving = isMoving;
+
+
+		if (downA) bodyCharacter.setMoveSign(-1);
+		if (downD) bodyCharacter.setMoveSign(+1);
 	}
 	
 
-
-	@Override
-	public void definePhysicalSystem(EscapyPhysicsObjectSuper physObject) {
-		EscapyPhysics.initDefaultGravityAcceleration(physObject);
-		EscapyPhysics.initDefaultMov(physObject, super.movSpeed, super.runSpeed, 120);
-		EscapyPhysics.initDefaultPhysicalMap(physObject, 0.52f, 0.875f);
-	}
-
-
-	@Override
-	public void physicalCalculations(EscapyPhysicsObjectSuper physObject) {
-		EscapyPhysics.defaultGravity(physObject);
-		EscapyPhysics.defaultMovement(physObject, this.downLeft, this.downRight, this.downLShift, false);
-	}
-
-
-	@Override
-	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
-		setXPos(xpos);
-		setYPos(ypos);
-	}
 	
 
 	@Override
@@ -85,33 +65,30 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 	@Override
 	public void defineMovAnimation() {
 		if (!lastFall && downRight & !downLShift) {
-			if (!TEMP_EscapyPhysicsPlayerControls.isFlyin()) {
-				if (!isLastMov()) {
-					super.actualFrame = 0;
-				}
-				super.setLastMov(true);
-				super.actualTexture = super.animation(walkImg, walk);
-				super.actualNRMLTexture = super.animation(walkImgNRML, walk);
-				super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
-				super.setRightlast();
-				cameraVector.setMoveNVector(1,0);
+			if (!isLastMov()) {
+				super.actualFrame = 0;
 			}
+			super.setLastMov(true);
+			super.actualTexture = super.animation(walkImg, walk);
+			super.actualNRMLTexture = super.animation(walkImgNRML, walk);
+			super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
+			super.setRightlast();
+			cameraVector.setMoveNVector(1,0);
+
 		} else if (!downRight && downLShift) {
 			super.setLastMov(false);
 		}
 
 		if (!lastFall && downLeft && !downLShift) {
-			if (!TEMP_EscapyPhysicsPlayerControls.isFlyin()) {
-				if (!isLastMov()) {
-					super.actualFrame = 0;
-				}
-				super.setLastMov(true);
-				super.actualTexture = super.animation(walkImg, walk);
-				super.actualNRMLTexture = super.animation(walkImgNRML, walk);
-				super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
-				super.setLeftlast();
-				cameraVector.setMoveNVector(-1,0);
+			if (!isLastMov()) {
+				super.actualFrame = 0;
 			}
+			super.setLastMov(true);
+			super.actualTexture = super.animation(walkImg, walk);
+			super.actualNRMLTexture = super.animation(walkImgNRML, walk);
+			super.actualLTMPTexture = super.animation(walkImgLTMP, walk);
+			super.setLeftlast();
+			cameraVector.setMoveNVector(-1,0);
 		} else if (!downLeft && downLShift) {
 			super.setLastMov(false);
 		}
@@ -120,33 +97,30 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 	@Override
 	public void defineRunAnimation() {
 		if (!lastFall && downRight && downLShift) {
-			if (!TEMP_EscapyPhysicsPlayerControls.isFlyin()) {
-				if (!isLastRun()) {
-					super.actualFrame = 0;
-				}
-				super.setLastRun(true);
-				super.actualTexture = super.animation(runImg, run);
-				super.actualNRMLTexture = super.animation(runImgNRML, run);
-				super.actualLTMPTexture = super.animation(runImgLTMP, run);
-				super.setRightlast();
-				cameraVector.setMoveNVector(1,0);
+			if (!isLastRun()) {
+				super.actualFrame = 0;
 			}
+			super.setLastRun(true);
+			super.actualTexture = super.animation(runImg, run);
+			super.actualNRMLTexture = super.animation(runImgNRML, run);
+			super.actualLTMPTexture = super.animation(runImgLTMP, run);
+			super.setRightlast();
+			cameraVector.setMoveNVector(1,0);
+
 		} else if (!downRight && !downLShift) {
 			super.setLastRun(false);
 		}
 
 		if (!lastFall && downLeft && downLShift) {
-			if (!TEMP_EscapyPhysicsPlayerControls.isFlyin()) {
-				if (!isLastRun()) {
-					super.actualFrame = 0;
-				}
-				super.setLastRun(true);
-				super.actualTexture = super.animation(runImg, run);
-				super.actualNRMLTexture = super.animation(runImgNRML, run);
-				super.actualLTMPTexture = super.animation(runImgLTMP, run);
-				super.setLeftlast();
-				cameraVector.setMoveNVector(-1,0);
+			if (!isLastRun()) {
+				super.actualFrame = 0;
 			}
+			super.setLastRun(true);
+			super.actualTexture = super.animation(runImg, run);
+			super.actualNRMLTexture = super.animation(runImgNRML, run);
+			super.actualLTMPTexture = super.animation(runImgLTMP, run);
+			super.setLeftlast();
+			cameraVector.setMoveNVector(-1,0);
 		} else if (!downLeft && !downLShift) {
 			super.setLastRun(false);
 		}
@@ -159,6 +133,6 @@ public class Player extends StdCharacter implements EscapyPlayerControlls, Camer
 
 	@Override
 	public float[] getOwnerPosition() {
-		return getPhysicalBody().getBodyPosition();
+		return getPosition();
 	}
 }

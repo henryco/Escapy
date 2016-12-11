@@ -2,9 +2,7 @@ package com.game.characters.states.stdCharacter.stdNPC;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.game.characters.states.stdCharacter.StdCharacter;
-import com.game.physics_temp.EscapyPhysicsObjectSuper;
 
 
 // TODO: Auto-generated Javadoc
@@ -24,21 +22,7 @@ public class NPC extends StdCharacter {
 	}
 
 	
-	
-	@Override
-	public void definePhysicalSystem(EscapyPhysicsObjectSuper physObject) {
-		// TODO Auto-generated method stub	
-	}
-	@Override
-	public void physicalCalculations(EscapyPhysicsObjectSuper physObject) {
-		// TODO Auto-generated method stub	
-	}
-	@Override
-	public void physicalEvent(float xpos, float ypos, float mass, float tetha, EscapyPhysicsObjectSuper physObject) {
-		// TODO Auto-generated method stub	
-	}
-	
-	
+
 	
 	@Override
 	public void defineStandAnimation() {

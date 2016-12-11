@@ -13,6 +13,7 @@ public class StdCameraProgram extends AbsCharacterProgram {
 	private ProgramExecutor axisXprogram, axisYprogram;
 	public static final ProgramExecutors program = new ProgramExecutors();
 	private float[] minTranslation = new float[2];
+	private float[] correction = new float[2];
 
 	public StdCameraProgram(CameraProgramOwner owner, int scrW, int scrH) {
 		super(owner, scrW, scrH);
@@ -33,6 +34,9 @@ public class StdCameraProgram extends AbsCharacterProgram {
 		float[] transBuff = new float[2];
 		float[] moveNVec = super.owner.getCameraVector().getMoveNVector();
 		float[] ownPos = super.owner.getOwnerPosition();
+
+		ownPos[0] += correction[0];
+		ownPos[1] += correction[1];
 
 		float xt = 0;
 		float yt = 0;
@@ -72,4 +76,9 @@ public class StdCameraProgram extends AbsCharacterProgram {
 		return this;
 	}
 
+	public StdCameraProgram setCorrection(float ... p_xy) {
+		if (p_xy.length == 2) correction = new float[]{p_xy[0], p_xy[1]};
+		else correction = new float[]{p_xy[0], 0};
+		return this;
+	}
 }

@@ -29,6 +29,9 @@ public class EscapyLine {
 		if (p.length == 2) set(0, 0, p[0], p[1]);
 		else if (p.length == 4) set(p[0], p[1], p[2], p[3]);
 	}
+
+
+
 	public float denom(float sx, float sy, float ex, float ey){
 		return (((ey - sy) * (end.x - start.x)) - ((ex - sx) * (end.y - start.y)));
 	}

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.animator.EscapyAnimatorSuperCharacter;
-import com.game.physics_temp.EscapyPhysicsEvent;
 import com.game.render.EscapyUniRender;
 
 // TODO: Auto-generated Javadoc
@@ -17,7 +16,7 @@ import com.game.render.EscapyUniRender;
  * The Class AbstractCharacters.
  */
 public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
-	implements EscapyPhysicsEvent, EscapyUniRender {
+	implements EscapyUniRender {
 
 	private float xPos, yPos;
 	private float zoom;
@@ -68,7 +67,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	/** The time 0. */
 	protected long time0 = 0;
 
-	/** The body position. */
+	/** The partBody position. */
 	protected int[] bodyPosition = new int[] { 0, 0 };
 	protected float[] bodyFloatPosition = new float[]{0,0};
 
@@ -236,7 +235,7 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 
 	private String removePNG(String url) {
 		//.png
-		StringBuffer strb = new StringBuffer(url);
+		StringBuilder strb = new StringBuilder(url);
 		if (strb.charAt(strb.length()-4) == '.')
 			strb.delete(strb.length()-4, strb.length());
 		return strb.toString();
@@ -401,6 +400,14 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 		this.xPos = position[0];
 		this.yPos = position[1];
 	}
+	public void setPosition(float[] position) {
+		this.xPos = position[0];
+		this.yPos = position[1];
+	}
+	public void setPosition(float x, float y) {
+		this.xPos = x;
+		this.yPos = y;
+	}
 
 	/**
 	 * Gets the mov speed.
@@ -410,7 +417,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public float getMovSpeed() {
 		return movSpeed;
 	}
-
 	/**
 	 * Sets the mov speed.
 	 *
@@ -420,7 +426,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public void setMovSpeed(float movSpeed) {
 		this.movSpeed = movSpeed;
 	}
-
 	/**
 	 * Gets the run speed.
 	 *
@@ -429,7 +434,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public float getRunSpeed() {
 		return runSpeed;
 	}
-
 	/**
 	 * Sets the run speed.
 	 *
@@ -439,7 +443,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public void setRunSpeed(float runSpeed) {
 		this.runSpeed = runSpeed;
 	}
-
 	/**
 	 * Checks if is last stand.
 	 *
@@ -448,7 +451,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public boolean isLastStand() {
 		return lastStand;
 	}
-
 	/**
 	 * Sets the last stand.
 	 *
@@ -458,7 +460,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public void setLastStand(boolean lastStand) {
 		this.lastStand = lastStand;
 	}
-
 	/**
 	 * Checks if is last mov.
 	 *
@@ -467,7 +468,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public boolean isLastMov() {
 		return lastMov;
 	}
-
 	/**
 	 * Sets the last mov.
 	 *
@@ -477,7 +477,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public void setLastMov(boolean lastMov) {
 		this.lastMov = lastMov;
 	}
-
 	/**
 	 * Checks if is last run.
 	 *
@@ -486,7 +485,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public boolean isLastRun() {
 		return lastRun;
 	}
-
 	/**
 	 * Sets the last run.
 	 *
@@ -496,7 +494,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public void setLastRun(boolean lastRun) {
 		this.lastRun = lastRun;
 	}
-
 	/**
 	 * Checks if is last fall.
 	 *
@@ -505,7 +502,6 @@ public abstract class AbstractCharacters extends EscapyAnimatorSuperCharacter
 	public boolean isLastFall() {
 		return lastFall;
 	}
-
 	/**
 	 * Checks if is last land.
 	 *

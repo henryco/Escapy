@@ -23,9 +23,11 @@ public class InitCharacters implements EscapyUniRender {
 	private ArrayList<String>[] playerAnimationUrlTab;
 	private ArrayList<Integer>[] playerTimeTab;
 	private StdCharacter player;
-	private NPC[] npc;
+	private StdCharacter[] npc;
 
 	private int ID;
+
+	private SharedCharacters sharedCharacters;
 
 	/**
 	 * Instantiates a new inits the characters.
@@ -34,11 +36,11 @@ public class InitCharacters implements EscapyUniRender {
 		loadAnimationDataFF();
 		this.player = new Player(playerAnimationUrlTab, playerTimeTab, 4f);
 		this.setNpc(new NPC[0]);// TEMP
-
+		this.sharedCharacters = new SharedCharacters(player, npc);
 	}
 
 	private void forEach(Consumer<EscapyUniRender> cons) {
-		for (NPC n : npc) cons.accept(n);
+		for (StdCharacter n : npc) cons.accept(n);
 		cons.accept(player);
 	}
 
@@ -97,6 +99,10 @@ public class InitCharacters implements EscapyUniRender {
 	}
 
 
+	public SharedCharacters getSharedCharacters() {
+		return sharedCharacters;
+	}
+
 	public Player player() {
 		return (Player) this.player;
 	}
@@ -108,10 +114,10 @@ public class InitCharacters implements EscapyUniRender {
 		return this;
 	}
 	public NPC getNPC(int index) {
-		return this.npc[index];
+		return (NPC) this.npc[index];
 	}
 	public NPC[] npc() {
-		return npc;
+		return (NPC[]) npc;
 	}
 	public void setNpc(NPC[] npc) {
 		this.npc = npc;

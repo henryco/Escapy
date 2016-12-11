@@ -27,6 +27,28 @@ public class PhysPolygon {
 	public Consumer<PhysPolygon> hitsOutAction = physPolygon -> {if (!physPolygon.frozen) liveTime = -1;};
 	public Consumer<PhysPolygon> collOutAction = hitsOutAction;
 
+
+	public PhysPolygon(PhysPolygon physPolygon) {
+
+		this.frozen = physPolygon.frozen;
+		this.name = physPolygon.name;
+		this.mass = physPolygon.mass;
+		this.bounding = physPolygon.bounding;
+		this.energyLoss = physPolygon.energyLoss;
+		this.liveTime = physPolygon.liveTime;
+		this.liveHits = physPolygon.liveHits;
+		this.minSpeed_x = physPolygon.minSpeed_x;
+		this.minSpeed_y = physPolygon.minSpeed_y;
+		this.collisionTime = physPolygon.collisionTime;
+		this.actualCollisionTime = physPolygon.actualCollisionTime;
+		this.speed_vec = new float[]{physPolygon.speed_vec[0], physPolygon.speed_vec[1]};
+
+		this.timeOutAction = physPolygon.timeOutAction;
+		this.hitsOutAction = physPolygon.hitsOutAction;
+		this.collOutAction = physPolygon.collOutAction;
+		this.polygon = new EscapyPolygon(physPolygon.polygon);
+	}
+
 	public PhysPolygon(EscapyPolygon polygon, boolean frozen, String ... name) {
 		this.polygon = polygon;
 		this.frozen = frozen;

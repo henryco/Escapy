@@ -82,11 +82,9 @@ public class MapGameObjects {
 
 		if (containerNode.containsStruct("lightExecutor")) {
 			StructNode execNode = containerNode.getStructSafe("lightExecutor");
-			if (execNode != null) {
+			if (execNode != null)
 				container.setLightExecutor(loadExecutor(execNode, dim, container));
-			}
 		}
-
 		if (containerNode.containsStruct("lights") && containerNode.getStruct("lights").containsStruct("ext")){
 			LightContainer tm = loadLights(containerNode.getPath("lights", "ext"), cfgLoc, container, dim);
 			container.setLights(tm.lights);

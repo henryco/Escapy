@@ -6,25 +6,30 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.game.animator.EscapyAnimatorCharacter;
+import com.game.boxPhysics.body.BodyHolder;
+import com.game.boxPhysics.body.IBoxBody;
 import com.game.characters.states.AbstractCharacters;
-import com.game.physics_temp.EscapyPhysicsEvent;
-import com.game.physics_temp.EscapyPhysicsObjectDefault;
-import com.game.physics_temp.EscapyPhysicsObjectSuper;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class StdCharacter.
  */
 public abstract class StdCharacter extends AbstractCharacters
-		implements EscapyAnimatorCharacter, EscapyPhysicsEvent {
+		implements EscapyAnimatorCharacter, BodyHolder {
+
 
 
 	protected Sprite characterSprite, NRMLSprite, LTMPSprite;
 	protected Texture[] actualTexture, actualNRMLTexture, actualLTMPTexture;
-	protected EscapyPhysicsObjectDefault physBody;
+
+
+	protected IBoxBody bodyCharacter;
 
 	private int ID;
+
 
 	/**
 	 * Instantiates a new player.
@@ -50,10 +55,6 @@ public abstract class StdCharacter extends AbstractCharacters
 	private void initCharacter() {
 
 		this.setID(hashCode());
-		this.physBody 
-			= new EscapyPhysicsObjectDefault(characterSprite.getWidth(),
-				characterSprite.getHeight(), 0, xPos(), yPos(), this);
-		this.physBody.setCalculation(true);
 
 		super.addAnimatedCharacter(this);
 		super.initCharacterAnimator(this);
@@ -80,6 +81,30 @@ public abstract class StdCharacter extends AbstractCharacters
 		this.LTMPSprite.setSize(LTMPSprite.getWidth() * zoom(),
 				LTMPSprite.getHeight() * zoom());
 		
+	}
+
+
+	@Override
+	public BodyDef getBodyDef() {
+
+		BodyDef bodyDefChamp = new BodyDef();
+		bodyDefChamp.position.set(xPos(), yPos());
+		bodyDefChamp.type = BodyDef.BodyType.DynamicBody;
+		bodyDefChamp.fixedRotation = true;
+		bodyDefChamp.linearDamping = 1;
+
+		return bodyDefChamp;
+	}
+
+	@Override
+	public void updateHolder(IBoxBody boxBody) {
+		this.bodyCharacter = boxBody;
+		float msc = boxBody.getMeterScale();
+		Vector2 pos = boxBody.getBody().getPosition();
+		setPosition(
+				(pos.x / msc) - (characterSprite.getWidth() * 0.42f),
+				(pos.y / msc) - (characterSprite.getHeight() * 0.54f)
+		);
 	}
 
 
@@ -150,12 +175,6 @@ public abstract class StdCharacter extends AbstractCharacters
 
 
 	@Override
-	public EscapyPhysicsObjectSuper getPhysicalBody() {
-		return physBody;
-	}
-
-
-	@Override
 	public void setID(int id) {
 		this.ID = Integer.hashCode(this.hashCode() + Integer.hashCode(id));
 	}
@@ -163,5 +182,14 @@ public abstract class StdCharacter extends AbstractCharacters
 	@Override
 	public int getID() {
 		return ID;
+	}
+
+	@Override
+	public IBoxBody getIBoxBody() {
+		return bodyCharacter;
+	}
+
+	public float[] getPosition(){
+		return new float[]{xPos(), yPos()};
 	}
 }

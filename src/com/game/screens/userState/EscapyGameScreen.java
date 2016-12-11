@@ -9,10 +9,8 @@ import com.game.animator.EscapyAnimatorBase;
 import com.game.boxPhysics.PhysContainer;
 import com.game.characters.InitCharacters;
 import com.game.controlls.PlayerControl;
-import com.game.map.InitMap;
 import com.game.map.objects.MapGameObjects;
 import com.game.map.objects.layers.ObjectLayer;
-import com.game.physics_temp.EscapyPhysicsBase;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
 import com.game.screens.EscapyMainState;
@@ -27,7 +25,6 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 	private InitCharacters charactersContainer;
 	private PlayerControl controlls;
-	private EscapyPhysicsBase physics;
 	private EscapyAnimatorBase animator;
 	private MapGameObjects mapObjects;
 	private PhysContainer physContainer;
@@ -75,14 +72,12 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
     public void init_base(Object ... vars) {
 
         this.controlls = PlayerControl.playerController();
-		InitMap mapContainer = new InitMap(super.settings.Location(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, super.SCREEN_SCALE);
 		this.charactersContainer = new InitCharacters();
-        this.physics = new EscapyPhysicsBase(mapContainer.map()).startPhysics();
-        this.charactersContainer.player().getPhysicalBody().setPosition(new float[] { 400, 10 });
+        this.charactersContainer.player().setPosition(new float[] { 400, 10 });
 
 		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder().
 				addCameraProgram(new StdCameraProgram(this.charactersContainer.player(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, 0.35f, 0.35f).
-				setXProgram(StdCameraProgram.program.followCam).setMinTranslations(0.4f, 0.4f));
+				setXProgram(StdCameraProgram.program.followCam).setMinTranslations(0.4f, 0.4f).setCorrection(120));
 
 		this.mapObjects = new MapGameObjects(new int[]{super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT},
 				super.settings.getSourceDir(), super.settings.getObjectsCfgName(), charactersContainer);
@@ -92,7 +87,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.animator = EscapyAnimatorBase.createAnimator().initAnimator();
 		mapObjects.forEach(c -> c.weatherCons(w -> w.setFunc(e -> e.getEmitters().forEach(a -> a.getWind().setHigh(-100, -100)))));
 
-		this.physContainer = new PhysContainer(mapObjects.physShapes, 0.2f, new Vector2(0, 9.8f));
+		this.physContainer = new PhysContainer(mapObjects.physShapes, 0.2f, charactersContainer.getSharedCharacters(), new Vector2(0, 19.8f))
+				.setDebugCamera(escapyCamera);
 	}
 
 
@@ -107,7 +103,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 			contianer.forEach(ObjectLayer::shift);
 			if (contianer.lights != null) contianer.lights.forEach(l -> l.forEach(s -> s.shift().updAction(delta)));
 		});
-		//physContainer.update();
+		physContainer.update(delta);
     }
     private void updDist(float delta) {
 
@@ -190,19 +186,17 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.renderLights(escapyCamera)
 		);
 		this.ESCAPE();
-		physContainer.draw(escapyCamera);
+	//	physContainer.draw(escapyCamera);
     }
 
 
     @Override
     public void pause() {
 		
-        this.physics.closePhysic();
         super.gameState.getStatesContainer().getUpdLoopedQueue().removeFromUpdQueueLast();
     }
     @Override
     public void resume() {
-        this.physics.reInit().startPhysics();
         super.gameState.getStatesContainer().getUpdLoopedQueue().addToUpdQueue(this);
     }
     @Override

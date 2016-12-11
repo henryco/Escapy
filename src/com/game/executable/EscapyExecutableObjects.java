@@ -17,7 +17,7 @@ public interface EscapyExecutableObjects extends EscapyExecutable {
 	public void actionAnimation();
 
 	/**
-	 * Action animation finish.
+	 * Action animation apply.
 	 *
 	 * @return true, if successful
 	 */

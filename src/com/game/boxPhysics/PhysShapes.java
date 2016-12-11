@@ -1,11 +1,14 @@
 package com.game.boxPhysics;
 
-import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import net.henryco.struct.Struct;
 import net.henryco.struct.Structurized;
 import net.henryco.struct.container.tree.StructNode;
 
 import java.util.ArrayList;
+
 
 /**
  * @author Henry on 13/11/16.
@@ -49,6 +52,7 @@ public class PhysShapes implements Structurized {
 		}
 		return this;
 	}
+
 
 
 }

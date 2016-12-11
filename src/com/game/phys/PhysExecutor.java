@@ -23,7 +23,12 @@ public class PhysExecutor {
 
 	public float gravity_a = 9.8f;
 	public float meter = 1;
-	private Array<PhysPolygon> physQueue = new Array<>();
+	private Array<PhysPolygon> physQueue1 = new Array<>();
+	private Array<PhysPolygon> physQueue2 = new Array<>();
+
+	private Array<PhysPolygon> actualQueue = physQueue1;
+	private Array<PhysPolygon> lastQueue = physQueue2;
+
 
 	private float delta, wait_time;
 	private boolean u_go = true;
@@ -52,11 +57,12 @@ public class PhysExecutor {
 
 		if (u_go) {
 			u_go = false;
-			for (int z = 0; z < physQueue.size; z++) {
-				PhysPolygon polygon = physQueue.get(z);
+			for (int z = 0; z < actualQueue.size; z++) {
+				PhysPolygon polygon = actualQueue.get(z);
 				if (!polygon.checkLiveTime(dt)) {
-					physQueue.removeIndex(z);
-					polygon = physQueue.get(z -= 1);
+					actualQueue.removeIndex(z);
+					lastQueue.removeIndex(z);
+					polygon = actualQueue.get(z -= 1);
 				}
 
 				float[] vec = new float[2];
@@ -65,25 +71,30 @@ public class PhysExecutor {
 				if (Math.abs(polygon.speed_vec[1]) >= polygon.minSpeed_y) vec[1] = polygon.speed_vec[1];
 				polygon.translate(vec[0], vec[1], polygon.mass);
 
-				for (int i = 0; i < physQueue.size; i++) {
-					PhysPolygon polyTarget = physQueue.get(i);
-					if (polyTarget != polygon && !polygon.frozen) {
-						if (polyTarget.polygon.isCollide(polygon.polygon)){
-							float[] counter = polyTarget.polygon.collisionVector(polygon.polygon, polygon.speed_vec[0], polygon.speed_vec[1]);
+				PhysPolygon mainPolygon = lastQueue.get(z);
+
+				for (int i = 0; i < lastQueue.size; i++) {
+					PhysPolygon polyTarget = lastQueue.get(i);
+					if (polyTarget != mainPolygon && !mainPolygon.frozen) {
+						if (polyTarget.polygon.isCollide(mainPolygon.polygon)){
+							float[] counter = polyTarget.polygon.collisionVector(mainPolygon.polygon, mainPolygon.speed_vec[0], mainPolygon.speed_vec[1]);
 							if (counter != null) {
-								polygon.polygon.counter = counter;
-								polygon.translate(counter[0] * normSign, counter[1] * normSign); //mass not necessary here
+								mainPolygon.polygon.counter = counter;
+								mainPolygon.translate(counter[0] * normSign, counter[1] * normSign); //mass not necessary here
 
 								float[] n = new float[]{counter[2], counter[3]};
 
-								calculateStrikes(polygon, polyTarget, n, EscapyGeometry.getVector_t(n));
-
+								calculateStrikes(mainPolygon, polyTarget, n, EscapyGeometry.getVector_t(n));
 							}
 						}
 					}
 				}
 			}
 		}
+
+		Array<PhysPolygon> swapper = lastQueue;
+		lastQueue = actualQueue;
+		actualQueue = swapper;
 	}
 
 	private static void calculateStrikes(PhysPolygon polygon, PhysPolygon polyTarget, float[] n, float[] t) {
@@ -129,7 +140,7 @@ public class PhysExecutor {
 	public void draw(EscapyGdxCamera camera) {
 		renderer.setProjectionMatrix(camera.combined());
 		renderer.begin(ShapeRenderer.ShapeType.Line);
-		physQueue.forEach(p -> renderer.polygon(p.polygon.getTransformedVertices()));
+		actualQueue.forEach(p -> renderer.polygon(p.polygon.getTransformedVertices()));
 		renderer.end();
 		outStats(camera);
 	}
@@ -142,32 +153,34 @@ public class PhysExecutor {
 		return this;
 	}
 	public PhysExecutor addPhysObjectToQueue(PhysPolygon polygon) {
-		physQueue.add(polygon);
+		physQueue1.add(polygon);
+		physQueue2.add(new PhysPolygon(polygon));
 		return this;
 	}
 	public void forEach(Consumer<PhysPolygon> p) {
-		physQueue.forEach(p);
+		actualQueue.forEach(p);
 	}
 	public PhysPolygon getPhysPolygon(String name) {
-		for (PhysPolygon p : physQueue) if (p.name.equalsIgnoreCase(name)) return p;
+		for (PhysPolygon p : actualQueue) if (p.name.equalsIgnoreCase(name)) return p;
 		return null;
 	}
 	public PhysPolygon getPhysPolygon(int index) {
-		return physQueue.get(index);
+		return actualQueue.get(index);
 	}
 	public PhysExecutor setDeltaTime(float delta) {
 		this.delta = delta;
 		return this;
 	}
 	public PhysExecutor load(List<PhysPolygon> polygonList) {
-		polygonList.forEach(p -> physQueue.add(p));
+		polygonList.forEach(p -> physQueue1.add(p));
+		polygonList.forEach(p -> physQueue2.add(new PhysPolygon(p)));
 		return this;
 	}
 
 	private void outStats(EscapyGdxCamera camera){
 		fntRederer.setProjectionMatrix(camera.combined());
 		fntRederer.begin();
-		physQueue.forEach(p -> {
+		actualQueue.forEach(p -> {
 			font.setColor(Color.ROYAL);
 			font.draw(fntRederer, p.name, p.polygon.getX() + 70, p.polygon.getY() - 20);
 			font.setColor(Color.WHITE);

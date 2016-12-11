@@ -23,6 +23,29 @@ public class EscapyPolygon extends Polygon {
 		setVertices(vertices);
 	}
 
+	public EscapyPolygon(EscapyPolygon otherPolygon) {
+		this.name = otherPolygon.name;
+		this.vertNumb = otherPolygon.vertNumb;
+		this.normNumb = otherPolygon.normNumb;
+
+		this.xVert = new float[otherPolygon.xVert.length];
+		this.yVert = new float[otherPolygon.yVert.length];
+		this.counter = new float[otherPolygon.counter.length];
+		System.arraycopy(otherPolygon.counter, 0, counter, 0, otherPolygon.counter.length);
+		System.arraycopy(otherPolygon.xVert, 0, xVert, 0, otherPolygon.xVert.length);
+		System.arraycopy(otherPolygon.yVert, 0, yVert, 0, otherPolygon.yVert.length);
+
+		this.lines = new EscapyLine[otherPolygon.lines.length];
+		for (int i = 0; i < otherPolygon.lines.length; i++)
+			this.lines[i] = new EscapyLine(otherPolygon.lines[i]);
+		float[] vertices = new float[vertNumb * 2];
+		for (int i = 0; i < vertices.length - 1; i+=2) {
+			vertices[i] = xVert[i/2];
+			vertices[i + 1] = yVert[i/2];
+		}
+		super.setVertices(vertices);
+	}
+
 	@Override
 	public void setVertices(float[] vertices) {
 		super.setVertices(vertices);
