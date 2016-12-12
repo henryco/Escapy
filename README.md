@@ -37,7 +37,11 @@ Also fixed normal mapping shaders.<br><br>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=B9nc-YUr3jA
 " target="_blank"><b>-> Dynamic shadows video</b></a>
 
+
+
 <br><br>
+![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/hitbox.png)
+<br>
 ![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/esWeather.png)
 <br>
 ![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/esChar.png)
