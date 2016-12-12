@@ -15,17 +15,32 @@ public class StdCameraProgram extends AbsCharacterProgram {
 	private float[] minTranslation = new float[2];
 	private float[] correction = new float[2];
 
-	public StdCameraProgram(CameraProgramOwner owner, int scrW, int scrH) {
-		super(owner, scrW, scrH);
+	public StdCameraProgram(CameraProgramOwner owner, float scrW, float scrH) {
+		this(scrW, scrH);
+		super.setOwner(owner);
 	}
-	public StdCameraProgram(CameraProgramOwner owner, int scrW, int scrH, float il1, float ir1) {
-		super(owner, scrW, scrH);
+	public StdCameraProgram(CameraProgramOwner owner, float scrW, float scrH, float il1, float ir1) {
+		this(scrW, scrH, il1, ir1);
+		super.setOwner(owner);
+	}
+	public StdCameraProgram(CameraProgramOwner owner, float scrW, float scrH, float il1, float ir1, float id1, float iu1) {
+		this(scrW, scrH, il1, ir1, id1, iu1);
+		super.setOwner(owner);
+	}
+	public StdCameraProgram(float scrW, float scrH) {
+		super(scrW, scrH);
+		System.out.println("INSTANCE::STD::CAMERA "+scrW+" : "+scrH);
+	}
+	public StdCameraProgram(float scrW, float scrH, float il1, float ir1) {
+		super(scrW, scrH);
 		addBorderIntervalsOX(il1, ir1);
+		System.out.println("INSTANCE::STD::CAMERA "+scrW+" : "+scrH+" : "+il1+" : "+ir1);
 	}
-	public StdCameraProgram(CameraProgramOwner owner, int scrW, int scrH, float il1, float ir1, float id1, float iu1) {
-		super(owner, scrW, scrH);
+	public StdCameraProgram(float scrW, float scrH, float il1, float ir1, float id1, float iu1) {
+		super(scrW, scrH);
 		addBorderIntervalsOX(il1, ir1);
 		addBorderIntervalsOY(id1, iu1);
+		System.out.println("INSTANCE::STD::CAMERA "+scrW+" : "+scrH+" : "+il1+" : "+ir1+" : "+id1+" : "+iu1);
 	}
 
 	@Override
@@ -70,15 +85,13 @@ public class StdCameraProgram extends AbsCharacterProgram {
 		return this;
 	}
 
-	public StdCameraProgram setMinTranslations(float ... x_y) {
-		if (x_y.length == 2) minTranslation = new float[]{x_y[0], x_y[1]};
-		else minTranslation = new float[]{x_y[0], 0};
+	public StdCameraProgram setMinTranslations(float x, float y) {
+		minTranslation = new float[]{x, y};
 		return this;
 	}
 
-	public StdCameraProgram setCorrection(float ... p_xy) {
-		if (p_xy.length == 2) correction = new float[]{p_xy[0], p_xy[1]};
-		else correction = new float[]{p_xy[0], 0};
+	public StdCameraProgram setCorrection(float p_x, float py) {
+		correction = new float[]{p_x, py};
 		return this;
 	}
 }

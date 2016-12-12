@@ -13,6 +13,7 @@ import com.game.map.objects.objects.utils.ZoomCalculator;
 import com.game.map.objects.objects.utils.translators.GameObjTranslators;
 import com.game.map.weather.WeatherStructLoader;
 import com.game.render.EscapyUniRender;
+import com.game.render.camera.program.holder.container.CameraProgramContainer;
 import com.game.render.fbo.psProcess.cont.init.LightContainer;
 import com.game.render.fbo.psProcess.lights.stdLIght.AbsStdLight;
 import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecutor;
@@ -54,7 +55,7 @@ public class MapGameObjects {
 
 	private LayerContainer[] initGameObjects(int[] dim, String location, String cfgFile, EscapyUniRender ... uniRenders) {
 
-		System.out.println(cfgFile);
+		System.out.println("CFG: "+cfgFile+"\nLOC: "+location);
 		List<String[]>[] containerList = Struct.in.readStructData(cfgFile);
 		StructTree containerTree = StructContainer.tree(containerList, cfgFile);
 		System.out.println(containerTree);

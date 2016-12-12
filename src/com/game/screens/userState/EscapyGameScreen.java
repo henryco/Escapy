@@ -12,6 +12,7 @@ import com.game.controlls.PlayerControl;
 import com.game.map.objects.MapGameObjects;
 import com.game.map.objects.layers.ObjectLayer;
 import com.game.render.camera.EscapyGdxCamera;
+import com.game.render.camera.program.holder.container.CameraProgramContainer;
 import com.game.render.camera.program.program.stdProgram.StdCameraProgram;
 import com.game.screens.EscapyMainState;
 import com.game.screens.EscapyScreenState;
@@ -28,9 +29,8 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 	private EscapyAnimatorBase animator;
 	private MapGameObjects mapObjects;
 	private PhysContainer physContainer;
+	private CameraProgramContainer cameraProgramContainer;
 
-	/** The player camera program ID. */
-	protected int playerCameraProgramID;
 	private int [][] id;
 	private float wait = 0;
 
@@ -75,9 +75,9 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 		this.charactersContainer = new InitCharacters();
         this.charactersContainer.player().setPosition(new float[] { 400, 10 });
 
-		this.playerCameraProgramID = super.escapyCamera.getCameraProgramHolder().
-				addCameraProgram(new StdCameraProgram(this.charactersContainer.player(), super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT, 0.35f, 0.35f).
-				setXProgram(StdCameraProgram.program.followCam).setMinTranslations(0.4f, 0.4f).setCorrection(120));
+		this.cameraProgramContainer = new CameraProgramContainer(super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT,
+				escapyCamera.getCameraProgramHolder(), this.charactersContainer.player())
+				.load(settings.getObjectsCfgName().substring(0, settings.getObjectsCfgName().lastIndexOf("/"))+"/Camera.struct");
 
 		this.mapObjects = new MapGameObjects(new int[]{super.SCREEN_DEFAULT_WIDTH, super.SCREEN_DEFAULT_HEIGHT},
 				super.settings.getSourceDir(), super.settings.getObjectsCfgName(), charactersContainer);
@@ -89,6 +89,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 
 		this.physContainer = new PhysContainer(mapObjects.physShapes, 0.2f, charactersContainer.getSharedCharacters(), new Vector2(0, 19.8f))
 				.setDebugCamera(escapyCamera);
+
 	}
 
 
@@ -186,7 +187,7 @@ public class EscapyGameScreen extends EscapyScreenState implements Updatable, Es
 				.renderLights(escapyCamera)
 		);
 		this.ESCAPE();
-	//	physContainer.draw(escapyCamera);
+		physContainer.draw(escapyCamera);
     }
 
 

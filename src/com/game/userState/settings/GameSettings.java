@@ -1,8 +1,6 @@
 package com.game.userState.settings;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -150,21 +148,7 @@ public final class GameSettings {
 		GameSettings.location = location;
 	}
 
-	/**
-	 * Sets the game size FF.
-	 */
-	public void setGameSizeFF() {
-		try {
-			RandomAccessFile raf = new RandomAccessFile(new File(Location() + "_.gmd"), "r");
-			raf.seek(0);
-			setLocationXsize(raf.readShort());
-			setLocationYsize(raf.readShort());
-			raf.close();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Checks if is v sync.

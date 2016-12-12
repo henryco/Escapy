@@ -19,10 +19,13 @@ public abstract class AbsCharacterProgram implements CameraProgram<float[]> {
 	protected boolean translateOX, translateOY;
 
 
-	public AbsCharacterProgram(CameraProgramOwner owner, int scrW, int scrH) {
-		this.owner = owner;
-		this.SCR_W = scrW;
-		this.SCR_H = scrH;
+	public AbsCharacterProgram(CameraProgramOwner owner, float scrW, float scrH) {
+		this(scrW, scrH);
+		setOwner(owner);
+	}
+	public AbsCharacterProgram(Float scrW, Float scrH) {
+		this.SCR_W = (int) scrW.floatValue();
+		this.SCR_H = (int) scrH.floatValue();
 		this.borderIntervalsOX = new int[0][2];
 		this.borderIntervalsOY = new int[0][2];
 	}
@@ -45,6 +48,7 @@ public abstract class AbsCharacterProgram implements CameraProgram<float[]> {
 
 	public AbsCharacterProgram addBorderIntervalsOX(float leftInterval, float rightInterval) {
 		this.borderIntervalsOX = copyBorderArrays(borderIntervalsOX, interval(leftInterval, SCR_W), interval(rightInterval, SCR_W));
+
 		return this;
 	}
 	public AbsCharacterProgram addBorderIntervalsOY(float leftInterval, float rightInterval) {
@@ -70,5 +74,12 @@ public abstract class AbsCharacterProgram implements CameraProgram<float[]> {
 	@Override
 	public int getID(){
 		return this.hashCode();
+	}
+
+	public CameraProgramOwner getOwner() {
+		return owner;
+	}
+	public void setOwner(CameraProgramOwner owner) {
+		this.owner = owner;
 	}
 }
