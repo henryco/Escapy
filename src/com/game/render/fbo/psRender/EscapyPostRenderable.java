@@ -18,14 +18,14 @@ public interface EscapyPostRenderable extends EscapyPostRenderer {
 	 *            the post redner FBO
 	 * @return the escapy post renderable
 	 */
-	public abstract <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException;
+	 <T extends EscapyFBO> EscapyPostRenderable setPostRenderFBO(T postRednerFBO) throws EscapyFBOtypeException;
 	
 	/**
 	 * Gets the post render FBO.
 	 *
 	 * @return the post render FBO
 	 */
-	public abstract EscapyFBO getPostRenderFBO();
+	EscapyFBO getPostRenderFBO();
 	
 	
 }

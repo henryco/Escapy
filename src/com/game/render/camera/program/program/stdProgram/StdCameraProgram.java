@@ -5,6 +5,8 @@ import com.game.render.camera.program.program.AbsCharacterProgram;
 import com.game.render.camera.program.program.stdProgram.programExecutor.ProgramExecutor;
 import com.game.render.camera.program.program.stdProgram.programExecutor.factory.ProgramExecutors;
 
+import java.util.Arrays;
+
 /**
  * @author Henry on 28/09/16.
  */
@@ -14,6 +16,8 @@ public class StdCameraProgram extends AbsCharacterProgram {
 	public static final ProgramExecutors program = new ProgramExecutors();
 	private float[] minTranslation = new float[2];
 	private float[] correction = new float[2];
+
+	private String TESTNAME = "";
 
 	public StdCameraProgram(CameraProgramOwner owner, float scrW, float scrH) {
 		this(scrW, scrH);
@@ -93,5 +97,16 @@ public class StdCameraProgram extends AbsCharacterProgram {
 	public StdCameraProgram setCorrection(float p_x, float py) {
 		correction = new float[]{p_x, py};
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "StdCameraProgram{" +"\n"+
+				"axisXprogram=" + axisXprogram +"\n"+
+				", axisYprogram=" + axisYprogram +"\n"+
+				", minTranslation=" + Arrays.toString(minTranslation) +"\n"+
+				", correction=" + Arrays.toString(correction) +"\n"+
+				", TESTNAME='" + TESTNAME + '\'' +"\n"+
+				'}';
 	}
 }

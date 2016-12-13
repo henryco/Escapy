@@ -5,6 +5,7 @@ import com.game.render.camera.program.CameraProgramOwner;
 import com.game.render.camera.program.holder.CameraProgramHolder;
 import com.game.render.camera.program.program.AbsCharacterProgram;
 import com.game.utils.arrContainer.EscapyNamedArray;
+import net.henryco.struct.Struct;
 import net.henryco.struct.Structurized;
 import net.henryco.struct.container.tree.StructNode;
 import net.henryco.struct.container.tree.StructTree;
@@ -54,46 +55,21 @@ public class CameraProgramContainer implements Structurized {
 	public CameraProgramContainer loadFromStruct(StructNode structNode) {
 
 		String[] nameOpt = new String[]{"name", "Name", "id", "ID"};
-		String[] consOpt = new String[]{"url", "URL", "link", "class"};
 		System.out.println(structNode);
-		structNode.getStructSafe("Programs");
-		for (StructNode program : structNode.getStructArray()) {
-			for (StructNode pr : program.getStructArray()) {
-				for (StructNode p : pr.getStructArray()) {
-					List<Class> listType = new ArrayList<>();
-					List<Object> listOb = new ArrayList<>();
-					StructNode[] args = p.getStructArray();
-					for (StructNode arg : args) {
-						if (!arg.name.equalsIgnoreCase("function") && !arg.name.equalsIgnoreCase("def")) {
-							Object[] arr = arg.loadInstancedField(this);
-							listType.add((Class) arr[0]);
-							listOb.add(arr[1]);
-						}
-					}
-					String cosntructorUrl = p.getString("error", consOpt);
-					CameraProgram<float[]> newFloatProgram = instanceConstructor(cosntructorUrl, listType.toArray(new Class[0]), listOb.toArray(new Object[0]));
-					addProgram(p.getString("", nameOpt), newFloatProgram);
-					p.invokeFunctions(newFloatProgram, this);
-
-				}
+		StructNode program = structNode.getStructSafe("Programs");
+		for (StructNode pr : program.getStructArray()) {
+			for (StructNode p : pr.getStructArray()) {
+				CameraProgram<float[]> newFloatProgram = p.instanceAndInvokeObject(this, true, true);
+				addProgram(p.getString("", nameOpt), newFloatProgram);
+				System.out.println(newFloatProgram);
 			}
 		}
+
 		return this;
 	}
 
 
 
-	@SuppressWarnings("unchecked")
-	private static <T> T instanceConstructor(String name, Class[] classArr, Object[] objectArr) {
-		try {
-			Constructor constructor = ClassLoader.getSystemClassLoader().loadClass(name).getDeclaredConstructor(classArr);
-			constructor.setAccessible(true);
-			return (T) constructor.newInstance(objectArr);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	public static final String defaultStructFile =
 			"#import struct\n" +
@@ -135,6 +111,9 @@ public class CameraProgramContainer implements Structurized {
 					"\t\t\t}\n" +
 					"\t\t\tname: \"default\";\n" +
 					"\t\t\tclass StdProgram\n" +
+					"\t\t\tfield {\n" +
+					"\t\t\t\tTESTNAME = \"WOWOWOOW\"\n" +
+					"\t\t\t}\n" +
 					"\t\t}\t\t\n" +
 					"\n" +
 					"\t}\n" +

@@ -11,11 +11,6 @@ import com.game.render.fbo.psProcess.program.FBORenderProgram;
  */
 public interface EscapyPostExec <T extends EscapyFBO> extends EscapyPostRenderable {
 
-	/**
-	 * 
-	 * @param FBOProgram 
-	 * @return
-	 * @see FBORenderProgram
-	 */
-	public abstract EscapyPostRenderable setRenderProgram(FBORenderProgram<T> program);
+
+	EscapyPostRenderable setRenderProgram(FBORenderProgram<T> program);
 }

@@ -8,4 +8,5 @@ public interface CameraProgram <T> {
 	T executeCameraProgram(float camx, float camy);
 	CameraProgram setCameraSpeed(float cameraSpeed);
 	int getID();
+
 }
