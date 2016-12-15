@@ -5,14 +5,10 @@ import com.game.render.camera.program.CameraProgramOwner;
 import com.game.render.camera.program.holder.CameraProgramHolder;
 import com.game.render.camera.program.program.AbsCharacterProgram;
 import com.game.utils.arrContainer.EscapyNamedArray;
-import net.henryco.struct.Struct;
 import net.henryco.struct.Structurized;
 import net.henryco.struct.container.tree.StructNode;
 import net.henryco.struct.container.tree.StructTree;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -48,7 +44,7 @@ public class CameraProgramContainer implements Structurized {
 	}
 
 	public CameraProgramContainer load(String file) {
-		return loadFromStruct(new StructTree(file).mainNode.getStructSafe("Camera"));
+		return loadFromStruct(new StructTree(file).mainNode.getStructSafe("EscapyGdx"));
 	}
 
 	@Override
