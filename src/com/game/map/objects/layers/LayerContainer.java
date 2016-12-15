@@ -16,6 +16,7 @@ import com.game.render.fbo.psProcess.lights.volLight.userState.LightsPostExecuto
 import com.game.map.mask.LightMask;
 import com.game.utils.arrContainer.EscapyArray;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -47,11 +48,17 @@ public class LayerContainer extends EscapyArray<ObjectLayer> {
 		super(ObjectLayer.class);
 		this.initFBO(dimension, name);
 	}
-
+	public LayerContainer(int dimX, int dimY, String name) {
+		this(new int[]{0, 0, dimX, dimY}, name);
+	}
+	public LayerContainer(int dimX, int dimY) {
+		this(new int[]{0, 0, dimX, dimY});
+	}
 	public LayerContainer initFBO(int[] dim, String ... name) {
 
 		int[] dimen = dim;
 		if (dim.length == 2) dimen = new int[]{0, 0, dim[0], dim[1]};
+
 
 		this.layerFBO = new StandartFBO(dimen, name);
 		this.lightBuffFBO = new StandartFBO(dimen, "LIGHTBUFF_", name[0]);
