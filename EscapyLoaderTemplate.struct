@@ -1,0 +1,55 @@
+// Escapy class loader template
+// Created by @HenryCo in 2k16
+// https://github.com/henryco
+// hd2files@{google.mail}
+
+#import struct
+#sugar integer "java.lang.Integer"
+
+// optional space for variables
+var {
+	Example1 {
+		type: float
+		val: 1
+	}
+	Example2 {
+		type: integer
+		val.java.instanced("inClassVariable")
+	}
+	Example3 {
+		type: "com.henryCo.ExampleClass";
+		val.java.global("com.other.SomeClass", "containedField");
+	}
+	Example4 {
+		type: []int
+		value [0, 1, 2, 3, 4, 10]
+	}
+	Example5 {
+		type "java.lang.String[]"
+		val ["0", "1", "999"];
+	}
+	Example6([boolean[], [true, false]]);
+	Example7([int[], [0,1, java(instanced("sda")), java(global("df","as"))]])
+	Example8(["[Ljava.lang.Integer", java[instanced["externalArrayName"]]])
+	Example9(["[F", java(global[extPath, extPrimitiveArrayName])])
+
+}
+
+
+// this structure is default resource space in Escapy engine.
+EscapyGdx {
+	
+	*pointer1 = var::Example1
+	*pointer2: var::Example2
+	*pointer3 var::Example3
+	
+	EscapyObj(&pointer1);
+	EscapyObj --> function {
+		setExampleValues([int, 5], &pointer2);
+	}
+	EscapyObj --> function setOtherExample(&pointer3)
+	EscapyObj --> field {
+		exampleField: 100
+	}
+	EscapyObj.package: "com.game.henryco.etc"
+}
