@@ -190,15 +190,11 @@ public class LightContainer {
 				int iter2 = 0;
 				while (!stop2) {
 					if (sourceNode.contains(Integer.toString(iter2))) {
-
 						StructNode source = sourceNode.getStruct(Integer.toString(iter2));
 						for (StructNode snode : source.getStructArray()) {
-
-							System.out.println("=====================================> NODE: "+snode.name);
-
 							AbsStdLight absStdLight = null;
 							try {
-								absStdLight = snode.instanceAndInvokeObject(null, false, true);
+								absStdLight = snode.instanceAndInvokeObject(null, true, true);
 							} catch (Exception e) {
 								e.fillInStackTrace();
 							}
@@ -206,21 +202,12 @@ public class LightContainer {
 								if (absStdLight instanceof EscapyShadedLight) {
 									((EscapyShadedLight) absStdLight).setLightMapRenderer(lightMapRenderer);
 								}
-
 								IDList.add(new int[]{iter, lights.lightContainers[iter].addSource(absStdLight)});
 							}
 						}
-
-
-
 					} else stop2 = true;
 					iter2 += 1;
 				}
-
-
-
-
-
 			} else stop = true;
 			iter += 1;
 		}

@@ -29,34 +29,18 @@ public class EscapyShadedLight extends EscapyStdLight {
     private EscapyFBO lightMapFBO, shadowMapFBO, shadowFBO;
     private EscapyGdxCamera lightCam, shadowMapCam, shadowCam, resultCam;
 
-    private ExtraRenderContainer lightMapContainer;
-
     protected TransVec transPos;
 
 
-	public EscapyShadedLight(EscapyMapRenderer lightMapRenderer, EscapyLightType lightType) {
-		super(lightType);
-		this.initBlock((int) (64 * Math.pow(2, 1)));
-		this.setLightMapRenderer(lightMapRenderer);
-	}
+
 	public EscapyShadedLight(EscapyMapRenderer lightMapRenderer,  int accuracy, EscapyLightType lightType) {
 		super(lightType);
 		initBlock((int) (64 * Math.pow(2, accuracy)));
 		this.setLightMapRenderer(lightMapRenderer);
 	}
-    public EscapyShadedLight(ExtraRenderContainer lmapContainer, EscapyLightType lightType) {
-        super(lightType);
-        this.initBlock((int) (64 * Math.pow(2, 1)));
-        this.setLightMapContainer(lmapContainer);
-    }
     public EscapyShadedLight(ExtraRenderContainer lmapContainer, int accuracy, EscapyLightType lightType) {
         super(lightType);
         initBlock((int) (64 * Math.pow(2, accuracy)));
-        this.setLightMapContainer(lmapContainer);
-    }
-    public EscapyShadedLight(int id, ExtraRenderContainer lmapContainer, EscapyLightType lightType) {
-        super(id, lightType);
-        this.initBlock((int) (64 * Math.pow(2, 1)));
         this.setLightMapContainer(lmapContainer);
     }
     public EscapyShadedLight(int id, ExtraRenderContainer lmapContainer, int accuracy, EscapyLightType lightType) {
@@ -64,38 +48,35 @@ public class EscapyShadedLight extends EscapyStdLight {
         initBlock((int) (64 * Math.pow(2, accuracy)));
         this.setLightMapContainer(lmapContainer);
     }
-    public EscapyShadedLight(int id, EscapyLightType lightType) {
+    public EscapyShadedLight(int id, EscapyLightType lightType, int accuracy) {
         super(id, lightType);
-        initBlock((int) (64 * Math.pow(2, 1)));
+        initBlock((int) (64 * Math.pow(2, accuracy)));
     }
-    public EscapyShadedLight(int id) {
-        super(id);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
-    public EscapyShadedLight(EscapyLightType lightType, float scale, float x, float y) {
-        super(lightType, scale, x, y);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
-    public EscapyShadedLight(EscapyLightType lightType, float x, float y) {
-        super(lightType, x, y);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
-    public EscapyShadedLight(EscapyLightType lightType, TransVec pos) {
-        super(lightType, pos);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
-    public EscapyShadedLight(EscapyLightType lightType) {
-        super(lightType);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
-    public EscapyShadedLight(TransVec pos) {
-        super(pos);
-        initBlock((int) (64 * Math.pow(2, 1)));
-    }
-    public EscapyShadedLight() {
+    public EscapyShadedLight(int accuracy) {
         super();
-        initBlock((int) (64 * Math.pow(2, 1)));
+        initBlock((int) (64 * Math.pow(2, accuracy)));
     }
+    public EscapyShadedLight(EscapyLightType lightType, float scale, float x, float y, int accuracy) {
+        super(lightType, scale, x, y);
+        initBlock((int) (64 * Math.pow(2, accuracy)));
+    }
+    public EscapyShadedLight(EscapyLightType lightType, float x, float y, int accuracy) {
+        super(lightType, x, y);
+        initBlock((int) (64 * Math.pow(2, accuracy)));
+    }
+    public EscapyShadedLight(EscapyLightType lightType, TransVec pos, int accuracy) {
+        super(lightType, pos);
+        initBlock((int) (64 * Math.pow(2, accuracy)));
+    }
+	public EscapyShadedLight(EscapyLightType lightType, int accuracy) {
+		super(lightType);
+		initBlock((int) (64 * Math.pow(2, accuracy)));
+	}
+    public EscapyShadedLight(TransVec pos, int accuracy) {
+        super(pos);
+        initBlock((int) (64 * Math.pow(2, accuracy)));
+    }
+
 
 
     protected void initBlock(int lacc) {
@@ -134,16 +115,7 @@ public class EscapyShadedLight extends EscapyStdLight {
         this.threshold = 0.8f;
     }
 
-    /**
-     * Set the shadowcast accuracy. <br>This operation will reinit light instance.
-     *
-     * @param acc - accuracy range: min 0, max 5 (kamikaze)
-     * @return {@link AbsStdLight}
-     */
-    public AbsStdLight setAccuracy(int acc) {
-        initBlock((int) (64 * Math.pow(2, acc)));
-        return this;
-    }
+
 
 	@Override
 	public AbsStdLight setPosition(float x, float y) {
@@ -158,9 +130,9 @@ public class EscapyShadedLight extends EscapyStdLight {
         return this;
     }
 
+    @Deprecated
     public AbsStdLight setLightMapContainer(ExtraRenderContainer lightMapContainer) {
-        this.lightMapContainer = lightMapContainer;
-        return this;
+		return this;
     }
 
     public AbsStdLight setLightMapRenderer(EscapyMapRenderer lightMapRenderer) {
