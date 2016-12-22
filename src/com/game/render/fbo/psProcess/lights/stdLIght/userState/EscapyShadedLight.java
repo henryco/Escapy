@@ -1,5 +1,8 @@
 package com.game.render.fbo.psProcess.lights.stdLIght.userState;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
+import com.game.map.objects.objects.utils.PositionTranslator;
 import com.game.render.EscapyMapRenderer;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.extra.container.ExtraRenderContainer;
@@ -10,7 +13,12 @@ import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
 import com.game.render.shader.lightSrc.userState.EscapyStdShadedLightSrcRenderer;
 import com.game.render.shader.shadow.userState.EscapyStdShadowMapRenderer;
 import com.game.render.shader.shadow.userState.EscapyStdShadowRenderer;
+import com.game.utils.observer.SimpleObservated;
+import com.game.utils.observer.SimpleObserver;
+import com.game.utils.periodic.EscapyPeriodicAction;
 import com.game.utils.translationVec.TransVec;
+
+import java.util.function.Function;
 
 public class EscapyShadedLight extends EscapyStdLight {
 
@@ -214,10 +222,183 @@ public class EscapyShadedLight extends EscapyStdLight {
 
     @Override
     public void stateUpdated(TransVec state) {
-        super.updState();
-		super.stateUpdated(state);
-        transPos.setTransVec(super.getPosition());
+		if (transPos != null) {
+			super.updState();
+			super.stateUpdated(state);
+			transPos.setTransVec(super.getPosition());
+		}
     }
+
+
+	@Override
+	public SimpleObservated addObserver(SimpleObserver observer) {
+		return super.addObserver(observer);
+	}
+
+	@Override
+	public AbsStdLight shift() {
+		return super.shift();
+	}
+
+	@Override
+	public AbsStdLight updAction(float delta) {
+		return super.updAction(delta);
+	}
+
+	@Override
+	public AbsStdLight preRender(EscapyGdxCamera escapyCamera) {
+		return super.preRender(escapyCamera);
+	}
+
+	@Override
+	public AbsStdLight setLightSource(EscapyLightType light) {
+		return super.setLightSource(light);
+	}
+
+	@Override
+	public AbsStdLight setPosition(float[] xy) {
+		return this.setPosition(xy[0], xy[1]);
+	}
+
+	@Override
+	public AbsStdLight setPosition(Vector2 vec) {
+		return this.setPosition(vec.x, vec.y);
+	}
+
+	@Override
+	public AbsStdLight setPosition(TransVec vec) {
+		return this.setPosition(vec.x, vec.y);
+	}
+
+	@Override
+	public AbsStdLight setCoeff(float cf) {
+		return super.setCoeff(cf);
+	}
+
+	@Override
+	public AbsStdLight setAngle(float srcAngle, float shiftAngle, float corr) {
+		return super.setAngle(srcAngle, shiftAngle, corr);
+	}
+
+	@Override
+	public AbsStdLight setAngle(float angle) {
+		return super.setAngle(angle);
+	}
+
+	@Override
+	public AbsStdLight setAngle(float[] angles) {
+		return super.setAngle(angles);
+	}
+
+	@Override
+	public AbsStdLight setAngle(TransVec angles) {
+		return super.setAngle(angles);
+	}
+
+	@Override
+	public AbsStdLight rotAngle(float shiftAngle) {
+		return super.rotAngle(shiftAngle);
+	}
+
+	@Override
+	public AbsStdLight addAngle(float shiftAngle) {
+		return super.addAngle(shiftAngle);
+	}
+
+	@Override
+	public AbsStdLight setAngleCorrection(float corr) {
+		return super.setAngleCorrection(corr);
+	}
+
+	@Override
+	public AbsStdLight setMinRadius(float minRadius) {
+		return super.setMinRadius(minRadius);
+	}
+
+	@Override
+	public AbsStdLight setMinRadius(Function<Float, Float> funct) {
+		return super.setMinRadius(funct);
+	}
+
+	@Override
+	public AbsStdLight setMaxRadius(float maxRadius) {
+		return super.setMaxRadius(maxRadius);
+	}
+
+	@Override
+	public AbsStdLight setMaxRadius(Function<Float, Float> funct) {
+		return super.setMaxRadius(funct);
+	}
+
+	@Override
+	public AbsStdLight setUmbraCoeff(float umbraCoeff) {
+		return super.setUmbraCoeff(umbraCoeff);
+	}
+
+	@Override
+	public AbsStdLight setUmbraCoeff(Function<Float, Float> funct) {
+		return super.setUmbraCoeff(funct);
+	}
+
+	@Override
+	public AbsStdLight setUmbraRecess(float umbraRecess) {
+		return super.setUmbraRecess(umbraRecess);
+	}
+
+	@Override
+	public AbsStdLight setUmbraRecess(Function<Float, Float> funct) {
+		return super.setUmbraRecess(funct);
+	}
+
+	@Override
+	public AbsStdLight setColor(Color color) {
+		return super.setColor(color);
+	}
+
+	@Override
+	public AbsStdLight setColor(float r, float g, float b) {
+		return super.setColor(r, g, b);
+	}
+
+	@Override
+	public AbsStdLight setColor(int r255, int g255, int b255) {
+		return super.setColor(r255, g255, b255);
+	}
+
+	@Override
+	public AbsStdLight setVisible(boolean visible) {
+		return super.setVisible(visible);
+	}
+
+	@Override
+	public AbsStdLight setThreshold(float threshold) {
+		return super.setThreshold(threshold);
+	}
+
+	@Override
+	public AbsStdLight setPositionTranslator(PositionTranslator translator) {
+		return super.setPositionTranslator(translator);
+	}
+
+	@Override
+	public AbsStdLight setPeriods(float... period) {
+		return super.setPeriods(period);
+	}
+
+	@Override
+	public AbsStdLight setPeriodicActions(EscapyPeriodicAction<AbsStdLight>... periodicActions) {
+		return super.setPeriodicActions(periodicActions);
+	}
+
+	@Override
+	public AbsStdLight setAlpha(float a) {
+		return super.setAlpha(a);
+	}
+
+	@Override
+	public AbsStdLight setPeriodicActions(String[]... args) {
+		return super.setPeriodicActions(args);
+	}
 
 
 }

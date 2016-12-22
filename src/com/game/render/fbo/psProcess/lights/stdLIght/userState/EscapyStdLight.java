@@ -32,8 +32,10 @@ public class EscapyStdLight extends AbsStdLight {
 	}
 	public EscapyStdLight(EscapyLightType lightType, float scale, float x, float y) {
 		super();
-		super.setLightSource(lightType);
+		System.out.println("INSTANCE EscapyStdLight");
 
+		super.setLightSource(lightType);
+		super.setScale(scale);
 		super.setPosition(x, y);
 	}
 	public EscapyStdLight(TransVec pos) {

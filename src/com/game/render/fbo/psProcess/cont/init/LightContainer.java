@@ -184,107 +184,43 @@ public class LightContainer {
 		int iter = 0;
 		while (!stop) {
 			if (containersNode.contains(Integer.toString(iter))) {
+
 				StructNode sourceNode = containersNode.getStruct(Integer.toString(iter)).getStruct(node.source);
 				boolean stop2 = false;
 				int iter2 = 0;
 				while (!stop2) {
 					if (sourceNode.contains(Integer.toString(iter2))) {
 
-						AbsLightProxy proxy = new AbsLightProxy();
-
 						StructNode source = sourceNode.getStruct(Integer.toString(iter2));
-						AbsStdLight absStdLight;
-						PositionTranslator translator = null;
-						EscapyLightType escapyLightType;
-						String lightType = "";
+						for (StructNode snode : source.getStructArray()) {
 
-						if (source.contains("EscapyShadedLight")) lightType = "EscapyShadedLight";
-						else if (source.contains("EscapyStdLight")) lightType = "EscapyStdLight";
+							System.out.println("=====================================> NODE: "+snode.name);
 
-						StructNode lightNode = source.getStruct(lightType);
-
-						try {
-							String methodName = lightNode.getPrimitive(node.sourceType);
-							Method sourceType = EscapyLightSrcFactory.class.getDeclaredMethod(methodName);
-							escapyLightType = (EscapyLightType) sourceType.invoke(EscapyLightSrcFactory.class.newInstance());
-						} catch (Exception e) {
-							e.printStackTrace();
-							stop = true;
-							break;
-						}
-
-						if (lightNode.contains(node.angle)) {
-							proxy.angle = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.angle), "0", "angle"));
+							AbsStdLight absStdLight = null;
 							try {
-								proxy.angleShift = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.angle), "1", "shift"));
-								proxy.angleCorr = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.angle), "2", "corr"));
-							} catch (StructContainerException ignored){}
-						}
-						if (lightNode.contains(node.position)) {
-							try {
-								proxy.position = new float[] {
+								absStdLight = snode.instanceAndInvokeObject(null, false, true);
+							} catch (Exception e) {
+								e.fillInStackTrace();
+							}
+							if (absStdLight != null) {
+								if (absStdLight instanceof EscapyShadedLight) {
+									((EscapyShadedLight) absStdLight).setLightMapRenderer(lightMapRenderer);
+								}
 
-										Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.position), "0", "x")),
-										Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.position), "1", "y"))
-								};
-							} catch (StructContainerException e){
-								proxy.position = null;
+								IDList.add(new int[]{iter, lights.lightContainers[iter].addSource(absStdLight)});
 							}
 						}
-						if (lightNode.contains(node.color)) {
-							try {
-								proxy.color = new int[] {
-										Integer.parseInt(getVaguePrimitive(lightNode.getStruct(node.color), "0", "r")),
-										Integer.parseInt(getVaguePrimitive(lightNode.getStruct(node.color), "1", "g")),
-										Integer.parseInt(getVaguePrimitive(lightNode.getStruct(node.color), "2", "b"))
-								};
-							} catch (StructContainerException e){
-								proxy.color = null;
-							}
-						}
-						if (lightNode.contains(node.umbra)) {
-							proxy.umbraCoeff = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.umbra), "0", node.umbraCoeff));
-							proxy.umbraRecess = Float.parseFloat(getVaguePrimitive(lightNode.getStruct(node.umbra), "1", node.umbraRecess));
-						}
 
-						if (lightNode.contains(node.accuracy))	proxy.accuracy = Integer.parseInt(lightNode.getPrimitive(node.accuracy));
-						if (lightNode.contains(node.minRadius))	proxy.minRadius = Float.parseFloat(lightNode.getPrimitive(node.minRadius));
-						if (lightNode.contains(node.maxRadius))	proxy.maxRadius = Float.parseFloat(lightNode.getPrimitive(node.maxRadius));
-						if (lightNode.contains(node.scale))		proxy.scale = Float.parseFloat(lightNode.getPrimitive(node.scale));
-						if (lightNode.contains(node.threshold))	proxy.threshold = Float.parseFloat(lightNode.getPrimitive(node.threshold));
-						if (lightNode.contains(node.visible)) 	proxy.visible = Boolean.parseBoolean(lightNode.getPrimitive(node.visible));
 
-						if (lightType.equalsIgnoreCase("EscapyShadedLight")) {
-							if (proxy.accuracy != Integer.MAX_VALUE) absStdLight = new EscapyShadedLight(lightMapRenderer, proxy.accuracy, escapyLightType);
-							else absStdLight = new EscapyShadedLight(lightMapRenderer, escapyLightType);
-						}
-						else absStdLight = new EscapyStdLight(escapyLightType);
-
-						if (!Float.isNaN(proxy.maxRadius)) 		absStdLight.setMaxRadius(proxy.maxRadius);
-						if (!Float.isNaN(proxy.minRadius)) 		absStdLight.setMinRadius(proxy.minRadius);
-						if (!Float.isNaN(proxy.threshold)) 		absStdLight.setThreshold(proxy.threshold);
-						if (!Float.isNaN(proxy.scale)) 			absStdLight.setScale(proxy.scale);
-						if (!Float.isNaN(proxy.umbraRecess)) 	absStdLight.setUmbraCoeff(proxy.umbraRecess);
-						if (!Float.isNaN(proxy.umbraCoeff)) 	absStdLight.setUmbraCoeff(proxy.umbraCoeff);
-						if (proxy.color != null) 				absStdLight.setColor(proxy.color[0], proxy.color[1], proxy.color[2]);
-						if (proxy.position != null) 			absStdLight.setPosition(proxy.position);
-
-						if (!Float.isNaN(proxy.angle)) {
-							if (!Float.isNaN(proxy.angleShift) && !Float.isNaN(proxy.angleCorr))
-									absStdLight.setAngle(proxy.angle, proxy.angleShift, proxy.angleCorr);
-							else 	absStdLight.setAngle(proxy.angle);
-						}
-						absStdLight.setVisible(proxy.visible);
-						if((translator = GameObjTranslators.loadPosTranslator(lightNode.getStructSafe(node.shift))) != null)
-							absStdLight.setPositionTranslator(translator);
-
-						absStdLight = EscapyPeriodicLight.createPeriodActions(absStdLight, source.getStructSafe("periodic"));
-
-						IDList.add(new int[]{iter, lights.lightContainers[iter].addSource(absStdLight)});
 
 					} else stop2 = true;
 					iter2 += 1;
 				}
+
+
+
+
+
 			} else stop = true;
 			iter += 1;
 		}

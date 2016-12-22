@@ -1,5 +1,6 @@
 package com.game.render.fbo.psProcess.lights.stdLIght;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 import com.badlogic.gdx.Gdx;
@@ -16,6 +17,7 @@ import com.game.render.fbo.EscapyFBO;
 import com.game.render.fbo.StandartFBO;
 import com.game.render.fbo.psProcess.cont.EscapyFBOContainer;
 import com.game.render.fbo.psProcess.lights.type.EscapyLightType;
+import com.game.render.fbo.psProcess.lights.type.EscapyPeriodicLight;
 import com.game.utils.periodic.EscapyPeriodicAction;
 import com.game.render.shader.EscapyStdShaderRenderer;
 import com.game.render.shader.lightSrc.EscapyLightSrcRenderer;
@@ -286,7 +288,7 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	public AbsStdLight setUmbraRecess(Function<Float, Float> funct) {
 		return this.setUmbraRecess(funct.apply(this.umbra.getY()));
 	}
-
+	//*
 	public AbsStdLight setColor(Color color) {
 		this.updState();
 		this.color = color;
@@ -299,6 +301,7 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		this.color.b = b;
 		return this;
 	}
+	//*/
 	public AbsStdLight setColor(int r255, int g255, int b255) {
 		this.updState();
 		this.color.r = ((float) r255) / 255f;
@@ -320,6 +323,9 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	}
 	public AbsStdLight setPeriods(float... period) {
 		this.period = period;
+		for (int i = 0; i < period.length; i++)
+			this.period[i] *= 0.001f;
+		System.out.println("period: "+Arrays.toString(this.period));
 		return updPeriodsNumb();
 	}
 	public AbsStdLight setPeriodicActions(EscapyPeriodicAction<AbsStdLight>... periodicActions) {
@@ -330,6 +336,16 @@ public abstract class AbsStdLight implements EscapyContainerable,
 		this.alpha = a;
 		return this;
 	}
+
+
+
+	public AbsStdLight setPeriodicActions(String[] ... args) {
+		EscapyPeriodicAction<AbsStdLight>[] actions = new EscapyPeriodicAction[args.length];
+		for (int i = 0; i < actions.length; i++) actions[i] = EscapyPeriodicLight.loadMethod(args[i]);
+		return setPeriodicActions(actions);
+	}
+
+
 
 	public abstract EscapyLightType getDefaultLight();
 

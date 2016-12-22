@@ -50,9 +50,22 @@ public class EscapyPeriodicLight {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static EscapyPeriodicAction<AbsStdLight> loadMethod(String method, String... args) {
+	public static EscapyPeriodicAction<AbsStdLight> loadMethod(String method, String... args) {
 		try {
 			Method retMeth = EscapyPeriodicLight.class.getDeclaredMethod(method, String[].class);
+			return (EscapyPeriodicAction<AbsStdLight>) retMeth.invoke(EscapyPeriodicLight.class, (Object) args);
+		} catch (Exception e) {e.printStackTrace();}
+		return null;
+	}
+	public static EscapyPeriodicAction<AbsStdLight> loadMethod(String[] meth) {
+		String[] newMeth = new String[meth.length - 1];
+		System.arraycopy(meth, 1, newMeth, 0, newMeth.length);
+		return loadMethod(meth[0], newMeth);
+	}
+	@SuppressWarnings("unchecked")
+	public static EscapyPeriodicAction<AbsStdLight> loadMethod(String method, float ... args) {
+		try {
+			Method retMeth = EscapyPeriodicLight.class.getDeclaredMethod(method, float[].class);
 			return (EscapyPeriodicAction<AbsStdLight>) retMeth.invoke(EscapyPeriodicLight.class, (Object) args);
 		} catch (Exception e) {e.printStackTrace();}
 		return null;
@@ -60,16 +73,20 @@ public class EscapyPeriodicLight {
 
 
 
-
 	public static EscapyPeriodicAction<AbsStdLight> simpSwitch(final String ... args) {
-
-		final float finalAlpha = Float.parseFloat(args[0]);
+		return simpSwitch(Float.parseFloat(args[0]));
+	}
+	public static EscapyPeriodicAction<AbsStdLight> simpSwitch(final float ... args) {
+		final float finalAlpha = args[0];
 		return ((delta, actMax, obj) -> obj.setAlpha(finalAlpha));
 	}
 
 	public static EscapyPeriodicAction<AbsStdLight> alphaSwitch(final String... args) {
-		final float startAlpha = Float.parseFloat(args[0]);
-		final float finalAlpha = Float.parseFloat(args[1]);
+		return alphaSwitch(Float.parseFloat(args[0]), Float.parseFloat(args[1]));
+	}
+	public static EscapyPeriodicAction<AbsStdLight> alphaSwitch(final float... args) {
+		final float startAlpha = args[0];
+		final float finalAlpha = args[1];
 		final float difference = Math.abs(finalAlpha - startAlpha);
 		int sign = (int) ((finalAlpha - startAlpha) / difference);
 		return ((delta, actMax, obj) -> obj.setAlpha(startAlpha + (sign * (1 - actMax) * difference)));
@@ -78,5 +95,7 @@ public class EscapyPeriodicLight {
 	public static EscapyPeriodicAction<AbsStdLight> holdSwitch(final String... args){
 		return ((delta, actMax, obj) -> obj);
 	}
-
+	public static EscapyPeriodicAction<AbsStdLight> holdSwitch(final float ... args) {
+		return ((delta, actMax, obj) -> obj);
+	}
 }
