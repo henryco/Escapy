@@ -159,13 +159,14 @@ public class LightContainer {
 					if (shiftNode != null){
 						float xShift = shiftNode.getFloat(1, "0", "x", "s");
 						float yShift = shiftNode.getFloat(1, "1", "y", "t");
-
-						final float[] frameVec = new float[]{0.5f * dimension[dimension.length - 2], 0.5f * dimension[dimension.length - 1]};
-						LayerCameraShift shift = (camera, pos) -> {
-							camera.setCameraPosition((xShift * (pos[0] - frameVec[0])) + frameVec[0], (yShift * (pos[1] - frameVec[1])) + frameVec[1]);
-							return camera;
-						};
-						newContainer.setCameraShifter(shift);
+						if (xShift != 1 && yShift != 1) {
+							final float[] frameVec = new float[]{0.5f * dimension[dimension.length - 2], 0.5f * dimension[dimension.length - 1]};
+							LayerCameraShift shift = (camera, pos) -> {
+								camera.setCameraPosition((xShift * (pos[0] - frameVec[0])) + frameVec[0], (yShift * (pos[1] - frameVec[1])) + frameVec[1]);
+								return camera;
+							};
+							newContainer.setCameraShifter(shift);
+						}
 					}
 					lights.addLightContainer(newContainer);
 
@@ -184,7 +185,6 @@ public class LightContainer {
 		int iter = 0;
 		while (!stop) {
 			if (containersNode.contains(Integer.toString(iter))) {
-
 				StructNode sourceNode = containersNode.getStruct(Integer.toString(iter)).getStruct(node.source);
 				boolean stop2 = false;
 				int iter2 = 0;

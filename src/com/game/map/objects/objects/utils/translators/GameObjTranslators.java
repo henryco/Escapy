@@ -27,14 +27,24 @@ public class GameObjTranslators  {
 		return null;
 	}
 
-	public static PositionTranslator orto(StructNode node) {
+	public static PositionTranslator loadByName(String[] arg) {
 
-		long timeStep = node.getInt(Integer.MAX_VALUE, "2", "dt", "time", "period");
-		float step = node.getFloat(0, "1", "step");
-		float[] vector = new float[2];
-		StructNode vecNode = node.getStructSafe("0", "vector", "vec");
-		if (vecNode != null) vector = new float[]{vecNode.getFloat(0, "0", "x", "s"), vecNode.getFloat(0, "1", "y", "t")};
-		final float[] vec = vector;
+		try {
+			Method mmm = GameObjTranslators.class.getDeclaredMethod(arg[0], String[].class);
+			mmm.setAccessible(true);
+			return (PositionTranslator) mmm.invoke(GameObjTranslators.class, (Object) arg);
+		} catch (Exception ignored) {
+			ignored.printStackTrace();
+		}
+		return null;
+	}
+
+
+	public static PositionTranslator orto(String[] args) {
+
+		float[] vec = new float[]{Float.parseFloat(args[1]), Float.parseFloat(args[2])};
+		float step = Float.parseFloat(args[3]);
+		float timeStep = Float.parseFloat(args[4]);
 
 		return new PositionTranslator() {
 			long t0 = 0;
@@ -48,6 +58,20 @@ public class GameObjTranslators  {
 				return position;
 			}
 		};
+	}
+
+	public static PositionTranslator polar(String[] args) {
+		return (width, height, position) -> null;
+	}
+
+	public static PositionTranslator orto(StructNode node) {
+
+		StructNode vecNode = node.getStructSafe("0", "vector", "vec");
+		if (vecNode != null) {
+			return orto(new String[]{"", vecNode.getPrimitive("0", "x", "s"), vecNode.getPrimitive("1", "y", "t"),
+					node.getPrimitive("1", "step"), node.getPrimitive("2", "dt", "time", "period")});
+		}
+		return null;
 	}
 	public static PositionTranslator polar(StructNode node) {
 		return (width, height, position) -> {

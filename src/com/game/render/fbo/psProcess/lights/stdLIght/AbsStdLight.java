@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
 import com.game.map.objects.objects.utils.PositionTranslator;
+import com.game.map.objects.objects.utils.translators.GameObjTranslators;
 import com.game.render.EscapyUniTrans;
 import com.game.render.camera.EscapyGdxCamera;
 import com.game.render.fbo.EscapyFBO;
@@ -338,6 +339,9 @@ public abstract class AbsStdLight implements EscapyContainerable,
 	}
 
 
+	public AbsStdLight setPositionTranslator(String[] arg) {
+		return setPositionTranslator(GameObjTranslators.loadByName(arg));
+	}
 
 	public AbsStdLight setPeriodicActions(String[] ... args) {
 		EscapyPeriodicAction<AbsStdLight>[] actions = new EscapyPeriodicAction[args.length];
