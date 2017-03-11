@@ -1,5 +1,8 @@
 #![Logo](https://raw.githubusercontent.com/henryco/Escapy/master/promo/ESCAPY.png)
 <h4>libGDX based 2D game engine</h4> <h9>(<a href ="https://drive.google.com/open?id=0BzwCB78J-oVxQ1ktZFhWYUdGZWs" title = "version: 23.12.16">download</a>)</h9><br><br><br>
+<br>
+![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/esWeather.png)
+<br>
 
 <b>23.12.16:</b><br> Code cleanup, camera and light sources class loaders updated. <br><br>
 
@@ -43,8 +46,6 @@ Also fixed normal mapping shaders.<br><br>
 
 <br><br>
 ![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/hitbox.png)
-<br>
-![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/esWeather.png)
 <br>
 ![screen](https://raw.githubusercontent.com/henryco/Escapy/master/promo/esChar.png)
 <br>
